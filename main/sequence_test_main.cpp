@@ -6,7 +6,7 @@
 #include <chrono>
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
-#include "../include/btree_plus_alpha.hpp"
+#include "../include/b_tree_plus_alpha.hpp"
 
 void build_test(stool::sequence::DynamicSequence64 &ds, std::vector<uint64_t> &dyn_text, const std::vector<uint64_t> &text)
 {

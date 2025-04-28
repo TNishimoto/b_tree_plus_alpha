@@ -6,7 +6,7 @@
 #include <cassert>
 #include <chrono>
 
-#include "../include/btree_plus_alpha.hpp"
+#include "../include/b_tree_plus_alpha.hpp"
 #include <random>
 
 namespace stool
