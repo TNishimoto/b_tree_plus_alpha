@@ -6,7 +6,7 @@
 #include <cassert>
 #include <chrono>
 
-#include "../include/simple_btree.hpp"
+#include "../include/btree_plus_alpha.hpp"
 
 #include "./naive_permutation.hpp"
 #include <random>
