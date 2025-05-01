@@ -18,7 +18,24 @@ So, to download all the necessary source codes, do the following:
 
 ### VLCDequeSPSI class
 
-VLCDequeSPSI is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure. 
+[VLCDequeSPSI](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/spsi.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a non-negative integer sequence. 
+An example of VLCDequeSPSI is described in [spsi_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/spsi_example.cpp).  
+The following message is displayed when this example is executed.  
+
+| Name       | Order         |
+|------------|---------------|
+| Memory     | O(n) bytes    |
+| Operations |               |
+| insert     | O(log n) time |
+| delete     | O(log n) time |
+| push_back  | O(log n) time |
+| push_front | O(log n) time |
+| psum       | O(log n) time |
+| search     | O(log n) time |
+| at         | O(log n) time |
+| increment  | O(log n) time |
+| decrement  | O(log n) time |
+| push_many  | O(log n) time |
 
 % ./spsi_example.out
 
@@ -47,4 +64,23 @@ VLCDequeSPSI is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum 
 > Read S from S.bin  
 > S: [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
 
-See also XXX.
+### DynamicBitSequence class 
+
+[DynamicBitSequence](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_bit_sequence.hpp) is a dynamic data structure supporting rank and select queries on a bit sequence.
+
+### DynamicSequence64 class 
+
+[DynamicSequence64](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_sequence64.hpp) is a dynamic data structure that maintains a 64-bit non-negative sequence.
+
+### DynamicWaveletTree class 
+
+[DynamicWaveletTree](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_wavelet_tree.hpp) is a dynamic version of [Wavelet Tree](https://en.wikipedia.org/wiki/Wavelet_Tree "Wavelet Tree").
+
+### DynamicPermutation class 
+
+[DynamicPermutation](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/dynamic_permutation.hpp) is a dynamic data structure that maintains a permutation.
+
+
+## API Documentation (in preparation)
+
+[Doxygen](https://TNishimoto.github.io/b_tree_plus_alpha/html/index.html)

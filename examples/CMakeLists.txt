@@ -9,6 +9,10 @@ INCLUDE_DIRECTORIES(../modules)
 add_executable(spsi_example.out spsi_example.cpp)
 target_link_libraries(spsi_example.out)
 
+add_executable(dynamic_bit_example.out dynamic_bit_example.cpp)
+target_link_libraries(dynamic_bit_example.out)
+
+
 
 #add_executable(performance.out main/performance_main.cpp ${SOURCES})
 #target_link_libraries(performance.out)

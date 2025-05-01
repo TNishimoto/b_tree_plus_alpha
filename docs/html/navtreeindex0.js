@@ -1,6 +1,7 @@
 var NAVTREEINDEX0 =
 {
 "annotated.html":[0,0],
+"b__tree__plus__alpha_8hpp_source.html":[1,0,0,4],
 "bit__container_8hpp_source.html":[1,0,0,3,0],
 "bit__forward__iterator_8hpp_source.html":[1,0,0,3,1],
 "bp__internal__node_8hpp_source.html":[1,0,0,0,0],
@@ -55,7 +56,6 @@ var NAVTREEINDEX0 =
 "permutation__container_8hpp_source.html":[1,0,0,1,4],
 "permutation__item_8hpp_source.html":[1,0,0,1,5],
 "plain__spsi__container_8hpp_source.html":[1,0,0,2,0],
-"simple__btree_8hpp_source.html":[1,0,0,4],
 "spsi_8hpp_source.html":[1,0,0,2,1],
 "stack__node_8hpp_source.html":[1,0,0,0,7],
 "structstool_1_1bptree_1_1_stack_node.html":[0,0,0,0,8],

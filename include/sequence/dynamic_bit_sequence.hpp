@@ -235,11 +235,30 @@ namespace stool
 
             int64_t select1(uint64_t i) const
             {
-                return this->tree.search(i + 1);
+                int64_t p = this->tree.search(i + 1);
+                if(p == -1){
+                    return p;
+                }else{
+                    if(p >= this->size()){
+                        return -1;
+                    }else{
+                        return p;
+                    }
+                }
+
             }
             int64_t select0(uint64_t i) const
             {
-                return this->tree.select0(i);
+                int64_t p = this->tree.select0(i);
+                if(p == -1){
+                    return p;
+                }else{
+                    if(p >= this->size()){
+                        return -1;
+                    }else{
+                        return p;
+                    }
+                }
             }
             int64_t select(uint64_t i, bool c) const
             {
@@ -290,6 +309,11 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Bits: " << this->to_string() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+            void print(std::string name = "DynamicBitSequence", int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            {
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << name << ": " << this->to_string() << std::endl;
+            }
+
             static void save(DynamicBitSequence &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 item.tree.save(output, pos);

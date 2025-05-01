@@ -306,10 +306,12 @@ namespace stool
                 stool::DebugPrinter::print_integers(vec, name);
             }
         };
-
+        
         using PlainSPSI = SPSI<PlainSPSIContainer>;
-        // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
         using VLCDequeSPSI = SPSI<VLCDeque>;
+
+        // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
+
     }
 
 }
