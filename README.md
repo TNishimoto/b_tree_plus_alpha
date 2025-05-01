@@ -5,7 +5,7 @@ This repository implements various dynamic data structures using B-trees.
 For now, this repository is being used as a personal library. Therefore, detailed documentation has not yet been created.
 I will provide more detailed documentation shortly.
 
-# download
+## Download
 The source codes in 'module' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
 
@@ -14,28 +14,36 @@ So, to download all the necessary source codes, do the following:
 > git submodule init  
 > git submodule update  
 
-## examples
+## Dynamic Data Structures
 
 ### VLCDequeSPSI class
 
 [VLCDequeSPSI](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/spsi.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a non-negative integer sequence. 
+This class is implemented using the technique in Section 2.2 of [this paper](https://doi.org/10.1016/j.jda.2018.11.002).
+
+#### Table for update operations and queries
+
+| Category         | Name              | Order                   | Description                                               |
+|------------------|-------------------|-------------------------|-----------------------------------------------------------|
+| Memory           |                   | O(n log (M/n)) bytes    |                                                           |
+| Update Operation | S.insert(i, v)    | amortized O(log n) time | Insert v into S at the i-th value                         |
+|                  | S.remove(i)       | amortized O(log n) time | Remove the i-th value from S                              |
+|                  | S.push_back(v)    | amortized O(log n) time | Add v to S as the last value                              |
+|                  | S.push_front(v)   | amortized O(log n) time | Add v to S as the first value                             |
+|                  | S.increment(i, v) | amortized O(log n) time | S[i] += v                                                 |
+|                  | S.decrement(i, v) | amortized O(log n) time | S[i] -= v                                                 |
+|                  | S.push_many(i, P) | amortized O(log n) time | add the values in sequence P to S as the last values      |
+| Query            | S.psum(i)         | O(log n) time           | return the sum of S[0..i]                                 |
+|                  | S.search(v)       | O(log n) time           | return the smallest index x that satisfies S.psum(x) >= v |
+|                  | S.at(i)           | O(log n) time           | return S[i]                                               |
+
+Here, S is a non-negative integer sequence stored in VLCDequeSPSI; n is the number of values in S; M is the sum of the values in S.  
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1prefix__sum_1_1_s_p_s_i.html) for the member functions supported by VLCDequeSPSI.
+
+#### Example
+
 An example of VLCDequeSPSI is described in [spsi_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/spsi_example.cpp).  
 The following message is displayed when this example is executed.  
-
-| Name       | Order         |
-|------------|---------------|
-| Memory     | O(n) bytes    |
-| Operations |               |
-| insert     | O(log n) time |
-| delete     | O(log n) time |
-| push_back  | O(log n) time |
-| push_front | O(log n) time |
-| psum       | O(log n) time |
-| search     | O(log n) time |
-| at         | O(log n) time |
-| increment  | O(log n) time |
-| decrement  | O(log n) time |
-| push_many  | O(log n) time |
 
 % ./spsi_example.out
 
@@ -84,3 +92,4 @@ The following message is displayed when this example is executed.
 ## API Documentation (in preparation)
 
 [Doxygen](https://TNishimoto.github.io/b_tree_plus_alpha/html/index.html)
+
