@@ -73,6 +73,7 @@ namespace stool
                 SPSI r;
                 r.tree.initialize(tree_degree, tree_degree);
                 r.tree.build(items);
+                assert(r.size() == items.size());
                 return r;
             }
 
@@ -299,13 +300,10 @@ namespace stool
                 return this->tree.at(n);
             }
 
-            void print() const
+            void print(std::string name = "SPSI") const
             {
                 auto vec = this->to_vector();
-                std::cout << "================== SPSI ==================" << std::endl;
-                stool::DebugPrinter::print_integers(vec, "values");
-
-                std::cout << "================== SPSI[END] =============" << std::endl;
+                stool::DebugPrinter::print_integers(vec, name);
             }
         };
 

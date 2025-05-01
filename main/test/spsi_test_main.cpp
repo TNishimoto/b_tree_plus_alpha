@@ -7,8 +7,8 @@
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
 #include "stool/include/light_stool.hpp"
-#include "../test/spsi_test.hpp"
-#include "../test/permutation_test.hpp"
+#include "sub/spsi_test.hpp"
+#include "sub/permutation_test.hpp"
 
 int main(int argc, char *argv[])
 {

@@ -30,6 +30,11 @@ void rank_test(const stool::sequence::DynamicWaveletTree &ds, const stool::Naive
         {
             uint64_t rank1 = ds.rank(i, c);
             uint64_t rank2 = stool::StringFunctions::rank_query(text.text, i, c);
+            if (rank1 != rank2)
+            {
+                std::cout << "rank1: " << rank1 << ", rank2: " << rank2 << std::endl;
+                throw -1;
+            }
             assert(rank1 == rank2);
         }
     }
@@ -43,7 +48,11 @@ void select_test(const stool::sequence::DynamicWaveletTree &ds, const stool::Nai
         int64_t rank = stool::StringFunctions::rank_query(text.text, i + 1, c);
         assert(rank > 0);
         int64_t nth = ds.select(rank - 1, c);
-
+        if (nth != i)
+        {
+            std::cout << "nth: " << nth << ", i: " << i << std::endl;
+            throw -1;
+        }
         assert(nth == i);
     }
 

@@ -181,125 +181,125 @@ sequence_test.out/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/build
 .PHONY : sequence_test.out/fast
 
-main/bit_test_main.o: main/bit_test_main.cpp.o
-.PHONY : main/bit_test_main.o
+main/test/bit_test_main.o: main/test/bit_test_main.cpp.o
+.PHONY : main/test/bit_test_main.o
 
 # target to build an object file
-main/bit_test_main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/bit_test_main.cpp.o
-.PHONY : main/bit_test_main.cpp.o
+main/test/bit_test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/test/bit_test_main.cpp.o
+.PHONY : main/test/bit_test_main.cpp.o
 
-main/bit_test_main.i: main/bit_test_main.cpp.i
-.PHONY : main/bit_test_main.i
+main/test/bit_test_main.i: main/test/bit_test_main.cpp.i
+.PHONY : main/test/bit_test_main.i
 
 # target to preprocess a source file
-main/bit_test_main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/bit_test_main.cpp.i
-.PHONY : main/bit_test_main.cpp.i
+main/test/bit_test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/test/bit_test_main.cpp.i
+.PHONY : main/test/bit_test_main.cpp.i
 
-main/bit_test_main.s: main/bit_test_main.cpp.s
-.PHONY : main/bit_test_main.s
+main/test/bit_test_main.s: main/test/bit_test_main.cpp.s
+.PHONY : main/test/bit_test_main.s
 
 # target to generate assembly for a file
-main/bit_test_main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/bit_test_main.cpp.s
-.PHONY : main/bit_test_main.cpp.s
+main/test/bit_test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bit_test.out.dir/build.make CMakeFiles/bit_test.out.dir/main/test/bit_test_main.cpp.s
+.PHONY : main/test/bit_test_main.cpp.s
 
-main/permutation_test_main.o: main/permutation_test_main.cpp.o
-.PHONY : main/permutation_test_main.o
+main/test/permutation_test_main.o: main/test/permutation_test_main.cpp.o
+.PHONY : main/test/permutation_test_main.o
 
 # target to build an object file
-main/permutation_test_main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/permutation_test_main.cpp.o
-.PHONY : main/permutation_test_main.cpp.o
+main/test/permutation_test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/test/permutation_test_main.cpp.o
+.PHONY : main/test/permutation_test_main.cpp.o
 
-main/permutation_test_main.i: main/permutation_test_main.cpp.i
-.PHONY : main/permutation_test_main.i
+main/test/permutation_test_main.i: main/test/permutation_test_main.cpp.i
+.PHONY : main/test/permutation_test_main.i
 
 # target to preprocess a source file
-main/permutation_test_main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/permutation_test_main.cpp.i
-.PHONY : main/permutation_test_main.cpp.i
+main/test/permutation_test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/test/permutation_test_main.cpp.i
+.PHONY : main/test/permutation_test_main.cpp.i
 
-main/permutation_test_main.s: main/permutation_test_main.cpp.s
-.PHONY : main/permutation_test_main.s
+main/test/permutation_test_main.s: main/test/permutation_test_main.cpp.s
+.PHONY : main/test/permutation_test_main.s
 
 # target to generate assembly for a file
-main/permutation_test_main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/permutation_test_main.cpp.s
-.PHONY : main/permutation_test_main.cpp.s
+main/test/permutation_test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/permutation_test.out.dir/build.make CMakeFiles/permutation_test.out.dir/main/test/permutation_test_main.cpp.s
+.PHONY : main/test/permutation_test_main.cpp.s
 
-main/sequence_test_main.o: main/sequence_test_main.cpp.o
-.PHONY : main/sequence_test_main.o
+main/test/sequence_test_main.o: main/test/sequence_test_main.cpp.o
+.PHONY : main/test/sequence_test_main.o
 
 # target to build an object file
-main/sequence_test_main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/sequence_test_main.cpp.o
-.PHONY : main/sequence_test_main.cpp.o
+main/test/sequence_test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/test/sequence_test_main.cpp.o
+.PHONY : main/test/sequence_test_main.cpp.o
 
-main/sequence_test_main.i: main/sequence_test_main.cpp.i
-.PHONY : main/sequence_test_main.i
+main/test/sequence_test_main.i: main/test/sequence_test_main.cpp.i
+.PHONY : main/test/sequence_test_main.i
 
 # target to preprocess a source file
-main/sequence_test_main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/sequence_test_main.cpp.i
-.PHONY : main/sequence_test_main.cpp.i
+main/test/sequence_test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/test/sequence_test_main.cpp.i
+.PHONY : main/test/sequence_test_main.cpp.i
 
-main/sequence_test_main.s: main/sequence_test_main.cpp.s
-.PHONY : main/sequence_test_main.s
+main/test/sequence_test_main.s: main/test/sequence_test_main.cpp.s
+.PHONY : main/test/sequence_test_main.s
 
 # target to generate assembly for a file
-main/sequence_test_main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/sequence_test_main.cpp.s
-.PHONY : main/sequence_test_main.cpp.s
+main/test/sequence_test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sequence_test.out.dir/build.make CMakeFiles/sequence_test.out.dir/main/test/sequence_test_main.cpp.s
+.PHONY : main/test/sequence_test_main.cpp.s
 
-main/spsi_test_main.o: main/spsi_test_main.cpp.o
-.PHONY : main/spsi_test_main.o
+main/test/spsi_test_main.o: main/test/spsi_test_main.cpp.o
+.PHONY : main/test/spsi_test_main.o
 
 # target to build an object file
-main/spsi_test_main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/spsi_test_main.cpp.o
-.PHONY : main/spsi_test_main.cpp.o
+main/test/spsi_test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/test/spsi_test_main.cpp.o
+.PHONY : main/test/spsi_test_main.cpp.o
 
-main/spsi_test_main.i: main/spsi_test_main.cpp.i
-.PHONY : main/spsi_test_main.i
+main/test/spsi_test_main.i: main/test/spsi_test_main.cpp.i
+.PHONY : main/test/spsi_test_main.i
 
 # target to preprocess a source file
-main/spsi_test_main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/spsi_test_main.cpp.i
-.PHONY : main/spsi_test_main.cpp.i
+main/test/spsi_test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/test/spsi_test_main.cpp.i
+.PHONY : main/test/spsi_test_main.cpp.i
 
-main/spsi_test_main.s: main/spsi_test_main.cpp.s
-.PHONY : main/spsi_test_main.s
+main/test/spsi_test_main.s: main/test/spsi_test_main.cpp.s
+.PHONY : main/test/spsi_test_main.s
 
 # target to generate assembly for a file
-main/spsi_test_main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/spsi_test_main.cpp.s
-.PHONY : main/spsi_test_main.cpp.s
+main/test/spsi_test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spsi_test.out.dir/build.make CMakeFiles/spsi_test.out.dir/main/test/spsi_test_main.cpp.s
+.PHONY : main/test/spsi_test_main.cpp.s
 
-main/wavelet_tree_test_main.o: main/wavelet_tree_test_main.cpp.o
-.PHONY : main/wavelet_tree_test_main.o
+main/test/wavelet_tree_test_main.o: main/test/wavelet_tree_test_main.cpp.o
+.PHONY : main/test/wavelet_tree_test_main.o
 
 # target to build an object file
-main/wavelet_tree_test_main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/wavelet_tree_test_main.cpp.o
-.PHONY : main/wavelet_tree_test_main.cpp.o
+main/test/wavelet_tree_test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/test/wavelet_tree_test_main.cpp.o
+.PHONY : main/test/wavelet_tree_test_main.cpp.o
 
-main/wavelet_tree_test_main.i: main/wavelet_tree_test_main.cpp.i
-.PHONY : main/wavelet_tree_test_main.i
+main/test/wavelet_tree_test_main.i: main/test/wavelet_tree_test_main.cpp.i
+.PHONY : main/test/wavelet_tree_test_main.i
 
 # target to preprocess a source file
-main/wavelet_tree_test_main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/wavelet_tree_test_main.cpp.i
-.PHONY : main/wavelet_tree_test_main.cpp.i
+main/test/wavelet_tree_test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/test/wavelet_tree_test_main.cpp.i
+.PHONY : main/test/wavelet_tree_test_main.cpp.i
 
-main/wavelet_tree_test_main.s: main/wavelet_tree_test_main.cpp.s
-.PHONY : main/wavelet_tree_test_main.s
+main/test/wavelet_tree_test_main.s: main/test/wavelet_tree_test_main.cpp.s
+.PHONY : main/test/wavelet_tree_test_main.s
 
 # target to generate assembly for a file
-main/wavelet_tree_test_main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/wavelet_tree_test_main.cpp.s
-.PHONY : main/wavelet_tree_test_main.cpp.s
+main/test/wavelet_tree_test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wavelet_tree_test.out.dir/build.make CMakeFiles/wavelet_tree_test.out.dir/main/test/wavelet_tree_test_main.cpp.s
+.PHONY : main/test/wavelet_tree_test_main.cpp.s
 
 # Help Target
 help:
@@ -314,21 +314,21 @@ help:
 	@echo "... sequence_test.out"
 	@echo "... spsi_test.out"
 	@echo "... wavelet_tree_test.out"
-	@echo "... main/bit_test_main.o"
-	@echo "... main/bit_test_main.i"
-	@echo "... main/bit_test_main.s"
-	@echo "... main/permutation_test_main.o"
-	@echo "... main/permutation_test_main.i"
-	@echo "... main/permutation_test_main.s"
-	@echo "... main/sequence_test_main.o"
-	@echo "... main/sequence_test_main.i"
-	@echo "... main/sequence_test_main.s"
-	@echo "... main/spsi_test_main.o"
-	@echo "... main/spsi_test_main.i"
-	@echo "... main/spsi_test_main.s"
-	@echo "... main/wavelet_tree_test_main.o"
-	@echo "... main/wavelet_tree_test_main.i"
-	@echo "... main/wavelet_tree_test_main.s"
+	@echo "... main/test/bit_test_main.o"
+	@echo "... main/test/bit_test_main.i"
+	@echo "... main/test/bit_test_main.s"
+	@echo "... main/test/permutation_test_main.o"
+	@echo "... main/test/permutation_test_main.i"
+	@echo "... main/test/permutation_test_main.s"
+	@echo "... main/test/sequence_test_main.o"
+	@echo "... main/test/sequence_test_main.i"
+	@echo "... main/test/sequence_test_main.s"
+	@echo "... main/test/spsi_test_main.o"
+	@echo "... main/test/spsi_test_main.i"
+	@echo "... main/test/spsi_test_main.s"
+	@echo "... main/test/wavelet_tree_test_main.o"
+	@echo "... main/test/wavelet_tree_test_main.i"
+	@echo "... main/test/wavelet_tree_test_main.s"
 .PHONY : help
 
 

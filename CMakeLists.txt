@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(drfmi CXX)
+project(b_tree_plus_alpha CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -48,22 +48,22 @@ INCLUDE_DIRECTORIES(modules)
 #add_library(fn STATIC )
 #target_link_libraries(fn)
 
-add_executable(permutation_test.out main/permutation_test_main.cpp ${SOURCES})
+add_executable(permutation_test.out main/test/permutation_test_main.cpp ${SOURCES})
 target_link_libraries(permutation_test.out)
 
-add_executable(spsi_test.out main/spsi_test_main.cpp ${SOURCES})
+add_executable(spsi_test.out main/test/spsi_test_main.cpp ${SOURCES})
 target_link_libraries(spsi_test.out)
 
 
-add_executable(bit_test.out main/bit_test_main.cpp ${SOURCES})
+add_executable(bit_test.out main/test/bit_test_main.cpp ${SOURCES})
 target_link_libraries(bit_test.out)
 
 
 
-add_executable(wavelet_tree_test.out main/wavelet_tree_test_main.cpp ${SOURCES})
+add_executable(wavelet_tree_test.out main/test/wavelet_tree_test_main.cpp ${SOURCES})
 target_link_libraries(wavelet_tree_test.out)
 
-add_executable(sequence_test.out main/sequence_test_main.cpp ${SOURCES})
+add_executable(sequence_test.out main/test/sequence_test_main.cpp ${SOURCES})
 target_link_libraries(sequence_test.out)
 
 
