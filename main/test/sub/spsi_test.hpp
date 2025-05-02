@@ -27,7 +27,7 @@ namespace stool
         }
 
         template <typename T>
-        static uint64_t random_build(SPSI<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
+        static uint64_t random_build(DynamicPrefixSum<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
             spsi.set_degree(degree);
@@ -54,7 +54,7 @@ namespace stool
         }
 
         template <typename T>
-        static uint64_t random_remove(SPSI<T> &spsi, int64_t seed)
+        static uint64_t random_remove(DynamicPrefixSum<T> &spsi, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
             uint64_t checksum = 0;
@@ -73,20 +73,20 @@ namespace stool
         }
 
         template <typename T>
-        static void load_write_bits_test(stool::prefix_sum::SPSI<T> &spsi)
+        static void load_write_bits_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
         {
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
 
             std::cout << "save" << std::endl;
-            stool::prefix_sum::SPSI<T>::save(spsi, bytes, pos);
+            stool::prefix_sum::DynamicPrefixSum<T>::save(spsi, bytes, pos);
 
 
             pos = 0;
             std::cout << "load" << std::endl;
 
-            stool::prefix_sum::SPSI<T> spsi2 = stool::prefix_sum::SPSI<T>::build_from_data(bytes, pos);
+            stool::prefix_sum::DynamicPrefixSum<T> spsi2 = stool::prefix_sum::DynamicPrefixSum<T>::build_from_data(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -106,7 +106,7 @@ namespace stool
             }
         }
         template <typename T>
-static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
+static void load_write_file_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
         {
             {
                 std::ofstream os;
@@ -118,12 +118,12 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
                 }
 
                 std::cout << "save" << std::endl;
-                stool::prefix_sum::SPSI<T>::save(spsi, os);
+                stool::prefix_sum::DynamicPrefixSum<T>::save(spsi, os);
             }
 
 
 
-            stool::prefix_sum::SPSI<T> spsi2;
+            stool::prefix_sum::DynamicPrefixSum<T> spsi2;
 
             {
                 std::ifstream ifs;
@@ -134,7 +134,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = stool::prefix_sum::SPSI<T>::build_from_data(ifs);
+                auto tmp = stool::prefix_sum::DynamicPrefixSum<T>::build_from_data(ifs);
                 spsi2.swap(tmp);
             }
 
@@ -155,7 +155,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
         }
         /*
         template <typename T>
-        static void insert_and_delete_test(SPSI<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
+        static void insert_and_delete_test(DynamicPrefixSum<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
 
@@ -212,7 +212,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
 
             stool::Printer::print("Item", items);
 
-            SPSI<T> spsi;
+            DynamicPrefixSum<T> spsi;
             spsi.build(items2, degree);
 
             spsi.get_tree().print_tree();
@@ -266,7 +266,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
             std::mt19937_64 mt64(seed);
             std::deque<uint64_t> items = create_sequence(num, max_value, mt64);
 
-            SPSI<T> spsi;
+            DynamicPrefixSum<T> spsi;
             spsi.set_degree(degree);
 
             for (int64_t i = items.size() - 1; i >= 0; i--)
@@ -303,7 +303,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
 
             // stool::Printer::print("Item", items);
 
-            SPSI<T> spsi;
+            DynamicPrefixSum<T> spsi;
             spsi.build(items2, degree);
             // std::cout << "Size: " << spsi.size() << std::endl;
             // spsi.tree.print_tree();
@@ -329,7 +329,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
         }
 
         template <typename T>
-        static void test_psum(SPSI<T> &spsi)
+        static void test_psum(DynamicPrefixSum<T> &spsi)
         {
             std::vector<uint64_t> items = spsi.to_vector();
             uint64_t sum = 0;
@@ -346,7 +346,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
             }
         }
         template <typename T>
-        static void test_search(SPSI<T> &spsi)
+        static void test_search(DynamicPrefixSum<T> &spsi)
         {
             // uint64_t psum = spsi.psum();
             uint64_t xsum = 1;
@@ -382,7 +382,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
                 items2.push_back(p);
             }
 
-            SPSI<T> spsi;
+            DynamicPrefixSum<T> spsi;
             spsi.build(items2, degree);
             spsi.verify();
 
@@ -396,7 +396,7 @@ static void load_write_file_test(stool::prefix_sum::SPSI<T> &spsi)
             std::mt19937_64 mt64(seed);
             std::deque<uint64_t> items = create_sequence(num, max_value, mt64);
 
-            SPSI<T> spsi;
+            DynamicPrefixSum<T> spsi;
             spsi.set_degree(degree);
 
             for (uint64_t x : items)

@@ -239,7 +239,7 @@ namespace stool
                 if(p == -1){
                     return p;
                 }else{
-                    if(p >= this->size()){
+                    if(p >= (int64_t)this->size()){
                         return -1;
                     }else{
                         return p;
@@ -253,7 +253,7 @@ namespace stool
                 if(p == -1){
                     return p;
                 }else{
-                    if(p >= this->size()){
+                    if(p >= (int64_t)this->size()){
                         return -1;
                     }else{
                         return p;

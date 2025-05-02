@@ -12,8 +12,8 @@ namespace stool
         /// @brief      A dynamic data structure supporting prefix-sum query
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER>
-        class SPSI
+        template <typename LEAF_CONTAINER = VLCDeque>
+        class DynamicPrefixSum
         {
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t>;
@@ -32,18 +32,18 @@ namespace stool
                 return this->tree.get_value_forward_iterator_end();
             }
 
-            SPSI()
+            DynamicPrefixSum()
             {
                 this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
             }
-            void swap(SPSI &item)
+            void swap(DynamicPrefixSum &item)
             {
                 this->tree.swap(item.tree);
             }
 
-            SPSI &operator=(const SPSI &) = delete;
-            SPSI(SPSI &&) noexcept = default;
-            SPSI &operator=(SPSI &&) noexcept = default;
+            DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
+            DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
+            DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
 
         public:
             void set_degree(uint64_t degree)
@@ -68,9 +68,9 @@ namespace stool
                 return this->tree.get_max_degree_of_internal_node();
             }
 
-            static SPSI build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
+            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
             {
-                SPSI r;
+                DynamicPrefixSum r;
                 r.tree.initialize(tree_degree, tree_degree);
                 r.tree.build(items);
                 assert(r.size() == items.size());
@@ -153,7 +153,7 @@ namespace stool
             static std::string name()
             {
                 std::string s;
-                s += "SPSI(";
+                s += "DynamicPrefixSum(";
                 s += LEAF_CONTAINER::name();
                 s += ")";
                 return s;
@@ -250,7 +250,7 @@ namespace stool
                 std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph + 1);
 
                 std::vector<std::string> r;
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=SPSI: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicPrefixSum: " + std::to_string(this->size_in_bytes()) + " bytes =");
                 for (std::string &s : log1)
                 {
                     r.push_back(s);
@@ -268,30 +268,30 @@ namespace stool
             }
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(SPSI):" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicPrefixSum):" << std::endl;
                 this->tree.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
-            static void save(SPSI &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 item.tree.save(output, pos);
             }
-            static void save(SPSI &item, std::ofstream &os)
+            static void save(DynamicPrefixSum &item, std::ofstream &os)
             {
                 item.tree.save(os);
             }
 
-            static SPSI build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
             {
-                SPSI r;
+                DynamicPrefixSum r;
                 r.tree.build_from_data(data, pos);
                 return r;
             }
 
-            static SPSI build_from_data(std::ifstream &ifs)
+            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
             {
-                SPSI r;
+                DynamicPrefixSum r;
                 r.tree.build_from_data(ifs);
                 return r;
             }
@@ -299,16 +299,26 @@ namespace stool
             {
                 return this->tree.at(n);
             }
-
-            void print(std::string name = "SPSI") const
+            /*
+            void print(std::string name = "DynamicPrefixSum") const
             {
                 auto vec = this->to_vector();
                 stool::DebugPrinter::print_integers(vec, name);
             }
+            */
+
+            std::string to_string() const
+            {
+                std::stringstream ss;
+                auto vec = this->to_vector();
+                ss << stool::DebugPrinter::to_integer_string(vec);
+                return ss.str();
+            }
+            
         };
         
-        using PlainSPSI = SPSI<PlainSPSIContainer>;
-        using VLCDequeSPSI = SPSI<VLCDeque>;
+        using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
+        using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 

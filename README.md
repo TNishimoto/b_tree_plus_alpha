@@ -16,9 +16,9 @@ So, to download all the necessary source codes, do the following:
 
 ## Dynamic Data Structures
 
-### VLCDequeSPSI class
+### DynamicPrefixSum class
 
-[VLCDequeSPSI](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/spsi.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a non-negative integer sequence. 
+[DynamicPrefixSum](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/dynamic_prefix_sum.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a non-negative integer sequence. 
 This class is implemented using the technique in Section 2.2 of [this paper](https://doi.org/10.1016/j.jda.2018.11.002).
 
 #### Table for update operations and queries
@@ -37,18 +37,19 @@ This class is implemented using the technique in Section 2.2 of [this paper](htt
 |                  | S.search(v)       | O(log n) time           | Return the smallest index x that satisfies S.psum(x) >= v |
 |                  | S.at(i)           | O(log n) time           | Return S[i]                                               |
 
-Here, S is a non-negative integer sequence stored in VLCDequeSPSI; n is the number of values in S; M is the sum of the values in S.  
-See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1prefix__sum_1_1_s_p_s_i.html) for the member functions supported by VLCDequeSPSI.
+Here, S is a non-negative integer sequence stored in DynamicPrefixSum; n is the number of values in S; M is the sum of the values in S.  
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1prefix__sum_1_1_s_p_s_i.html) for the member functions supported by DynamicPrefixSum.
 
 #### Example
 
-An example of VLCDequeSPSI is described in [spsi_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/spsi_example.cpp).  
+An example of DynamicPrefixSum is described in [dynamic_prefix_sum_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_prefix_sum_example.cpp).  
 The following message is displayed when this example is executed.  
 
-% ./spsi_example.out
-
+> ./dynamic_prefix_sum_example.out  
+>  
+> Build DynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
 > Print the values stored in S  
-> S: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+> S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
 > The sum of S[0..3] is 10  
 > Let x be the smallest index that satisfies psum(x) >= 10. Then, x = 3  
 > Let y be the smallest index that satisfies psum(y) >= 1000. Then, y =-1  
@@ -57,20 +58,20 @@ The following message is displayed when this example is executed.
 > S[3] = 14  
 > S[3] -= 10  
 > S[3] = 4  
-> Insert 100 into S at the fifth value  
-> S: [1, 2, 3, 4, 100, 5, 6, 7, 8, 9, 10]  
-> Delete the fifth value from S  
-> S: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
-> Add 0 to S as the last value  
-> Add 9 to S as the first value  
-> S: [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]  
-> Add 1, 2, 3, 4 to S as the last values  
-> S: [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
+> Insert 100 into S at position 4  
+> S = [1, 2, 3, 4, 100, 5, 6, 7, 8, 9, 10]  
+> Delete S[4] from S  
+> S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+> Add 0 to the tail of S  
+> Add 9 to the head of S  
+> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]  
+> Add 1, 2, 3, 4 to the tail of S  
+> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
 > Write S to S.bin  
 > Remove all values from S  
-> S: []  
+> S = []  
 > Read S from S.bin  
-> S: [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
+> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]
 
 ### DynamicBitSequence class 
 
@@ -98,6 +99,37 @@ The following message is displayed when this example is executed.
 Here, S is a bit sequence stored in DynamicBitSequence; n is the number of values in S.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_bit_sequence.html) for the member functions supported by DynamicBitSequence.
 
+#### Example
+
+An example of DynamicBitSequence is described in [dynamic_bit_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_bit_example.cpp).  
+The following message is displayed when this example is executed.  
+
+> ./dynamic_bit_example.out  
+>  
+> Build data structure S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]  
+> Print the bits stored in S  
+> S = [1010101011]  
+> The number of 1 in S[0..3] is 2  
+> The number of 0 in S[0..3] is 2  
+> The position of the third 1 in S is 4  
+> The position of the third 0 in S is 5  
+> The position of the fifth 0 in S is -1  
+> Insert 1 into S at position 4  
+> S = [10101101011]  
+> Delete S[4] from S  
+> S = [1010101011]  
+> Add 0 to the tail of S  
+> Add 1 to the head of S  
+> S = [110101010110]  
+> Add 1010 to the tail of S  
+> S = [1101010101101010]  
+> Write S to S.bin  
+> Remove all values from S  
+> S = []  
+> Read S from S.bin  
+> S = [1101010101101010]  
+
+
 ### DynamicSequence64 class 
 
 [DynamicSequence64](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_sequence64.hpp) is a dynamic data structure that maintains a 64-bit non-negative sequence.
@@ -120,25 +152,82 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 Here, S is a non-negative integer sequence stored in DynamicSequence64; n is the number of values in S; M is the sum of the values in S.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_sequence64.html) for the member functions supported by DynamicSequence64.
 
+#### Example
+
+An example of DynamicSequence64 is described in [dynamic_sequence_64_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_sequence_64_example.cpp).  
+The following message is displayed when this example is executed.  
+
+> ./dynamic_sequence_64_example.out  
+> 
+> Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+> Print the integers stored in S  
+> S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+> Insert 1 into S at position 4  
+> S = [10, 20, 30, 40, 1, 50, 60, 70, 80, 90, 100]  
+> Delete S[4] from S  
+> S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+> Add 0 to the tail of S  
+> Add 1 to the head of S  
+> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0]  
+> Add 1, 2, 3, 4 to the tail of S  
+> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
+> Write S to S.bin  
+> Remove all values from S  
+> S = []  
+> Read S from S.bin  
+> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
+
+
+
 ### DynamicWaveletTree class 
 
 [DynamicWaveletTree](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_wavelet_tree.hpp) is a dynamic version of [Wavelet Tree](https://en.wikipedia.org/wiki/Wavelet_Tree "Wavelet Tree").
 
 #### Table for update operations and queries
 
-| Category         | Name              | Order                   | Description                                                   |
-|------------------|-------------------|-------------------------|---------------------------------------------------------------|
-| Memory           |                   | O(n log σ) bytes        |                                                               |
-| Update Operation | S.insert(i, v)    | amortized O(log n) time | Insert v into S as the i-th character                         |
-|                  | S.remove(i)       | amortized O(log n) time | Remove the i-th character from S                              |
-|                  | S.push_back(v)    | amortized O(log n) time | Add v to S as the last character                              |
-|                  | S.push_many(i, P) | amortized O(log n) time | Add the characters in sequence P to S as the last characters  |
-| Query            | S.at(i)           | O(log n) time           | Return S[i]                                                   |
-|                  | S.rank(i, c)      | O(log n) time           | Return the number of c in S[0..i]                             |
-|                  | S.select(i, c)    | O(log n) time           | Return the position of the (i+1)-th c in S                    |
+| Category         | Name              | Order                         | Description                                                   |
+|------------------|-------------------|-------------------------------|---------------------------------------------------------------|
+| Memory           |                   | O(n log σ) bytes              |                                                               |
+| Update Operation | S.insert(i, v)    | amortized O(log σ log n) time | Insert v into S as the i-th character                         |
+|                  | S.remove(i)       | amortized O(log σ log n) time | Remove the i-th character from S                              |
+|                  | S.push_back(v)    | amortized O(log σ log n) time | Add v to S as the last character                              |
+|                  | S.push_many(i, P) | amortized O(log σ log n) time | Add the characters in sequence P to S as the last characters  |
+| Query            | S.at(i)           | O(log σ log n) time           | Return S[i]                                                   |
+|                  | S.rank(i, c)      | O(log σ log n) time           | Return the number of c in S[0..i]                             |
+|                  | S.select(i, c)    | O(log σ log n) time           | Return the position of the (i+1)-th c in S                    |
 
-Here, S is a string stored in DynamicWaveletTree; n is the length of S; sigma is the the alphabet size of S.  
+Here, S is a string stored in DynamicWaveletTree; n is the length of S; σ is the the alphabet size of S.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_wavelet_tree.html) for the member functions supported by DynamicWaveletTree.
+
+#### Example
+
+An example of DynamicWaveletTree is described in [dynamic_wavelet_tree_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_wavelet_tree_example.cpp).  
+The following message is displayed when this example is executed.  
+
+> ./dynamic_wavelet_tree_example.out  
+>  
+> Print the integers stored in S  
+> S = ababababab  
+> The number of a in S[0..3] is 2  
+> The number of b in S[0..3] is 2  
+> The position of the third a in S is 4  
+> The position of the third b in S is 5  
+> The position of the 10-th b in S is -1  
+> The position of the first c in S is -1  
+> Insert c into S at position 4  
+> S = ababcababab  
+> Delete S[4] from S  
+> S = ababababab  
+> Add c to the tail of S  
+> S = abababababc  
+> Add bbbb to the tail of S  
+> S = abababababcbbbb  
+> Write S to S.bin  
+> Remove all values from S  
+> S =   
+> Read S from S.bin  
+> S = abababababcbbbb  
+
 
 ### DynamicPermutation class 
 

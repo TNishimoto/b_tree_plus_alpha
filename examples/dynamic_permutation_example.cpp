@@ -4,19 +4,13 @@ int main(int argc, char *argv[])
 {
 
 
-    std::vector<bool> values = {1, 0, 1, 0, 1, 0, 1, 0, 1, 1};
+    std::vector<uint64_t> values = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 
-    std::cout << "Build DynamicBitSequence S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]" << std::endl;
-    stool::sequence::DynamicBitSequence S = stool::sequence::DynamicBitSequence::build(values);
-    std::cout << "Print the bits stored in S" << std::endl;
+    std::cout << "Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" << std::endl;
+    stool::sequence::DynamicSequence64 S = stool::sequence::DynamicSequence64::build(values);
+    std::cout << "Print the integers stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
-    std::cout << "The number of 1 in S[0..3] is " << S.rank1(4) << std::endl;
-    std::cout << "The number of 0 in S[0..3] is " << S.rank0(4) << std::endl;
-
-    std::cout << "The position of the third 1 in S is " << S.select1(2) << std::endl;
-    std::cout << "The position of the third 0 in S is " << S.select0(2) << std::endl;
-    std::cout << "The position of the fifth 0 in S is " << S.select0(4) << std::endl;
 
     std::cout << "Insert 1 into S at position 4" << std::endl;
     S.insert(4, 1);
@@ -32,15 +26,17 @@ int main(int argc, char *argv[])
     S.push_front(1);
     std::cout << "S = " << S.to_string() << std::endl;
 
-    std::cout << "Add 1010 to the tail of S" << std::endl;
-    std::vector<bool> values2 = {1, 0, 1, 0};
+    
+    std::cout << "Add 1, 2, 3, 4 to the tail of S" << std::endl;
+    std::vector<uint64_t> values2 = {1, 2, 3, 4};
     S.push_many(values2);
     std::cout << "S = " << S.to_string() << std::endl;
+    
 
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::sequence::DynamicBitSequence::save(S, ofs);
+        stool::sequence::DynamicSequence64::save(S, ofs);
         ofs.close();
     }
 
@@ -51,7 +47,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::sequence::DynamicBitSequence tmp = stool::sequence::DynamicBitSequence::build_from_data(ifs);
+        stool::sequence::DynamicSequence64 tmp = stool::sequence::DynamicSequence64::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }

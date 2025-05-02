@@ -6,11 +6,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 INCLUDE_DIRECTORIES(../modules)
-add_executable(spsi_example.out spsi_example.cpp)
-target_link_libraries(spsi_example.out)
+add_executable(dynamic_prefix_sum_example.out dynamic_prefix_sum_example.cpp)
+target_link_libraries(dynamic_prefix_sum_example.out)
 
 add_executable(dynamic_bit_example.out dynamic_bit_example.cpp)
 target_link_libraries(dynamic_bit_example.out)
+
+add_executable(dynamic_sequence_64_example.out dynamic_sequence_64_example.cpp)
+target_link_libraries(dynamic_sequence_64_example.out)
+
+add_executable(dynamic_wavelet_tree_example.out dynamic_wavelet_tree_example.cpp)
+target_link_libraries(dynamic_wavelet_tree_example.out)
+
+add_executable(dynamic_permutation_example.out dynamic_permutation_example.cpp)
+target_link_libraries(dynamic_permutation_example.out)
+
 
 
 

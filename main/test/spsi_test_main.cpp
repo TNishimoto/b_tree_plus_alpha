@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     p.parse_check(argc, argv);
     //uint64_t mode = p.get<uint>("mode");
 
-    stool::VLCDequeSPSI spsi;
+    stool::VLCDequeDynamicPrefixSum spsi;
     stool::SPSITest::random_build(spsi, 1000, 100, 32, seed++);
     stool::SPSITest::load_write_bits_test(spsi);
     stool::SPSITest::load_write_file_test(spsi);

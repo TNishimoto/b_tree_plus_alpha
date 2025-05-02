@@ -19,8 +19,8 @@ var annotated_dup =
         [ "PermutationItem", "structstool_1_1permutation_1_1_permutation_item.html", null ]
       ] ],
       [ "prefix_sum", null, [
-        [ "PlainSPSIContainer", "classstool_1_1prefix__sum_1_1_plain_s_p_s_i_container.html", null ],
-        [ "SPSI", "classstool_1_1prefix__sum_1_1_s_p_s_i.html", null ]
+        [ "DynamicPrefixSum", "classstool_1_1prefix__sum_1_1_dynamic_prefix_sum.html", null ],
+        [ "PlainSPSIContainer", "classstool_1_1prefix__sum_1_1_plain_s_p_s_i_container.html", null ]
       ] ],
       [ "sequence", null, [
         [ "BitContainer", "classstool_1_1sequence_1_1_bit_container.html", null ],
@@ -29,5 +29,6 @@ var annotated_dup =
         [ "DynamicSequence64", "classstool_1_1sequence_1_1_dynamic_sequence64.html", null ],
         [ "DynamicWaveletTree", "classstool_1_1sequence_1_1_dynamic_wavelet_tree.html", null ]
       ] ]
-    ] ]
+    ] ],
+    [ "SPSI", "class_s_p_s_i.html", null ]
 ];

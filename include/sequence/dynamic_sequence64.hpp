@@ -184,6 +184,13 @@ namespace stool
             {
                 return this->tree.at(n);
             }
+            std::string to_string() const
+            {
+                std::stringstream ss;
+                auto vec = this->to_vector();
+                ss << stool::DebugPrinter::to_integer_string(vec);
+                return ss.str();
+            }
 
             void print() const
             {
