@@ -4,8 +4,6 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-// #include "qgram_tree.h"
-// #include "include/debug/debug.hpp"
 #include "../include/b_tree_plus_alpha.hpp"
 
 void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &dyn_text, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet)

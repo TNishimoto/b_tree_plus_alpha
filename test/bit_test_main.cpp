@@ -7,7 +7,7 @@
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
 #include "stool/include/light_stool.hpp"
-#include "sub/bit_test.hpp"
+#include "include/bit_test.hpp"
 
 template <typename DBV>
 void test(DBV &dbv, uint64_t seed, uint64_t insert_num)

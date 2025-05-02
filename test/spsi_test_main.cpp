@@ -4,11 +4,9 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-// #include "qgram_tree.h"
-// #include "include/debug/debug.hpp"
 #include "stool/include/light_stool.hpp"
-#include "sub/spsi_test.hpp"
-#include "sub/permutation_test.hpp"
+#include "include/spsi_test.hpp"
+#include "include/permutation_test.hpp"
 
 int main(int argc, char *argv[])
 {
