@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
             for (uint64_t x = 0; x < 10; x++)
             {
-                stool::permutation::DynamicPermutation dp;
+                stool::bptree::DynamicPermutation dp;
                 stool::NaivePermutation npom;
                 
                 dp.set_degree(degree);

@@ -3,7 +3,7 @@
 
 namespace stool
 {
-    namespace permutation
+    namespace bptree
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      PermutationContainer

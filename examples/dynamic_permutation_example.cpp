@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     std::vector<uint64_t> values = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 
     std::cout << "Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" << std::endl;
-    stool::sequence::DynamicSequence64 S = stool::sequence::DynamicSequence64::build(values);
+    stool::bptree::DynamicSequence64 S = stool::bptree::DynamicSequence64::build(values);
     std::cout << "Print the integers stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::sequence::DynamicSequence64::save(S, ofs);
+        stool::bptree::DynamicSequence64::save(S, ofs);
         ofs.close();
     }
 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::sequence::DynamicSequence64 tmp = stool::sequence::DynamicSequence64::build_from_data(ifs);
+        stool::bptree::DynamicSequence64 tmp = stool::bptree::DynamicSequence64::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }

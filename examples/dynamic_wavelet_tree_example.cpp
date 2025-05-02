@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     std::vector<uint8_t> alphabet = {'a', 'b', 'c'};
 
     std::cout << "Build DynamicWaveletTree S from text ababababab with alphabet {a, b, c}" << std::endl;
-    stool::sequence::DynamicWaveletTree S = stool::sequence::DynamicWaveletTree::build(text, alphabet);
+    stool::bptree::DynamicWaveletTree S = stool::bptree::DynamicWaveletTree::build(text, alphabet);
     std::cout << "Print the integers stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::sequence::DynamicWaveletTree::save(S, ofs);
+        stool::bptree::DynamicWaveletTree::save(S, ofs);
         ofs.close();
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::sequence::DynamicWaveletTree tmp = stool::sequence::DynamicWaveletTree::build_from_data(ifs);
+        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }

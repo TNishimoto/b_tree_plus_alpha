@@ -3,7 +3,7 @@
 
 namespace stool
 {
-    namespace sequence
+    namespace bptree
     {
         class DynamicSequence64{
         public:

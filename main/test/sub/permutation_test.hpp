@@ -33,7 +33,7 @@ namespace stool
             }
             return r;
         }
-        static bool equal_check(NaivePermutation &npom, permutation::DynamicPermutation &pom)
+        static bool equal_check(NaivePermutation &npom, bptree::DynamicPermutation &pom)
         {
             pom.get_pi_tree().verify();
             pom.get_inverse_pi_tree().verify();
@@ -45,7 +45,7 @@ namespace stool
             stool::equal_check("Check2", pom_inv_pi_vector, npom.inverse_pi_list);
             return true;
         }
-        static void permutation_test_random_insert(NaivePermutation &npom, permutation::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
+        static void permutation_test_random_insert(NaivePermutation &npom, bptree::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
         {
             uint64_t size = npom.pi_list.size();
             std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size);
@@ -62,7 +62,7 @@ namespace stool
 
             // stool::equal_check(pom_value_vector, npom.value_list);
         }
-        static void permutation_test_random_delete(stool::NaivePermutation &npom, stool::permutation::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
+        static void permutation_test_random_delete(stool::NaivePermutation &npom, stool::bptree::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
         {
             uint64_t size = npom.pi_list.size();
             std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
@@ -79,18 +79,18 @@ namespace stool
             }
         }
 
-        static void random_build_test(permutation::DynamicPermutation &dp, uint64_t num, uint64_t seed)
+        static void random_build_test(bptree::DynamicPermutation &dp, uint64_t num, uint64_t seed)
         {
             std::mt19937_64 mt64(seed);
             std::vector<uint64_t> permutation = create_random_permutation(num, mt64);
 
-            // permutation::DynamicPermutation dp;
+            // bptree::DynamicPermutation dp;
             dp.build(permutation.begin(), permutation.end(), permutation.size(), stool::Message::NO_MESSAGE);
             std::vector<uint64_t> result = dp.get_pi_vector();
 
             stool::equal_check(permutation, result);
         }
-        static void random_insert_test(permutation::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
+        static void random_insert_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
         {
             std::mt19937_64 mt64(seed);
             dp.clear();
@@ -111,7 +111,7 @@ namespace stool
 
             PermutationTest::equal_check(npom, dp);
         }
-        static void random_remove_test(permutation::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t seed)
+        static void random_remove_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t seed)
         {
             std::mt19937_64 mt64(seed);
             while (npom.pi_list.size() > 0)
@@ -120,7 +120,7 @@ namespace stool
             }
             PermutationTest::equal_check(npom, dp);
         }
-        static void random_insert_and_remove_test(permutation::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
+        static void random_insert_and_remove_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
         {
             std::mt19937_64 mt64(seed);
             std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, 2);
@@ -146,7 +146,7 @@ namespace stool
             std::mt19937_64 mt64(seed);
             std::vector<uint64_t> permutation = create_random_permutation(num, mt64);
 
-            permutation::DynamicPermutation dp;
+            bptree::DynamicPermutation dp;
             dp.build(permutation.begin(), permutation.end(), permutation.size(), 16);
             std::vector<uint64_t> result = dp.get_pi_vector();
 
@@ -155,7 +155,7 @@ namespace stool
         }
         */
 
-        static void permutation_builder_test(permutation::DynamicPermutation &dp, uint64_t num, uint64_t seed)
+        static void permutation_builder_test(bptree::DynamicPermutation &dp, uint64_t num, uint64_t seed)
         {
             std::mt19937_64 mt64(seed);
             std::vector<uint64_t> permutation = create_random_permutation(num, mt64);
@@ -166,8 +166,8 @@ namespace stool
                 inv_permutation[permutation[i]] = i;
             }
 
-            // permutation::DynamicPermutation dp;
-            permutation::DynamicPermutationBuilder dpb;
+            // bptree::DynamicPermutation dp;
+            bptree::DynamicPermutationBuilder dpb;
             dpb.initialize(dp, permutation.size(), dp.get_max_degree());
 
             for (int64_t i = inv_permutation.size() - 1; i >= 0; i--)
@@ -180,7 +180,7 @@ namespace stool
 
             stool::equal_check("PermutationBuilderTest", permutation, result);
         }
-        static void load_write_file_test(stool::permutation::DynamicPermutation &dp)
+        static void load_write_file_test(stool::bptree::DynamicPermutation &dp)
         {
             {
                 std::ofstream os;
@@ -190,11 +190,11 @@ namespace stool
                     std::cerr << "Error: Could not open file for writing." << std::endl;
                     throw std::runtime_error("File open error");
                 }
-            stool::permutation::DynamicPermutation::save(dp, os);
+            stool::bptree::DynamicPermutation::save(dp, os);
             }
 
 
-            stool::permutation::DynamicPermutation dp2;
+            stool::bptree::DynamicPermutation dp2;
 
             {
                 std::ifstream ifs;
@@ -205,7 +205,7 @@ namespace stool
                     throw std::runtime_error("File open error");
                 }
 
-                auto tmp = stool::permutation::DynamicPermutation::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicPermutation::build_from_data(ifs);
                 dp2.swap(tmp);
             }
 
@@ -231,7 +231,7 @@ namespace stool
             }
         }
 
-        static void load_write_bits_test(stool::permutation::DynamicPermutation &dp)
+        static void load_write_bits_test(stool::bptree::DynamicPermutation &dp)
         {
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
@@ -239,13 +239,13 @@ namespace stool
             // std::cout << "save" << std::endl;
             // dp.print();
 
-            stool::permutation::DynamicPermutation::save(dp, bytes, pos);
+            stool::bptree::DynamicPermutation::save(dp, bytes, pos);
             // dp.print();
 
             pos = 0;
             // std::cout << "load" << std::endl;
 
-            stool::permutation::DynamicPermutation dp2 = stool::permutation::DynamicPermutation::build_from_data(bytes, pos);
+            stool::bptree::DynamicPermutation dp2 = stool::bptree::DynamicPermutation::build_from_data(bytes, pos);
 
             if (dp.size() != dp2.size())
             {

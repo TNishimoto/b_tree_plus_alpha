@@ -5,7 +5,7 @@
 
 namespace stool
 {
-    namespace sequence
+    namespace bptree
     {
         // template <typename LEAF_CONTAINER, typename T>
         class DynamicBitSequence

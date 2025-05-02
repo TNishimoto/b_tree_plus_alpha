@@ -11,7 +11,7 @@
 
 namespace stool
 {
-    using namespace prefix_sum;
+    using namespace stool::bptree;
     class SPSITest
     {
     public:
@@ -73,20 +73,20 @@ namespace stool
         }
 
         template <typename T>
-        static void load_write_bits_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
+        static void load_write_bits_test(stool::bptree::DynamicPrefixSum<T> &spsi)
         {
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
 
             std::cout << "save" << std::endl;
-            stool::prefix_sum::DynamicPrefixSum<T>::save(spsi, bytes, pos);
+            stool::bptree::DynamicPrefixSum<T>::save(spsi, bytes, pos);
 
 
             pos = 0;
             std::cout << "load" << std::endl;
 
-            stool::prefix_sum::DynamicPrefixSum<T> spsi2 = stool::prefix_sum::DynamicPrefixSum<T>::build_from_data(bytes, pos);
+            stool::bptree::DynamicPrefixSum<T> spsi2 = stool::bptree::DynamicPrefixSum<T>::build_from_data(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -106,7 +106,7 @@ namespace stool
             }
         }
         template <typename T>
-static void load_write_file_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
+static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
         {
             {
                 std::ofstream os;
@@ -118,12 +118,12 @@ static void load_write_file_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
                 }
 
                 std::cout << "save" << std::endl;
-                stool::prefix_sum::DynamicPrefixSum<T>::save(spsi, os);
+                stool::bptree::DynamicPrefixSum<T>::save(spsi, os);
             }
 
 
 
-            stool::prefix_sum::DynamicPrefixSum<T> spsi2;
+            stool::bptree::DynamicPrefixSum<T> spsi2;
 
             {
                 std::ifstream ifs;
@@ -134,7 +134,7 @@ static void load_write_file_test(stool::prefix_sum::DynamicPrefixSum<T> &spsi)
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = stool::prefix_sum::DynamicPrefixSum<T>::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicPrefixSum<T>::build_from_data(ifs);
                 spsi2.swap(tmp);
             }
 

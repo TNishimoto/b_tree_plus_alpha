@@ -4,7 +4,7 @@
 
 namespace stool
 {
-    namespace sequence
+    namespace bptree
     {
         class BitForwardIterator
         {

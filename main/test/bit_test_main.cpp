@@ -30,7 +30,7 @@ void _test(uint64_t mode, uint64_t seed)
         std::cout << "TEST: PlainSPSIContainer" << std::endl; 
         std::mt19937_64 mt64(seed);
         std::vector<bool> items = stool::BitTest::create_sequence2(60, mt64);
-        stool::prefix_sum::PlainSPSIContainer plain_container;
+        stool::bptree::PlainSPSIContainer plain_container;
         for(uint64_t i = 0; i < items.size();i++){
             plain_container.push_back(items[i] ? 1 : 0);
         }
@@ -42,7 +42,7 @@ void _test(uint64_t mode, uint64_t seed)
 
         std::mt19937_64 mt64(seed);
         std::vector<bool> items = stool::BitTest::create_sequence2(60, mt64);
-        stool::sequence::BitContainer bit_container(items);
+        stool::bptree::BitContainer bit_container(items);
         test(bit_container, seed, 62);
     }
     else if (mode == 3)
@@ -51,7 +51,7 @@ void _test(uint64_t mode, uint64_t seed)
 
         //std::mt19937_64 mt64(seed);
         //std::vector<bool> items = stool::BitTest::create_sequence2(1000, mt64);
-        stool::sequence::DynamicBitSequence bit_seq;
+        stool::bptree::DynamicBitSequence bit_seq;
         stool::BitTest::build_test(bit_seq, 1000, seed);
 
         stool::BitTest::load_write_test(bit_seq);

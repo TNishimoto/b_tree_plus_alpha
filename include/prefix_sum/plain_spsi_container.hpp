@@ -3,7 +3,7 @@
 
 namespace stool
 {
-    namespace prefix_sum
+    namespace bptree
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      PlainSPSIContainer

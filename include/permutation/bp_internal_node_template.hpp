@@ -12,10 +12,10 @@ namespace stool
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <>
-        class BPInternalNode<stool::permutation::PermutationContainer, stool::permutation::PermutationItem>
+        class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>
         {
         private:
-            using InternalNode = BPInternalNode<stool::permutation::PermutationContainer, stool::permutation::PermutationItem>;
+            using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>;
             stool::SimpleDeque16<InternalNode *> children_;
             stool::SimpleDeque16<uint64_t> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
@@ -31,7 +31,7 @@ namespace stool
             ///   Initializers
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            void initialize(const std::vector<InternalNode *> _children, bool _is_parent_of_leaves, const std::vector<stool::permutation::PermutationContainer> &_leaf_container_vec)
+            void initialize(const std::vector<InternalNode *> _children, bool _is_parent_of_leaves, const std::vector<stool::bptree::PermutationContainer> &_leaf_container_vec)
             {
                 this->is_parent_of_leaves_ = _is_parent_of_leaves;
                 this->children_.clear();
@@ -60,21 +60,21 @@ namespace stool
             {
                 this->parent_ = _parent;
             }
-            void initialize(BPInternalNode *_left_node, BPInternalNode *_right_node, const std::vector<stool::permutation::PermutationContainer> &_leaf_container_vec)
+            void initialize(BPInternalNode *_left_node, BPInternalNode *_right_node, const std::vector<stool::bptree::PermutationContainer> &_leaf_container_vec)
             {
                 std::vector<InternalNode *> _children;
                 _children.push_back(_left_node);
                 _children.push_back(_right_node);
                 this->initialize(_children, false, _leaf_container_vec);
             }
-            void initialize(uint64_t _left_node, uint64_t _right_node, const std::vector<stool::permutation::PermutationContainer> &leaf_container_vec)
+            void initialize(uint64_t _left_node, uint64_t _right_node, const std::vector<stool::bptree::PermutationContainer> &leaf_container_vec)
             {
                 std::vector<InternalNode *> _children;
                 _children.push_back((InternalNode *)_left_node);
                 _children.push_back((InternalNode *)_right_node);
                 this->initialize(_children, true, leaf_container_vec);
             }
-            void initialize(bool _is_parent_of_leaves, const std::vector<stool::permutation::PermutationContainer> &_leaf_container_vec)
+            void initialize(bool _is_parent_of_leaves, const std::vector<stool::bptree::PermutationContainer> &_leaf_container_vec)
             {
                 std::vector<InternalNode *> _children;
                 this->initialize(_children, _is_parent_of_leaves, _leaf_container_vec);
@@ -263,7 +263,7 @@ namespace stool
                 this->children_value_count_deque_[child_index] += count_delta;
             }
 
-            void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<stool::permutation::PermutationContainer> &leaf_container_vec)
+            void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<stool::bptree::PermutationContainer> &leaf_container_vec)
             {
                 assert(this->is_parent_of_leaves_);
                 uint64_t old_leaf = (uint64_t)this->children_[child_index];

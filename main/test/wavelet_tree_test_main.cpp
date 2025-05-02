@@ -8,10 +8,10 @@
 // #include "include/debug/debug.hpp"
 #include "../include/b_tree_plus_alpha.hpp"
 
-void build_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicString &dyn_text, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet)
+void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &dyn_text, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet)
 {
 
-    auto tmp = stool::sequence::DynamicWaveletTree::build(text, alphabet);
+    auto tmp = stool::bptree::DynamicWaveletTree::build(text, alphabet);
     ds.swap(tmp);
     for (auto c : text)
     {
@@ -22,7 +22,7 @@ void build_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicStri
 
 }
 
-void rank_test(const stool::sequence::DynamicWaveletTree &ds, const stool::NaiveDynamicString &text, const std::vector<uint8_t> &alphabet)
+void rank_test(const stool::bptree::DynamicWaveletTree &ds, const stool::NaiveDynamicString &text, const std::vector<uint8_t> &alphabet)
 {
     for (auto c : alphabet)
     {
@@ -39,7 +39,7 @@ void rank_test(const stool::sequence::DynamicWaveletTree &ds, const stool::Naive
         }
     }
 }
-void select_test(const stool::sequence::DynamicWaveletTree &ds, const stool::NaiveDynamicString &text, [[maybe_unused]] const std::vector<uint8_t> &alphabet)
+void select_test(const stool::bptree::DynamicWaveletTree &ds, const stool::NaiveDynamicString &text, [[maybe_unused]] const std::vector<uint8_t> &alphabet)
 {
 
     for (int64_t i = 0; i < text.size(); i++)
@@ -57,7 +57,7 @@ void select_test(const stool::sequence::DynamicWaveletTree &ds, const stool::Nai
     }
 
 }
-void insert_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicString &text, const std::vector<uint8_t> &alphabet, uint64_t insert_char_count, uint64_t seed)
+void insert_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &text, const std::vector<uint8_t> &alphabet, uint64_t insert_char_count, uint64_t seed)
 {
 
     std::mt19937_64 mt64(seed);
@@ -74,7 +74,7 @@ void insert_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicStr
     stool::equal_check(test_str, text.text);
 
 }
-void remove_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicString &text, uint64_t seed)
+void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &text, uint64_t seed)
 {
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, text.size());
@@ -93,7 +93,7 @@ void remove_test(stool::sequence::DynamicWaveletTree &ds, stool::NaiveDynamicStr
 
 }
 
-void save_and_load_test(stool::sequence::DynamicWaveletTree &ds)
+void save_and_load_test(stool::bptree::DynamicWaveletTree &ds)
 {
     std::string file_name = "byte_text" + std::to_string(ds.size()) + "_" + std::to_string(ds.get_alphabet_size()) + ".bits";
     {
@@ -105,9 +105,9 @@ void save_and_load_test(stool::sequence::DynamicWaveletTree &ds)
             throw std::runtime_error("File open error");
         }
 
-        stool::sequence::DynamicWaveletTree::save(ds, os);
+        stool::bptree::DynamicWaveletTree::save(ds, os);
     }
-    stool::sequence::DynamicWaveletTree ds2;
+    stool::bptree::DynamicWaveletTree ds2;
 
     {
         std::ifstream ifs;
@@ -117,7 +117,7 @@ void save_and_load_test(stool::sequence::DynamicWaveletTree &ds)
             std::cerr << "Error: Could not open file for reading." << std::endl;
             throw std::runtime_error("File open error");
         }
-        stool::sequence::DynamicWaveletTree tmp = stool::sequence::DynamicWaveletTree::build_from_data(ifs);
+        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
 
         ds2.swap(tmp);
     }
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
                 // stool::Printer::print_string(text);
                 // stool::Printer::print_chars("Alphabet", chars);
 
-                stool::sequence::DynamicWaveletTree ds;
+                stool::bptree::DynamicWaveletTree ds;
 
                 std::cout << "A" << std::flush;
                 build_test(ds, dyn_text, text, chars);

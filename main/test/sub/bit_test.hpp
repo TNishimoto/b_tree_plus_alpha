@@ -11,7 +11,7 @@
 
 namespace stool
 {
-    using namespace prefix_sum;
+    using namespace stool::bptree;
     class BitTest
     {
     public:
@@ -36,7 +36,7 @@ namespace stool
             return r;
         }
 
-        static void test_iterator(stool::sequence::DynamicBitSequence &spsi_container)
+        static void test_iterator(stool::bptree::DynamicBitSequence &spsi_container)
         {
             auto r1 = spsi_container.to_vector();
 
@@ -235,18 +235,18 @@ namespace stool
             }
         }
 
-        static void load_write_test(stool::sequence::DynamicBitSequence &spsi)
+        static void load_write_test(stool::bptree::DynamicBitSequence &spsi)
         {
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
             std::cout << "save" << std::endl;
-            stool::sequence::DynamicBitSequence::save(spsi, bytes, pos);
+            stool::bptree::DynamicBitSequence::save(spsi, bytes, pos);
 
             pos = 0;
             std::cout << "load" << std::endl;
 
-            stool::sequence::DynamicBitSequence spsi2 = stool::sequence::DynamicBitSequence::build_from_data(bytes, pos);
+            stool::bptree::DynamicBitSequence spsi2 = stool::bptree::DynamicBitSequence::build_from_data(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -265,7 +265,7 @@ namespace stool
                 }
             }
         }
-        static void load_write_test2(stool::sequence::DynamicBitSequence &spsi)
+        static void load_write_test2(stool::bptree::DynamicBitSequence &spsi)
         {
             {
                 std::ofstream os;
@@ -277,9 +277,9 @@ namespace stool
                 }
 
                 std::cout << "save" << std::endl;
-                stool::sequence::DynamicBitSequence::save(spsi, os);
+                stool::bptree::DynamicBitSequence::save(spsi, os);
             }
-            stool::sequence::DynamicBitSequence spsi2;
+            stool::bptree::DynamicBitSequence spsi2;
 
             {
                 std::ifstream ifs;
@@ -290,7 +290,7 @@ namespace stool
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = stool::sequence::DynamicBitSequence::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicBitSequence::build_from_data(ifs);
                 spsi2.swap(tmp);
 
             }
