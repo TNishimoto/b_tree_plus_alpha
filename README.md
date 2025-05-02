@@ -1,25 +1,34 @@
 # B-tree_plus_alpha
 
-This repository implements various dynamic data structures using B-trees. 
+This repository implements the following five dynamic data structures using B-trees:
 
-For now, this repository is being used as a personal library. Therefore, detailed documentation has not yet been created.
-I will provide more detailed documentation shortly.
+- A dynamic prefix-sum data structure for a sequence of non-negative integers
+- A dynamic bit-vector supporting access, rank, and select queries
+- A dynamic data structure supporting access queries on a sequence of non-negative integers
+- A dynamic wavelet tree for strings
+- A dynamic data structure supporting access queries on a permutation
 
 ## Download
-The source codes in 'module' directory are maintained in different repositories. 
-So, to download all the necessary source codes, do the following:
+The source code in the **modules** directory is maintained in separate repositories.
+To download all the required source code, follow the steps below:
 
 > git clone https://github.com/TNishimoto/b_tree_plus_alpha.git  
 > cd b_tree_plus_alpha  
 > git submodule init  
 > git submodule update  
 
+## Compile
+
+B-tree_plus_alpha is a header-only library.
+To use this library, (i) include the **include/b_tree_plus_alpha.hpp** file, and (ii) add the **modules** directory to the include path.
+The examples directory contains a **CMakeLists.txt** file for compiling example programs.
+
 ## Dynamic Data Structures
 
 ### DynamicPrefixSum class
 
-[DynamicPrefixSum](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/dynamic_prefix_sum.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a non-negative integer sequence. 
-This class is implemented using the technique in Section 2.2 of [this paper](https://doi.org/10.1016/j.jda.2018.11.002).
+[DynamicPrefixSum](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/dynamic_prefix_sum.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a sequence of non-negative integers. 
+This class is implemented based on the technique described in Section 2.2 of [this paper](https://doi.org/10.1016/j.jda.2018.11.002).
 
 #### Table for update operations and queries
 
@@ -42,8 +51,8 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 
 #### Example
 
-An example of DynamicPrefixSum is described in [dynamic_prefix_sum_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_prefix_sum_example.cpp).  
-The following message is displayed when this example is executed.  
+An example usage of DynamicPrefixSum is provided in [dynamic_prefix_sum_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_prefix_sum_example.cpp).
+When this example is executed, the following message is displayed:
 
 > ./dynamic_prefix_sum_example.out  
 >  
@@ -101,8 +110,8 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 
 #### Example
 
-An example of DynamicBitSequence is described in [dynamic_bit_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_bit_example.cpp).  
-The following message is displayed when this example is executed.  
+An example usage of DynamicBitSequence is provided in [dynamic_bit_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_bit_example.cpp).
+When this example is executed, the following message is displayed:
 
 > ./dynamic_bit_example.out  
 >  
@@ -154,8 +163,8 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 
 #### Example
 
-An example of DynamicSequence64 is described in [dynamic_sequence_64_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_sequence_64_example.cpp).  
-The following message is displayed when this example is executed.  
+An example usage of DynamicSequence64 is provided in [dynamic_sequence_64_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_sequence_64_example.cpp).  
+When this example is executed, the following message is displayed:
 
 > ./dynamic_sequence_64_example.out  
 > 
@@ -201,8 +210,8 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 
 #### Example
 
-An example of DynamicWaveletTree is described in [dynamic_wavelet_tree_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_wavelet_tree_example.cpp).  
-The following message is displayed when this example is executed.  
+An example usage of DynamicWaveletTree is provided in [dynamic_wavelet_tree_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_wavelet_tree_example.cpp).  
+When this example is executed, the following message is displayed:
 
 > ./dynamic_wavelet_tree_example.out  
 >  
@@ -249,8 +258,8 @@ See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/includ
 
 #### Example
 
-An example of DynamicPermutation is described in [dynamic_permutation_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_permutation_example.cpp).  
-The following message is displayed when this example is executed.  
+An example usage of DynamicPermutation is provided in [dynamic_permutation_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_permutation_example.cpp).  
+When this example is executed, the following message is displayed:
 
 > ./dynamic_permutation_example.out  
 >  
