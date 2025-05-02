@@ -104,10 +104,10 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span>stool</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>permutation</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>bptree</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    {</div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classstool_1_1permutation_1_1_dynamic_permutation_builder.html">   13</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1permutation_1_1_dynamic_permutation_builder.html">DynamicPermutationBuilder</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classstool_1_1bptree_1_1_dynamic_permutation_builder.html">   13</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_permutation_builder.html">DynamicPermutationBuilder</a></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keyword">using </span><a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_postorder_iterator.html">PostorderIterator</a> = <a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_postorder_iterator.html">DynamicPermutation::Tree::PostorderIterator</a>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="comment">// PostorderIterator postorder_iterator_beg;</span></div>
@@ -115,13 +115,13 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            int64_t i;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            int64_t j;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            int64_t inverse_leaf_index;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1permutation_1_1_dynamic_permutation.html">DynamicPermutation</a> *dp;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_permutation.html">DynamicPermutation</a> *dp;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_tree.html">DynamicPermutation::Tree</a> *pi_tree;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_tree.html">DynamicPermutation::Tree</a> *inverse_pi_tree;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            std::unordered_map&lt;uint64_t, uint64_t&gt; mapper;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordtype">void</span> initialize(<a class="code hl_class" href="classstool_1_1permutation_1_1_dynamic_permutation.html">DynamicPermutation</a> &amp;perm, uint64_t pi_vector_size, uint64_t degree)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordtype">void</span> initialize(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_permutation.html">DynamicPermutation</a> &amp;perm, uint64_t pi_vector_size, uint64_t degree)</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_tree.html">DynamicPermutation::Tree</a>&amp; pi_tree = perm.get_pi_tree();</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_b_p_tree.html">DynamicPermutation::Tree</a>&amp; inverse_pi_tree = perm.get_inverse_pi_tree();</div>
@@ -131,7 +131,7 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                pi_tree.set_linked_tree(<span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                inverse_pi_tree.set_linked_tree(<span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <a class="code hl_class" href="structstool_1_1permutation_1_1_permutation_item.html">PermutationItem</a> default_item;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <a class="code hl_class" href="structstool_1_1bptree_1_1_permutation_item.html">PermutationItem</a> default_item;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                default_item.key = 0;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                default_item.pointer = 0;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                pi_tree.resize(pi_vector_size, default_item);</div>
@@ -170,7 +170,7 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                uint64_t idx = this-&gt;pi_tree-&gt;compute_path_from_root_to_leaf(inverse_pi_value);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keyword">const</span> <span class="keyword">auto</span> &amp;path = this-&gt;pi_tree-&gt;get_temporary_path();</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                uint64_t pi_leaf_idx = path[path.size() - 1].get_leaf_container_index();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <a class="code hl_class" href="classstool_1_1permutation_1_1_permutation_container.html">PermutationContainer</a> &amp;pi_leaf = this-&gt;pi_tree-&gt;get_leaf_container(pi_leaf_idx);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_permutation_container.html">PermutationContainer</a> &amp;pi_leaf = this-&gt;pi_tree-&gt;get_leaf_container(pi_leaf_idx);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keyword">auto</span> f = mapper.find(pi_leaf_idx);</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">if</span> (f == mapper.end())</div>
@@ -178,10 +178,10 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    mapper[pi_leaf_idx] = 0;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                }</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                uint64_t key = mapper[pi_leaf_idx];</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <a class="code hl_class" href="classstool_1_1permutation_1_1_permutation_container.html">PermutationContainer</a> &amp;inv_leaf = this-&gt;inverse_pi_tree-&gt;get_leaf_container(this-&gt;inverse_leaf_index);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_permutation_container.html">PermutationContainer</a> &amp;inv_leaf = this-&gt;inverse_pi_tree-&gt;get_leaf_container(this-&gt;inverse_leaf_index);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                pi_leaf.set_value(idx, <a class="code hl_class" href="structstool_1_1permutation_1_1_permutation_item.html">PermutationItem</a>(this-&gt;inverse_leaf_index, key));</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                inv_leaf.set_value(this-&gt;j, <a class="code hl_class" href="structstool_1_1permutation_1_1_permutation_item.html">PermutationItem</a>(pi_leaf_idx, key));</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                pi_leaf.set_value(idx, <a class="code hl_class" href="structstool_1_1bptree_1_1_permutation_item.html">PermutationItem</a>(this-&gt;inverse_leaf_index, key));</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                inv_leaf.set_value(this-&gt;j, <a class="code hl_class" href="structstool_1_1bptree_1_1_permutation_item.html">PermutationItem</a>(pi_leaf_idx, key));</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                mapper[pi_leaf_idx] = key + 1;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                this-&gt;i++;</div>
@@ -202,10 +202,10 @@ $(function(){initNavTree('dynamic__permutation__builder_8hpp_source.html',''); i
 <div class="ttc" id="aclassstool_1_1bptree_1_1_b_p_postorder_iterator_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_b_p_postorder_iterator.html">stool::bptree::BPPostorderIterator</a></div><div class="ttdoc">The iterator of a post-order traversal on BPTree.</div><div class="ttdef"><b>Definition</b> bp_postorder_iterator.hpp:14</div></div>
 <div class="ttc" id="aclassstool_1_1bptree_1_1_b_p_tree_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_b_p_tree.html">stool::bptree::BPTree&lt; PermutationContainer, PermutationItem, true, false &gt;</a></div></div>
 <div class="ttc" id="aclassstool_1_1bptree_1_1_b_p_tree_html_ab5df1410b475a374697c1022ccba9257"><div class="ttname"><a href="classstool_1_1bptree_1_1_b_p_tree.html#ab5df1410b475a374697c1022ccba9257">stool::bptree::BPTree::size</a></div><div class="ttdeci">uint64_t size() const</div><div class="ttdoc">Return the number of values stored in this tree.</div><div class="ttdef"><b>Definition</b> bp_tree.hpp:261</div></div>
-<div class="ttc" id="aclassstool_1_1permutation_1_1_dynamic_permutation_builder_html"><div class="ttname"><a href="classstool_1_1permutation_1_1_dynamic_permutation_builder.html">stool::permutation::DynamicPermutationBuilder</a></div><div class="ttdoc">A builder of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> dynamic_permutation_builder.hpp:14</div></div>
-<div class="ttc" id="aclassstool_1_1permutation_1_1_dynamic_permutation_html"><div class="ttname"><a href="classstool_1_1permutation_1_1_dynamic_permutation.html">stool::permutation::DynamicPermutation</a></div><div class="ttdoc">A dynamic data structure storing a permutation.</div><div class="ttdef"><b>Definition</b> dynamic_permutation.hpp:14</div></div>
-<div class="ttc" id="aclassstool_1_1permutation_1_1_permutation_container_html"><div class="ttname"><a href="classstool_1_1permutation_1_1_permutation_container.html">stool::permutation::PermutationContainer</a></div><div class="ttdoc">The container stored in the BPTree of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> permutation_container.hpp:14</div></div>
-<div class="ttc" id="astructstool_1_1permutation_1_1_permutation_item_html"><div class="ttname"><a href="structstool_1_1permutation_1_1_permutation_item.html">stool::permutation::PermutationItem</a></div><div class="ttdoc">The value stored in the BPTree of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> permutation_item.hpp:15</div></div>
+<div class="ttc" id="aclassstool_1_1bptree_1_1_dynamic_permutation_builder_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_dynamic_permutation_builder.html">stool::bptree::DynamicPermutationBuilder</a></div><div class="ttdoc">A builder of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> dynamic_permutation_builder.hpp:14</div></div>
+<div class="ttc" id="aclassstool_1_1bptree_1_1_dynamic_permutation_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_dynamic_permutation.html">stool::bptree::DynamicPermutation</a></div><div class="ttdoc">A dynamic data structure storing a permutation.</div><div class="ttdef"><b>Definition</b> dynamic_permutation.hpp:14</div></div>
+<div class="ttc" id="aclassstool_1_1bptree_1_1_permutation_container_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_permutation_container.html">stool::bptree::PermutationContainer</a></div><div class="ttdoc">The container stored in the BPTree of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> permutation_container.hpp:14</div></div>
+<div class="ttc" id="astructstool_1_1bptree_1_1_permutation_item_html"><div class="ttname"><a href="structstool_1_1bptree_1_1_permutation_item.html">stool::bptree::PermutationItem</a></div><div class="ttdoc">The value stored in the BPTree of DynamicPermutation.</div><div class="ttdef"><b>Definition</b> permutation_item.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

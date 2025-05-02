@@ -104,11 +104,11 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span>stool</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>sequence</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>bptree</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="comment">// template &lt;typename LEAF_CONTAINER, typename T&gt;</span></div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">    9</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">    9</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            std::vector&lt;std::vector&lt;DynamicBitSequence&gt;&gt; bits_seq;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            std::vector&lt;int64_t&gt; char_rank_vec;</div>
@@ -116,21 +116,21 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            uint64_t rank_bit_size = 0;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>()</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>()</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                this-&gt;alphabet.clear();</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            };</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_alphabet)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_alphabet)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                this-&gt;set_alphabet(_alphabet);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            };</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">~DynamicWaveletTree</a>()</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">~DynamicWaveletTree</a>()</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                this-&gt;initialize();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            };</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a>(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordtype">void</span> build_bits(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_text, uint64_t h, uint64_t i)</div>
@@ -156,7 +156,7 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                        bits0_count++;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                    }</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> dbs = DynamicBitSequence::build(bits);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> dbs = DynamicBitSequence::build(bits);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                this-&gt;bits_seq[h][i].swap(dbs);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">if</span> (h + 1 &lt; rank_bit_size)</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                {</div>
@@ -197,14 +197,14 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_text, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_alphabet)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_text, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;_alphabet)</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> dwt(_alphabet);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> dwt(_alphabet);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                dwt.build_bits(_text, 0, 0);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keywordflow">return</span> dwt;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            }</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;item)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;item)</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            {</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                this-&gt;bits_seq.swap(item.bits_seq);</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
@@ -252,14 +252,14 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                    this-&gt;bits_seq.push_back(std::vector&lt;DynamicBitSequence&gt;());</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                    <span class="keywordflow">if</span> (i == 0)</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                        this-&gt;bits_seq[i].push_back(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a>());</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                        this-&gt;bits_seq[i].push_back(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a>());</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                    }</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                    {</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                        uint64_t x = 1ULL &lt;&lt; i;</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                        <span class="keywordflow">for</span> (uint64_t j = 0; j &lt; x; j++)</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                        {</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                            this-&gt;bits_seq[i].push_back(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a>());</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                            this-&gt;bits_seq[i].push_back(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a>());</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                        }</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                    }</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                }</div>
@@ -640,7 +640,7 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>                }</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>            }</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;item, std::ofstream &amp;os)</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> &amp;item, std::ofstream &amp;os)</div>
 <div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>            {</div>
 <div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>                uint64_t alphabet_size = item.alphabet.size();</div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>                os.write(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;alphabet_size), <span class="keyword">sizeof</span>(uint64_t));</div>
@@ -654,9 +654,9 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>                    }</div>
 <div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>                }</div>
 <div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>            }</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> build_from_data(std::ifstream &amp;ifs)</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> build_from_data(std::ifstream &amp;ifs)</div>
 <div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>            {</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>                <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> r;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>                <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">DynamicWaveletTree</a> r;</div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                uint64_t _alphabet_size = 0;</div>
 <div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                ifs.read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;_alphabet_size), <span class="keyword">sizeof</span>(uint64_t));</div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
@@ -681,7 +681,7 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>                uint64_t total_size_in_bytes = 0;</div>
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                <span class="keywordflow">for</span> (uint64_t h = 0; h &lt; this-&gt;bits_seq.size(); h++)</div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>                {</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> &amp;seq : this-&gt;bits_seq[h])</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> &amp;seq : this-&gt;bits_seq[h])</div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>                    {</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>                        total_size_in_bytes += seq.size_in_bytes();</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>                    }</div>
@@ -703,7 +703,7 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                uint64_t counter = 0;</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                <span class="keywordflow">for</span> (uint64_t h = 0; h &lt; this-&gt;bits_seq.size(); h++)</div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                {</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> &amp;seq : this-&gt;bits_seq[h])</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">DynamicBitSequence</a> &amp;seq : this-&gt;bits_seq[h])</div>
 <div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>                    {</div>
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                        <span class="keywordflow">if</span> (counter &lt; 5)</div>
 <div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                        {</div>
@@ -746,8 +746,8 @@ $(function(){initNavTree('dynamic__wavelet__tree_8hpp_source.html',''); initResi
 <div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    }</div>
 <div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span> </div>
 <div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>}</div>
-<div class="ttc" id="aclassstool_1_1sequence_1_1_dynamic_bit_sequence_html"><div class="ttname"><a href="classstool_1_1sequence_1_1_dynamic_bit_sequence.html">stool::sequence::DynamicBitSequence</a></div><div class="ttdef"><b>Definition</b> dynamic_bit_sequence.hpp:12</div></div>
-<div class="ttc" id="aclassstool_1_1sequence_1_1_dynamic_wavelet_tree_html"><div class="ttname"><a href="classstool_1_1sequence_1_1_dynamic_wavelet_tree.html">stool::sequence::DynamicWaveletTree</a></div><div class="ttdef"><b>Definition</b> dynamic_wavelet_tree.hpp:10</div></div>
+<div class="ttc" id="aclassstool_1_1bptree_1_1_dynamic_bit_sequence_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_dynamic_bit_sequence.html">stool::bptree::DynamicBitSequence</a></div><div class="ttdef"><b>Definition</b> dynamic_bit_sequence.hpp:12</div></div>
+<div class="ttc" id="aclassstool_1_1bptree_1_1_dynamic_wavelet_tree_html"><div class="ttname"><a href="classstool_1_1bptree_1_1_dynamic_wavelet_tree.html">stool::bptree::DynamicWaveletTree</a></div><div class="ttdef"><b>Definition</b> dynamic_wavelet_tree.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
