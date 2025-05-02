@@ -4,39 +4,37 @@ int main(int argc, char *argv[])
 {
 
 
-    std::vector<uint64_t> values = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    std::vector<uint64_t> values = {0, 3, 1, 2, 5, 4, 9, 8, 7, 6};
 
-    std::cout << "Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" << std::endl;
-    stool::bptree::DynamicSequence64 S = stool::bptree::DynamicSequence64::build(values);
+    std::cout << "Build DynamicPermutation S from permutation [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]" << std::endl;
+    stool::bptree::DynamicPermutation S; 
+    S.build(values.begin(), values.end(), values.size());
     std::cout << "Print the integers stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
+    std::cout << "S[3] = " << S.access(3) << std::endl;
+    std::cout << "S^{-1}[3] = " << S.inverse(3) << std::endl;
 
-    std::cout << "Insert 1 into S at position 4" << std::endl;
-    S.insert(4, 1);
+    
+    std::cout << "Insert 2 into S at position 1" << std::endl;
+    S.insert(1, 2);
     std::cout << "S = " << S.to_string() << std::endl;
 
     std::cout << "Delete S[4] from S" << std::endl;
-    S.remove(4);
+    S.erase(4);
     std::cout << "S = " << S.to_string() << std::endl;
 
-    std::cout << "Add 0 to the tail of S" << std::endl;
-    S.push_back(0);
-    std::cout << "Add 1 to the head of S" << std::endl;
-    S.push_front(1);
+    std::cout << "Move S[1] in S to position 0" << std::endl;
+    S.move_pi_index(1, 0);
     std::cout << "S = " << S.to_string() << std::endl;
 
     
-    std::cout << "Add 1, 2, 3, 4 to the tail of S" << std::endl;
-    std::vector<uint64_t> values2 = {1, 2, 3, 4};
-    S.push_many(values2);
-    std::cout << "S = " << S.to_string() << std::endl;
-    
+ 
 
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::DynamicSequence64::save(S, ofs);
+        stool::bptree::DynamicPermutation::save(S, ofs);
         ofs.close();
     }
 
@@ -47,7 +45,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::DynamicSequence64 tmp = stool::bptree::DynamicSequence64::build_from_data(ifs);
+        stool::bptree::DynamicPermutation tmp = stool::bptree::DynamicPermutation::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }

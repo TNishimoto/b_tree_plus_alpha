@@ -244,8 +244,35 @@ The following message is displayed when this example is executed.
 | Query            | S.access(i)           | O(log n) time           | Return S[i]                                          |
 |                  | S.inverse(i)          | O(log n) time           | Return the index j that satisfies S[j] = i           |
 
-Here, S is a permutation of n integers 0, 1, ..., n-1 stored in DynamicWaveletTree.  
-See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/dynamic_permutation.hpp) for the member functions supported by DynamicWaveletTree.
+Here, S is a permutation of n integers 0, 1, ..., n-1 stored in DynamicPermutation.  
+See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/dynamic_permutation.hpp) for the member functions supported by DynamicPermutation.
+
+#### Example
+
+An example of DynamicPermutation is described in [dynamic_permutation_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_permutation_example.cpp).  
+The following message is displayed when this example is executed.  
+
+> ./dynamic_permutation_example.out  
+>  
+> Build DynamicPermutation S from permutation [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
+> Constructing Dynamic Permutation... (input size = 10)  
+>   Processing... [0KB]   
+> [END], the number of nodes = 1, Elapsed Time: 0 sec (0 ms/MB)  
+> Print the integers stored in S  
+> S = [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
+> S[3] = 2  
+> S^{-1}[3] = 1  
+> Insert 2 into S at position 1  
+> S = [0, 2, 4, 1, 3, 6, 5, 10, 9, 8, 7]  
+> Delete S[4] from S  
+> S = [0, 2, 3, 1, 5, 4, 9, 8, 7, 6]  
+> Move S[1] in S to position 0  
+> S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
+> Write S to S.bin  
+> Remove all values from S  
+> S = []  
+> Read S from S.bin  
+> S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
 
 
 ## API Documentation (in preparation)

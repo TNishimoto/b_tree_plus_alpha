@@ -341,6 +341,14 @@ namespace stool
 
                 return this->pi_tree.get_value_index(item.pointer, idx2);
             }
+            std::string to_string() const
+            {
+                std::stringstream ss;
+                auto vec = this->get_pi_vector();
+                ss << stool::DebugPrinter::to_integer_string(vec);
+                return ss.str();
+            }
+
             std::vector<uint64_t> get_pi_vector() const
             {
                 std::vector<uint64_t> r;
