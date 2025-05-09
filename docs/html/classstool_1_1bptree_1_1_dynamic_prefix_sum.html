@@ -99,11 +99,15 @@ $(function(){initNavTree('classstool_1_1bptree_1_1_dynamic_prefix_sum.html','');
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classstool_1_1bptree_1_1_dynamic_prefix_sum-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">stool::bptree::DynamicPrefixSum&lt; LEAF_CONTAINER &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A dynamic data structure supporting prefix-sum query.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="dynamic__prefix__sum_8hpp_source.html">dynamic_prefix_sum.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -116,15 +120,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Tree</b> = <a class=
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab8d6d63b0a2c2e80492f345b45f6e535" id="r_ab8d6d63b0a2c2e80492f345b45f6e535"><td class="memItemLeft" align="right" valign="top"><a id="ab8d6d63b0a2c2e80492f345b45f6e535" name="ab8d6d63b0a2c2e80492f345b45f6e535"></a>
-<a class="el" href="classstool_1_1bptree_1_1_b_p_value_forward_iterator.html">Tree::ValueForwardIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const</td></tr>
-<tr class="separator:ab8d6d63b0a2c2e80492f345b45f6e535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8944398f5522364e6b534c234bfd537" id="r_ad8944398f5522364e6b534c234bfd537"><td class="memItemLeft" align="right" valign="top"><a id="ad8944398f5522364e6b534c234bfd537" name="ad8944398f5522364e6b534c234bfd537"></a>
-<a class="el" href="classstool_1_1bptree_1_1_b_p_value_forward_iterator.html">Tree::ValueForwardIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const</td></tr>
-<tr class="separator:ad8944398f5522364e6b534c234bfd537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a602f3dac7990ed776065ed8602c19af8" id="r_a602f3dac7990ed776065ed8602c19af8"><td class="memItemLeft" align="right" valign="top"><a id="a602f3dac7990ed776065ed8602c19af8" name="a602f3dac7990ed776065ed8602c19af8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item)</td></tr>
-<tr class="separator:a602f3dac7990ed776065ed8602c19af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac59a82524a401a5313a1d560ee7b7e71" id="r_ac59a82524a401a5313a1d560ee7b7e71"><td class="memItemLeft" align="right" valign="top"><a id="ac59a82524a401a5313a1d560ee7b7e71" name="ac59a82524a401a5313a1d560ee7b7e71"></a>
 <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;)=delete</td></tr>
 <tr class="separator:ac59a82524a401a5313a1d560ee7b7e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,24 +129,91 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="e
 <tr class="memitem:a4565541505b660ee3eabc3fc6e55e64d" id="r_a4565541505b660ee3eabc3fc6e55e64d"><td class="memItemLeft" align="right" valign="top"><a id="a4565541505b660ee3eabc3fc6e55e64d" name="a4565541505b660ee3eabc3fc6e55e64d"></a>
 <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a4565541505b660ee3eabc3fc6e55e64d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a9e54bc226b81c798fb5b397398ca34" id="r_a5a9e54bc226b81c798fb5b397398ca34"><td class="memItemLeft" align="right" valign="top"><a id="a5a9e54bc226b81c798fb5b397398ca34" name="a5a9e54bc226b81c798fb5b397398ca34"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_degree</b> (uint64_t degree)</td></tr>
-<tr class="separator:a5a9e54bc226b81c798fb5b397398ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Iterators</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The iterators supported this data structure. </p>
+</div></td></tr>
+<tr class="memitem:ab8d6d63b0a2c2e80492f345b45f6e535" id="r_ab8d6d63b0a2c2e80492f345b45f6e535"><td class="memItemLeft" align="right" valign="top"><a id="ab8d6d63b0a2c2e80492f345b45f6e535" name="ab8d6d63b0a2c2e80492f345b45f6e535"></a>
+<a class="el" href="classstool_1_1bptree_1_1_b_p_value_forward_iterator.html">Tree::ValueForwardIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const</td></tr>
+<tr class="separator:ab8d6d63b0a2c2e80492f345b45f6e535"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8944398f5522364e6b534c234bfd537" id="r_ad8944398f5522364e6b534c234bfd537"><td class="memItemLeft" align="right" valign="top"><a id="ad8944398f5522364e6b534c234bfd537" name="ad8944398f5522364e6b534c234bfd537"></a>
+<a class="el" href="classstool_1_1bptree_1_1_b_p_value_forward_iterator.html">Tree::ValueForwardIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const</td></tr>
+<tr class="separator:ad8944398f5522364e6b534c234bfd537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Properties</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The properties of this class. </p>
+</div></td></tr>
+<tr class="memitem:a96e0e94ced27a0c64a1739da09ef251f" id="r_a96e0e94ced27a0c64a1739da09ef251f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstool_1_1bptree_1_1_b_p_tree.html">Tree</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96e0e94ced27a0c64a1739da09ef251f">__get_tree</a> ()</td></tr>
+<tr class="memdesc:a96e0e94ced27a0c64a1739da09ef251f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal tree of this data structure.  <br /></td></tr>
+<tr class="separator:a96e0e94ced27a0c64a1739da09ef251f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf20a29c1872734766511fb6f0864886" id="r_adf20a29c1872734766511fb6f0864886"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf20a29c1872734766511fb6f0864886">get_degree</a> () const</td></tr>
+<tr class="memdesc:adf20a29c1872734766511fb6f0864886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the maximum degree of internal nodes of the internal tree of this data structure.  <br /></td></tr>
+<tr class="separator:adf20a29c1872734766511fb6f0864886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a799d4a9f001889d05184f624a0d87d9b" id="r_a799d4a9f001889d05184f624a0d87d9b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a799d4a9f001889d05184f624a0d87d9b">size</a> () const</td></tr>
+<tr class="memdesc:a799d4a9f001889d05184f624a0d87d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of elements stored in this data structure.  <br /></td></tr>
+<tr class="separator:a799d4a9f001889d05184f624a0d87d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4b12ee86613334e18b6dd1174051da" id="r_a9a4b12ee86613334e18b6dd1174051da"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a4b12ee86613334e18b6dd1174051da">at</a> (uint64_t pos) const</td></tr>
+<tr class="memdesc:a9a4b12ee86613334e18b6dd1174051da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the element at the given position.  <br /></td></tr>
+<tr class="separator:a9a4b12ee86613334e18b6dd1174051da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c49c44b06e57ab0ab3320c21549d4dd" id="r_a5c49c44b06e57ab0ab3320c21549d4dd"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c49c44b06e57ab0ab3320c21549d4dd">size_in_bytes</a> () const</td></tr>
+<tr class="memdesc:a5c49c44b06e57ab0ab3320c21549d4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the size of this data structure in bytes.  <br /></td></tr>
+<tr class="separator:a5c49c44b06e57ab0ab3320c21549d4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Conversion functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The conversion functions supported this data structure. </p>
+</div></td></tr>
+<tr class="memitem:a3886c67179116a2509ed3d6d8f82d43a" id="r_a3886c67179116a2509ed3d6d8f82d43a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3886c67179116a2509ed3d6d8f82d43a">to_vector</a> () const</td></tr>
+<tr class="memdesc:a3886c67179116a2509ed3d6d8f82d43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the elements stored in this data structure as a vector.  <br /></td></tr>
+<tr class="separator:a3886c67179116a2509ed3d6d8f82d43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdbf913eafc509e36278bf88e2b93d4a" id="r_abdbf913eafc509e36278bf88e2b93d4a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdbf913eafc509e36278bf88e2b93d4a">to_u8_vector</a> () const</td></tr>
+<tr class="memdesc:abdbf913eafc509e36278bf88e2b93d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the elements stored in this data structure as a vector of uint8_t.  <br /></td></tr>
+<tr class="separator:abdbf913eafc509e36278bf88e2b93d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e39cf1545274ea7e04a6447475af6e3" id="r_a8e39cf1545274ea7e04a6447475af6e3"><td class="memItemLeft" align="right" valign="top"><a id="a8e39cf1545274ea7e04a6447475af6e3" name="a8e39cf1545274ea7e04a6447475af6e3"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>to_string</b> () const</td></tr>
+<tr class="separator:a8e39cf1545274ea7e04a6447475af6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Queries</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>The queries supported this data structure. </p>
+</td></tr>
+<tr class="memitem:a9c84d237f1febf752a3e451ff6c1e3d5" id="r_a9c84d237f1febf752a3e451ff6c1e3d5"><td class="memItemLeft" align="right" valign="top"><a id="a9c84d237f1febf752a3e451ff6c1e3d5" name="a9c84d237f1febf752a3e451ff6c1e3d5"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>psum</b> (uint64_t i) const</td></tr>
+<tr class="memdesc:a9c84d237f1febf752a3e451ff6c1e3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the sum of the first i values stored in this data structure. <br /></td></tr>
+<tr class="separator:a9c84d237f1febf752a3e451ff6c1e3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e635bcc1051ea4b7a10b6ba2167cac8" id="r_a8e635bcc1051ea4b7a10b6ba2167cac8"><td class="memItemLeft" align="right" valign="top"><a id="a8e635bcc1051ea4b7a10b6ba2167cac8" name="a8e635bcc1051ea4b7a10b6ba2167cac8"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>psum</b> () const</td></tr>
+<tr class="memdesc:a8e635bcc1051ea4b7a10b6ba2167cac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the sum of the stored values. <br /></td></tr>
+<tr class="separator:a8e635bcc1051ea4b7a10b6ba2167cac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc0f5f0a712f4eab631ba0a7ac699245" id="r_acc0f5f0a712f4eab631ba0a7ac699245"><td class="memItemLeft" align="right" valign="top"><a id="acc0f5f0a712f4eab631ba0a7ac699245" name="acc0f5f0a712f4eab631ba0a7ac699245"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>search</b> (uint64_t x) const</td></tr>
+<tr class="memdesc:acc0f5f0a712f4eab631ba0a7ac699245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the smallest i such that psum(i) &gt;= x. <br /></td></tr>
+<tr class="separator:acc0f5f0a712f4eab631ba0a7ac699245"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d2be19ad09f0246732ba1d485585ca8" id="r_a4d2be19ad09f0246732ba1d485585ca8"><td class="memItemLeft" align="right" valign="top"><a id="a4d2be19ad09f0246732ba1d485585ca8" name="a4d2be19ad09f0246732ba1d485585ca8"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>predecessor_index</b> (uint64_t value) const</td></tr>
+<tr class="separator:a4d2be19ad09f0246732ba1d485585ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1152fcf0abb22bdcb827781640a3be49" id="r_a1152fcf0abb22bdcb827781640a3be49"><td class="memItemLeft" align="right" valign="top"><a id="a1152fcf0abb22bdcb827781640a3be49" name="a1152fcf0abb22bdcb827781640a3be49"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>successor_index</b> (uint64_t value) const</td></tr>
+<tr class="separator:a1152fcf0abb22bdcb827781640a3be49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d54268b98468fd0a867dd1acdb8f0a4" id="r_a4d54268b98468fd0a867dd1acdb8f0a4"><td class="memItemLeft" align="right" valign="top"><a id="a4d54268b98468fd0a867dd1acdb8f0a4" name="a4d54268b98468fd0a867dd1acdb8f0a4"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (uint64_t n) const</td></tr>
+<tr class="separator:a4d54268b98468fd0a867dd1acdb8f0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aa6730917d65fc6e01e7424dba5e448" id="r_a5aa6730917d65fc6e01e7424dba5e448"><td class="memItemLeft" align="right" valign="top"><a id="a5aa6730917d65fc6e01e7424dba5e448" name="a5aa6730917d65fc6e01e7424dba5e448"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item, std::vector&lt; uint8_t &gt; &amp;output, uint64_t &amp;pos)</td></tr>
+<tr class="separator:a5aa6730917d65fc6e01e7424dba5e448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd0f01efd38ff127d0edfb39d242b4e1" id="r_abd0f01efd38ff127d0edfb39d242b4e1"><td class="memItemLeft" align="right" valign="top"><a id="abd0f01efd38ff127d0edfb39d242b4e1" name="abd0f01efd38ff127d0edfb39d242b4e1"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item, std::ofstream &amp;os)</td></tr>
+<tr class="separator:abd0f01efd38ff127d0edfb39d242b4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Update operations</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>The update operations supported this data structure. </p>
+</td></tr>
+<tr class="memitem:a602f3dac7990ed776065ed8602c19af8" id="r_a602f3dac7990ed776065ed8602c19af8"><td class="memItemLeft" align="right" valign="top"><a id="a602f3dac7990ed776065ed8602c19af8" name="a602f3dac7990ed776065ed8602c19af8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item)</td></tr>
+<tr class="separator:a602f3dac7990ed776065ed8602c19af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a679dcfe18273cca15fe09c0c100ea179" id="r_a679dcfe18273cca15fe09c0c100ea179"><td class="memItemLeft" align="right" valign="top"><a id="a679dcfe18273cca15fe09c0c100ea179" name="a679dcfe18273cca15fe09c0c100ea179"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
+<tr class="memdesc:a679dcfe18273cca15fe09c0c100ea179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the elements stored in this data structure. <br /></td></tr>
 <tr class="separator:a679dcfe18273cca15fe09c0c100ea179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6e795b84b182265abb731a3ca417eb7" id="r_ae6e795b84b182265abb731a3ca417eb7"><td class="memItemLeft" align="right" valign="top"><a id="ae6e795b84b182265abb731a3ca417eb7" name="ae6e795b84b182265abb731a3ca417eb7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>verify</b> () const</td></tr>
+<tr class="memdesc:ae6e795b84b182265abb731a3ca417eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the internal consistency of this data structure. <br /></td></tr>
 <tr class="separator:ae6e795b84b182265abb731a3ca417eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0e63678b5a6fd4741322357930815f5" id="r_ab0e63678b5a6fd4741322357930815f5"><td class="memItemLeft" align="right" valign="top"><a id="ab0e63678b5a6fd4741322357930815f5" name="ab0e63678b5a6fd4741322357930815f5"></a>
-<a class="el" href="classstool_1_1bptree_1_1_b_p_tree.html">Tree</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_tree</b> ()</td></tr>
-<tr class="separator:ab0e63678b5a6fd4741322357930815f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf20a29c1872734766511fb6f0864886" id="r_adf20a29c1872734766511fb6f0864886"><td class="memItemLeft" align="right" valign="top"><a id="adf20a29c1872734766511fb6f0864886" name="adf20a29c1872734766511fb6f0864886"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>get_degree</b> () const</td></tr>
-<tr class="separator:adf20a29c1872734766511fb6f0864886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a799d4a9f001889d05184f624a0d87d9b" id="r_a799d4a9f001889d05184f624a0d87d9b"><td class="memItemLeft" align="right" valign="top"><a id="a799d4a9f001889d05184f624a0d87d9b" name="a799d4a9f001889d05184f624a0d87d9b"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
-<tr class="separator:a799d4a9f001889d05184f624a0d87d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f9968976dbf24e15da996d60a7e326d" id="r_a8f9968976dbf24e15da996d60a7e326d"><td class="memItemLeft" align="right" valign="top"><a id="a8f9968976dbf24e15da996d60a7e326d" name="a8f9968976dbf24e15da996d60a7e326d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>push_back</b> (uint64_t value)</td></tr>
 <tr class="separator:a8f9968976dbf24e15da996d60a7e326d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,24 +226,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>insert</b> (uint64_t 
 <tr class="memitem:a4c029959c6065805e94b6ea56e527389" id="r_a4c029959c6065805e94b6ea56e527389"><td class="memItemLeft" align="right" valign="top"><a id="a4c029959c6065805e94b6ea56e527389" name="a4c029959c6065805e94b6ea56e527389"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (uint64_t pos)</td></tr>
 <tr class="separator:a4c029959c6065805e94b6ea56e527389"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3886c67179116a2509ed3d6d8f82d43a" id="r_a3886c67179116a2509ed3d6d8f82d43a"><td class="memItemLeft" align="right" valign="top"><a id="a3886c67179116a2509ed3d6d8f82d43a" name="a3886c67179116a2509ed3d6d8f82d43a"></a>
-std::vector&lt; uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>to_vector</b> () const</td></tr>
-<tr class="separator:a3886c67179116a2509ed3d6d8f82d43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdbf913eafc509e36278bf88e2b93d4a" id="r_abdbf913eafc509e36278bf88e2b93d4a"><td class="memItemLeft" align="right" valign="top"><a id="abdbf913eafc509e36278bf88e2b93d4a" name="abdbf913eafc509e36278bf88e2b93d4a"></a>
-std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>to_u8_vector</b> () const</td></tr>
-<tr class="separator:abdbf913eafc509e36278bf88e2b93d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c84d237f1febf752a3e451ff6c1e3d5" id="r_a9c84d237f1febf752a3e451ff6c1e3d5"><td class="memItemLeft" align="right" valign="top"><a id="a9c84d237f1febf752a3e451ff6c1e3d5" name="a9c84d237f1febf752a3e451ff6c1e3d5"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>psum</b> (uint64_t i) const</td></tr>
-<tr class="separator:a9c84d237f1febf752a3e451ff6c1e3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e635bcc1051ea4b7a10b6ba2167cac8" id="r_a8e635bcc1051ea4b7a10b6ba2167cac8"><td class="memItemLeft" align="right" valign="top"><a id="a8e635bcc1051ea4b7a10b6ba2167cac8" name="a8e635bcc1051ea4b7a10b6ba2167cac8"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>psum</b> () const</td></tr>
-<tr class="separator:a8e635bcc1051ea4b7a10b6ba2167cac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc0f5f0a712f4eab631ba0a7ac699245" id="r_acc0f5f0a712f4eab631ba0a7ac699245"><td class="memItemLeft" align="right" valign="top"><a id="acc0f5f0a712f4eab631ba0a7ac699245" name="acc0f5f0a712f4eab631ba0a7ac699245"></a>
-int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>search</b> (uint64_t x) const</td></tr>
-<tr class="separator:acc0f5f0a712f4eab631ba0a7ac699245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a4b12ee86613334e18b6dd1174051da" id="r_a9a4b12ee86613334e18b6dd1174051da"><td class="memItemLeft" align="right" valign="top"><a id="a9a4b12ee86613334e18b6dd1174051da" name="a9a4b12ee86613334e18b6dd1174051da"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>at</b> (uint64_t pos) const</td></tr>
-<tr class="separator:a9a4b12ee86613334e18b6dd1174051da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1454f34f2de98929401253a4048879a" id="r_aa1454f34f2de98929401253a4048879a"><td class="memItemLeft" align="right" valign="top"><a id="aa1454f34f2de98929401253a4048879a" name="aa1454f34f2de98929401253a4048879a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>increment</b> (uint64_t i, int64_t delta)</td></tr>
 <tr class="separator:aa1454f34f2de98929401253a4048879a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,15 +235,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>decrement</b> (uint64
 <tr class="memitem:a841f4d6c6f6ea47be9fc9eb5bcf170e8" id="r_a841f4d6c6f6ea47be9fc9eb5bcf170e8"><td class="memItemLeft" align="right" valign="top"><a id="a841f4d6c6f6ea47be9fc9eb5bcf170e8" name="a841f4d6c6f6ea47be9fc9eb5bcf170e8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>push_many</b> (const std::vector&lt; uint64_t &gt; &amp;items)</td></tr>
 <tr class="separator:a841f4d6c6f6ea47be9fc9eb5bcf170e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d2be19ad09f0246732ba1d485585ca8" id="r_a4d2be19ad09f0246732ba1d485585ca8"><td class="memItemLeft" align="right" valign="top"><a id="a4d2be19ad09f0246732ba1d485585ca8" name="a4d2be19ad09f0246732ba1d485585ca8"></a>
-int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>predecessor_index</b> (uint64_t value) const</td></tr>
-<tr class="separator:a4d2be19ad09f0246732ba1d485585ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1152fcf0abb22bdcb827781640a3be49" id="r_a1152fcf0abb22bdcb827781640a3be49"><td class="memItemLeft" align="right" valign="top"><a id="a1152fcf0abb22bdcb827781640a3be49" name="a1152fcf0abb22bdcb827781640a3be49"></a>
-int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>successor_index</b> (uint64_t value) const</td></tr>
-<tr class="separator:a1152fcf0abb22bdcb827781640a3be49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c49c44b06e57ab0ab3320c21549d4dd" id="r_a5c49c44b06e57ab0ab3320c21549d4dd"><td class="memItemLeft" align="right" valign="top"><a id="a5c49c44b06e57ab0ab3320c21549d4dd" name="a5c49c44b06e57ab0ab3320c21549d4dd"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>size_in_bytes</b> () const</td></tr>
-<tr class="separator:a5c49c44b06e57ab0ab3320c21549d4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9e54bc226b81c798fb5b397398ca34" id="r_a5a9e54bc226b81c798fb5b397398ca34"><td class="memItemLeft" align="right" valign="top"><a id="a5a9e54bc226b81c798fb5b397398ca34" name="a5a9e54bc226b81c798fb5b397398ca34"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_degree</b> (uint64_t degree)</td></tr>
+<tr class="separator:a5a9e54bc226b81c798fb5b397398ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af459a375a5a6b2739a16fa0341394b6d" id="r_af459a375a5a6b2739a16fa0341394b6d"><td class="memItemLeft" align="right" valign="top"><a id="af459a375a5a6b2739a16fa0341394b6d" name="af459a375a5a6b2739a16fa0341394b6d"></a>
+static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build</b> (const std::vector&lt; uint64_t &gt; &amp;items, uint64_t tree_degree=Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)</td></tr>
+<tr class="separator:af459a375a5a6b2739a16fa0341394b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc3f0d78594d27ef932af245fab8f950" id="r_acc3f0d78594d27ef932af245fab8f950"><td class="memItemLeft" align="right" valign="top"><a id="acc3f0d78594d27ef932af245fab8f950" name="acc3f0d78594d27ef932af245fab8f950"></a>
+static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build_from_data</b> (const std::vector&lt; uint8_t &gt; &amp;data, uint64_t &amp;pos)</td></tr>
+<tr class="separator:acc3f0d78594d27ef932af245fab8f950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79289c3771b4907e22c83da7655a9657" id="r_a79289c3771b4907e22c83da7655a9657"><td class="memItemLeft" align="right" valign="top"><a id="a79289c3771b4907e22c83da7655a9657" name="a79289c3771b4907e22c83da7655a9657"></a>
+static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build_from_data</b> (std::ifstream &amp;ifs)</td></tr>
+<tr class="separator:a79289c3771b4907e22c83da7655a9657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Print functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>The functions for printing messages. </p>
+</td></tr>
 <tr class="memitem:a0822ba7e0e1068e357918d62606a27de" id="r_a0822ba7e0e1068e357918d62606a27de"><td class="memItemLeft" align="right" valign="top"><a id="a0822ba7e0e1068e357918d62606a27de" name="a0822ba7e0e1068e357918d62606a27de"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_memory_usage_info</b> (int message_paragraph=stool::Message::SHOW_MESSAGE) const</td></tr>
 <tr class="separator:a0822ba7e0e1068e357918d62606a27de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,34 +260,274 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>print_memory_usage</b
 <tr class="memitem:aba9c898159f473258096c5c359299ea6" id="r_aba9c898159f473258096c5c359299ea6"><td class="memItemLeft" align="right" valign="top"><a id="aba9c898159f473258096c5c359299ea6" name="aba9c898159f473258096c5c359299ea6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_statistics</b> (int message_paragraph=stool::Message::SHOW_MESSAGE) const</td></tr>
 <tr class="separator:aba9c898159f473258096c5c359299ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d54268b98468fd0a867dd1acdb8f0a4" id="r_a4d54268b98468fd0a867dd1acdb8f0a4"><td class="memItemLeft" align="right" valign="top"><a id="a4d54268b98468fd0a867dd1acdb8f0a4" name="a4d54268b98468fd0a867dd1acdb8f0a4"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (uint64_t n) const</td></tr>
-<tr class="separator:a4d54268b98468fd0a867dd1acdb8f0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e39cf1545274ea7e04a6447475af6e3" id="r_a8e39cf1545274ea7e04a6447475af6e3"><td class="memItemLeft" align="right" valign="top"><a id="a8e39cf1545274ea7e04a6447475af6e3" name="a8e39cf1545274ea7e04a6447475af6e3"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>to_string</b> () const</td></tr>
-<tr class="separator:a8e39cf1545274ea7e04a6447475af6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af459a375a5a6b2739a16fa0341394b6d" id="r_af459a375a5a6b2739a16fa0341394b6d"><td class="memItemLeft" align="right" valign="top"><a id="af459a375a5a6b2739a16fa0341394b6d" name="af459a375a5a6b2739a16fa0341394b6d"></a>
-static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build</b> (const std::vector&lt; uint64_t &gt; &amp;items, uint64_t tree_degree=Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)</td></tr>
-<tr class="separator:af459a375a5a6b2739a16fa0341394b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19d387c1fc09099c6e28b3078d25b9cb" id="r_a19d387c1fc09099c6e28b3078d25b9cb"><td class="memItemLeft" align="right" valign="top"><a id="a19d387c1fc09099c6e28b3078d25b9cb" name="a19d387c1fc09099c6e28b3078d25b9cb"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> ()</td></tr>
 <tr class="separator:a19d387c1fc09099c6e28b3078d25b9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aa6730917d65fc6e01e7424dba5e448" id="r_a5aa6730917d65fc6e01e7424dba5e448"><td class="memItemLeft" align="right" valign="top"><a id="a5aa6730917d65fc6e01e7424dba5e448" name="a5aa6730917d65fc6e01e7424dba5e448"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item, std::vector&lt; uint8_t &gt; &amp;output, uint64_t &amp;pos)</td></tr>
-<tr class="separator:a5aa6730917d65fc6e01e7424dba5e448"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd0f01efd38ff127d0edfb39d242b4e1" id="r_abd0f01efd38ff127d0edfb39d242b4e1"><td class="memItemLeft" align="right" valign="top"><a id="abd0f01efd38ff127d0edfb39d242b4e1" name="abd0f01efd38ff127d0edfb39d242b4e1"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (<a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a> &amp;item, std::ofstream &amp;os)</td></tr>
-<tr class="separator:abd0f01efd38ff127d0edfb39d242b4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc3f0d78594d27ef932af245fab8f950" id="r_acc3f0d78594d27ef932af245fab8f950"><td class="memItemLeft" align="right" valign="top"><a id="acc3f0d78594d27ef932af245fab8f950" name="acc3f0d78594d27ef932af245fab8f950"></a>
-static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build_from_data</b> (const std::vector&lt; uint8_t &gt; &amp;data, uint64_t &amp;pos)</td></tr>
-<tr class="separator:acc3f0d78594d27ef932af245fab8f950"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79289c3771b4907e22c83da7655a9657" id="r_a79289c3771b4907e22c83da7655a9657"><td class="memItemLeft" align="right" valign="top"><a id="a79289c3771b4907e22c83da7655a9657" name="a79289c3771b4907e22c83da7655a9657"></a>
-static <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">DynamicPrefixSum</a>&#160;</td><td class="memItemRight" valign="bottom"><b>build_from_data</b> (std::ifstream &amp;ifs)</td></tr>
-<tr class="separator:a79289c3771b4907e22c83da7655a9657"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename LEAF_CONTAINER = VLCDeque&gt;<br />
+class stool::bptree::DynamicPrefixSum&lt; LEAF_CONTAINER &gt;</div><p>A dynamic data structure supporting prefix-sum query. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a96e0e94ced27a0c64a1739da09ef251f" name="a96e0e94ced27a0c64a1739da09ef251f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e0e94ced27a0c64a1739da09ef251f">&#9670;&#160;</a></span>__get_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstool_1_1bptree_1_1_b_p_tree.html">Tree</a> &amp; <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::__get_tree </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the internal tree of this data structure. </p>
+<dl class="section return"><dt>Returns</dt><dd>The internal tree of this data structure. </dd></dl>
+
+</div>
+</div>
+<a id="a9a4b12ee86613334e18b6dd1174051da" name="a9a4b12ee86613334e18b6dd1174051da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4b12ee86613334e18b6dd1174051da">&#9670;&#160;</a></span>at()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::at </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>pos</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position of the element to return. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The element at the given position. </dd></dl>
+
+</div>
+</div>
+<a id="adf20a29c1872734766511fb6f0864886" name="adf20a29c1872734766511fb6f0864886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf20a29c1872734766511fb6f0864886">&#9670;&#160;</a></span>get_degree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::get_degree </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the maximum degree of internal nodes of the internal tree of this data structure. </p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum degree of internal nodes of the internal tree of this data structure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstool_1_1bptree_1_1_dynamic_prefix_sum_adf20a29c1872734766511fb6f0864886_cgraph.png" border="0" usemap="#aclassstool_1_1bptree_1_1_dynamic_prefix_sum_adf20a29c1872734766511fb6f0864886_cgraph" alt=""/></div>
+<map name="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_adf20a29c1872734766511fb6f0864886_cgraph" id="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_adf20a29c1872734766511fb6f0864886_cgraph">
+<area shape="rect" title="Get the maximum degree of internal nodes of the internal tree of this data structure." alt="" coords="5,5,193,46"/>
+<area shape="rect" href="classstool_1_1bptree_1_1_b_p_tree.html#a2ebadffa4eab35a03e5e7e651158d7c1" title="Return the max degree of this tree. The number of children of every internal node does not exceed the..." alt="" coords="241,5,468,46"/>
+<area shape="poly" title=" " alt="" coords="193,23,225,23,225,28,193,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a799d4a9f001889d05184f624a0d87d9b" name="a799d4a9f001889d05184f624a0d87d9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a799d4a9f001889d05184f624a0d87d9b">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the number of elements stored in this data structure. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of elements stored in this data structure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_cgraph.png" border="0" usemap="#aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_cgraph" alt=""/></div>
+<map name="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_cgraph" id="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_cgraph">
+<area shape="rect" title="Return the number of elements stored in this data structure." alt="" coords="5,29,193,70"/>
+<area shape="rect" href="classstool_1_1bptree_1_1_b_p_tree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="241,29,386,70"/>
+<area shape="poly" title=" " alt="" coords="193,47,225,47,225,52,193,52"/>
+<area shape="poly" title=" " alt="" coords="273,29,271,19,277,10,292,5,313,3,337,5,350,11,348,16,335,10,313,8,293,10,281,15,276,20,278,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_icgraph.png" border="0" usemap="#aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_icgraph" alt=""/></div>
+<map name="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_icgraph" id="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_a799d4a9f001889d05184f624a0d87d9b_icgraph">
+<area shape="rect" title="Return the number of elements stored in this data structure." alt="" coords="241,5,428,46"/>
+<area shape="rect" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html#abdbf913eafc509e36278bf88e2b93d4a" title="Return the elements stored in this data structure as a vector of uint8_t." alt="" coords="5,5,193,46"/>
+<area shape="poly" title=" " alt="" coords="225,28,193,28,193,23,225,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5c49c44b06e57ab0ab3320c21549d4dd" name="a5c49c44b06e57ab0ab3320c21549d4dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c49c44b06e57ab0ab3320c21549d4dd">&#9670;&#160;</a></span>size_in_bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::size_in_bytes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the size of this data structure in bytes. </p>
+<dl class="section return"><dt>Returns</dt><dd>The size of this data structure in bytes. </dd></dl>
+
+</div>
+</div>
+<a id="abdbf913eafc509e36278bf88e2b93d4a" name="abdbf913eafc509e36278bf88e2b93d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdbf913eafc509e36278bf88e2b93d4a">&#9670;&#160;</a></span>to_u8_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; uint8_t &gt; <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::to_u8_vector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the elements stored in this data structure as a vector of uint8_t. </p>
+<dl class="section return"><dt>Returns</dt><dd>The elements stored in this data structure as a vector of uint8_t. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstool_1_1bptree_1_1_dynamic_prefix_sum_abdbf913eafc509e36278bf88e2b93d4a_cgraph.png" border="0" usemap="#aclassstool_1_1bptree_1_1_dynamic_prefix_sum_abdbf913eafc509e36278bf88e2b93d4a_cgraph" alt=""/></div>
+<map name="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_abdbf913eafc509e36278bf88e2b93d4a_cgraph" id="aclassstool_1_1bptree_1_1_dynamic_prefix_sum_abdbf913eafc509e36278bf88e2b93d4a_cgraph">
+<area shape="rect" title="Return the elements stored in this data structure as a vector of uint8_t." alt="" coords="5,29,193,70"/>
+<area shape="rect" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html#a799d4a9f001889d05184f624a0d87d9b" title="Return the number of elements stored in this data structure." alt="" coords="241,29,428,70"/>
+<area shape="poly" title=" " alt="" coords="193,47,225,47,225,52,193,52"/>
+<area shape="rect" href="classstool_1_1bptree_1_1_b_p_tree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="476,29,621,70"/>
+<area shape="poly" title=" " alt="" coords="429,47,460,47,460,52,429,52"/>
+<area shape="poly" title=" " alt="" coords="508,29,506,19,513,10,527,5,549,3,572,5,586,11,584,16,571,10,549,8,528,10,516,15,511,20,513,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3886c67179116a2509ed3d6d8f82d43a" name="a3886c67179116a2509ed3d6d8f82d43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3886c67179116a2509ed3d6d8f82d43a">&#9670;&#160;</a></span>to_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LEAF_CONTAINER  = VLCDeque&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; uint64_t &gt; <a class="el" href="classstool_1_1bptree_1_1_dynamic_prefix_sum.html">stool::bptree::DynamicPrefixSum</a>&lt; LEAF_CONTAINER &gt;::to_vector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the elements stored in this data structure as a vector. </p>
+<dl class="section return"><dt>Returns</dt><dd>The elements stored in this data structure as a vector. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/prefix_sum/<a class="el" href="dynamic__prefix__sum_8hpp_source.html">dynamic_prefix_sum.hpp</a></li>
 </ul>

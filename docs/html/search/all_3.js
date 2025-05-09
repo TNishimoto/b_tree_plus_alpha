@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['height_0',['height',['../classstool_1_1bptree_1_1_b_p_tree.html#ac2221ea7f635799b6db2885d523c5df0',1,'stool::bptree::BPTree']]]
+  ['clear_0',['clear',['../classstool_1_1bptree_1_1_dynamic_prefix_sum.html#a679dcfe18273cca15fe09c0c100ea179',1,'stool::bptree::DynamicPrefixSum']]]
 ];

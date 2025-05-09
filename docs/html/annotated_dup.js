@@ -15,7 +15,7 @@ var annotated_dup =
         [ "DynamicBitSequence", "classstool_1_1bptree_1_1_dynamic_bit_sequence.html", null ],
         [ "DynamicPermutation", "classstool_1_1bptree_1_1_dynamic_permutation.html", null ],
         [ "DynamicPermutationBuilder", "classstool_1_1bptree_1_1_dynamic_permutation_builder.html", null ],
-        [ "DynamicPrefixSum", "classstool_1_1bptree_1_1_dynamic_prefix_sum.html", null ],
+        [ "DynamicPrefixSum", "classstool_1_1bptree_1_1_dynamic_prefix_sum.html", "classstool_1_1bptree_1_1_dynamic_prefix_sum" ],
         [ "DynamicSequence64", "classstool_1_1bptree_1_1_dynamic_sequence64.html", null ],
         [ "DynamicWaveletTree", "classstool_1_1bptree_1_1_dynamic_wavelet_tree.html", null ],
         [ "PermutationContainer", "classstool_1_1bptree_1_1_permutation_container.html", "classstool_1_1bptree_1_1_permutation_container" ],
@@ -23,6 +23,5 @@ var annotated_dup =
         [ "PlainSPSIContainer", "classstool_1_1bptree_1_1_plain_s_p_s_i_container.html", null ],
         [ "StackNode", "structstool_1_1bptree_1_1_stack_node.html", null ]
       ] ]
-    ] ],
-    [ "SPSI", "class_s_p_s_i.html", null ]
+    ] ]
 ];

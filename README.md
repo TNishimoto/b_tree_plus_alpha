@@ -12,10 +12,12 @@ This repository implements the following five dynamic data structures using B-tr
 The source code in the **modules** directory is maintained in separate repositories.
 To download all the required source code, follow the steps below:
 
-> git clone https://github.com/TNishimoto/b_tree_plus_alpha.git  
-> cd b_tree_plus_alpha  
-> git submodule init  
-> git submodule update  
+```
+ git clone https://github.com/TNishimoto/b_tree_plus_alpha.git  
+ cd b_tree_plus_alpha  
+ git submodule init  
+ git submodule update  
+```
 
 ## Compile
 
@@ -54,33 +56,35 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 An example usage of DynamicPrefixSum is provided in [dynamic_prefix_sum_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_prefix_sum_example.cpp).
 When this example is executed, the following message is displayed:
 
-> ./dynamic_prefix_sum_example.out  
->  
-> Build DynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
-> Print the values stored in S  
-> S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
-> The sum of S[0..3] is 10  
-> Let x be the smallest index that satisfies psum(x) >= 10. Then, x = 3  
-> Let y be the smallest index that satisfies psum(y) >= 1000. Then, y =-1  
-> S[3] = 4  
-> S[3] += 10  
-> S[3] = 14  
-> S[3] -= 10  
-> S[3] = 4  
-> Insert 100 into S at position 4  
-> S = [1, 2, 3, 4, 100, 5, 6, 7, 8, 9, 10]  
-> Delete S[4] from S  
-> S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
-> Add 0 to the tail of S  
-> Add 9 to the head of S  
-> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]  
-> Add 1, 2, 3, 4 to the tail of S  
-> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
-> Write S to S.bin  
-> Remove all values from S  
-> S = []  
-> Read S from S.bin  
-> S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]
+```
+% ./dynamic_prefix_sum_example.out  
+  
+ Build DynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+ Print the values stored in S  
+ S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+ The sum of S[0..3] is 10  
+ Let x be the smallest index that satisfies psum(x) >= 10. Then, x = 3  
+ Let y be the smallest index that satisfies psum(y) >= 1000. Then, y =-1  
+ S[3] = 4  
+ S[3] += 10  
+ S[3] = 14  
+ S[3] -= 10  
+ S[3] = 4  
+ Insert 100 into S at position 4  
+ S = [1, 2, 3, 4, 100, 5, 6, 7, 8, 9, 10]  
+ Delete S[4] from S  
+ S = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+ Add 0 to the tail of S  
+ Add 9 to the head of S  
+ S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]  
+ Add 1, 2, 3, 4 to the tail of S  
+ S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]  
+ Write S to S.bin  
+ Remove all values from S  
+ S = []  
+ Read S from S.bin  
+ S = [9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4]
+```
 
 ### DynamicBitSequence class 
 
@@ -113,31 +117,32 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 An example usage of DynamicBitSequence is provided in [dynamic_bit_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_bit_example.cpp).
 When this example is executed, the following message is displayed:
 
-> ./dynamic_bit_example.out  
->  
-> Build data structure S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]  
-> Print the bits stored in S  
-> S = [1010101011]  
-> The number of 1 in S[0..3] is 2  
-> The number of 0 in S[0..3] is 2  
-> The position of the third 1 in S is 4  
-> The position of the third 0 in S is 5  
-> The position of the fifth 0 in S is -1  
-> Insert 1 into S at position 4  
-> S = [10101101011]  
-> Delete S[4] from S  
-> S = [1010101011]  
-> Add 0 to the tail of S  
-> Add 1 to the head of S  
-> S = [110101010110]  
-> Add 1010 to the tail of S  
-> S = [1101010101101010]  
-> Write S to S.bin  
-> Remove all values from S  
-> S = []  
-> Read S from S.bin  
-> S = [1101010101101010]  
-
+```
+% ./dynamic_bit_example.out  
+  
+ Build data structure S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]  
+ Print the bits stored in S  
+ S = [1010101011]  
+ The number of 1 in S[0..3] is 2  
+ The number of 0 in S[0..3] is 2  
+ The position of the third 1 in S is 4  
+ The position of the third 0 in S is 5  
+ The position of the fifth 0 in S is -1  
+ Insert 1 into S at position 4  
+ S = [10101101011]  
+ Delete S[4] from S  
+ S = [1010101011]  
+ Add 0 to the tail of S  
+ Add 1 to the head of S  
+ S = [110101010110]  
+ Add 1010 to the tail of S  
+ S = [1101010101101010]  
+ Write S to S.bin  
+ Remove all values from S  
+ S = []  
+ Read S from S.bin  
+ S = [1101010101101010]  
+```
 
 ### DynamicSequence64 class 
 
@@ -166,26 +171,27 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 An example usage of DynamicSequence64 is provided in [dynamic_sequence_64_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_sequence_64_example.cpp).  
 When this example is executed, the following message is displayed:
 
-> ./dynamic_sequence_64_example.out  
-> 
-> Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
-> Print the integers stored in S  
-> S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
-> Insert 1 into S at position 4  
-> S = [10, 20, 30, 40, 1, 50, 60, 70, 80, 90, 100]  
-> Delete S[4] from S  
-> S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
-> Add 0 to the tail of S  
-> Add 1 to the head of S  
-> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0]  
-> Add 1, 2, 3, 4 to the tail of S  
-> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
-> Write S to S.bin  
-> Remove all values from S  
-> S = []  
-> Read S from S.bin  
-> S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
-
+```
+ ./dynamic_sequence_64_example.out  
+ 
+ Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+ Print the integers stored in S  
+ S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+ Insert 1 into S at position 4  
+ S = [10, 20, 30, 40, 1, 50, 60, 70, 80, 90, 100]  
+ Delete S[4] from S  
+ S = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
+ Add 0 to the tail of S  
+ Add 1 to the head of S  
+ S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0]  
+ Add 1, 2, 3, 4 to the tail of S  
+ S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
+ Write S to S.bin  
+ Remove all values from S  
+ S = []  
+ Read S from S.bin  
+ S = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, 1, 2, 3, 4]  
+```
 
 
 ### DynamicWaveletTree class 
@@ -213,30 +219,31 @@ See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1
 An example usage of DynamicWaveletTree is provided in [dynamic_wavelet_tree_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_wavelet_tree_example.cpp).  
 When this example is executed, the following message is displayed:
 
-> ./dynamic_wavelet_tree_example.out  
->  
-> Print the integers stored in S  
-> S = ababababab  
-> The number of a in S[0..3] is 2  
-> The number of b in S[0..3] is 2  
-> The position of the third a in S is 4  
-> The position of the third b in S is 5  
-> The position of the 10-th b in S is -1  
-> The position of the first c in S is -1  
-> Insert c into S at position 4  
-> S = ababcababab  
-> Delete S[4] from S  
-> S = ababababab  
-> Add c to the tail of S  
-> S = abababababc  
-> Add bbbb to the tail of S  
-> S = abababababcbbbb  
-> Write S to S.bin  
-> Remove all values from S  
-> S =   
-> Read S from S.bin  
-> S = abababababcbbbb  
-
+```
+% ./dynamic_wavelet_tree_example.out  
+  
+ Print the integers stored in S  
+ S = ababababab  
+ The number of a in S[0..3] is 2  
+ The number of b in S[0..3] is 2  
+ The position of the third a in S is 4  
+ The position of the third b in S is 5  
+ The position of the 10-th b in S is -1  
+ The position of the first c in S is -1  
+ Insert c into S at position 4  
+ S = ababcababab  
+ Delete S[4] from S  
+ S = ababababab  
+ Add c to the tail of S  
+ S = abababababc  
+ Add bbbb to the tail of S  
+ S = abababababcbbbb  
+ Write S to S.bin  
+ Remove all values from S  
+ S =   
+ Read S from S.bin  
+ S = abababababcbbbb  
+```
 
 ### DynamicPermutation class 
 
@@ -261,28 +268,29 @@ See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/includ
 An example usage of DynamicPermutation is provided in [dynamic_permutation_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_permutation_example.cpp).  
 When this example is executed, the following message is displayed:
 
-> ./dynamic_permutation_example.out  
->  
-> Build DynamicPermutation S from permutation [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
-> Constructing Dynamic Permutation... (input size = 10)  
->   Processing... [0KB]   
-> [END], the number of nodes = 1, Elapsed Time: 0 sec (0 ms/MB)  
-> Print the integers stored in S  
-> S = [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
-> S[3] = 2  
-> S^{-1}[3] = 1  
-> Insert 2 into S at position 1  
-> S = [0, 2, 4, 1, 3, 6, 5, 10, 9, 8, 7]  
-> Delete S[4] from S  
-> S = [0, 2, 3, 1, 5, 4, 9, 8, 7, 6]  
-> Move S[1] in S to position 0  
-> S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
-> Write S to S.bin  
-> Remove all values from S  
-> S = []  
-> Read S from S.bin  
-> S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
-
+```
+% ./dynamic_permutation_example.out  
+  
+ Build DynamicPermutation S from permutation [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
+ Constructing Dynamic Permutation... (input size = 10)  
+   Processing... [0KB]   
+ [END], the number of nodes = 1, Elapsed Time: 0 sec (0 ms/MB)  
+ Print the integers stored in S  
+ S = [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
+ S[3] = 2  
+ S^{-1}[3] = 1  
+ Insert 2 into S at position 1  
+ S = [0, 2, 4, 1, 3, 6, 5, 10, 9, 8, 7]  
+ Delete S[4] from S  
+ S = [0, 2, 3, 1, 5, 4, 9, 8, 7, 6]  
+ Move S[1] in S to position 0  
+ S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
+ Write S to S.bin  
+ Remove all values from S  
+ S = []  
+ Read S from S.bin  
+ S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
+```
 
 ## API Documentation (in preparation)
 

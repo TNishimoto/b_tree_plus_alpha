@@ -6,6 +6,11 @@ namespace stool
 {
     namespace bptree
     {
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /// @brief A forward iterator for traversing the bits stored in a BP-tree.
+        ///
+        ////////////////////////////////////////////////////////////////////////////////
         class BitForwardIterator
         {
             using NodePointer = bptree::BPNodePointer<BitContainer, bool>;

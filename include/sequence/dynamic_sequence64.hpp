@@ -5,6 +5,10 @@ namespace stool
 {
     namespace bptree
     {
+        ////////////////////////////////////////////////////////////////////////////////
+        /// @brief      A dynamic data structure that maintains a sequence of 64-bit non-negative integers
+        ///
+        ////////////////////////////////////////////////////////////////////////////////
         class DynamicSequence64{
         public:
 

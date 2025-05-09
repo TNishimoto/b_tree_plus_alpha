@@ -5,9 +5,7 @@ namespace stool
     namespace bptree
     {
         ////////////////////////////////////////////////////////////////////////////////
-        /// @class      BPLeafForwardIterator
-        /// @brief      XXXXXX
-        ///
+        /// @brief  A forward iterator for traversing the leaves of a BP-tree.
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE>
         class BPLeafForwardIterator

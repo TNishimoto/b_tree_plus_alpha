@@ -1,6 +1,17 @@
 var searchData=
 [
-  ['get_5fleaf_5fcontainer_5fvector_5fsize_0',['get_leaf_container_vector_size',['../classstool_1_1bptree_1_1_b_p_tree.html#a5ea9bfe6e34511ac2f2033b5163059e4',1,'stool::bptree::BPTree']]],
-  ['get_5fleaf_5fcount_1',['get_leaf_count',['../classstool_1_1bptree_1_1_b_p_tree.html#a3bae8d2bf8cd3e78940392e5eeb8b5b7',1,'stool::bptree::BPTree']]],
-  ['get_5fmax_5fdegree_5fof_5finternal_5fnode_2',['get_max_degree_of_internal_node',['../classstool_1_1bptree_1_1_b_p_tree.html#a2ebadffa4eab35a03e5e7e651158d7c1',1,'stool::bptree::BPTree']]]
+  ['bitcontainer_0',['BitContainer',['../classstool_1_1bptree_1_1_bit_container.html',1,'stool::bptree']]],
+  ['bitforwarditerator_1',['BitForwardIterator',['../classstool_1_1bptree_1_1_bit_forward_iterator.html',1,'stool::bptree']]],
+  ['bpinternalnode_2',['BPInternalNode',['../classstool_1_1bptree_1_1_b_p_internal_node.html',1,'stool::bptree']]],
+  ['bpinternalnode_3c_20stool_3a_3abptree_3a_3apermutationcontainer_2c_20stool_3a_3abptree_3a_3apermutationitem_20_3e_3',['BPInternalNode&lt; stool::bptree::PermutationContainer, stool::bptree::PermutationItem &gt;',['../classstool_1_1bptree_1_1_b_p_internal_node_3_01stool_1_1bptree_1_1_permutation_container_00_01st4d36609f06b345f32795b3792cbd5af0.html',1,'stool::bptree']]],
+  ['bpinternalnodefunctions_4',['BPInternalNodeFunctions',['../classstool_1_1bptree_1_1_b_p_internal_node_functions.html',1,'stool::bptree']]],
+  ['bpleafforwarditerator_5',['BPLeafForwardIterator',['../classstool_1_1bptree_1_1_b_p_leaf_forward_iterator.html',1,'stool::bptree']]],
+  ['bpnodepointer_6',['BPNodePointer',['../classstool_1_1bptree_1_1_b_p_node_pointer.html',1,'stool::bptree']]],
+  ['bppostorderiterator_7',['BPPostorderIterator',['../classstool_1_1bptree_1_1_b_p_postorder_iterator.html',1,'stool::bptree']]],
+  ['bptree_8',['BPTree',['../classstool_1_1bptree_1_1_b_p_tree.html',1,'stool::bptree']]],
+  ['bptree_3c_20bitcontainer_2c_20bool_2c_20false_2c_20true_20_3e_9',['BPTree&lt; BitContainer, bool, false, true &gt;',['../classstool_1_1bptree_1_1_b_p_tree.html',1,'stool::bptree']]],
+  ['bptree_3c_20permutationcontainer_2c_20permutationitem_2c_20true_2c_20false_20_3e_10',['BPTree&lt; PermutationContainer, PermutationItem, true, false &gt;',['../classstool_1_1bptree_1_1_b_p_tree.html',1,'stool::bptree']]],
+  ['bptree_3c_20vlcdeque_2c_20uint64_5ft_2c_20false_2c_20false_20_3e_11',['BPTree&lt; VLCDeque, uint64_t, false, false &gt;',['../classstool_1_1bptree_1_1_b_p_tree.html',1,'stool::bptree']]],
+  ['bptree_3c_20vlcdeque_2c_20uint64_5ft_2c_20false_2c_20true_20_3e_12',['BPTree&lt; VLCDeque, uint64_t, false, true &gt;',['../classstool_1_1bptree_1_1_b_p_tree.html',1,'stool::bptree']]],
+  ['bpvalueforwarditerator_13',['BPValueForwardIterator',['../classstool_1_1bptree_1_1_b_p_value_forward_iterator.html',1,'stool::bptree']]]
 ];

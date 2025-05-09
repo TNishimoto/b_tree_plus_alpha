@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['size_0',['size',['../classstool_1_1bptree_1_1_b_p_tree.html#ab5df1410b475a374697c1022ccba9257',1,'stool::bptree::BPTree']]]
+  ['clear_0',['clear',['../classstool_1_1bptree_1_1_dynamic_prefix_sum.html#a679dcfe18273cca15fe09c0c100ea179',1,'stool::bptree::DynamicPrefixSum']]]
 ];

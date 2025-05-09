@@ -1,0 +1,8 @@
+<map id="stool::bptree::DynamicPrefixSum::to_u8_vector" name="stool::bptree::DynamicPrefixSum::to_u8_vector">
+<area shape="rect" id="Node000001" title="Return the elements stored in this data structure as a vector of uint8_t." alt="" coords="5,29,193,70"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1_dynamic_prefix_sum.html#a799d4a9f001889d05184f624a0d87d9b" title="Return the number of elements stored in this data structure." alt="" coords="241,29,428,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,47,225,47,225,52,193,52"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1_b_p_tree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="476,29,621,70"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="429,47,460,47,460,52,429,52"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="508,29,506,19,513,10,527,5,549,3,572,5,586,11,584,16,571,10,549,8,528,10,516,15,511,20,513,28"/>
+</map>

@@ -5,7 +5,11 @@ namespace stool
 {
     namespace bptree
     {
-        // template <typename LEAF_CONTAINER, typename T>
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /// @brief      A dynamic data structure supporting rank and select queries on a string.
+        ///
+        ////////////////////////////////////////////////////////////////////////////////
         class DynamicWaveletTree
         {
             std::vector<std::vector<DynamicBitSequence>> bits_seq;

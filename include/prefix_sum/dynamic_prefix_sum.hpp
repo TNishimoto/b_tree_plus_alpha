@@ -8,7 +8,6 @@ namespace stool
     {
 
         ////////////////////////////////////////////////////////////////////////////////
-        /// @class      SPSI
         /// @brief      A dynamic data structure supporting prefix-sum query
         ///
         ////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +22,22 @@ namespace stool
             Tree tree;
 
         public:
+
+            DynamicPrefixSum()
+            {
+                this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
+            }
+            DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
+            DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
+            DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
+
+        public:
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Iterators
+            ///   The iterators supported this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
             typename Tree::ValueForwardIterator begin() const
             {
                 return this->tree.get_value_forward_iterator_begin();
@@ -31,78 +46,81 @@ namespace stool
             {
                 return this->tree.get_value_forward_iterator_end();
             }
+            
+            //@}
 
-            DynamicPrefixSum()
-            {
-                this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
-            }
-            void swap(DynamicPrefixSum &item)
-            {
-                this->tree.swap(item.tree);
-            }
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Properties
+            ///   The properties of this class.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
 
-            DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
-            DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
-            DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
-
-        public:
-            void set_degree(uint64_t degree)
-            {
-                this->tree.initialize(degree);
-            }
-
-            void clear()
-            {
-                this->tree.clear();
-            }
-            void verify() const
-            {
-                this->tree.verify();
-            }
-            Tree &get_tree()
+            /**
+             * @brief Get the internal tree of this data structure.
+             * @return The internal tree of this data structure.
+             */
+            Tree &__get_tree()
             {
                 return this->tree;
             }
+
+            /**
+             * @brief Get the maximum degree of internal nodes of the internal tree of this data structure.
+             * @return The maximum degree of internal nodes of the internal tree of this data structure.
+             */
             uint64_t get_degree() const
             {
                 return this->tree.get_max_degree_of_internal_node();
             }
 
-            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
-            {
-                DynamicPrefixSum r;
-                r.tree.initialize(tree_degree, tree_degree);
-                r.tree.build(items);
-                assert(r.size() == items.size());
-                return r;
-            }
-
+            /**
+             * @brief Return the number of elements stored in this data structure.
+             * @return The number of elements stored in this data structure.
+             */
             uint64_t size() const
             {
                 return this->tree.size();
             }
-            void push_back(uint64_t value)
+
+            /**
+             * @brief Return the element at the given position.
+             * @param pos The position of the element to return.
+             * @return The element at the given position.
+             */
+            uint64_t at(uint64_t pos) const
             {
-                this->tree.push_back(value);
-            }
-            void push_front(uint64_t value)
-            {
-                this->tree.push_front(value);
+                return this->tree.at(pos);
             }
 
-            void insert(uint64_t pos, uint64_t value)
+            /**
+             * @brief Return the size of this data structure in bytes.
+             * @return The size of this data structure in bytes.
+             */
+            uint64_t size_in_bytes() const
             {
-                this->tree.insert(pos, value, value);
+                return this->tree.size_in_bytes();
             }
-            void remove(uint64_t pos)
-            {
-                this->tree.remove(pos);
-            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Conversion functions
+            ///   The conversion functions supported this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Return the elements stored in this data structure as a vector.
+             * @return The elements stored in this data structure as a vector.
+             */
             std::vector<uint64_t> to_vector() const
             {
                 return this->tree.to_value_vector();
             }
 
+            /**
+             * @brief Return the elements stored in this data structure as a vector of uint8_t.
+             * @return The elements stored in this data structure as a vector of uint8_t.
+             */
             std::vector<uint8_t> to_u8_vector() const
             {
                 std::vector<uint8_t> r;
@@ -115,53 +133,47 @@ namespace stool
                 return r;
             }
 
-            /*
-             * returns the sum of the first i values stored in this data structure.
+            std::string to_string() const
+            {
+                std::stringstream ss;
+                auto vec = this->to_vector();
+                ss << stool::DebugPrinter::to_integer_string(vec);
+                return ss.str();
+            }
+            //@}
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Queries
+            ///   The queries supported this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Return the sum of the first i values stored in this data structure.
              */
             uint64_t psum(uint64_t i) const
             {
                 return this->tree.psum(i);
             }
 
-            /*
-             * returns the sum of the stored values.
+            /**
+             * @brief Return the sum of the stored values.
              */
             uint64_t psum() const
             {
                 return this->tree.psum();
             }
-            /*
-             * returns smallest i such that psum(i) >= x
+
+            /**
+             * @brief Return the smallest i such that psum(i) >= x
              */
             int64_t search(uint64_t x) const
             {
                 return this->tree.search(x);
             }
-            uint64_t at(uint64_t pos) const
-            {
-                return this->tree.at(pos);
-            }
-            void increment(uint64_t i, int64_t delta)
-            {
-                this->tree.increment(i, delta);
-            }
-            void decrement(uint64_t i, int64_t delta)
-            {
-                this->tree.increment(i, -delta);
-            }
 
-            static std::string name()
-            {
-                std::string s;
-                s += "DynamicPrefixSum(";
-                s += LEAF_CONTAINER::name();
-                s += ")";
-                return s;
-            }
-            void push_many(const std::vector<uint64_t> &items)
-            {
-                this->tree.push_many(items);
-            }
             int64_t predecessor_index(uint64_t value) const
             {
                 int64_t size = this->size();
@@ -240,10 +252,117 @@ namespace stool
                     return -1;
                 }
             }
-
-            uint64_t size_in_bytes() const
+            uint64_t operator[](uint64_t n) const
             {
-                return this->tree.size_in_bytes();
+                return this->tree.at(n);
+            }
+            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
+            {
+                item.tree.save(output, pos);
+            }
+            static void save(DynamicPrefixSum &item, std::ofstream &os)
+            {
+                item.tree.save(os);
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Update operations
+            ///   The update operations supported this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            void swap(DynamicPrefixSum &item)
+            {
+                this->tree.swap(item.tree);
+            }
+
+            /**
+             * @brief Clear the elements stored in this data structure.
+             */
+            void clear()
+            {
+                this->tree.clear();
+            }
+
+            /**
+             * @brief Verify the internal consistency of this data structure.
+             */
+            void verify() const
+            {
+                this->tree.verify();
+            }
+            void push_back(uint64_t value)
+            {
+                this->tree.push_back(value);
+            }
+            void push_front(uint64_t value)
+            {
+                this->tree.push_front(value);
+            }
+
+            void insert(uint64_t pos, uint64_t value)
+            {
+                this->tree.insert(pos, value, value);
+            }
+            void remove(uint64_t pos)
+            {
+                this->tree.remove(pos);
+            }
+
+            void increment(uint64_t i, int64_t delta)
+            {
+                this->tree.increment(i, delta);
+            }
+            void decrement(uint64_t i, int64_t delta)
+            {
+                this->tree.increment(i, -delta);
+            }
+            void push_many(const std::vector<uint64_t> &items)
+            {
+                this->tree.push_many(items);
+            }
+            void set_degree(uint64_t degree)
+            {
+                this->tree.initialize(degree);
+            }
+            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
+            {
+                DynamicPrefixSum r;
+                r.tree.initialize(tree_degree, tree_degree);
+                r.tree.build(items);
+                assert(r.size() == items.size());
+                return r;
+            }
+            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                DynamicPrefixSum r;
+                r.tree.build_from_data(data, pos);
+                return r;
+            }
+
+            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
+            {
+                DynamicPrefixSum r;
+                r.tree.build_from_data(ifs);
+                return r;
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print functions
+            ///   The functions for printing messages.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            static std::string name()
+            {
+                std::string s;
+                s += "DynamicPrefixSum(";
+                s += LEAF_CONTAINER::name();
+                s += ")";
+                return s;
             }
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -273,50 +392,10 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
-            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
-            {
-                item.tree.save(output, pos);
-            }
-            static void save(DynamicPrefixSum &item, std::ofstream &os)
-            {
-                item.tree.save(os);
-            }
+            //@}
 
-            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
-            {
-                DynamicPrefixSum r;
-                r.tree.build_from_data(data, pos);
-                return r;
-            }
-
-            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
-            {
-                DynamicPrefixSum r;
-                r.tree.build_from_data(ifs);
-                return r;
-            }
-            uint64_t operator[](uint64_t n) const
-            {
-                return this->tree.at(n);
-            }
-            /*
-            void print(std::string name = "DynamicPrefixSum") const
-            {
-                auto vec = this->to_vector();
-                stool::DebugPrinter::print_integers(vec, name);
-            }
-            */
-
-            std::string to_string() const
-            {
-                std::stringstream ss;
-                auto vec = this->to_vector();
-                ss << stool::DebugPrinter::to_integer_string(vec);
-                return ss.str();
-            }
-            
         };
-        
+
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
 

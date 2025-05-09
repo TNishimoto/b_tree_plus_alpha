@@ -7,7 +7,11 @@ namespace stool
 {
     namespace bptree
     {
-        // template <typename LEAF_CONTAINER, typename T>
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /// @brief      A dynamic data structure supporting rank and select queries on a bit sequence
+        ///
+        ////////////////////////////////////////////////////////////////////////////////
         class DynamicBitSequence
         {
             using NodePointer = bptree::BPNodePointer<BitContainer, bool>;
