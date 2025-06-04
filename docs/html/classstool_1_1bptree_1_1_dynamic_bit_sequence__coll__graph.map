@@ -1,5 +1,0 @@
-<map id="stool::bptree::DynamicBitSequence" name="stool::bptree::DynamicBitSequence">
-<area shape="rect" id="Node000001" title="A dynamic data structure supporting rank and select queries on a bit sequence." alt="" coords="5,124,175,165"/>
-<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1_b_p_tree.html" title=" " alt="" coords="17,5,163,61"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,76,93,124,87,124,87,76"/>
-</map>

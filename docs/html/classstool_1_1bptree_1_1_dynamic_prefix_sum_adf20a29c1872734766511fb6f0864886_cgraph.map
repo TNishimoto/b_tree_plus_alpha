@@ -1,5 +1,0 @@
-<map id="stool::bptree::DynamicPrefixSum::get_degree" name="stool::bptree::DynamicPrefixSum::get_degree">
-<area shape="rect" id="Node000001" title="Get the maximum degree of internal nodes of the internal tree of this data structure." alt="" coords="5,5,193,46"/>
-<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1_b_p_tree.html#a2ebadffa4eab35a03e5e7e651158d7c1" title="Return the max degree of this tree. The number of children of every internal node does not exceed the..." alt="" coords="241,5,468,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,23,225,23,225,28,193,28"/>
-</map>
