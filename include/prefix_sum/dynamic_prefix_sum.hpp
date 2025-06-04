@@ -22,7 +22,6 @@ namespace stool
             Tree tree;
 
         public:
-
             DynamicPrefixSum()
             {
                 this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
@@ -32,7 +31,6 @@ namespace stool
             DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
 
         public:
-
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Iterators
             ///   The iterators supported this data structure.
@@ -46,7 +44,7 @@ namespace stool
             {
                 return this->tree.get_value_forward_iterator_end();
             }
-            
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -141,8 +139,6 @@ namespace stool
                 return ss.str();
             }
             //@}
-
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Queries
@@ -256,14 +252,6 @@ namespace stool
             {
                 return this->tree.at(n);
             }
-            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
-            {
-                item.tree.save(output, pos);
-            }
-            static void save(DynamicPrefixSum &item, std::ofstream &os)
-            {
-                item.tree.save(os);
-            }
 
             //@}
 
@@ -327,27 +315,6 @@ namespace stool
             {
                 this->tree.initialize(degree);
             }
-            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
-            {
-                DynamicPrefixSum r;
-                r.tree.initialize(tree_degree, tree_degree);
-                r.tree.build(items);
-                assert(r.size() == items.size());
-                return r;
-            }
-            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
-            {
-                DynamicPrefixSum r;
-                r.tree.build_from_data(data, pos);
-                return r;
-            }
-
-            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
-            {
-                DynamicPrefixSum r;
-                r.tree.build_from_data(ifs);
-                return r;
-            }
 
             //@}
 
@@ -356,14 +323,7 @@ namespace stool
             ///   The functions for printing messages.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            static std::string name()
-            {
-                std::string s;
-                s += "DynamicPrefixSum(";
-                s += LEAF_CONTAINER::name();
-                s += ")";
-                return s;
-            }
+
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph + 1);
@@ -394,6 +354,56 @@ namespace stool
 
             //@}
 
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Builder and Writer functions
+            ///   The functions for building and writing this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
+            {
+                DynamicPrefixSum r;
+                r.tree.initialize(tree_degree, tree_degree);
+                r.tree.build(items);
+                assert(r.size() == items.size());
+                return r;
+            }
+            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                DynamicPrefixSum r;
+                r.tree.build_from_data(data, pos);
+                return r;
+            }
+
+            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
+            {
+                DynamicPrefixSum r;
+                r.tree.build_from_data(ifs);
+                return r;
+            }
+            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
+            {
+                item.tree.save(output, pos);
+            }
+            static void save(DynamicPrefixSum &item, std::ofstream &os)
+            {
+                item.tree.save(os);
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Other static functions
+            ///   The other static functions supported this data structure.
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            static std::string name()
+            {
+                std::string s;
+                s += "DynamicPrefixSum(";
+                s += LEAF_CONTAINER::name();
+                s += ")";
+                return s;
+            }
+            //@}
         };
 
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
