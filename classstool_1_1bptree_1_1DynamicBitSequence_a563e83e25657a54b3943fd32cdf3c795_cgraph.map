@@ -1,0 +1,16 @@
+<map id="stool::bptree::DynamicBitSequence::count_c" name="stool::bptree::DynamicBitSequence::count_c">
+<area shape="rect" id="Node000001" title="Returns the number of bits with value c in the sequence." alt="" coords="5,88,193,128"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa13014697cc2948509362f42edf4d947" title="Returns the number of bits with value c up to position i." alt="" coords="241,59,429,99"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,94,227,89,228,95,194,99"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ab94546756216df4ac016f3fb460adaab" title="Returns the size of the bit sequence." alt="" coords="949,88,1137,128"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="193,107,241,108,571,110,901,108,936,108,936,113,901,113,571,115,241,113,193,113"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0f54c65bc5c8b931c0793bc34e6ce2d1" title="Returns the number of 0s up to position i." alt="" coords="477,5,665,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="424,56,469,46,470,51,425,61"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ac38ebde182fe456b70df4443019aa190" title="Returns the number of 1s up to position i." alt="" coords="713,59,901,99"/>
+<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="429,76,699,76,699,81,429,81"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="661,43,706,53,705,58,660,48"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="902,88,936,92,935,97,901,93"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="1185,88,1341,128"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1137,105,1172,105,1172,111,1137,111"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="1222,88,1220,78,1226,69,1241,63,1263,61,1289,64,1303,72,1300,76,1287,69,1263,67,1242,69,1230,73,1225,79,1227,87"/>
+</map>

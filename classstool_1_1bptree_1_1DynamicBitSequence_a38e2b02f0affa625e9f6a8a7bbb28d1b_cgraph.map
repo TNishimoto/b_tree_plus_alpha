@@ -1,0 +1,6 @@
+<map id="stool::bptree::DynamicBitSequence::to_value_vector" name="stool::bptree::DynamicBitSequence::to_value_vector">
+<area shape="rect" id="Node000001" title="Converts the bit sequence to a vector of uint64_t." alt="" coords="5,29,203,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="251,29,407,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,47,237,47,237,52,203,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="287,30,284,20,291,10,306,5,329,3,355,6,369,13,367,18,353,11,329,8,307,10,294,15,289,21,292,28"/>
+</map>

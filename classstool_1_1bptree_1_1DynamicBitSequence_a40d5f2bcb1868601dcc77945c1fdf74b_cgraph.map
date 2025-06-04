@@ -1,0 +1,12 @@
+<map id="stool::bptree::DynamicBitSequence::to_vector" name="stool::bptree::DynamicBitSequence::to_vector">
+<area shape="rect" id="Node000001" title="Converts the bit sequence to a vector of bool." alt="" coords="5,91,193,131"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af66633d7de9babedc14ed88bc9420fb6" title="Returns an iterator to the beginning of the bit sequence." alt="" coords="245,5,440,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,89,244,62,245,67,163,94"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aac9bf6984f7dec5e4b76d1824f8e33c2" title="Returns an iterator to the end of the bit sequence." alt="" coords="241,84,444,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,109,228,109,228,114,193,114"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ab94546756216df4ac016f3fb460adaab" title="Returns the size of the bit sequence." alt="" coords="249,163,437,203"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,129,262,157,260,162,167,134"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="492,163,648,203"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="437,181,478,181,478,186,437,186"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="528,164,525,154,532,144,547,139,570,137,596,140,611,147,608,152,595,145,570,142,548,144,535,149,530,155,533,162"/>
+</map>
