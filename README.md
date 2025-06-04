@@ -294,5 +294,5 @@ When this example is executed, the following message is displayed:
 
 ## API Documentation (in preparation)
 
-[Doxygen](https://TNishimoto.github.io/b_tree_plus_alpha/html/index.html)
+[Doxygen](https://TNishimoto.github.io/b_tree_plus_alpha/index.html)
 
