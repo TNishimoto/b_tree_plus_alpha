@@ -59,7 +59,13 @@ target_link_libraries(prefix_sum.out)
 
 add_executable(bit_rank_select.out main/bit_rank_select_main.cpp)
 target_link_libraries(bit_rank_select.out)
-target_compile_options(bit_rank_select.out PRIVATE -mbmi2)
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|AMD64)$")
+    target_compile_options(bit_rank_select.out PRIVATE -mbmi2)
+else()
+    message(STATUS "Not a 64-bit architecture.")
+endif()
+
 
 
 #add_executable(permutation_performance.out main/permutation_performance_main.cpp)

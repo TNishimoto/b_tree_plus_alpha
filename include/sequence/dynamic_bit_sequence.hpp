@@ -24,6 +24,7 @@ namespace stool
             using Tree = bptree::BPTree<BitContainer, bool, false, true>;
 
             static inline constexpr int DEFAULT_CONTAINER_DEGREE = 62;
+            //static inline constexpr int DEFAULT_CONTAINER_DEGREE = 124;
 
         public:
             Tree tree;

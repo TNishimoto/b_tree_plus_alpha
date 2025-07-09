@@ -1576,7 +1576,7 @@ namespace stool
                 }
                 else
                 {
-                    throw std::invalid_argument("Remove Error");
+                    throw std::invalid_argument("Error in BPTree::remove(pos). This tree is empty. pos = " + std::to_string(pos));
                 }
                 /*
                 if (this->need_deflag())
