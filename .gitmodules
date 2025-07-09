@@ -1,3 +1,9 @@
 [submodule "modules/stool"]
 	path = modules/stool
 	url = git@github.com:TNishimoto/stool.git
+[submodule "experiment/modules/bit_vector"]
+	path = experiment/modules/bit_vector
+	url = https://github.com/saskeli/bit_vector.git
+[submodule "experiment/modules/DYNAMIC"]
+	path = experiment/modules/DYNAMIC
+	url = https://github.com/TNishimoto/DYNAMIC.git

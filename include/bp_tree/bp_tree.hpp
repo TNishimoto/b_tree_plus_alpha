@@ -385,6 +385,10 @@ namespace stool
             }
             uint64_t psum(uint64_t i) const
             {
+                if (i >= this->size())
+                {
+                    throw std::invalid_argument("Error: BPTree::psum(i). The i must be less than the size of the tree.");
+                }
                 assert(!this->empty());
                 if (!this->empty())
                 {
