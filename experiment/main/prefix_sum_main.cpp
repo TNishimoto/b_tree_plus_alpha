@@ -101,6 +101,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, uint64_t it
     std::cout << "item_num = " << item_num << ", max_value = " << max_value << ", query_num = " << query_num << ", seed = " << seed << std::endl;
     std::cout << "Checksum            : " << hash << std::endl;
     std::cout << "Construction Time   : " << (time_construction / (1000 * 1000)) << "[ms] (Avg: " << (time_construction / item_num) << "[ns])" << std::endl;
+    std::cout << "Access Time         : " << (time_access / (1000 * 1000)) << "[ms] (Avg: " << (time_access / query_num) << "[ns])" << std::endl;
     std::cout << "PSUM Time           : " << (time_psum / (1000 * 1000)) << "[ms] (Avg: " << (time_psum / query_num) << "[ns])" << std::endl;
     std::cout << "Search Time         : " << (time_search / (1000 * 1000)) << "[ms] (Avg: " << (time_search / query_num) << "[ns])" << std::endl;
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
