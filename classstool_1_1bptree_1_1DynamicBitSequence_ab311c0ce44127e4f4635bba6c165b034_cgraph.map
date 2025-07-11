@@ -1,0 +1,8 @@
+<map id="stool::bptree::DynamicBitSequence::remove" name="stool::bptree::DynamicBitSequence::remove">
+<area shape="rect" id="Node000001" title="Removes the bit at the specified position." alt="" coords="5,29,193,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ab94546756216df4ac016f3fb460adaab" title="Returns the size of the bit sequence." alt="" coords="241,29,429,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,47,227,47,227,52,194,52"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="477,29,633,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="429,47,464,47,464,52,429,52"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="514,30,512,20,518,10,533,5,555,3,581,6,595,13,592,18,579,11,555,8,534,10,522,15,517,21,519,28"/>
+</map>

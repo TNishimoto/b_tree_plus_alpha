@@ -1,0 +1,10 @@
+<map id="stool::bptree::DynamicBitSequence::rank0" name="stool::bptree::DynamicBitSequence::rank0">
+<area shape="rect" id="Node000001" title="Returns the number of 0s up to position i." alt="" coords="5,29,193,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ac38ebde182fe456b70df4443019aa190" title="Returns the number of 1s up to position i." alt="" coords="241,29,429,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,47,227,47,227,52,194,52"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ab94546756216df4ac016f3fb460adaab" title="Returns the size of the bit sequence." alt="" coords="477,29,665,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="430,47,463,47,463,52,430,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="713,29,869,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="665,47,700,47,700,52,665,52"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="750,30,748,20,754,10,769,5,791,3,817,6,831,13,828,18,815,11,791,8,770,10,758,15,753,21,755,28"/>
+</map>

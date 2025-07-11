@@ -1,0 +1,6 @@
+<map id="stool::bptree::DynamicBitSequence::size" name="stool::bptree::DynamicBitSequence::size">
+<area shape="rect" id="Node000001" title="Returns the size of the bit sequence." alt="" coords="5,29,193,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="241,29,397,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,47,228,47,228,52,193,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="278,30,276,20,282,10,297,5,319,3,345,6,359,13,356,18,343,11,319,8,298,10,286,15,281,21,283,28"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicSequence64::set_value" name="stool::bptree::DynamicSequence64::set_value">
+<area shape="rect" id="Node000001" title="Sets the value at a specified position in the sequence." alt="" coords="5,55,255,95"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicSequence64.html#add0bc977140261046685aec456e176f5" title="Returns the value at a specified position in the sequence." alt="" coords="303,5,573,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,53,355,31,356,36,239,58"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a8f978db54eea835d377172e2256bcc5d" title="Decrements the value at a specified position by a given delta." alt="" coords="313,55,563,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="255,73,300,73,300,78,255,78"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a538f602e99c665406a33fb5cbe13a1c1" title="Increments the value at a specified position by a given delta." alt="" coords="313,119,563,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="228,93,328,114,327,119,227,98"/>
+</map>

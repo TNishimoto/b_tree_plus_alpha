@@ -1,0 +1,7 @@
+<map id="include/sequence/dynamic_bit_sequence.hpp" name="include/sequence/dynamic_bit_sequence.hpp">
+<area shape="rect" id="Node000001" title="A dynamic data structure supporting rank and select queries on a bit sequence." alt="" coords="5,5,200,45"/>
+<area shape="rect" id="Node000002" href="$dynamic__wavelet__tree_8hpp_source.html" title=" " alt="" coords="5,93,200,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,105,93,100,93,100,59"/>
+<area shape="rect" id="Node000003" href="$b__tree__plus__alpha_8hpp_source.html" title=" " alt="" coords="29,181,177,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,147,105,181,100,181,100,147"/>
+</map>
