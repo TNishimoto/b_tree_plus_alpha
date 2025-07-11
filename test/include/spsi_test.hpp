@@ -431,7 +431,7 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
             {
                 vec1.push_back(x);
             }
-            stool::equal_check(vec1, vec2);
+            stool::EqualChecker::equal_check(vec1, vec2);
         }
     };
 

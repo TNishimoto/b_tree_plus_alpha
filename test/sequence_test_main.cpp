@@ -16,7 +16,7 @@ void build_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &dyn
         dyn_text.push_back(c);
     }
     std::vector<uint64_t> test_str = ds.to_vector();
-    stool::equal_check(test_str, dyn_text);
+    stool::EqualChecker::equal_check(test_str, dyn_text);
 
 }
 
@@ -34,7 +34,7 @@ void insert_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &te
     }
 
     std::vector<uint64_t> test_str = ds.to_vector();
-    stool::equal_check(test_str, text);
+    stool::EqualChecker::equal_check(test_str, text);
 
 }
 void remove_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &text, uint64_t seed)
@@ -50,7 +50,7 @@ void remove_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &te
         if (text.size() % 100 == 0)
         {
             std::vector<uint64_t> test_str = ds.to_vector();
-            stool::equal_check(test_str, text);
+            stool::EqualChecker::equal_check(test_str, text);
         }
     }
 

@@ -135,7 +135,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     std::cout << "Select Time         : " << (time_search / (1000 * 1000)) << "[ms] (Avg: " << (time_search / query_num) << "[ns])" << std::endl;
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
 }

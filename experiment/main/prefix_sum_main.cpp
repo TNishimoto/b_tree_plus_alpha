@@ -114,7 +114,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, uint64_t it
     spsi.print_memory_usage();
     */
 
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
 }

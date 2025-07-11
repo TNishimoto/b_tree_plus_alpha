@@ -41,8 +41,8 @@ namespace stool
             std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
             std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
 
-            stool::equal_check("Check1", pom_pi_vector, npom.pi_list);
-            stool::equal_check("Check2", pom_inv_pi_vector, npom.inverse_pi_list);
+            stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list, "Check1");
+            stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list, "Check2");
             return true;
         }
         static void permutation_test_random_insert(NaivePermutation &npom, bptree::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
@@ -60,7 +60,7 @@ namespace stool
                 PermutationTest::equal_check(npom, pom);
             }
 
-            // stool::equal_check(pom_value_vector, npom.value_list);
+            // stool::EqualChecker::equal_check(pom_value_vector, npom.value_list);
         }
         static void permutation_test_random_delete(stool::NaivePermutation &npom, stool::bptree::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
         {
@@ -88,7 +88,7 @@ namespace stool
             dp.build(permutation.begin(), permutation.end(), permutation.size(), stool::Message::NO_MESSAGE);
             std::vector<uint64_t> result = dp.get_pi_vector();
 
-            stool::equal_check(permutation, result);
+            stool::EqualChecker::equal_check(permutation, result);
         }
         static void random_insert_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
         {
@@ -151,7 +151,7 @@ namespace stool
             std::vector<uint64_t> result = dp.get_pi_vector();
 
             //Printer::print(result);
-            stool::equal_check(permutation, result);
+            stool::EqualChecker::equal_check(permutation, result);
         }
         */
 
@@ -178,7 +178,7 @@ namespace stool
 
             std::vector<uint64_t> result = dp.get_pi_vector();
 
-            stool::equal_check("PermutationBuilderTest", permutation, result);
+            stool::EqualChecker::equal_check(permutation, result, "PermutationBuilderTest");
         }
         static void load_write_file_test(stool::bptree::DynamicPermutation &dp)
         {

@@ -16,7 +16,7 @@ void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString
         dyn_text.push_back(c);
     }
     std::vector<uint8_t> test_str = ds.to_uint8_str();
-    stool::equal_check(test_str, dyn_text.text);
+    stool::EqualChecker::equal_check(test_str, dyn_text.text);
 
 }
 
@@ -69,7 +69,7 @@ void insert_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
     }
 
     std::vector<uint8_t> test_str = ds.to_uint8_str();
-    stool::equal_check(test_str, text.text);
+    stool::EqualChecker::equal_check(test_str, text.text);
 
 }
 void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &text, uint64_t seed)
@@ -85,7 +85,7 @@ void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
         if (text.size() % 100 == 0)
         {
             std::vector<uint8_t> test_str = ds.to_uint8_str();
-            stool::equal_check(test_str, text.text);
+            stool::EqualChecker::equal_check(test_str, text.text);
         }
     }
 
