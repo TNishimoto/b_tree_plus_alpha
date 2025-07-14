@@ -69,22 +69,5 @@ endif()
 add_executable(rank_select.out main/rank_select_main.cpp)
 target_link_libraries(rank_select.out)
 
-
-
-#add_executable(permutation_performance.out main/permutation_performance_main.cpp)
-#target_link_libraries(permutation_performance.out)
-
-#add_executable(spsi_comparative_experiment.out main/spsi_comparative_experiment_main.cpp)
-#target_link_libraries(spsi_comparative_experiment.out)
-
-#add_executable(dynamic_sequence_experiment.out main/dynamic_sequence_experiment_main.cpp ${SOURCES})
-#target_link_libraries(dynamic_sequence_experiment.out)
-
-#add_executable(dynamic_bit_performance.out main/dynamic_bit_performance_main.cpp ${SOURCES})
-#target_link_libraries(dynamic_bit_performance.out)
-
-#add_executable(map_performance_main.out main/map_performance_main.cpp ${SOURCES})
-#target_link_libraries(dynamic_bit_performance.out)
-
-#target_compile_options(dynamic_bit_performance.out PRIVATE -mbmi2)
-
+add_executable(permutation.out main/permutation_main.cpp)
+target_link_libraries(permutation.out)
