@@ -75,12 +75,12 @@ void bptree_prefix_sum_test(stool::bptree::DynamicPermutation &dynamic_permutati
     std::cout << "=============RESULT===============" << std::endl;
     std::cout << "Test: " << name << std::endl;
     std::cout << "item_num = " << item_num  << ", query_num = " << query_num << ", seed = " << seed << std::endl;
-    std::cout << "Checksum            : " << hash << std::endl;
-    std::cout << "Construction Time   : " << (time_construction / (1000 * 1000)) << "[ms] (Avg: " << (time_construction / item_num) << "[ns])" << std::endl;
-    std::cout << "Access Time         : " << (time_access / (1000 * 1000)) << "[ms] (Avg: " << (time_access / query_num) << "[ns])" << std::endl;
-    std::cout << "Inverse Access Time           : " << (time_inverse_access / (1000 * 1000)) << "[ms] (Avg: " << (time_inverse_access / query_num) << "[ns])" << std::endl;
-    std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
-    std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
+    std::cout << "Checksum \t\t : " << hash << std::endl;
+    std::cout << "Construction Time \t : " << (time_construction / (1000 * 1000)) << "[ms] (Avg: " << (time_construction / item_num) << "[ns])" << std::endl;
+    std::cout << "Access Time \t\t : " << (time_access / (1000 * 1000)) << "[ms] (Avg: " << (time_access / query_num) << "[ns])" << std::endl;
+    std::cout << "Inverse Access Time \t : " << (time_inverse_access / (1000 * 1000)) << "[ms] (Avg: " << (time_inverse_access / query_num) << "[ns])" << std::endl;
+    std::cout << "Insertion Time \t\t : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
+    std::cout << "Deletion Time \t\t : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
 
     stool::Memory::print_memory_usage();
