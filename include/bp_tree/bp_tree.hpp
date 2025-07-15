@@ -27,16 +27,6 @@ namespace stool
 
             static inline constexpr int DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE = 126;
             static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
-            /*
-            static uint64_t default_max_degree_of_internal_node()
-            {
-                return 126;
-            }
-            static uint64_t default_max_count_of_values_in_leaf()
-            {
-                return 126;
-            }
-            */
 
         private:
             std::vector<LEAF_CONTAINER> leaf_container_vec;
@@ -94,6 +84,8 @@ namespace stool
                 other.height_ = 0;
                 other.root_is_leaf_ = false;
             }
+
+
             BPTree &operator=(BPTree &&other) noexcept
             {
                 if (this != &other)
@@ -136,11 +128,26 @@ namespace stool
             ///   @name Initializers
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+
+            
+            /**
+             * @brief Initializes the B+ tree with equal maximum degrees for internal nodes and leaf nodes
+             * @param __max_degree_of_internal_node The maximum degree for both internal nodes and leaf nodes
+             * @details This is a convenience overload that calls initialize() with the same value for both parameters
+             */
             void initialize(uint64_t __max_degree_of_internal_node)
             {
                 this->initialize(__max_degree_of_internal_node, __max_degree_of_internal_node);
             }
 
+            /**
+             * @brief Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes
+             * @param __max_degree_of_internal_node The maximum degree for internal nodes
+             * @param __max_count_of_values_in_leaf The maximum number of values that can be stored in a leaf node
+             * @throws std::runtime_error if either parameter is less than 4
+             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4 
+             * to maintain B+ tree properties. The function clears any existing data before initialization.
+             */
             void initialize(uint64_t __max_degree_of_internal_node, uint64_t __max_count_of_values_in_leaf)
             {
                 if (__max_degree_of_internal_node < 4)
@@ -159,6 +166,14 @@ namespace stool
                 this->root_is_leaf_ = false;
             }
 
+            /**
+             * @brief Swaps the contents of this B+ tree with another B+ tree
+             * @param _tree The B+ tree to swap contents with
+             * @param swap_linked_tree Whether to also swap the linked tree pointer
+             * @details This function swaps all internal data structures between this tree and the given tree,
+             * including leaf containers, parent vectors, unused node pointers, tree parameters, and tree properties.
+             * The swap_linked_tree parameter controls whether the linked tree pointer should also be swapped.
+             */
             void swap(BPTree &_tree, bool swap_linked_tree)
             {
                 this->leaf_container_vec.swap(_tree.leaf_container_vec);
@@ -179,10 +194,27 @@ namespace stool
                 std::swap(this->root_is_leaf_, _tree.root_is_leaf_);
             }
 
+            /**
+             * @brief Swaps the contents of this B+ tree with another B+ tree
+             * @param _tree The B+ tree to swap contents with
+             * @details This is a convenience overload that calls swap() with swap_linked_tree set to true
+             */
             void swap(BPTree &_tree)
             {
                 this->swap(_tree, true);
             }
+
+            /**
+             * @brief Clears all contents of the B+ tree and resets it to an empty state
+             * @details This function:
+             * - Deletes all nodes in the tree using a stack-based traversal
+             * - Clears the root pointer and resets root state flags
+             * - Deletes any unused node pointers that were cached
+             * - Clears the leaf container and parent vectors
+             * - Empties the unused leaf container index queue
+             * - Resets the tree height to 0
+             * After calling clear(), the tree will be in an empty state ready for new insertions.
+             */
             void clear()
             {
                 std::stack<Node *> nodes;
@@ -230,6 +262,10 @@ namespace stool
             ///   The properties of this class.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Returns the temporary path used during tree operations
+             * @return A reference to the vector containing temporary path nodes
+             */
             const std::vector<NodePointer> &get_temporary_path() const
             {
                 return this->tmp_path;
@@ -242,6 +278,11 @@ namespace stool
             {
                 return this->_max_degree_of_internal_node;
             }
+
+            /**
+             * @brief Returns the maximum number of values that can be stored in a leaf node
+             * @return The maximum number of values that can be stored in a leaf node
+             */
             uint64_t get_max_count_of_values_in_leaf() const
             {
                 return this->_max_count_of_values_in_leaf;
@@ -291,12 +332,6 @@ namespace stool
             {
                 return this->leaf_container_vec.size();
             }
-            /*
-            uint64_t get_threshold_of_degree() const
-            {
-                return this->max_degree;
-            }
-            */
             //}@
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -304,6 +339,17 @@ namespace stool
             ///   Public standard functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+
+            
+            /**
+             * @brief Returns an iterator pointing to the first node in postorder traversal
+             * @details This function returns a PostorderIterator that points to the first node 
+             *          when traversing the tree in postorder (left-right-root). If the tree is empty,
+             *          returns an iterator pointing to nullptr. If the root is a leaf, returns an
+             *          iterator pointing to the root leaf container index. Otherwise returns an
+             *          iterator pointing to the root node.
+             * @return PostorderIterator pointing to the first node in postorder traversal
+             */
             PostorderIterator get_postorder_iterator_begin() const
             {
                 if (this->empty())
@@ -323,11 +369,25 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Returns an iterator pointing to the end of postorder traversal
+             * @details This function returns a PostorderIterator that represents the end of 
+             *          the postorder traversal sequence (nullptr)
+             * @return PostorderIterator pointing to nullptr
+             */
             PostorderIterator get_postorder_iterator_end() const
             {
                 return PostorderIterator(nullptr);
             }
 
+            /**
+             * @brief Returns an iterator pointing to the first value in forward traversal
+             * @details This function returns a ValueForwardIterator that points to the first value
+             *          when traversing the tree in forward order. If the tree is empty, returns
+             *          an iterator pointing to nullptr. Otherwise returns an iterator initialized
+             *          with the first node in postorder and the leaf container vector.
+             * @return ValueForwardIterator pointing to the first value
+             */
             ValueForwardIterator get_value_forward_iterator_begin() const
             {
                 if (this->empty())
@@ -340,11 +400,26 @@ namespace stool
                     return ValueForwardIterator(&node_it, &this->leaf_container_vec);
                 }
             }
+
+            /**
+             * @brief Returns an iterator pointing to the end of forward value traversal
+             * @details This function returns a ValueForwardIterator that represents the end of
+             *          the forward value traversal sequence (nullptr)
+             * @return ValueForwardIterator pointing to nullptr
+             */
             ValueForwardIterator get_value_forward_iterator_end() const
             {
                 return ValueForwardIterator(nullptr, nullptr);
             }
 
+            /**
+             * @brief Returns an iterator pointing to the first leaf in forward traversal
+             * @details This function returns a LeafForwardIterator that points to the first leaf
+             *          when traversing the tree in forward order. If the tree is empty, returns
+             *          an iterator pointing to nullptr. Otherwise returns an iterator pointing to
+             *          the root.
+             * @return LeafForwardIterator pointing to the first leaf
+             */
             LeafForwardIterator get_leaf_forward_iterator_begin() const
             {
                 if (this->empty())
@@ -356,15 +431,31 @@ namespace stool
                     return LeafForwardIterator(this->root);
                 }
             }
+
+            /**
+             * @brief Returns an iterator pointing to the end of forward leaf traversal
+             * @details This function returns a LeafForwardIterator that represents the end of
+             *          the forward leaf traversal sequence (nullptr)
+             * @return LeafForwardIterator pointing to nullptr
+             */
             LeafForwardIterator get_leaf_forward_iterator_end() const
             {
                 return LeafForwardIterator(nullptr);
             }
 
+            /**
+             * @brief Checks if the B+ tree is empty
+             * @return true if the tree is empty, false otherwise
+             */
             bool empty() const
             {
                 return this->height() == 0;
             }
+
+            /**
+             * @brief Returns the prefix sum of the B+ tree
+             * @return The prefix sum of the B+ tree
+             */
             uint64_t psum() const
             {
                 if (!this->empty())
@@ -383,6 +474,12 @@ namespace stool
                     return 0;
                 }
             }
+
+            /**
+             * @brief Returns the prefix sum of the B+ tree at position i
+             * @param i The position in the B+ tree
+             * @return The prefix sum of the B+ tree at position i
+             */
             uint64_t psum(uint64_t i) const
             {
                 if (i >= this->size())
@@ -406,6 +503,12 @@ namespace stool
                     throw std::runtime_error("Error:psum(i)");
                 }
             }
+
+            /**
+             * @brief Returns the position of the i-th 0 in the B+ tree
+             * @param i The position of the 0 in the B+ tree
+             * @return The position of the i-th 0 in the B+ tree
+             */
             int64_t select0(uint64_t i) const
             {
                 if (!this->empty())
@@ -425,6 +528,11 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Returns the position of the sum in the B+ tree
+             * @param sum The sum in the B+ tree
+             * @return The position of the sum in the B+ tree
+             */
             int64_t search(uint64_t sum) const
             {
                 if (!this->empty())
@@ -443,6 +551,12 @@ namespace stool
                     return -1;
                 }
             }
+
+            /**
+             * @brief Returns the value at position pos in the B+ tree
+             * @param pos The position in the B+ tree
+             * @return The value at position pos in the B+ tree
+             */
             VALUE at(uint64_t pos) const
             {
                 if (!this->empty())
@@ -459,6 +573,12 @@ namespace stool
                     throw std::invalid_argument("Error: BPTree::at()");
                 }
             }
+
+            /**
+             * @brief Returns the value index at position pos in the B+ tree
+             * @param pos The position in the B+ tree
+             * @return The value index at position pos in the B+ tree
+             */
             uint64_t get_value_index(uint64_t leaf_index, uint64_t position_in_leaf_container) const
             {
                 if (USE_PARENT_FIELD)
@@ -477,12 +597,6 @@ namespace stool
                         Node *node = (Node *)leaf_index;
                         while (parent != nullptr)
                         {
-                            /*
-                            this->print_info();
-                            this->print_tree();
-                            parent->print_info();
-                            std::cout << "IDX: " << (uint64_t)node << std::endl;
-                            */
 
                             int64_t idx = parent->get_index(node);
                             assert(idx != -1);
@@ -503,43 +617,27 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Returns the leaf container at position leaf_index
+             * @param leaf_index The position of the leaf container
+             * @return The leaf container at position leaf_index
+             */
             const LEAF_CONTAINER &get_leaf_container(uint64_t leaf_index) const
             {
                 return this->leaf_container_vec[leaf_index];
             }
+
+            /**
+             * @brief Returns a reference to the leaf container at position leaf_index
+             * @param leaf_index The position of the leaf container
+             * @return A reference to the leaf container at position leaf_index
+             */
             LEAF_CONTAINER &get_leaf_container(uint64_t leaf_index)
             {
                 assert(leaf_index < this->get_leaf_container_vector_size());
 
                 return this->leaf_container_vec[leaf_index];
             }
-            /*
-            bool check_whether_if_leaf_containers_are_sorted() const
-            {
-                uint64_t half_degree = this->get_max_count_of_values_in_leaf() / 2;
-                uint64_t x = 0;
-                uint64_t leaf_count = this->leaf_container_vec.size();
-                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                {
-                    if ((*it).is_leaf())
-                    {
-                        uint64_t leaf_index = (*it).get_leaf_container_index();
-
-                        if (x != leaf_index)
-                        {
-                            return false;
-                        }
-
-                        if (x + 1 != leaf_count && half_degree != this->leaf_container_vec[leaf_index].size())
-                        {
-                            return false;
-                        }
-                        x++;
-                    }
-                }
-                return true;
-            }
-            */
 
             //@}
 
@@ -548,20 +646,11 @@ namespace stool
             ///   Convertion functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            /*
-            std::string to_string() const
-            {
-                std::string r;
-                std::vector<uint64_t> idx_vector = this->get_leaf_container_index_vector();
-                Printer::print(idx_vector);
-                for (uint64_t idx : idx_vector)
-                {
 
-                    r += this->leaf_container_vec[idx].to_string();
-                }
-                return r;
-            }
-            */
+            /**
+             * @brief Converts the B+ tree to a vector of values
+             * @return A vector of values representing the B+ tree
+             */
             std::vector<VALUE> to_value_vector() const
             {
 
@@ -595,6 +684,10 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
+            /**
+             * @brief Verifies the integrity of the B+ tree
+             * @return true if the tree is valid, false otherwise
+             */
             bool verify() const
             {
                 bool b = true;
@@ -633,6 +726,13 @@ namespace stool
                 }
                 return b;
             }
+
+            /**
+             * @brief Prints the B+ tree in a tree-like format
+             * @details This function prints the B+ tree in a tree-like format, where each internal node
+             *          is represented by its value and its children are printed on the next line.
+             *          If the tree is empty, it prints an empty string.
+             */
             void print_tree() const
             {
                 std::vector<std::string> tree;
@@ -658,6 +758,12 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Prints detailed information about the B+ tree
+             * @details This function prints the height of the tree, the number of internal nodes,
+             *          and the number of leaf containers. It also prints the contents of each leaf
+             *          container and the parent vector if USE_PARENT_FIELD is true.
+             */
             void print_info() const
             {
                 std::cout << "========= BPTREE =========" << std::endl;
@@ -691,6 +797,12 @@ namespace stool
                 }
                 std::cout << "==========================" << std::endl;
             }
+
+            /**
+             * @brief Prints the leaves of the B+ tree
+             * @details This function prints the leaves of the B+ tree, where each leaf is represented
+             *          by its index and its contents. If the tree is empty, it prints an empty string.
+             */
             void print_leaves() const
             {
                 // uint64_t id = 0;
@@ -704,6 +816,12 @@ namespace stool
                     // id++;
                 }
             }
+
+            /**
+             * @brief Prints the leaf containers of the B+ tree
+             * @details This function prints the leaf containers of the B+ tree, where each leaf container
+             *          is represented by its index and its contents. If the tree is empty, it prints an empty string.
+             */
             void print_leaf_containers() const
             {
                 std::cout << "============ LEAVES ============" << std::endl;
@@ -714,11 +832,20 @@ namespace stool
                 std::cout << "============ LEAVES[END] ============" << std::endl;
             }
 
+            /**
+             * @brief Returns the total memory size of the B+ tree
+             * @return The total memory size of the B+ tree
+             */
             uint64_t size_in_bytes() const
             {
                 return this->get_internal_node_memory() + this->get_unused_leaf_container_vector_memory() + this->get_unused_leaf_container_vector_memory() + this->get_leaf_container_memory() + this->get_unused_node_pointers_memory() +
                        this->get_parent_vector_memory();
             }
+
+            /**
+             * @brief Returns the number of internal nodes in the B+ tree
+             * @return The number of internal nodes in the B+ tree
+             */
             uint64_t compute_internal_node_count() const
             {
                 uint64_t counter = 0;
@@ -733,6 +860,11 @@ namespace stool
                 }
                 return counter;
             }
+
+            /**
+             * @brief Returns the number of leaf containers in the B+ tree
+             * @return The number of leaf containers in the B+ tree
+             */
             uint64_t compute_leaf_container_count() const
             {
                 uint64_t counter = 0;
@@ -748,6 +880,10 @@ namespace stool
                 return counter;
             }
 
+            /**
+             * @brief Returns the memory size of the internal nodes in the B+ tree
+             * @return The memory size of the internal nodes in the B+ tree
+             */
             uint64_t get_internal_node_memory() const
             {
                 uint64_t sum1 = 0;
@@ -763,14 +899,29 @@ namespace stool
                 }
                 return sum1;
             }
+
+            /**
+             * @brief Returns the memory size of the unused leaf container vector in the B+ tree
+             * @return The memory size of the unused leaf container vector in the B+ tree
+             */
             uint64_t get_unused_leaf_container_vector_memory() const
             {
                 return sizeof(std::stack<uint64_t>) + (this->unused_leaf_container_indexes.size() * sizeof(uint64_t));
             }
+
+            /**
+             * @brief Returns the memory size of the leaf container vector in the B+ tree
+             * @return The memory size of the leaf container vector in the B+ tree
+             */
             uint64_t get_leaf_container_vector_memory() const
             {
                 return sizeof(std::vector<uint64_t>) + (this->leaf_container_vec.capacity() * sizeof(uint64_t));
             }
+
+            /**
+             * @brief Returns the memory size of the leaf containers in the B+ tree
+             * @return The memory size of the leaf containers in the B+ tree
+             */
             uint64_t get_leaf_container_memory() const
             {
                 uint64_t sum2 = 0;
@@ -780,6 +931,11 @@ namespace stool
                 }
                 return sum2;
             }
+
+            /**
+             * @brief Returns the memory size of the unused node pointers in the B+ tree
+             * @return The memory size of the unused node pointers in the B+ tree
+             */
             uint64_t get_unused_node_pointers_memory() const
             {
                 uint64_t sum6 = 0;
@@ -791,11 +947,21 @@ namespace stool
                 sum6 += (sizeof(Node *) * this->unused_node_pointers.capacity()) + sizeof(std::vector<Node *>);
                 return sum6;
             }
+
+            /**
+             * @brief Returns the memory size of the parent vector in the B+ tree
+             * @return The memory size of the parent vector in the B+ tree
+             */
             uint64_t get_parent_vector_memory() const
             {
                 return (sizeof(Node *) * this->parent_vec.capacity()) + sizeof(std::vector<Node *>);
             }
 
+            /**
+             * @brief Returns a vector of strings containing memory usage information about the B+ tree
+             * @param message_paragraph The paragraph number for the message
+             * @return A vector of strings containing memory usage information
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log;
@@ -818,6 +984,12 @@ namespace stool
                 return log;
             }
 
+            /**
+             * @brief Prints the memory usage information of the B+ tree
+             * @param message_paragraph The paragraph number for the message
+             * @details This function prints the memory usage information of the B+ tree, where each line
+             *          is printed with the specified message paragraph number.
+             */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
@@ -835,6 +1007,12 @@ namespace stool
             //@{
 
         public:
+            /**
+             * @brief Returns a vector of NodePointer objects representing the path from the root to the first leaf
+             * @param output_path The vector to store the path
+             * @details This function constructs a path from the root to the first leaf in the B+ tree.
+             *          If the tree is empty, the output path remains empty.
+             */
             void get_path_from_root_to_first_leaf(std::vector<NodePointer> &output_path) const
             {
                 if (!this->empty())
@@ -867,6 +1045,12 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Returns a vector of NodePointer objects representing the path from the root to the last leaf
+             * @param output_path The vector to store the path
+             * @details This function constructs a path from the root to the last leaf in the B+ tree.
+             *          If the tree is empty, the output path remains empty.
+             */
             void get_path_from_root_to_last_leaf(std::vector<NodePointer> &output_path) const
             {
                 if (!this->empty())
@@ -900,12 +1084,30 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Computes the path from the root to the leaf at position i
+             * @param i The position of the leaf
+             * @return The position of the leaf in the path
+             * @details This function computes the path from the root to the leaf at position i in the B+ tree.
+             *          If the tree is empty, it returns -1.
+             */
             int64_t compute_path_from_root_to_leaf(uint64_t i) const
             {
                 std::vector<NodePointer> &path = const_cast<std::vector<NodePointer> &>(this->tmp_path);
                 return this->compute_path_from_root_to_leaf(i, path);
             }
 
+            /**
+             * @brief Computes the path from root to leaf containing position i and returns leaf position
+             * @param i The position in the B+ tree to find the path to
+             * @param output_path Vector to store the path from root to leaf
+             * @return The position within the leaf node, or -1 if tree is empty
+             * @details This function computes the path from the root to the leaf node containing 
+             *          position i in the B+ tree. The path is stored in output_path as a sequence
+             *          of NodePointers. Each NodePointer contains either an internal node or leaf
+             *          pointer along with its parent edge index. The function returns the position
+             *          within the final leaf node where value i is located.
+             */
             int64_t compute_path_from_root_to_leaf(uint64_t i, std::vector<NodePointer> &output_path) const
             {
                 if (output_path.size() != this->height_)
@@ -956,6 +1158,12 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         private:
+            /**
+             * @brief Performs defragmentation of the B+ tree
+             * @details This function performs defragmentation of the B+ tree by moving all unused
+             *          leaf containers to the end of the leaf container vector and removing them.
+             *          It also updates the density threshold and the leaf container vector size.
+             */
             void defragmentation()
             {
                 std::vector<uint64_t> tmp;
@@ -1045,6 +1253,11 @@ namespace stool
                 this->density1 = gap;
                 */
             }
+            /**
+             * @brief Clears all unused node pointers
+             * @details This function deletes all unused node pointers and clears the unused node pointers vector.
+             *          It also shrinks the vector to fit its current size.
+             */
             void clear_unused_node_pointers()
             {
                 for (uint64_t i = 0; i < this->unused_node_pointers.size(); i++)
@@ -1054,6 +1267,12 @@ namespace stool
                 this->unused_node_pointers.clear();
                 this->unused_node_pointers.shrink_to_fit();
             }
+            /**
+             * @brief Creates a root leaf node with the given value
+             * @param value The value to be stored in the root leaf node
+             * @details This function creates a new root leaf node with the given value and sets it as the root of the B+ tree.
+             *          It also updates the root state flags and the height of the tree.
+             */
             void create_root_leaf(VALUE value)
             {
                 uint64_t p = this->get_new_container_index();
@@ -1067,6 +1286,17 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Removes an empty leaf node from the B+ tree
+             * @param idx The index of the leaf container to remove
+             * @param parent The parent node of the leaf being removed
+             * @param child_index The index of the child pointer in the parent node
+             * @details This function removes an empty leaf node from the B+ tree by:
+             *          1. Removing the child pointer from the parent node if it exists
+             *          2. Clearing the parent pointer if parent tracking is enabled
+             *          3. Adding the leaf container index to the unused indexes list
+             *          4. Clearing the leaf container's contents
+             */
             void remove_emply_leaf(uint64_t idx, Node *parent, int64_t child_index)
             {
                 if (parent != nullptr)
@@ -1081,6 +1311,19 @@ namespace stool
                 this->unused_leaf_container_indexes.push(idx);
                 this->leaf_container_vec[idx].clear();
             }
+
+            /**
+             * @brief Removes an empty internal node from the B+ tree
+             * @param node The node to remove
+             * @param parent The parent node of the node being removed
+             * @param child_index The index of the child pointer in the parent node
+             * @details This function removes an empty internal node from the B+ tree by:
+             *          1. Removing the child pointer from the parent node if it exists
+             *          2. Setting root to nullptr if the node being removed is the root
+             *          3. Clearing the node's contents
+             *          4. Either recycling the node pointer or deleting it based on the
+             *             number of unused node pointers currently stored
+             */
             void remove_emply_node(Node *node, Node *parent, int64_t child_index)
             {
                 // Node *parent = node->get_parent();
@@ -1107,6 +1350,12 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Gets a new container index from the unused container pool
+             * @return A new container index
+             * @details If there are no unused container indexes available, creates a new leaf container
+             *          and returns its index. Otherwise, pops and returns an index from the unused pool.
+             */
             uint64_t get_new_container_index()
             {
                 if (this->unused_leaf_container_indexes.size() == 0)
@@ -1124,6 +1373,13 @@ namespace stool
 
                 return idx;
             }
+
+            /**
+             * @brief Gets a new node pointer either from the unused pool or by allocation
+             * @return A pointer to a new node
+             * @details If there are unused node pointers available in the pool, returns one of those.
+             *          Otherwise allocates and returns a new node.
+             */
             Node *get_new_node_pointer()
             {
                 Node *new_node = nullptr;
@@ -1139,6 +1395,17 @@ namespace stool
                 return new_node;
             }
 
+            /**
+             * @brief Handles the node splitting process during tree operations
+             * @param path Vector of NodePointers representing path from root to target node
+             * @param t Index in the path where splitting should occur
+             * @details This function splits a node at the given position in the path by:
+             *          1. Creating a new right node
+             *          2. Handling parent relationships
+             *          3. Redistributing values between the original and new nodes
+             *          4. Updating tree properties like height and root if needed
+             *          The exact splitting behavior depends on whether the node is a leaf or internal node.
+             */
             void split_process(const std::vector<NodePointer> &path, uint64_t t)
             {
                 const NodePointer &top = path[t];
@@ -1207,6 +1474,16 @@ namespace stool
                 this->split_node(node, _new_right_node, top.is_leaf(), _parent, parent_edge_index, this->parent_vec);
             }
 
+            /**
+             * @brief Balances the B+ tree after an insertion operation
+             * @param path Vector of NodePointers representing the path from root to the modified node
+             * @param superLeftPushMode If true, pushes maximum possible values to left sibling
+             * @details This function rebalances the tree after an insertion by:
+             *          1. Checking if any node exceeds the maximum degree/size threshold
+             *          2. Attempting to redistribute values to siblings if possible
+             *          3. Splitting nodes if redistribution is not possible
+             *          The process continues up the tree path until balance is restored.
+             */
             void balance_for_insertion(const std::vector<NodePointer> &path, bool superLeftPushMode = false)
             {
                 for (int64_t t = path.size() - 1; t >= 0; --t)
@@ -1276,6 +1553,16 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Balances the B+ tree after a removal operation
+             * @param path Vector of NodePointers representing the path from root to the modified node
+             * @details This function rebalances the tree after a removal by:
+             *          1. Checking if any node falls below the minimum degree/size threshold
+             *          2. Attempting to borrow values from siblings if possible
+             *          3. Merging nodes if borrowing is not possible
+             *          4. Potentially adjusting the root if it has only one child
+             *          The process continues up the tree path until balance is restored.
+             */
             void balance_for_removal(const std::vector<NodePointer> &path)
             {
                 // Node *current_node = &node;
@@ -1407,12 +1694,29 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
+            /**
+             * @brief Pushes a single value to the B+ tree
+             * @param value The value to be pushed
+             * @details This function pushes a single value to the B+ tree by creating a vector
+             *          with the value and calling push_many() with the vector.
+             */
             void push_back(VALUE value)
             {
                 std::vector<VALUE> r;
                 r.push_back(value);
                 this->push_many(r);
             }
+            
+            /**
+             * @brief Inserts a value at the front of the B+ tree
+             * @param value The value to be inserted at the front
+             * @details This function inserts a value at the beginning of the B+ tree by:
+             *          1. Finding the path to the first leaf node
+             *          2. Inserting the value at the front of that leaf
+             *          3. Updating parent node counts and prefix sums
+             *          4. Rebalancing the tree if needed
+             *          If the tree is empty, creates a new root leaf node with the value.
+             */
             void push_front(VALUE value)
             {
                 std::vector<NodePointer> path;
@@ -1439,6 +1743,18 @@ namespace stool
             }
 
         private:
+            /**
+             * @brief Pushes multiple values to a leaf node in the B+ tree
+             * @param values Vector of values to push
+             * @param value_pos Starting position in values vector to push from
+             * @param path Vector of NodePointers representing path from root to target leaf
+             * @return Number of values successfully pushed
+             * @details This function:
+             *          1. Pushes values to the target leaf until it reaches max capacity
+             *          2. Updates prefix sums and value counts in parent nodes
+             *          3. Rebalances the tree if needed
+             *          Returns the number of values pushed.
+             */
             uint64_t push_many_to_leaf(const std::vector<VALUE> &values, uint64_t value_pos, const std::vector<NodePointer> &path)
             {
                 uint64_t x = 0;
@@ -1467,6 +1783,17 @@ namespace stool
                 assert(x > 0);
                 return x;
             }
+
+            /**
+             * @brief Appends a leaf node to an internal node in the B+ tree
+             * @param leaf_index Index of the leaf container to append
+             * @param path Vector of NodePointers representing path from root to target internal node
+             * @details This function:
+             *          1. Appends the leaf container as a child of the target internal node
+             *          2. Updates value counts and prefix sums in all parent nodes
+             *          3. Rebalances the tree if needed
+             *          The leaf container's size and prefix sum are used to update parent nodes.
+             */
             void push_back_to_internal_node(uint64_t leaf_index, const std::vector<NodePointer> &path)
             {
                 Node *node = path[path.size() - 1].get_node();
@@ -1490,6 +1817,15 @@ namespace stool
             }
 
         public:
+            /**
+             * @brief Pushes multiple leaf containers into the B+ tree
+             * @param containers Vector of leaf containers to insert
+             * @details This function iteratively:
+             *          1. Gets path to last leaf node
+             *          2. If path length > 1, creates new container and appends to internal node
+             *          3. If path length = 1, converts container to values and pushes individually
+             *          4. Continues until all containers are inserted
+             */
             void push_many(std::vector<LEAF_CONTAINER> &containers)
             {
                 uint64_t i = 0;
@@ -1515,6 +1851,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Pushes multiple values into the B+ tree
+             * @param values Vector of values to insert
+             * @details This function iteratively:
+             *          1. Gets path to last leaf node
+             *          2. If path exists, pushes values to leaf node
+             *          3. If tree is empty, creates root leaf with first value
+             *          4. Continues until all values are inserted
+             */
             void push_many(const std::vector<VALUE> &values)
             {
                 uint64_t i = 0;
@@ -1536,6 +1881,16 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Removes a value at a specific position using a path to the leaf
+             * @param path Vector of NodePointers representing path from root to leaf
+             * @param position_in_leaf_container Position in leaf container to remove
+             * @details This function:
+             *          1. Removes value from leaf container
+             *          2. Updates prefix sums and counts in parent nodes
+             *          3. Rebalances tree if needed
+             *          4. Handles special case of removing last element in root leaf
+             */
             void remove_using_path(const std::vector<NodePointer> &path, uint64_t position_in_leaf_container)
             {
                 uint64_t x = path[path.size() - 1].get_leaf_container_index();
@@ -1565,6 +1920,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Removes a value at a specific position in the B+ tree
+             * @param pos Position of value to remove
+             * @throws std::invalid_argument if tree is empty
+             * @details This function:
+             *          1. Computes path to leaf containing position
+             *          2. Removes value using computed path
+             *          3. Throws exception if tree is empty
+             */
             void remove(uint64_t pos)
             {
                 if (!this->empty())
@@ -1585,6 +1949,19 @@ namespace stool
                 }
                 */
             }
+
+            /**
+             * @brief Inserts a value at a specific position in the B+ tree
+             * @param pos Position to insert value
+             * @param value Value to insert
+             * @param sum_delta Change in prefix sum for parent updates
+             * @details This function:
+             *          1. Handles insertion at any valid position
+             *          2. Creates root leaf if tree is empty
+             *          3. Updates prefix sums and counts in parent nodes
+             *          4. Rebalances tree if needed
+             *          5. Appends value if position equals tree size
+             */
             void insert(uint64_t pos, VALUE value, uint64_t sum_delta)
             {
                 if (pos < this->size())
@@ -1639,6 +2016,15 @@ namespace stool
 
             }
             */
+            /**
+             * @brief Resizes the B+ tree to contain a specified number of elements
+             * @param _size The new size of the B+ tree
+             * @param default_value The value to initialize new elements with if expanding
+             * @details If the new size is larger than the current size, this function:
+             *          1. Adds new elements initialized with default_value until reaching target size
+             *          2. Maintains B+ tree properties by balancing nodes and updating paths
+             *          If the new size is smaller, removes elements from the end until reaching target size
+             */
             void resize(uint64_t _size, VALUE default_value)
             {
                 if (this->size() < _size)
@@ -1687,10 +2073,21 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Sets the linked B+ tree
+             * @param _tree Pointer to the B+ tree to be linked
+             * @details Associates another B+ tree with this one by storing a pointer to it
+             */
             void set_linked_tree(BPTree *_tree)
             {
                 this->linked_tree_ = _tree;
             }
+
+            /**
+             * @brief Gets the linked B+ tree
+             * @return Pointer to the linked B+ tree
+             * @details Returns the pointer to the B+ tree that was previously linked using set_linked_tree()
+             */
             BPTree *get_linked_tree() const
             {
                 return this->linked_tree_;
@@ -1703,6 +2100,19 @@ namespace stool
             ///   Non-const private functions for updating nodes
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            
+            /**
+             * @brief Moves values from a left node to a right node in the B+ tree
+             * @param left_node Pointer to the left node
+             * @param right_node Pointer to the right node 
+             * @param len Number of values to move
+             * @param is_leaf True if nodes are leaves, false if internal nodes
+             * @param parent Pointer to the parent node
+             * @param parent_edge_index_of_left_node Index of left node in parent's children
+             * @details This function moves len values from left_node to right_node. For leaf nodes,
+             *          it moves values between leaf containers and updates parent prefix sums and counts.
+             *          For internal nodes, it delegates to BPFunctions::move_right().
+             */
             void move_values_right(Node *left_node, Node *right_node, uint64_t len, bool is_leaf, Node *parent, int64_t parent_edge_index_of_left_node)
             {
                 if (is_leaf)
@@ -1717,17 +2127,11 @@ namespace stool
                         int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
-
-                        // stool::SimpleDeque16<uint64_t> &parent_sum_deq = parent->get_value_sum_deque();
-                        // parent_sum_deq[parent_edge_index_of_left_node] -= sum;
-                        // parent_sum_deq[parent_edge_index_of_left_node + 1] += sum;
                     }
 
                     if (parent != nullptr)
                     {
-
                         stool::SimpleDeque16<uint64_t> &parent_count_deq = parent->get_value_count_deque();
-
                         parent_count_deq[parent_edge_index_of_left_node] -= len;
                         parent_count_deq[parent_edge_index_of_left_node + 1] += len;
                     }
@@ -1739,6 +2143,19 @@ namespace stool
                     BPFunctions::move_right(*left_node, *right_node, len, parent, parent_edge_index_of_left_node, this->parent_vec);
                 }
             }
+
+            /**
+             * @brief Moves values from a right node to a left node in the B+ tree
+             * @param left_node Pointer to the left node
+             * @param right_node Pointer to the right node
+             * @param len Number of values to move
+             * @param is_leaf True if nodes are leaves, false if internal nodes
+             * @param parent Pointer to the parent node
+             * @param parent_edge_index_of_right_node Index of right node in parent's children
+             * @details This function moves len values from right_node to left_node. For leaf nodes,
+             *          it moves values between leaf containers and updates parent prefix sums and counts.
+             *          For internal nodes, it delegates to BPFunctions::move_left().
+             */
             void move_values_left(Node *left_node, Node *right_node, uint64_t len, bool is_leaf, Node *parent, int64_t parent_edge_index_of_right_node)
             {
                 if (is_leaf)
@@ -1752,10 +2169,6 @@ namespace stool
                         uint64_t sum = len != 0 ? this->leaf_container_vec[right_leaf].psum(len - 1) : 0;
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_right_node, -sum);
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_right_node - 1, sum);
-
-                        // stool::SimpleDeque16<uint64_t> &parent_sum_deq = parent->get_value_sum_deque();
-                        // parent_sum_deq[parent_edge_index_of_right_node] -= sum;
-                        // parent_sum_deq[parent_edge_index_of_right_node - 1] += sum;
                     }
 
                     if (parent != nullptr)
@@ -1773,14 +2186,25 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Splits a node into two nodes in the B+ tree
+             * @param left_node Pointer to the node being split (original node)
+             * @param right_node Pointer to the new node that will receive half the values
+             * @param is_leaf True if nodes are leaves, false if internal nodes
+             * @param parent Pointer to the parent node
+             * @param parent_edge_index_of_left_node Index of left node in parent's children
+             * @param parent_vec Vector of parent pointers (unused parameter)
+             * @details This function splits a node that has reached maximum capacity into two nodes.
+             *          For leaf nodes, it splits the leaf container. For internal nodes, it splits
+             *          the children array. The split is roughly even, with the right node receiving
+             *          slightly more values if the total is odd. Updates parent relationships and
+             *          maintains tree invariants.
+             */
             void split_node(Node *left_node, Node *right_node, bool is_leaf, Node *parent, int64_t parent_edge_index_of_left_node, [[maybe_unused]] std::vector<Node *> &parent_vec)
             {
                 uint64_t degree = 0;
                 if (is_leaf)
                 {
-                    // std::cout << "SPLIT: " << (uint64_t)left_node << "/" << (uint64_t)right_node << "/" << (uint64_t)this << std::endl;
-                    //  this->print_leaves();
-                    //  this->leaf_container_vec[(uint64_t)left_node].print();
                     degree = leaf_container_vec[(uint64_t)left_node].size();
                     assert((uint64_t)left_node < this->leaf_container_vec.size());
                     assert((uint64_t)right_node < this->leaf_container_vec.size());
@@ -1797,6 +2221,16 @@ namespace stool
 
             //@}
 
+            /**
+             * @brief Increments a value at a given position in the B+ tree
+             * @param i The position in the B+ tree where the value should be incremented
+             * @param delta The amount to increment the value by
+             * @details This function:
+             *          1. Computes the path to the leaf containing position i
+             *          2. Increments the value in the leaf container
+             *          3. Updates prefix sums in all parent nodes along the path
+             *          The increment operation maintains the tree's prefix sum property.
+             */
             void increment(uint64_t i, int64_t delta)
             {
                 uint64_t pos = this->compute_path_from_root_to_leaf(i);
@@ -1811,6 +2245,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Checks if the leaf containers in the B+ tree are sorted
+             * @return true if leaf containers are in sorted order, false otherwise
+             * @details This function verifies that the leaf container indices are 
+             *          in sequential order by:
+             *          1. Iterating through all leaf containers using forward iterator
+             *          2. Checking that each container index is exactly one more than previous
+             *          3. Returns false if any gap in sequence is found
+             */
             bool check_if_leaf_container_vec_is_sorted() const
             {
                 auto _end = this->get_leaf_forward_iterator_end();
@@ -1832,12 +2275,31 @@ namespace stool
             }
 
         private:
+            /**
+             * @brief Preprocesses two leaf nodes before exchanging them
+             * @param leaf_index1 Index of first leaf node to be exchanged
+             * @param leaf_index2 Index of second leaf node to be exchanged
+             * @details This function performs any necessary preprocessing before two leaf nodes
+             *          are exchanged in the B+ tree. Currently empty but available for future use.
+             */
             void preprocess_for_the_exchange_of_two_leaves([[maybe_unused]] uint64_t leaf_index1, [[maybe_unused]] uint64_t leaf_index2)
             {
             }
+
+            /**
+             * @brief Exchanges two leaf nodes in the B+ tree
+             * @param children1 SimpleDeque containing child pointers of first leaf's parent
+             * @param j Index in children1 of first leaf node
+             * @param leaf_index2 Index of second leaf node to exchange with
+             * @details This function exchanges two leaf nodes by:
+             *          1. Swapping their leaf containers
+             *          2. Updating parent-child relationships
+             *          3. Updating parent pointers
+             *          If leaf_index2's parent exists, also updates its child pointer.
+             *          No action taken if leaf indices are identical.
+             */
             void exchange(stool::SimpleDeque16<Node *> &children1, uint64_t j, uint64_t leaf_index2)
             {
-
                 uint64_t leaf_index1 = (uint64_t)children1[j];
                 assert(this->parent_vec[leaf_index1] != nullptr);
 
@@ -1866,23 +2328,28 @@ namespace stool
             }
 
         public:
+            /**
+             * @brief Sorts the leaf containers in the B+ tree
+             * @details This function sorts and reorganizes the leaf containers in the B+ tree by:
+             *          1. Initializing parent pointers if not using parent field tracking
+             *          2. Traversing the tree in postorder and exchanging leaf containers to sort them
+             *          3. Removing any excess leaf containers and unused indexes
+             *          4. Cleaning up temporary parent vector if not using parent field tracking
+             *          5. Updating root pointer if tree is a single leaf
+             * 
+             * The function does nothing if:
+             * - The tree is empty
+             * - The root is a leaf node
+             * 
+             * After sorting, the leaf containers will be arranged in sequential order matching
+             * their positions in the tree traversal.
+             */
             void sort_leaf_containers()
             {
                 if (this->size() == 0 || this->root_is_leaf_)
                 {
                     return;
                 }
-                /*
-                if (this->linked_tree_ != nullptr)
-                {
-                    std::cout << "INFO" << std::endl;
-                    //this->print_tree();
-                    this->print_leaves();
-                    //this->linked_tree_->print_tree();
-                    this->linked_tree_->print_leaves();
-                    std::cout << "INFO[END]" << std::endl;
-                }
-                */
 
                 auto _end = this->get_postorder_iterator_end();
 
@@ -1924,30 +2391,7 @@ namespace stool
                             for (uint64_t j = 0; j < _size; j++)
                             {
                                 this->exchange(children1, j, counter);
-                                /*
-                                uint64_t leaf = (uint64_t)children1[j];
-
-                                if (counter != leaf)
-                                {
-                                    if (this->parent_vec[counter] != nullptr)
-                                    {
-                                        auto &children2 = this->parent_vec[counter]->get_children();
-                                        uint64_t idx = this->parent_vec[counter]->get_index((Node *)counter);
-                                        this->leaf_container_vec[counter].swap(this->leaf_container_vec[leaf]);
-                                        children[j] = (Node *)counter;
-                                        children2[idx] = (Node *)leaf;
-                                    }
-                                    else
-                                    {
-                                        this->leaf_container_vec[counter].swap(this->leaf_container_vec[leaf]);
-                                        children[j] = (Node *)counter;
-                                    }
-
-                                    Node *tmp_n = this->parent_vec[leaf];
-                                    this->parent_vec[leaf] = this->parent_vec[counter];
-                                    this->parent_vec[counter] = tmp_n;
-                                }
-                                */
+                                
                                 counter++;
                             }
                         }
@@ -1977,6 +2421,17 @@ namespace stool
                 assert(this->check_if_leaf_container_vec_is_sorted());
             }
 
+            /**
+             * @brief Builds a layer of internal nodes from a vector of child nodes
+             * @param nodes Vector of child nodes to build from
+             * @param current_height Current height of the tree being built
+             * @return Vector of newly created parent nodes
+             * @details This function creates a new layer of internal nodes by:
+             *          1. If only one child node, sets it as root
+             *          2. If children fit in one node, creates single parent node
+             *          3. Otherwise distributes children across multiple parent nodes
+             *          Updates parent pointers and node counts/sums as needed.
+             */
             std::vector<Node *> build_from_leaf_containers_sub2(std::vector<Node *> &nodes, uint64_t current_height)
             {
                 assert(nodes.size() > 0);
@@ -2053,6 +2508,15 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Creates the first layer of internal nodes from leaf containers
+             * @return Vector of newly created internal nodes
+             * @details This function builds the first layer of internal nodes by:
+             *          1. Handling empty tree case
+             *          2. Handling single leaf case
+             *          3. Creating parent nodes for multiple leaves
+             *          Updates parent pointers and node counts/sums as needed.
+             */
             std::vector<Node *> build_from_leaf_containers_sub1()
             {
                 std::vector<Node *> r;
@@ -2134,6 +2598,15 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Creates leaf containers from a vector of values
+             * @param _values Vector of values to build leaf containers from
+             * @details This function distributes values across leaf containers by:
+             *          1. Handling empty input case
+             *          2. Creating single leaf for small number of values
+             *          3. Distributing values across multiple leaves for larger inputs
+             *          Maintains balanced leaf sizes according to tree parameters.
+             */
             void build_sub(const std::vector<VALUE> &_values)
             {
                 uint64_t i = 0;
@@ -2183,6 +2656,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds a complete B+ tree from a vector of values
+             * @param _values Vector of values to build the tree from
+             * @details This function constructs a complete B+ tree by:
+             *          1. Clearing any existing tree structure
+             *          2. Creating leaf containers from input values
+             *          3. Building internal node layers bottom-up
+             *          4. Setting root and updating tree properties
+             */
             void build(const std::vector<VALUE> &_values)
             {
                 this->clear();
@@ -2199,6 +2681,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds a B+ tree from a vector of leaf containers
+             * @param _leaf_containers Vector of leaf containers to build the tree from
+             * @details This function constructs a B+ tree by:
+             *          1. Clearing any existing tree structure
+             *          2. Swapping the input leaf containers into the tree
+             *          3. Building internal node layers bottom-up
+             *          4. Setting root and updating tree properties
+             */
             void build_from_leaf_containers(std::vector<LEAF_CONTAINER> &_leaf_containers)
             {
                 this->clear();
@@ -2219,6 +2710,16 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Saves the B+ tree structure to a byte vector
+             * @param output Vector to store the serialized tree data
+             * @param pos Starting position in the output vector
+             * @details This function serializes the tree by:
+             *          1. Sorting leaf containers if needed
+             *          2. Writing tree parameters (max degrees)
+             *          3. Saving leaf container data
+             *          The output vector is resized if needed to accommodate the data
+             */
             void save(std::vector<uint8_t> &output, uint64_t &pos)
             {
                 if (!this->check_if_leaf_container_vec_is_sorted())
@@ -2240,6 +2741,14 @@ namespace stool
                 LEAF_CONTAINER::save(this->leaf_container_vec, output, pos);
             }
 
+            /**
+             * @brief Saves the B+ tree structure to a file stream
+             * @param os Output file stream to write to
+             * @details This function serializes the tree by:
+             *          1. Sorting leaf containers if needed
+             *          2. Writing tree parameters (max degrees)
+             *          3. Saving leaf container data to the file
+             */
             void save(std::ofstream &os)
             {
                 if (!this->check_if_leaf_container_vec_is_sorted())
@@ -2253,6 +2762,16 @@ namespace stool
                 LEAF_CONTAINER::save(this->leaf_container_vec, os);
             }
 
+            /**
+             * @brief Builds a B+ tree from serialized data in a byte vector
+             * @param data Vector containing the serialized tree data
+             * @param pos Starting position in the data vector
+             * @details This function reconstructs the tree by:
+             *          1. Clearing any existing tree structure
+             *          2. Reading tree parameters
+             *          3. Loading leaf containers
+             *          4. Rebuilding the tree structure
+             */
             void build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 this->clear();
@@ -2266,6 +2785,15 @@ namespace stool
                 this->build_from_leaf_containers(tmp);
             }
 
+            /**
+             * @brief Builds a B+ tree from serialized data in a file stream
+             * @param ifs Input file stream to read from
+             * @details This function reconstructs the tree by:
+             *          1. Clearing any existing tree structure
+             *          2. Reading tree parameters
+             *          3. Loading leaf containers from the file
+             *          4. Rebuilding the tree structure
+             */
             void build_from_data(std::ifstream &ifs)
             {
                 this->clear();
@@ -2277,6 +2805,19 @@ namespace stool
                 this->build_from_leaf_containers(tmp);
             }
 
+            /**
+             * @brief Prints statistical information about the B+ tree
+             * @param message_paragraph Indentation level for output messages (default: stool::Message::SHOW_MESSAGE)
+             * @details This function prints detailed statistics about the B+ tree structure including:
+             *          - Number of internal nodes and leaf containers
+             *          - Tree height and total number of stored values
+             *          - Maximum and average degrees of internal nodes
+             *          - Maximum and average number of values in leaf nodes
+             *          - Number of unused nodes and leaf containers
+             *          - Number of parent pointers stored
+             *          - Estimated memory usage in bytes
+             *          The statistics are printed with proper indentation based on message_paragraph parameter.
+             */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 uint64_t internal_node_count = 0;
