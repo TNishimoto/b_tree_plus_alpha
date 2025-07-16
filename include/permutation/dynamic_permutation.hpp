@@ -174,59 +174,6 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END], the number of nodes = " << processed_node_counter  << ", Elapsed Time: " << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
                 }
             }
-            /*
-            void build(std::vector<uint64_t> &pi, uint64_t degree)
-            {
-                // this->initialize(degree);
-                this->pi_tree.initialize(degree);
-                this->inverse_pi_tree.initialize(degree);
-                this->pi_tree.set_linked_tree(nullptr);
-                this->inverse_pi_tree.set_linked_tree(nullptr);
-
-                PermutationItem default_item;
-                default_item.key = 0;
-                default_item.pointer = 0;
-                this->pi_tree.resize(pi.size(), default_item);
-                this->inverse_pi_tree.resize(pi.size(), default_item);
-
-                // stool::Printer::print("items", pi);
-
-                this->pi_tree.set_linked_tree(&this->inverse_pi_tree);
-                this->inverse_pi_tree.set_linked_tree(&this->pi_tree);
-
-                uint64_t i = 0;
-                for (auto it = this->pi_tree.get_postorder_iterator_begin(); it != this->pi_tree.get_postorder_iterator_end(); ++it)
-                {
-                    if ((*it).is_leaf())
-                    {
-                        uint64_t pi_leaf_idx = (*it).get_leaf_container_index();
-                        PermutationContainer &leaf = this->pi_tree.get_leaf_container(pi_leaf_idx);
-                        std::unordered_map<uint64_t, uint64_t> mapper;
-                        for (uint64_t j = 0; j < leaf.size(); j++)
-                        {
-                            uint64_t idx = this->inverse_pi_tree.compute_path_from_root_to_leaf(pi[i]);
-                            const auto &path = this->inverse_pi_tree.get_path();
-                            uint64_t inv_leaf_idx = path[path.size() - 1].get_leaf_container_index();
-                            PermutationContainer &inv_leaf = this->inverse_pi_tree.get_leaf_container(inv_leaf_idx);
-
-                            // uint64_t x1 = std::min(pi[i] / half_degree, pi_tree_vec_size - 1);
-                            auto f = mapper.find(inv_leaf_idx);
-                            if (f == mapper.end())
-                            {
-                                mapper[inv_leaf_idx] = 0;
-                            }
-                            uint64_t key = mapper[inv_leaf_idx];
-                            leaf.set_value(j, PermutationItem(inv_leaf_idx, key));
-                            inv_leaf.set_value(idx, PermutationItem(pi_leaf_idx, key));
-
-                            mapper[inv_leaf_idx] = key + 1;
-                            i++;
-                        }
-                    }
-                }
-
-            }
-            */
 
             void insert(int64_t pi_index, int64_t inverse_pi_index)
             {
@@ -384,6 +331,12 @@ namespace stool
                 this->pi_tree.print_leaves();
                 this->inverse_pi_tree.print_leaves();
                 std::cout << "=====================" << std::endl;
+            }
+            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicPermutation)[" << std::endl;
+                this->pi_tree.print_information_about_performance(message_paragraph + 1);
+                this->inverse_pi_tree.print_information_about_performance(message_paragraph + 1);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
             }
 
             uint64_t size_in_bytes() const

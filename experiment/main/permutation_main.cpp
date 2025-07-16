@@ -8,7 +8,7 @@
 #include "../../include/b_tree_plus_alpha.hpp"
 #include "../../test/include/permutation_test.hpp"
 
-void bptree_prefix_sum_test(stool::bptree::DynamicPermutation &dynamic_permutation, std::string name, uint64_t item_num, uint64_t query_num, uint64_t seed)
+void bptree_permutation_test(stool::bptree::DynamicPermutation &dynamic_permutation, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
     // stool::bptree::DynamicPrefixSum<> dps;
 
@@ -20,52 +20,71 @@ void bptree_prefix_sum_test(stool::bptree::DynamicPermutation &dynamic_permutati
 
     std::vector<uint64_t> permutation = stool::PermutationTest::create_random_permutation(item_num, mt64);
 
-
+    
     std::cout << "Construction..." << std::endl;
     st1 = std::chrono::system_clock::now();
     dynamic_permutation.build(permutation.begin(), permutation.end(), permutation.size());
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Random Insertion..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
-    {
-        uint64_t pi_index = get_rand_item_num(mt64);
-        uint64_t inverse_pi_index = get_rand_item_num(mt64);
-        dynamic_permutation.insert(pi_index, inverse_pi_index);
-        hash += pi_index + inverse_pi_index;
+    if(test_type == "all" || test_type == "insertion"){
+        std::cout << "Random Insertion..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t pi_index = get_rand_item_num(mt64);
+            uint64_t inverse_pi_index = get_rand_item_num(mt64);
+            dynamic_permutation.insert(pi_index, inverse_pi_index);
+            hash += pi_index + inverse_pi_index;
+        }
     }
-    st2 = std::chrono::system_clock::now();
+    st2 = std::chrono::system_clock::now();    
     uint64_t time_insertion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Random Deletion..." << std::endl;
+
+
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
-    {
-        uint64_t pos = get_rand_item_num(mt64);
-        dynamic_permutation.erase(pos);
-        hash += pos;
+
+    if(test_type == "all" || test_type == "deletion"){
+        int64_t n_delete = dynamic_permutation.size() - query_num;
+        if(n_delete < 0){
+            throw std::runtime_error("n_delete < 0");
+        }
+        std::uniform_int_distribution<uint64_t> get_rand_for_delete(0, n_delete);
+    
+
+        std::cout << "Random Deletion..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t pos = get_rand_for_delete(mt64);
+            dynamic_permutation.erase(pos);
+            hash += pos;
+        }    
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_deletion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Access..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
-    {
-        uint64_t m = get_rand_item_num(mt64);
-        hash += dynamic_permutation.access(m);
+    if(test_type == "all" || test_type == "access"){
+        std::cout << "Access..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t m = get_rand_item_num(mt64);
+            hash += dynamic_permutation.access(m);
+        }    
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Inverse Access..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
-    {
-        uint64_t m = get_rand_item_num(mt64);
-        hash += dynamic_permutation.inverse(m);
+
+    if(test_type == "all" || test_type == "inverse"){
+        std::cout << "Inverse Access..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t m = get_rand_item_num(mt64);
+            hash += dynamic_permutation.inverse(m);
+        }    
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_inverse_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -81,7 +100,6 @@ void bptree_prefix_sum_test(stool::bptree::DynamicPermutation &dynamic_permutati
     std::cout << "Inverse Access Time \t : " << (time_inverse_access / (1000 * 1000)) << "[ms] (Avg: " << (time_inverse_access / query_num) << "[ns])" << std::endl;
     std::cout << "Insertion Time \t\t : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time \t\t : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
-
 
     stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
@@ -106,21 +124,24 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("mode", 'm', "mode", true);
+    p.add<uint>("index", 'x', "index", true);
+    p.add<std::string>("test", 't', "test", false, "all");
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
-    p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
+    p.add<uint64_t>("query_num", 'q', "query_num", false, 1000000);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
+    uint64_t index_type = p.get<uint>("index");
+    std::string test_type = p.get<std::string>("test");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
 
-    if(mode == 0){
+    if(index_type == 0){
         stool::bptree::DynamicPermutation dp;
-        bptree_prefix_sum_test(dp, "stool::bptree::DynamicPermutation", item_num, query_num, seed);
-    
+        bptree_permutation_test(dp, "stool::bptree::DynamicPermutation", test_type, item_num, query_num, seed);
+        dp.print_information_about_performance();
+
     }else{
         /*
         DynPackedSPSIWrapper dps;

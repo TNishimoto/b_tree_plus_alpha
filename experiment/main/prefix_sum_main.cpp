@@ -10,7 +10,7 @@
 #include "../include/dyn_packed_spsi_wrapper.hpp"
 
 template <typename T>
-void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, uint64_t item_num, uint64_t max_value, uint64_t query_num, uint64_t seed)
+void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string test_type, uint64_t item_num, uint64_t max_value, uint64_t query_num, uint64_t seed)
 {
     // stool::bptree::DynamicPrefixSum<> dps;
 
@@ -32,58 +32,81 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, uint64_t it
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Random Insertion..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
+    if (test_type == "all" || test_type == "insertion")
     {
-        uint64_t pos = get_rand_item_num(mt64);
-        uint64_t value = get_rand_value(mt64);
-        dynamic_prefix_sum.insert(pos, value);
-        hash += value + pos;
+        std::cout << "Random Insertion..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+
+            uint64_t pos = get_rand_item_num(mt64);
+            uint64_t value = get_rand_value(mt64);
+            dynamic_prefix_sum.insert(pos, value);
+            hash += value + pos;
+        }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_insertion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Random Deletion..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
+    if (test_type == "all" || test_type == "deletion")
     {
-        uint64_t pos = get_rand_item_num(mt64);
-        dynamic_prefix_sum.remove(pos);
-        hash += pos;
+        std::cout << "Random Deletion..." << std::endl;
+
+        int64_t n_delete = dynamic_prefix_sum.size() - query_num;
+        if(n_delete < 0){
+            throw std::runtime_error("n_delete < 0");
+        }
+        std::uniform_int_distribution<uint64_t> get_rand_for_delete(0, n_delete);
+
+
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t pos = get_rand_for_delete(mt64);
+            dynamic_prefix_sum.remove(pos);
+            hash += pos;
+        }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_deletion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Access..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
+    if (test_type == "all" || test_type == "access")
     {
-        uint64_t m = get_rand_item_num(mt64);
-        hash += dynamic_prefix_sum.at(m);
+        std::cout << "Access..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t m = get_rand_item_num(mt64);
+            hash += dynamic_prefix_sum.at(m);
+        }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "PSUM..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
+    if (test_type == "all" || test_type == "psum")
     {
-        uint64_t m = get_rand_item_num(mt64);
-        uint64_t value = dynamic_prefix_sum.psum(m);
-        hash += value;
+        std::cout << "PSUM..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t m = get_rand_item_num(mt64);
+            uint64_t value = dynamic_prefix_sum.psum(m);
+            hash += value;
+        }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_psum = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << "Search..." << std::endl;
-
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < query_num; i++)
+    if (test_type == "all" || test_type == "search")
     {
-        uint64_t m = get_rand_value(mt64);
-        uint64_t value = dynamic_prefix_sum.search(m);
-        hash += value;
+        std::cout << "Search..." << std::endl;
+        for (uint64_t i = 0; i < query_num; i++)
+        {
+            uint64_t m = get_rand_value(mt64);
+            uint64_t value = dynamic_prefix_sum.search(m);
+            hash += value;
+        }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_search = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -137,26 +160,30 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("mode", 'm', "mode", true);
+    p.add<uint>("index", 'x', "index", true);
+    p.add<std::string>("test", 't', "test", false, "all");
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
     p.add<uint64_t>("max_value", 'v', "max_value", false, 100);
     p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
+    uint64_t index_type = p.get<uint>("index");
+    std::string query_type = p.get<std::string>("test");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t max_value = p.get<uint64_t>("max_value");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
 
-    if(mode == 0){
+    if (index_type == 0)
+    {
         stool::bptree::DynamicPrefixSum<> dps;
-        bptree_prefix_sum_test(dps, "stool::bptree::DynamicPrefixSum<>", item_num, max_value, query_num, seed);
-    
-    }else{
-        DynPackedSPSIWrapper dps;
-        bptree_prefix_sum_test(dps, "DynPackedSPSIWrapper", item_num, max_value, query_num, seed);    
+        bptree_prefix_sum_test(dps, "stool::bptree::DynamicPrefixSum<>", query_type, item_num, max_value, query_num, seed);
+        dps.print_information_about_performance();
     }
-
+    else
+    {
+        DynPackedSPSIWrapper dps;
+        bptree_prefix_sum_test(dps, "DynPackedSPSIWrapper", query_type, item_num, max_value, query_num, seed);
+    }
 }

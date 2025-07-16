@@ -351,6 +351,11 @@ namespace stool
                 this->tree.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicPrefixSum)[" << std::endl;                
+                this->tree.print_information_about_performance(message_paragraph + 1);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
+            }
 
             //@}
 

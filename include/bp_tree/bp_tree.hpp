@@ -44,6 +44,12 @@ namespace stool
             uint16_t height_ = 0;
             bool root_is_leaf_ = false;
 
+            uint64_t split_process_counter = 0;
+            uint64_t insert_operation_counter = 0;
+            uint64_t merge_process_counter = 0;
+            uint64_t remove_operation_counter = 0;
+
+
         public:
             ~BPTree()
             {
@@ -84,7 +90,6 @@ namespace stool
                 other.height_ = 0;
                 other.root_is_leaf_ = false;
             }
-
 
             BPTree &operator=(BPTree &&other) noexcept
             {
@@ -129,7 +134,6 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            
             /**
              * @brief Initializes the B+ tree with equal maximum degrees for internal nodes and leaf nodes
              * @param __max_degree_of_internal_node The maximum degree for both internal nodes and leaf nodes
@@ -145,7 +149,7 @@ namespace stool
              * @param __max_degree_of_internal_node The maximum degree for internal nodes
              * @param __max_count_of_values_in_leaf The maximum number of values that can be stored in a leaf node
              * @throws std::runtime_error if either parameter is less than 4
-             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4 
+             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4
              * to maintain B+ tree properties. The function clears any existing data before initialization.
              */
             void initialize(uint64_t __max_degree_of_internal_node, uint64_t __max_count_of_values_in_leaf)
@@ -279,6 +283,19 @@ namespace stool
                 return this->_max_degree_of_internal_node;
             }
 
+            uint64_t get_split_process_counter() const
+            {
+                return this->split_process_counter;
+            }
+
+            uint64_t capacity() const{
+                return (this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size()) * this->get_max_count_of_values_in_leaf();
+            }
+
+            double get_value_density() const{
+                return (double) this->size() / (double) this->capacity();
+            }
+
             /**
              * @brief Returns the maximum number of values that can be stored in a leaf node
              * @return The maximum number of values that can be stored in a leaf node
@@ -340,10 +357,9 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            
             /**
              * @brief Returns an iterator pointing to the first node in postorder traversal
-             * @details This function returns a PostorderIterator that points to the first node 
+             * @details This function returns a PostorderIterator that points to the first node
              *          when traversing the tree in postorder (left-right-root). If the tree is empty,
              *          returns an iterator pointing to nullptr. If the root is a leaf, returns an
              *          iterator pointing to the root leaf container index. Otherwise returns an
@@ -371,7 +387,7 @@ namespace stool
 
             /**
              * @brief Returns an iterator pointing to the end of postorder traversal
-             * @details This function returns a PostorderIterator that represents the end of 
+             * @details This function returns a PostorderIterator that represents the end of
              *          the postorder traversal sequence (nullptr)
              * @return PostorderIterator pointing to nullptr
              */
@@ -965,22 +981,22 @@ namespace stool
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log;
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  + "=BP Tree: " + std::to_string(this->size_in_bytes()) + " bytes =");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  + " Max Degree of Internal Node: " + std::to_string(this->get_max_degree_of_internal_node()));
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  + " Max Count of Values in Leaf: " + std::to_string(this->get_max_count_of_values_in_leaf()));
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  + " The number of values: " + std::to_string(this->size()));
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Degree of Internal Node: " + std::to_string(this->get_max_degree_of_internal_node()));
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Count of Values in Leaf: " + std::to_string(this->get_max_count_of_values_in_leaf()));
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
 
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Internal Nodes: " + std::to_string(this->get_internal_node_memory()) + " bytes");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Ununsed Leaf Pointers: " + std::to_string(this->get_unused_leaf_container_vector_memory()) + " bytes");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Ununsed Node Pointers: " + std::to_string(this->get_unused_node_pointers_memory()) + " bytes");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Leaf Vector: " + std::to_string(this->get_leaf_container_vector_memory()) + " bytes (vector capacity: " + std::to_string(this->leaf_container_vec.capacity()) + ")");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Internal Nodes: " + std::to_string(this->get_internal_node_memory()) + " bytes");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Ununsed Leaf Pointers: " + std::to_string(this->get_unused_leaf_container_vector_memory()) + " bytes");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Ununsed Node Pointers: " + std::to_string(this->get_unused_node_pointers_memory()) + " bytes");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Leaf Vector: " + std::to_string(this->get_leaf_container_vector_memory()) + " bytes (vector capacity: " + std::to_string(this->leaf_container_vec.capacity()) + ")");
 
                 uint64_t value_count = this->size();
                 uint64_t leaf_total_memory = this->get_leaf_container_memory();
                 uint64_t byte_per_value = value_count > 0 ? leaf_total_memory / value_count : 0;
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Leaves : " + std::to_string(leaf_total_memory) + " bytes (" + std::to_string(byte_per_value) + " bytes per value, leaf count: " + std::to_string(this->leaf_container_vec.size()) + ")");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +" Parent Vector : " + std::to_string(this->get_parent_vector_memory()) + " bytes");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph)  +"==");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Leaves : " + std::to_string(leaf_total_memory) + " bytes (" + std::to_string(byte_per_value) + " bytes per value, leaf count: " + std::to_string(this->leaf_container_vec.size()) + ")");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Parent Vector : " + std::to_string(this->get_parent_vector_memory()) + " bytes");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return log;
             }
 
@@ -1102,7 +1118,7 @@ namespace stool
              * @param i The position in the B+ tree to find the path to
              * @param output_path Vector to store the path from root to leaf
              * @return The position within the leaf node, or -1 if tree is empty
-             * @details This function computes the path from the root to the leaf node containing 
+             * @details This function computes the path from the root to the leaf node containing
              *          position i in the B+ tree. The path is stored in output_path as a sequence
              *          of NodePointers. Each NodePointer contains either an internal node or leaf
              *          pointer along with its parent edge index. The function returns the position
@@ -1484,8 +1500,9 @@ namespace stool
              *          3. Splitting nodes if redistribution is not possible
              *          The process continues up the tree path until balance is restored.
              */
-            void balance_for_insertion(const std::vector<NodePointer> &path, bool superLeftPushMode = false)
+            uint64_t balance_for_insertion(const std::vector<NodePointer> &path, bool superLeftPushMode = false)
             {
+                uint64_t split_counter = 0;
                 for (int64_t t = path.size() - 1; t >= 0; --t)
                 {
                     const NodePointer &top = path[t];
@@ -1539,11 +1556,13 @@ namespace stool
                             else
                             {
                                 this->split_process(path, t);
+                                split_counter++;
                             }
                         }
                         else
                         {
                             this->split_process(path, t);
+                            split_counter++;
                         }
                     }
                     else
@@ -1551,6 +1570,7 @@ namespace stool
                         break;
                     }
                 }
+                return split_counter;
             }
 
             /**
@@ -1563,9 +1583,11 @@ namespace stool
              *          4. Potentially adjusting the root if it has only one child
              *          The process continues up the tree path until balance is restored.
              */
-            void balance_for_removal(const std::vector<NodePointer> &path)
+            uint64_t balance_for_removal(const std::vector<NodePointer> &path)
             {
                 // Node *current_node = &node;
+
+                uint64_t merge_counter = 0;
 
                 for (int64_t t = path.size() - 1; t >= 0; --t)
                 {
@@ -1639,6 +1661,7 @@ namespace stool
                                             this->remove_emply_node(top.get_node(), parent, parent_edge_index);
                                         }
                                     }
+                                    merge_counter++;
                                 }
                             }
                             else
@@ -1685,6 +1708,7 @@ namespace stool
                         }
                     }
                 }
+                return merge_counter;
             }
             //@}
 
@@ -1706,7 +1730,7 @@ namespace stool
                 r.push_back(value);
                 this->push_many(r);
             }
-            
+
             /**
              * @brief Inserts a value at the front of the B+ tree
              * @param value The value to be inserted at the front
@@ -1777,6 +1801,7 @@ namespace stool
 
                     parent->increment(parent_edge_index, len, sum);
                 }
+                std::cout << "X: " << this->leaf_container_vec.size() << std::endl;
 
                 this->balance_for_insertion(path, true);
 
@@ -1891,8 +1916,9 @@ namespace stool
              *          3. Rebalances tree if needed
              *          4. Handles special case of removing last element in root leaf
              */
-            void remove_using_path(const std::vector<NodePointer> &path, uint64_t position_in_leaf_container)
+            uint64_t remove_using_path(const std::vector<NodePointer> &path, uint64_t position_in_leaf_container)
             {
+                uint64_t merge_counter = 0;
                 uint64_t x = path[path.size() - 1].get_leaf_container_index();
                 int64_t delta = leaf_container_vec[x].psum(position_in_leaf_container, position_in_leaf_container);
                 leaf_container_vec[x].remove(position_in_leaf_container);
@@ -1905,7 +1931,7 @@ namespace stool
 
                 if (path.size() > 1)
                 {
-                    this->balance_for_removal(this->tmp_path);
+                    merge_counter += this->balance_for_removal(this->tmp_path);
                 }
                 else
                 {
@@ -1918,6 +1944,7 @@ namespace stool
                         this->height_ = 0;
                     }
                 }
+                return merge_counter;
             }
 
             /**
@@ -1934,9 +1961,10 @@ namespace stool
                 if (!this->empty())
                 {
                     assert(pos < this->size());
+                    this->remove_operation_counter++;
 
                     int64_t position_to_remove = this->compute_path_from_root_to_leaf(pos);
-                    this->remove_using_path(this->tmp_path, position_to_remove);
+                    this->merge_process_counter += this->remove_using_path(this->tmp_path, position_to_remove);
                 }
                 else
                 {
@@ -1983,7 +2011,7 @@ namespace stool
                                 uint64_t child_index = this->tmp_path[i + 1].get_parent_edge_index();
                                 node->increment(child_index, 1, sum_delta);
                             }
-                            this->balance_for_insertion(this->tmp_path);
+                            this->split_process_counter += this->balance_for_insertion(this->tmp_path);
                         }
                         else
                         {
@@ -2007,6 +2035,7 @@ namespace stool
                     assert(pos == this->size());
                     this->push_back(value);
                 }
+                this->insert_operation_counter++;
             }
             /*
             void insert(uint64_t pos, VALUE value, uint64_t sum_delta)
@@ -2100,11 +2129,11 @@ namespace stool
             ///   Non-const private functions for updating nodes
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            
+
             /**
              * @brief Moves values from a left node to a right node in the B+ tree
              * @param left_node Pointer to the left node
-             * @param right_node Pointer to the right node 
+             * @param right_node Pointer to the right node
              * @param len Number of values to move
              * @param is_leaf True if nodes are leaves, false if internal nodes
              * @param parent Pointer to the parent node
@@ -2248,7 +2277,7 @@ namespace stool
             /**
              * @brief Checks if the leaf containers in the B+ tree are sorted
              * @return true if leaf containers are in sorted order, false otherwise
-             * @details This function verifies that the leaf container indices are 
+             * @details This function verifies that the leaf container indices are
              *          in sequential order by:
              *          1. Iterating through all leaf containers using forward iterator
              *          2. Checking that each container index is exactly one more than previous
@@ -2336,11 +2365,11 @@ namespace stool
              *          3. Removing any excess leaf containers and unused indexes
              *          4. Cleaning up temporary parent vector if not using parent field tracking
              *          5. Updating root pointer if tree is a single leaf
-             * 
+             *
              * The function does nothing if:
              * - The tree is empty
              * - The root is a leaf node
-             * 
+             *
              * After sorting, the leaf containers will be arranged in sequential order matching
              * their positions in the tree traversal.
              */
@@ -2391,7 +2420,7 @@ namespace stool
                             for (uint64_t j = 0; j < _size; j++)
                             {
                                 this->exchange(children1, j, counter);
-                                
+
                                 counter++;
                             }
                         }
@@ -2754,7 +2783,6 @@ namespace stool
                 if (!this->check_if_leaf_container_vec_is_sorted())
                 {
                     this->sort_leaf_containers();
-
                 }
 
                 os.write((const char *)(&this->_max_degree_of_internal_node), sizeof(uint64_t));
@@ -2804,6 +2832,25 @@ namespace stool
 
                 this->build_from_leaf_containers(tmp);
             }
+
+            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (BPTree)[" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of insertion operations: " << this->insert_operation_counter << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of split process in insertion operations: " << this->split_process_counter << std::endl;
+                if(this->insert_operation_counter > 0){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of split process per insertion: " << (double)this->split_process_counter / (double)this->insert_operation_counter << std::endl;
+                }
+
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of removal operations: " << this->remove_operation_counter << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of merge process in removal operations: " << this->merge_process_counter << std::endl;
+                if(this->remove_operation_counter > 0){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of merge process per removal: " << (double)this->merge_process_counter / (double)this->remove_operation_counter << std::endl;
+                }
+
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
+
+            }
+
 
             /**
              * @brief Prints statistical information about the B+ tree
@@ -2860,8 +2907,6 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of stored parent pointers: " << this->parent_vec.size() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Estimated memory usage: " << this->size_in_bytes() << " bytes" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
-
-
             }
         };
     }

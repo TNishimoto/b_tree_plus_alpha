@@ -13,7 +13,7 @@
 // #include "../../test/permutation_test.hpp"
 
 template <typename T>
-void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint64_t item_num, uint64_t query_num, uint64_t seed, bool use_access_test ,bool use_rank_test, bool use_select_test, bool use_insertion_test, bool use_deletion_test)
+void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
     std::cout << "Test: " << name << std::endl;
 
@@ -22,6 +22,8 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     std::uniform_int_distribution<uint64_t> get_rand_item_num(0, item_num - 1);
 
     uint64_t hash = 0;
+    double density_when_build_is_complete = 0;
+
 
     std::chrono::system_clock::time_point st1, st2;
 
@@ -38,11 +40,16 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
+    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+        density_when_build_is_complete = dynamic_bit_sequence.density();
+    }
+
+
     std::cout << "Checksum: " << hash << std::endl;
-    std::cout << "Random Insertion..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    if (use_insertion_test)
+    if (test_type == "all" || test_type == "insertion")
     {
+        std::cout << "Random Insertion..." << std::endl;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t pos = get_rand_item_num(mt64);
@@ -50,19 +57,25 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
             dynamic_bit_sequence.insert(pos, value);
             hash += value + pos;
         }
-    }    
+    }
     st2 = std::chrono::system_clock::now();
     uint64_t time_insertion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-
     std::cout << "Checksum: " << hash << std::endl;
-    std::cout << "Random Deletion..." << std::endl;
     st1 = std::chrono::system_clock::now();
-    if (use_deletion_test)
+    if (test_type == "all" || test_type == "deletion")
     {
+        std::cout << "Random Deletion..." << std::endl;
+        int64_t n_delete = dynamic_bit_sequence.size() - query_num;
+        if(n_delete < 0){
+            throw std::runtime_error("n_delete < 0");
+        }
+        std::uniform_int_distribution<uint64_t> get_rand_for_delete(0, n_delete);
+
+
         for (uint64_t i = 0; i < query_num; i++)
         {
-            uint64_t pos = get_rand_item_num(mt64);
+            uint64_t pos = get_rand_for_delete(mt64);
             dynamic_bit_sequence.remove(pos);
             hash += pos;
         }
@@ -74,11 +87,12 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     std::uniform_int_distribution<uint64_t> get_rand_bits(0, count1 - 1);
 
     std::cout << "Checksum: " << hash << std::endl;
-    std::cout << "access1..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
-    if (use_access_test)
+    if (test_type == "all" || test_type == "access")
     {
+        std::cout << "access1..." << std::endl;
+
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
@@ -88,14 +102,12 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-
-
     std::cout << "Checksum: " << hash << std::endl;
-    std::cout << "rank1..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
-    if (use_rank_test)
+    if (test_type == "all" || test_type == "rank")
     {
+        std::cout << "rank1..." << std::endl;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
@@ -109,11 +121,11 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     std::cout << count1 << std::endl;
 
     std::cout << "Checksum: " << hash << std::endl;
-    std::cout << "select1..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
-    if (use_select_test)
+    if (test_type == "all" || test_type == "select")
     {
+        std::cout << "select1..." << std::endl;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_bits(mt64);
@@ -135,11 +147,16 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, uint6
     std::cout << "Select Time         : " << (time_search / (1000 * 1000)) << "[ms] (Avg: " << (time_search / query_num) << "[ns])" << std::endl;
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
+
+
+    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+        std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
+    }
+
     stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -159,32 +176,36 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("mode", 'm', "mode", true);
+    p.add<uint>("index", 'x', "index", true);
+    p.add<std::string>("test", 't', "test", false, "all");
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
     p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
+    uint64_t index_type = p.get<uint>("index");
+    std::string query_type = p.get<std::string>("test");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
 
-    if (mode == 0)
+    if (index_type == 0)
     {
         stool::bptree::DynamicBitSequence dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", item_num, query_num, seed, true, true, true, true, true);
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", query_type, item_num, query_num, seed);
+        dbs.print_information_about_performance();
     }
-    else if(mode == 1){
+    else if (index_type == 1)
+    {
         DynSucBVWrapper dbs;
-        dynamic_bit_operation_test(dbs, "DynSucBVWrapper", item_num, query_num, seed, true, true, true, true, true);
+        dynamic_bit_operation_test(dbs, "DynSucBVWrapper", query_type, item_num, query_num, seed);
     }
     else
     {
 #if defined(__x86_64__)
         BVBVWrapper dbs;
-        dynamic_bit_operation_test(dbs, "BVBVWrapper", item_num, query_num, seed, true, true, true, true, true);
-        //dcc_dynamic_bit_test(item_num, query_num, seed);
+        dynamic_bit_operation_test(dbs, "BVBVWrapper", query_type, item_num, query_num, seed);
+        // dcc_dynamic_bit_test(item_num, query_num, seed);
 #else
         std::cout << "This code is not supported on this architecture." << std::endl;
 #endif
