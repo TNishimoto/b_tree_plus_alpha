@@ -26,7 +26,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
         std::vector<uint64_t> buffer;
         uint64_t buffer_size = 10000;
 
@@ -128,13 +128,16 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st2 = std::chrono::system_clock::now();
     uint64_t time_psum = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
+    uint64_t psum = dynamic_prefix_sum.psum();
+    std::uniform_int_distribution<uint64_t> get_rand_for_search(0, psum-1);
+
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "search")
     {
         std::cout << "Search..." << std::endl;
         for (uint64_t i = 0; i < query_num; i++)
         {
-            uint64_t m = get_rand_value(mt64);
+            uint64_t m = get_rand_for_search(mt64);
             uint64_t value = dynamic_prefix_sum.search(m);
             hash += value;
         }
