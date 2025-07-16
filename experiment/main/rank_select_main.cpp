@@ -159,20 +159,20 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("mode", 'm', "mode", true);
+    p.add<std::string>("index_name", 'x', "index_name", true);
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
     p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
     p.add<uint64_t>("alphabet_size", 'a', "alphabet_size", false, 16);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
+    std::string index_name = p.get<std::string>("index_name");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
     uint64_t alphabet_size = p.get<uint64_t>("alphabet_size");
 
-    if (mode == 0)
+    if (index_name == "BTreePlusAlpha")
     {
         std::vector<uint8_t> _alphabet;
         for (uint64_t i = 0; i <= alphabet_size; i++)
@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 
         dynamic_operation_test(dbs, "stool::bptree::DynamicWaveletTree", item_num, query_num, alphabet_size, seed, true, true, true, true, true);
     }
-    else if (mode == 1)
+    else if (index_name == "DYNAMIC")
     {
         dyn::wt_string<dyn::suc_bv> wb;
         dynamic_operation_test(wb, "dyn::wt_string<dyn::suc_bv>", item_num, query_num, alphabet_size, seed, true, true, true, true, true);

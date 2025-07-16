@@ -18,19 +18,50 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     std::uniform_int_distribution<uint64_t> get_rand_value(0, max_value);
     std::uniform_int_distribution<uint64_t> get_rand_item_num(0, item_num - 1);
     uint64_t hash = 0;
+    double density_when_build_is_complete = 0;
 
     std::chrono::system_clock::time_point st1, st2;
 
     std::cout << "Construction..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < item_num; i++)
-    {
-        uint64_t m = get_rand_value(mt64);
-        dynamic_prefix_sum.push_back(m);
+
+    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+        std::vector<uint64_t> buffer;
+        uint64_t buffer_size = 10000;
+
+        for (uint64_t i = 0; i < item_num; i++)
+        {
+            uint64_t m = get_rand_value(mt64);
+            hash += m;
+
+            buffer.push_back(m);
+            if(buffer.size() >= buffer_size){
+                dynamic_prefix_sum.push_many(buffer);
+                buffer.clear();
+            }
+        }
+        if(buffer.size() > 0){
+            dynamic_prefix_sum.push_many(buffer);
+            buffer.clear();
+        }
+    }else{
+        for (uint64_t i = 0; i < item_num; i++)
+        {
+            uint64_t m = get_rand_value(mt64);
+            dynamic_prefix_sum.push_back(m);
+            hash += m;
+        }    
     }
+
+
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
+        density_when_build_is_complete = dynamic_prefix_sum.density();
+    }
+
 
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "insertion")
@@ -130,6 +161,10 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
+        std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
+        dynamic_prefix_sum.print_information_about_performance();
+    }
     /*
     std::cout << "Update Time         : " << (time2 / (1000 * 1000)) << "[ms] (Avg: " << (time2 / (2 * len)) << "[ns])" << std::endl;
     std::cout << "Total Running Time : " << (time1 + time2 + time3 + time4) / (1000 * 1000) << "[ms] (Avg: " << ((time1 + time2 + time3 + time4) / len) << "[ns])" << std::endl;
@@ -160,7 +195,8 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("index", 'x', "index", true);
+
+    p.add<std::string>("index_name", 'x', "index_name", true);
     p.add<std::string>("test", 't', "test", false, "all");
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
     p.add<uint64_t>("max_value", 'v', "max_value", false, 100);
@@ -168,20 +204,19 @@ int main(int argc, char *argv[])
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t index_type = p.get<uint>("index");
+    std::string index_name = p.get<std::string>("index_name");
     std::string query_type = p.get<std::string>("test");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t max_value = p.get<uint64_t>("max_value");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
 
-    if (index_type == 0)
+    if (index_name == "BTreePlusAlpha")
     {
         stool::bptree::DynamicPrefixSum<> dps;
         bptree_prefix_sum_test(dps, "stool::bptree::DynamicPrefixSum<>", query_type, item_num, max_value, query_num, seed);
-        dps.print_information_about_performance();
     }
-    else
+    else if(index_name == "DYNAMIC")
     {
         DynPackedSPSIWrapper dps;
         bptree_prefix_sum_test(dps, "DynPackedSPSIWrapper", query_type, item_num, max_value, query_num, seed);

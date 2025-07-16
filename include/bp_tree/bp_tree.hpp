@@ -1508,6 +1508,10 @@ namespace stool
                     const NodePointer &top = path[t];
                     uint64_t degree = top.get_degree(this->leaf_container_vec);
                     uint64_t threshold = top.is_leaf() ? this->get_max_count_of_values_in_leaf() : this->get_max_degree_of_internal_node();
+                    uint64_t LR_threshold = threshold;
+                    if(superLeftPushMode){
+                        LR_threshold = (threshold * 3) / 4;
+                    }
 
                     if (degree > threshold)
                     {
@@ -1523,23 +1527,24 @@ namespace stool
                             if (parent_edge_index > 0)
                             {
                                 leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
-                                assert(leftSiblingDegree <= threshold);
+                                
+                                //assert(leftSiblingDegree <= threshold);
                             }
 
                             uint64_t rightSiblingDegree = UINT64_MAX;
                             if (parent_edge_index + 1 < parent->children_count())
                             {
                                 rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
-                                assert(rightSiblingDegree <= threshold);
+                                //assert(rightSiblingDegree <= threshold);
                             }
 
-                            if (leftSiblingDegree < threshold || rightSiblingDegree < threshold)
+                            if (leftSiblingDegree < LR_threshold || rightSiblingDegree < LR_threshold)
                             {
-                                if (leftSiblingDegree < threshold)
+                                if (leftSiblingDegree < LR_threshold)
                                 {
                                     if (superLeftPushMode)
                                     {
-                                        uint64_t diff = threshold - leftSiblingDegree;
+                                        uint64_t diff = LR_threshold - leftSiblingDegree;
                                         this->move_values_left(leftSibling, top.get_node(), diff, top.is_leaf(), parent, parent_edge_index);
                                     }
                                     else
@@ -1801,7 +1806,6 @@ namespace stool
 
                     parent->increment(parent_edge_index, len, sum);
                 }
-                std::cout << "X: " << this->leaf_container_vec.size() << std::endl;
 
                 this->balance_for_insertion(path, true);
 

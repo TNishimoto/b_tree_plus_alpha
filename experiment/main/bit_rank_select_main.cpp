@@ -31,12 +31,40 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Construction..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
-    for (uint64_t i = 0; i < item_num; i++)
-    {
-        bool b = get_rand_value(mt64) % 2 == 1;
-        hash += (int)b;
-        dynamic_bit_sequence.push_back(b);
+
+    
+
+    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+        std::vector<bool> buffer;
+        uint64_t buffer_size = 10000;
+
+        for (uint64_t i = 0; i < item_num; i++)
+        {
+            bool b = get_rand_value(mt64) % 2 == 1;
+            buffer.push_back(b);
+            hash += (int)b;
+
+            if(buffer.size() >= buffer_size){
+                dynamic_bit_sequence.push_many(buffer);
+                buffer.clear();
+            }
+        }
+        if(buffer.size() > 0){
+            dynamic_bit_sequence.push_many(buffer);
+            buffer.clear();
+        }
+    }else{
+        for (uint64_t i = 0; i < item_num; i++)
+        {
+            bool b = get_rand_value(mt64) % 2 == 1;
+            hash += (int)b;
+            dynamic_bit_sequence.push_back(b);
+        }
+    
     }
+    
+
+
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
@@ -151,6 +179,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
+        dynamic_bit_sequence.print_information_about_performance();
     }
 
     stool::Memory::print_memory_usage();
@@ -176,31 +205,30 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("index", 'x', "index", true);
+    p.add<std::string>("index_name", 'x', "index_name", true);
     p.add<std::string>("test", 't', "test", false, "all");
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
     p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t index_type = p.get<uint>("index");
+    std::string index_name = p.get<std::string>("index_name");
     std::string query_type = p.get<std::string>("test");
     uint64_t item_num = p.get<uint64_t>("item_num");
     uint64_t query_num = p.get<uint64_t>("query_num");
     uint64_t seed = p.get<uint64_t>("seed");
 
-    if (index_type == 0)
+    if (index_name == "BTreePlusAlpha")
     {
         stool::bptree::DynamicBitSequence dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", query_type, item_num, query_num, seed);
-        dbs.print_information_about_performance();
     }
-    else if (index_type == 1)
+    else if (index_name == "DYNAMIC")
     {
         DynSucBVWrapper dbs;
         dynamic_bit_operation_test(dbs, "DynSucBVWrapper", query_type, item_num, query_num, seed);
     }
-    else
+    else if(index_name == "bit_vector")
     {
 #if defined(__x86_64__)
         BVBVWrapper dbs;

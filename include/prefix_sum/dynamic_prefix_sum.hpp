@@ -315,6 +315,9 @@ namespace stool
             {
                 this->tree.initialize(degree);
             }
+            double density() const{
+                return this->tree.get_value_density();
+            }
 
             //@}
 
