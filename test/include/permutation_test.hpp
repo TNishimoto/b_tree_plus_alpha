@@ -208,6 +208,7 @@ namespace stool
                 auto tmp = stool::bptree::DynamicPermutation::build_from_data(ifs);
                 dp2.swap(tmp);
             }
+            std::remove("permutation_text.bits");
 
 
             if (dp.size() != dp2.size())

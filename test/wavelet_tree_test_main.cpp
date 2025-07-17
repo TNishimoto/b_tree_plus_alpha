@@ -119,6 +119,7 @@ void save_and_load_test(stool::bptree::DynamicWaveletTree &ds)
 
         ds2.swap(tmp);
     }
+    std::remove(file_name.c_str());
 
     if (ds.size() != ds2.size())
     {

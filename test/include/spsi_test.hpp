@@ -137,6 +137,7 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
                 auto tmp = stool::bptree::DynamicPrefixSum<T>::build_from_data(ifs);
                 spsi2.swap(tmp);
             }
+            std::remove("spsi_text.bits");
 
             if (spsi.size() != spsi2.size())
             {

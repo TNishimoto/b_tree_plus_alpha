@@ -37,9 +37,13 @@ namespace stool
             {
                 return stool::Byte::get_code_length(this->bits) - 1;
             }
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes(bool only_extra_bytes) const
             {
-                return sizeof(uint64_t);
+                if(only_extra_bytes){
+                    return 0;
+                }else{
+                    return sizeof(uint64_t);
+                }
             }
 
             uint64_t at(uint64_t pos) const

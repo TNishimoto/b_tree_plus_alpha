@@ -21,7 +21,7 @@ for item in "${list[@]}" ; do
   nohup /usr/bin/time -f "#WT, DYNAMIC, sigma = 63, n = $1, %e sec, %M KB" ./rank_select.out -x DYNAMIC -n $1 -q 1000000 -a 63 >> "./log/rank_select_dynamic_63.log"
   nohup /usr/bin/time -f "#WT, DYNAMIC, sigma = 254, n = $1, %e sec, %M KB" ./rank_select.out -x DYNAMIC -n $1 -q 1000000 -a 254 >> "./log/rank_select_dynamic_254.log"
 
-  nohup /usr/bin/time -f "#Perm, MY, n = $1, %e sec, %M KB" ./permutation.out -x BTreePlusAlpha -n $1 -q 1000000 >> "./log/perm_my.log"
+  nohup /usr/bin/time -f "#Perm, BTreePlusAlpha, n = $1, %e sec, %M KB" ./permutation.out -x BTreePlusAlpha -n $1 -q 1000000 >> "./log/perm_my.log"
 
 
 done

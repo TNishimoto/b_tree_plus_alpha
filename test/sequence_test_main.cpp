@@ -4,6 +4,7 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
+#include <cstdio>
 #include "../include/b_tree_plus_alpha.hpp"
 
 void build_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &dyn_text, const std::vector<uint64_t> &text)
@@ -84,6 +85,7 @@ void save_and_load_test(stool::bptree::DynamicSequence64 &ds)
 
         ds2.swap(tmp);
     }
+    std::remove(file_name.c_str());
 
     if (ds.size() != ds2.size())
     {

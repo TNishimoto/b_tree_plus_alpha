@@ -101,8 +101,11 @@ int main(int argc, char *argv[])
     // p.add<std::string>("input_file", 'i', "input file name", true);
     p.add<uint>("mode", 'm', "mode", false, 0);
 
+
     p.parse_check(argc, argv);
     uint64_t mode = p.get<uint>("mode");
+
+
     uint64_t seed = 0;
 
     _test(mode, seed);

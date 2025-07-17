@@ -171,7 +171,7 @@ namespace stool
             }
             uint64_t size_in_bytes() const
             {
-                return sizeof(this->children_) + sizeof(this->children_value_count_deque_) + sizeof(this->parent_) + sizeof(this->is_parent_of_leaves_) + this->children_.size_in_bytes() + this->children_value_count_deque_.size_in_bytes();
+                return sizeof(BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>) + this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true);
             }
             int64_t get_index(InternalNode *node) const
             {

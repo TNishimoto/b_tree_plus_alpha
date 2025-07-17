@@ -117,9 +117,13 @@ namespace stool
             {
                 return this->pointers.size();
             }
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes(bool only_extra_bytes) const
             {
-                return this->keys.size_in_bytes() + this->pointers.size_in_bytes();
+                if(only_extra_bytes){
+                    return this->keys.size_in_bytes(true) + this->pointers.size_in_bytes(true);
+                }else{
+                    return sizeof(PermutationContainer) + this->keys.size_in_bytes(true) + this->pointers.size_in_bytes(true);
+                }
             }
 
             PermutationItem at(uint64_t pos) const

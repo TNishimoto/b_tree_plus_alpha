@@ -5,7 +5,7 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-
+#include <cstdio>
 #include "../../include/b_tree_plus_alpha.hpp"
 #include <random>
 
@@ -281,6 +281,8 @@ namespace stool
             }
             stool::bptree::DynamicBitSequence spsi2;
 
+            
+
             {
                 std::ifstream ifs;
                 ifs.open("bit_text.bits", std::ios::binary);
@@ -294,6 +296,8 @@ namespace stool
                 spsi2.swap(tmp);
 
             }
+
+            std::remove("bit_text.bits");
             
 
             if (spsi.size() != spsi2.size())

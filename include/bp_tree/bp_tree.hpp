@@ -943,7 +943,7 @@ namespace stool
                 uint64_t sum2 = 0;
                 for (const LEAF_CONTAINER &leaf : this->leaf_container_vec)
                 {
-                    sum2 += leaf.size_in_bytes();
+                    sum2 += leaf.size_in_bytes(true);
                 }
                 return sum2;
             }
@@ -981,10 +981,14 @@ namespace stool
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log;
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                uint64_t size_in_bytes = this->size_in_bytes();
+                uint64_t size = this->size();
+                double bytes_per_value = size > 0 ? ((double)size_in_bytes / (double)size) : 0;
+
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(size_in_bytes) + " bytes, " + std::to_string(size) + " values, " + std::to_string(bytes_per_value)  + " bytes per value =");
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Degree of Internal Node: " + std::to_string(this->get_max_degree_of_internal_node()));
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Count of Values in Leaf: " + std::to_string(this->get_max_count_of_values_in_leaf()));
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
+                //log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
 
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Internal Nodes: " + std::to_string(this->get_internal_node_memory()) + " bytes");
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Ununsed Leaf Pointers: " + std::to_string(this->get_unused_leaf_container_vector_memory()) + " bytes");

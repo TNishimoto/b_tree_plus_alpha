@@ -180,6 +180,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_bit_sequence.print_information_about_performance();
+        dynamic_bit_sequence.print_memory_usage();
     }
 
     stool::Memory::print_memory_usage();
