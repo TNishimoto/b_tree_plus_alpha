@@ -931,7 +931,7 @@ namespace stool
              */
             uint64_t get_leaf_container_vector_memory() const
             {
-                return sizeof(std::vector<uint64_t>) + (this->leaf_container_vec.capacity() * sizeof(uint64_t));
+                return sizeof(std::vector<uint64_t>) + (this->leaf_container_vec.capacity() * sizeof(LEAF_CONTAINER));
             }
 
             /**
@@ -947,6 +947,17 @@ namespace stool
                 }
                 return sum2;
             }
+
+            uint64_t get_leaf_container_unused_memory() const
+            {
+                uint64_t sum2 = 0;
+                for (const LEAF_CONTAINER &leaf : this->leaf_container_vec)
+                {
+                    sum2 += leaf.unused_size_in_bytes();
+                }
+                return sum2;
+            }
+
 
             /**
              * @brief Returns the memory size of the unused node pointers in the B+ tree
@@ -997,8 +1008,14 @@ namespace stool
 
                 uint64_t value_count = this->size();
                 uint64_t leaf_total_memory = this->get_leaf_container_memory();
-                uint64_t byte_per_value = value_count > 0 ? leaf_total_memory / value_count : 0;
+                uint64_t leaf_total_unused_memory = this->get_leaf_container_unused_memory();
+
+                double byte_per_value = value_count > 0 ? (double)leaf_total_memory / (double)value_count : 0;
+                double unused_byte_per_value = value_count > 0 ? (double)leaf_total_unused_memory / (double)value_count : 0;
+
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Leaves : " + std::to_string(leaf_total_memory) + " bytes (" + std::to_string(byte_per_value) + " bytes per value, leaf count: " + std::to_string(this->leaf_container_vec.size()) + ")");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Unused memory for leaves : " + std::to_string(leaf_total_unused_memory) + " bytes (" + std::to_string(unused_byte_per_value) + " bytes per value)");
+
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Parent Vector : " + std::to_string(this->get_parent_vector_memory()) + " bytes");
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return log;

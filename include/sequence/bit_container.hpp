@@ -45,6 +45,11 @@ namespace stool
                     return sizeof(uint64_t);
                 }
             }
+            uint64_t unused_size_in_bytes() const
+            {
+                return 0;   
+            }
+    
 
             uint64_t at(uint64_t pos) const
             {

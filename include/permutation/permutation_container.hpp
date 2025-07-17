@@ -125,6 +125,11 @@ namespace stool
                     return sizeof(PermutationContainer) + this->keys.size_in_bytes(true) + this->pointers.size_in_bytes(true);
                 }
             }
+            uint64_t unused_size_in_bytes() const
+            {
+                return this->keys.unused_size_in_bytes() + this->pointers.unused_size_in_bytes();
+            }
+
 
             PermutationItem at(uint64_t pos) const
             {

@@ -332,7 +332,13 @@ namespace stool
                 std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph + 1);
 
                 std::vector<std::string> r;
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicPrefixSum: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                uint64_t size_in_bytes = this->size_in_bytes();
+                uint64_t size = this->size();
+                double bits_per_element = size > 0 ? ((double)size_in_bytes / (double)size) : 0;
+
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicPrefixSum: " + std::to_string(this->size_in_bytes()) 
+                + " bytes, " + std::to_string(size) + " elements, " + std::to_string(bits_per_element)  + " bytes per element =");
+
                 for (std::string &s : log1)
                 {
                     r.push_back(s);

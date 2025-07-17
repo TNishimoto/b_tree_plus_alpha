@@ -167,6 +167,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_prefix_sum.print_information_about_performance();
+        dynamic_prefix_sum.print_memory_usage();
     }
     /*
     std::cout << "Update Time         : " << (time2 / (1000 * 1000)) << "[ms] (Avg: " << (time2 / (2 * len)) << "[ns])" << std::endl;
