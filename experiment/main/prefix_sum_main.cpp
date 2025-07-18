@@ -220,6 +220,11 @@ int main(int argc, char *argv[])
         stool::bptree::DynamicPrefixSum<> dps;
         bptree_prefix_sum_test(dps, "stool::bptree::DynamicPrefixSum<>", query_type, item_num, max_value, query_num, seed);
     }
+    else if (index_name == "BTreePlusAlphaX")
+    {
+        stool::bptree::PlainDynamicPrefixSum dps;
+        bptree_prefix_sum_test(dps, "stool::bptree::PlainDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
+    }
     else if(index_name == "DYNAMIC")
     {
         DynPackedSPSIWrapper dps;

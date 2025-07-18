@@ -17,6 +17,7 @@ namespace stool
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t>;
             using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true>;
+            static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
         private:
             Tree tree;
@@ -24,7 +25,7 @@ namespace stool
         public:
             DynamicPrefixSum()
             {
-                this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
+                this->tree.initialize(DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF);
             }
             DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
             DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
