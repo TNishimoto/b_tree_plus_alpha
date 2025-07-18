@@ -1,0 +1,14 @@
+<map id="stool::bptree::BPTree::split_node" name="stool::bptree::BPTree::split_node">
+<area shape="rect" id="Node000001" title="Splits a node into two nodes in the B+ tree." alt="" coords="5,85,161,125"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aef3bcdb4ac61d9ad1a530d98567e883f" title="Returns the maximum number of values that can be stored in a leaf node." alt="" coords="209,5,409,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,82,209,62,211,67,148,87"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ae944d342f49cf2b252e9a0fc7e68b2cc" title="Moves values from a left node to a right node in the B+ tree." alt="" coords="231,85,387,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,102,218,102,218,107,162,107"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="231,173,387,213"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,122,245,165,243,170,135,127"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="267,173,265,163,272,154,287,148,309,146,335,149,350,156,347,161,334,154,309,151,288,153,275,158,270,164,273,172"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="457,173,613,213"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="388,190,444,190,444,195,388,195"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="661,173,817,213"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="613,190,648,190,648,195,613,195"/>
+</map>

@@ -1,0 +1,47 @@
+<map id="stool::bptree::BPTree::get_path_from_root_to_last_leaf" name="stool::bptree::BPTree::get_path_from_root_to_last_leaf">
+<area shape="rect" id="Node000001" title="Returns a vector of NodePointer objects representing the path from the root to the last leaf." alt="" coords="1107,238,1265,293"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a25f41b5afd90819cd22aab601f9eb57a" title="Pushes multiple values into the B+ tree." alt="" coords="903,157,1059,197"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1110,235,1058,212,1030,200,1032,195,1060,207,1113,230"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a242bae2c45e7d85fc9f704fc26f117e2" title="Pushes multiple leaf containers into the B+ tree." alt="" coords="903,245,1059,285"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1093,268,1059,268,1059,263,1093,263"/>
+<area shape="rect" id="Node000019" href="$classstool_1_1bptree_1_1BPTree.html#a5db78a10b1b4c753a08b4f905795c9da" title="Resizes the B+ tree to contain a specified number of elements." alt="" coords="903,341,1059,381"/>
+<area shape="poly" id="edge19_Node000001_Node000019" title=" " alt="" coords="1116,301,1026,344,1023,339,1113,296"/>
+<area shape="poly" id="edge18_Node000003_Node000003" title=" " alt="" coords="1015,234,1003,227,981,224,961,226,949,231,945,237,947,244,942,246,940,236,946,227,960,221,981,219,1005,222,1018,229"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a819f5a4995b584d74e3998ca30e069de" title="Pushes a single value to the B+ tree." alt="" coords="652,133,808,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="941,239,900,212,854,188,807,172,809,167,856,183,903,208,944,235"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a905dbcc99b012f45c2510c60be3a03d9" title="Adds multiple bits to the end of the sequence." alt="" coords="636,197,824,237"/>
+<area shape="poly" id="edge16_Node000003_Node000017" title=" " alt="" coords="888,250,824,238,825,233,889,245"/>
+<area shape="rect" id="Node000018" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a82774e76cdda638012adfaa65eae5c52" title="Adds multiple elements to the end of the sequence." alt="" coords="605,261,855,301"/>
+<area shape="poly" id="edge17_Node000003_Node000018" title=" " alt="" coords="889,274,855,276,855,271,889,268"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0a29a474f846ea7c52a67a4cb8cb7859" title="Returns memory usage information." alt="" coords="303,5,557,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="686,128,626,93,556,60,522,48,523,43,558,55,628,88,688,124"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a07f5b9ebab6e1b03de093a4c3423a4d3" title="Returns information about the memory usage of the sequence." alt="" coords="305,69,555,109"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="638,137,524,112,525,107,639,131"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a8dc57feb11a4818d48007902d118955e" title="Inserts a value at a specific position in the B+ tree." alt="" coords="352,133,508,173"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="638,156,508,156,508,151,638,151"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ad9447726d5784838b079764e576f7bb6" title="Adds a bit to the end of the sequence." alt="" coords="336,197,524,237"/>
+<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="639,175,525,200,524,195,638,170"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a3c3c9b1eb0837f226c10e31fb4bcc83c" title="Adds an element to the end of the sequence." alt="" coords="305,261,555,301"/>
+<area shape="poly" id="edge12_Node000004_Node000013" title=" " alt="" coords="640,171,607,188,592,202,584,219,575,235,559,251,536,264,534,259,556,247,571,232,579,216,587,199,604,183,638,167"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aeea7e1fc76391a72da73ebf99419c5f0" title="Converts the bit sequence to a string." alt="" coords="336,357,524,397"/>
+<area shape="poly" id="edge13_Node000004_Node000014" title=" " alt="" coords="640,168,607,187,594,202,587,217,582,248,578,281,572,298,559,315,529,341,494,359,491,355,526,336,555,312,567,295,573,279,577,247,582,215,590,199,604,183,638,163"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#abce3ad16da298ff0f46ea141c278ae2a" title="Prints memory usage information." alt="" coords="15,5,245,45"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="289,28,245,28,245,23,289,23"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a109e114a902f625e9cdad243df9e7167" title="Prints the memory usage of the sequence." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="291,92,255,92,255,87,291,87"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a75c1a7decfc4cb78386baaa4a0f8202d" title="Inserts a bit at the specified position." alt="" coords="36,133,224,173"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="338,156,224,156,224,151,338,151"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ad7d93dde6644e9d648702f9735354a4b" title="Inserts a value at a specified position in the sequence." alt="" coords="5,197,255,237"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="339,175,225,200,224,195,338,170"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0d7bdf385bcc516bf9191b30b56cb2d7" title="Prints the bit sequence." alt="" coords="36,325,224,365"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="322,369,224,358,225,353,323,363"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a1be3893332852cb64b8d4b32f82f4af0" title="Prints the content of the bit sequence." alt="" coords="36,389,224,429"/>
+<area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="323,391,225,402,224,397,322,386"/>
+<area shape="rect" id="Node000020" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#abdbf913eafc509e36278bf88e2b93d4a" title="Return the elements stored in this data structure as a vector of uint8_t." alt="" coords="627,325,833,365"/>
+<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="889,358,834,355,834,349,889,353"/>
+<area shape="rect" id="Node000021" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a38e2b02f0affa625e9f6a8a7bbb28d1b" title="Converts the bit sequence to a vector of uint64_t." alt="" coords="631,389,829,429"/>
+<area shape="poly" id="edge21_Node000019_Node000021" title=" " alt="" coords="890,381,829,393,828,388,889,376"/>
+<area shape="rect" id="Node000022" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a40d5f2bcb1868601dcc77945c1fdf74b" title="Converts the bit sequence to a vector of bool." alt="" coords="636,453,824,493"/>
+<area shape="poly" id="edge23_Node000019_Node000022" title=" " alt="" coords="944,392,903,419,856,444,823,456,821,451,854,439,900,414,941,387"/>
+<area shape="poly" id="edge22_Node000021_Node000014" title=" " alt="" coords="618,400,524,390,525,385,618,395"/>
+</map>

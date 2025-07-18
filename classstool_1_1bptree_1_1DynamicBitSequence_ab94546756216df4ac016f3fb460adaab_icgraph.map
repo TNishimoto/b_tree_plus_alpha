@@ -1,0 +1,30 @@
+<map id="stool::bptree::DynamicBitSequence::size" name="stool::bptree::DynamicBitSequence::size">
+<area shape="rect" id="Node000001" title="Returns the size of the bit sequence." alt="" coords="1059,250,1247,290"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a563e83e25657a54b3943fd32cdf3c795" title="Returns the number of bits with value c in the sequence." alt="" coords="5,97,193,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1136,239,1117,200,1090,155,1054,113,1033,95,1009,81,954,56,896,37,836,23,775,14,651,8,530,16,416,32,312,54,225,78,157,99,156,94,223,73,311,49,415,27,530,10,651,3,775,9,837,18,897,32,956,51,1012,76,1036,91,1058,109,1094,152,1122,197,1141,237"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0a29a474f846ea7c52a67a4cb8cb7859" title="Returns memory usage information." alt="" coords="756,90,1011,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1124,242,1074,191,1043,166,1009,144,982,133,985,128,1012,140,1046,162,1078,187,1128,238"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ad9447726d5784838b079764e576f7bb6" title="Adds a bit to the end of the sequence." alt="" coords="789,154,977,194"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1099,246,1010,209,971,197,973,192,1012,204,1101,242"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ac38ebde182fe456b70df4443019aa190" title="Returns the number of 1s up to position i." alt="" coords="789,218,977,258"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1044,260,977,252,978,247,1045,255"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ab311c0ce44127e4f4635bba6c165b034" title="Removes the bit at the specified position." alt="" coords="789,282,977,322"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="1045,286,978,294,977,288,1044,280"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a1dc30da08e64da1dd22aa8b96c20feed" title="Returns the position of the i&#45;th 0." alt="" coords="789,346,977,386"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1101,299,1012,337,973,349,971,344,1010,332,1099,294"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a30a08cd4033a37a296e843e7972b60d7" title="Returns the position of the i&#45;th 1." alt="" coords="789,410,977,450"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="1128,302,1078,353,1046,379,1012,401,979,415,976,410,1009,396,1043,374,1074,349,1124,299"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a40d5f2bcb1868601dcc77945c1fdf74b" title="Converts the bit sequence to a vector of bool." alt="" coords="789,474,977,514"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="1139,304,1118,342,1090,385,1055,428,1012,464,979,481,976,476,1009,460,1051,424,1086,382,1114,339,1134,302"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#abce3ad16da298ff0f46ea141c278ae2a" title="Prints memory usage information." alt="" coords="477,90,708,130"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="742,113,708,113,708,107,742,107"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa13014697cc2948509362f42edf4d947" title="Returns the number of bits with value c up to position i." alt="" coords="241,161,429,201"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="775,219,708,209,561,195,429,187,430,182,562,189,708,204,776,214"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0f54c65bc5c8b931c0793bc34e6ce2d1" title="Returns the number of 0s up to position i." alt="" coords="499,218,687,258"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="776,241,687,241,687,235,776,235"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="247,160,173,139,174,134,249,155"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="488,218,425,203,426,198,489,212"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af5168144cd4103b80793aef3aa67a3a6" title="Returns the position of the i&#45;th bit with value c." alt="" coords="499,378,687,418"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="776,381,687,390,687,385,775,375"/>
+<area shape="poly" id="edge14_Node000012_Node000011" title=" " alt="" coords="775,421,687,411,687,406,776,416"/>
+</map>

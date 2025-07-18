@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicBitSequence::get_bit_forward_iterator_begin" name="stool::bptree::DynamicBitSequence::get_bit_forward_iterator_begin">
+<area shape="rect" id="Node000001" title="Returns an iterator to the beginning of the bit sequence." alt="" coords="5,5,200,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a7df2d68e798d06eefab34a40f7573e4c" title="Returns an iterator pointing to the first leaf in forward traversal." alt="" coords="248,13,487,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,30,234,30,234,35,200,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="535,13,691,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="487,30,521,30,521,35,487,35"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="739,13,895,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="691,30,725,30,725,35,691,35"/>
+</map>

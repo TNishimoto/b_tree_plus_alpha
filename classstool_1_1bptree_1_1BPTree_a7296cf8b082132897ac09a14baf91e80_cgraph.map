@@ -1,0 +1,29 @@
+<map id="stool::bptree::BPTree::print_statistics" name="stool::bptree::BPTree::print_statistics">
+<area shape="rect" id="Node000001" title="Prints statistical information about the B+ tree." alt="" coords="5,148,161,188"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a7eb7d40f8b62d3eedf9c60fa7e0a383c" title="Returns an iterator pointing to the first node in postorder traversal." alt="" coords="672,87,891,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,156,413,129,658,111,658,117,414,135,162,161"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a2b4934053cd8ea0b4b12e29b69c9327a" title="Returns an iterator pointing to the end of postorder traversal." alt="" coords="678,327,885,367"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="99,187,141,251,211,339,255,385,304,428,357,466,414,495,471,515,519,521,566,515,623,495,665,471,702,440,733,407,757,376,761,379,737,410,706,444,668,476,625,500,567,520,519,526,470,520,412,500,354,470,301,432,251,389,207,343,137,255,94,190"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="209,29,365,69"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="113,145,208,86,231,73,233,78,211,90,116,150"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a2499f844dda049309bc9d5cd30126fda" title="Returns the total memory size of the B+ tree." alt="" coords="209,244,365,284"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="128,186,233,236,231,241,126,191"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="939,59,1095,99"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="891,91,925,87,925,92,891,96"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="1143,59,1299,99"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1095,76,1129,76,1129,81,1095,81"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="366,50,925,72,925,78,365,55"/>
+<area shape="poly" id="edge7_Node000006_Node000006" title=" " alt="" coords="249,30,247,20,253,11,267,5,287,3,311,6,324,13,321,18,309,11,287,8,268,10,256,15,252,21,254,28"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#acfa941c0afe0d7934f6e937020e97cac" title="Returns the memory size of the internal nodes in the B+ tree." alt="" coords="414,144,623,184"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="320,242,363,217,412,194,431,186,433,191,414,198,366,222,322,246"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#acd497aa4321141d1c8c4a58633e63fa7" title="Returns the memory size of the leaf containers in the B+ tree." alt="" coords="441,430,597,485"/>
+<area shape="poly" id="edge12_Node000007_Node000009" title=" " alt="" coords="302,283,347,348,378,385,415,417,430,426,427,430,412,421,375,388,342,351,298,286"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#a3b0790cb38dce9fca6ed009ea6b3f277" title="Returns the memory size of the parent vector in the B+ tree." alt="" coords="413,208,624,248"/>
+<area shape="poly" id="edge13_Node000007_Node000010" title=" " alt="" coords="365,249,400,244,400,249,366,255"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1BPTree.html#ac12e2c6a5f8c15d658a728b1c6598e24" title="Returns the memory size of the unused leaf container vector in the B+ tree." alt="" coords="416,273,621,327"/>
+<area shape="poly" id="edge14_Node000007_Node000011" title=" " alt="" coords="366,273,403,279,402,285,365,279"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1BPTree.html#a8b3ba471dc73ef376d4e2f32407f674f" title="Returns the memory size of the unused node pointers in the B+ tree." alt="" coords="417,351,621,406"/>
+<area shape="poly" id="edge15_Node000007_Node000012" title=" " alt="" coords="320,282,415,336,430,343,428,348,412,341,318,287"/>
+<area shape="poly" id="edge10_Node000008_Node000002" title=" " alt="" coords="610,141,675,127,676,132,612,147"/>
+<area shape="poly" id="edge11_Node000008_Node000005" title=" " alt="" coords="601,182,625,194,665,221,701,253,758,314,754,318,698,257,662,225,623,198,598,187"/>
+</map>

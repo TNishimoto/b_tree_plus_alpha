@@ -1,0 +1,10 @@
+<map id="stool::bptree::DynamicPrefixSum::size" name="stool::bptree::DynamicPrefixSum::size">
+<area shape="rect" id="Node000001" title="Return the number of elements stored in this data structure." alt="" coords="5,29,212,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="260,29,416,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,47,246,47,246,52,212,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="300,30,298,20,304,11,317,5,338,3,362,6,375,13,372,18,360,11,338,8,319,10,307,15,303,21,305,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="464,29,620,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,47,450,47,450,52,416,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="668,29,824,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="620,47,654,47,654,52,620,52"/>
+</map>

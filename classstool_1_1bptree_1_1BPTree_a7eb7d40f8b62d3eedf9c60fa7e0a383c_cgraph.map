@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::get_postorder_iterator_begin" name="stool::bptree::BPTree::get_postorder_iterator_begin">
+<area shape="rect" id="Node000001" title="Returns an iterator pointing to the first node in postorder traversal." alt="" coords="5,5,224,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="272,5,428,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,23,258,23,258,28,224,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="476,5,632,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="428,23,462,23,462,28,428,28"/>
+</map>

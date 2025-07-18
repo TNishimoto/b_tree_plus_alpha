@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicSequence64::swap" name="stool::bptree::DynamicSequence64::swap">
+<area shape="rect" id="Node000001" title="Swaps the contents of this sequence with another." alt="" coords="5,5,255,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a7be3bf1c8c3eb2ee49c286ec07bb1a67" title="Swaps the contents of this B+ tree with another B+ tree." alt="" coords="303,5,459,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,23,289,23,289,28,255,28"/>
+</map>

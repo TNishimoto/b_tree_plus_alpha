@@ -1,0 +1,10 @@
+<map id="stool::bptree::DynamicSequence64::size" name="stool::bptree::DynamicSequence64::size">
+<area shape="rect" id="Node000001" title="Returns the number of elements in the sequence." alt="" coords="5,29,255,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="303,29,459,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,47,289,47,289,52,255,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="342,30,340,20,346,11,360,5,381,3,404,6,417,13,415,18,403,11,381,8,361,10,350,15,345,21,348,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="507,29,663,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="459,47,493,47,493,52,459,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="711,29,867,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="663,47,697,47,697,52,663,52"/>
+</map>

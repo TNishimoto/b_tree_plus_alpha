@@ -1,0 +1,26 @@
+<map id="stool::bptree::DynamicSequence64::build_from_data" name="stool::bptree::DynamicSequence64::build_from_data">
+<area shape="rect" id="Node000001" title="Builds a sequence from a file." alt="" coords="5,144,255,184"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a96a163b4480a70a22ced13e9e267f3df" title="Builds a B+ tree from serialized data in a byte vector." alt="" coords="303,144,459,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,161,289,161,289,167,255,167"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ad0a78e077c76fabaf4b491e7238e4019" title="Builds a B+ tree from a vector of leaf containers." alt="" coords="507,113,713,153"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="458,151,492,146,493,152,459,156"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#abb490d2ceef6248da687e8798350f65f" title="Clears all contents of the B+ tree and resets it to an empty state." alt="" coords="806,175,962,215"/>
+<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="459,166,792,186,792,192,459,171"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ae7e3d98d15d4828e9e438d72282029e9" title="Creates the first layer of internal nodes from leaf containers." alt="" coords="761,47,1007,87"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="692,111,787,87,788,93,693,116"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#aeef7ecb35c18d32cb2bf3aec741e48fd" title="Builds a layer of internal nodes from a vector of child nodes." alt="" coords="761,111,1007,151"/>
+<area shape="poly" id="edge11_Node000003_Node000009" title=" " alt="" coords="713,130,747,129,748,135,714,135"/>
+<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="701,151,793,172,792,177,700,156"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aa24d20e3686fd542376d895c37faea6b" title="Returns the prefix sum of the B+ tree." alt="" coords="1055,29,1211,69"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1007,55,1041,53,1041,58,1007,61"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="1055,117,1211,157"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="965,84,1007,96,1056,111,1054,116,1006,101,963,89"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="1094,30,1092,20,1098,11,1112,5,1133,3,1156,6,1169,13,1167,18,1155,11,1133,8,1113,10,1102,15,1097,21,1100,28"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="1259,117,1415,157"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1184,67,1212,79,1279,109,1277,114,1210,84,1182,72"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="1463,117,1619,157"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1415,135,1449,135,1449,140,1415,140"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="1211,135,1245,135,1245,140,1211,140"/>
+<area shape="poly" id="edge10_Node000008_Node000008" title=" " alt="" coords="1094,118,1092,108,1098,99,1112,93,1133,91,1156,94,1169,101,1167,106,1155,99,1133,96,1113,98,1102,103,1097,109,1100,116"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="962,190,1079,182,1210,167,1252,158,1253,163,1211,172,1080,188,962,195"/>
+</map>

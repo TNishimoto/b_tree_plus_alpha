@@ -1,0 +1,15 @@
+<map id="stool::bptree::BPTree::psum" name="stool::bptree::BPTree::psum">
+<area shape="rect" id="Node000001" title="Returns the prefix sum of the B+ tree at position i." alt="" coords="5,52,161,92"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="413,52,569,92"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,50,160,29,209,14,252,5,287,3,322,5,366,14,407,26,445,43,443,48,405,31,365,19,322,11,287,8,253,11,210,19,162,34,120,55"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aa24d20e3686fd542376d895c37faea6b" title="Returns the prefix sum of the B+ tree." alt="" coords="209,52,365,92"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,70,196,70,196,75,161,75"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="209,140,365,180"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="132,90,229,132,227,137,130,95"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="617,52,773,92"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="569,70,604,70,604,75,569,75"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="365,70,400,70,400,75,365,75"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="249,53,247,43,253,33,267,28,287,26,311,28,324,36,321,40,309,34,287,31,268,33,256,38,252,44,254,51"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="334,138,431,95,433,100,336,142"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="249,141,247,131,253,121,267,116,287,114,311,116,324,124,321,128,309,122,287,119,268,121,256,126,252,132,254,139"/>
+</map>

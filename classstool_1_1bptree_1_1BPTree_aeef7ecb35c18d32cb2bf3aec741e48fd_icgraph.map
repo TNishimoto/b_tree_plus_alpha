@@ -1,0 +1,25 @@
+<map id="stool::bptree::BPTree::build_from_leaf_containers_sub2" name="stool::bptree::BPTree::build_from_leaf_containers_sub2">
+<area shape="rect" id="Node000001" title="Builds a layer of internal nodes from a vector of child nodes." alt="" coords="855,101,1100,141"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#afeb8bb89190560f58ce976aafd122ae0" title="Builds a complete B+ tree from a vector of values." alt="" coords="625,69,781,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="841,108,781,101,782,96,842,103"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ad0a78e077c76fabaf4b491e7238e4019" title="Builds a B+ tree from a vector of leaf containers." alt="" coords="600,133,807,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="841,140,807,144,807,139,841,135"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a7623f4de8c9f6f310975c4d97ba7f90c" title="Builds a bit sequence from a vector of bool." alt="" coords="333,5,521,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="611,71,514,48,515,43,613,66"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a6b011f0912f286f8a7cc19ccf76bd0c7" title="Builds a new sequence from a vector of items." alt="" coords="303,69,552,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="612,92,552,92,552,87,612,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a5424b49d59c9059141482b0e841133ed" title="Builds a bit sequence from a vector of bool with default tree degree." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="320,28,224,28,224,23,320,23"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a96a163b4480a70a22ced13e9e267f3df" title="Builds a B+ tree from serialized data in a byte vector." alt="" coords="349,133,505,173"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="586,156,506,156,506,151,586,151"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1BPTree.html#a6016c2a19b4ddf3c4fb6b5145dac86b3" title="Builds a B+ tree from serialized data in a file stream." alt="" coords="349,197,505,237"/>
+<area shape="poly" id="edge11_Node000006_Node000012" title=" " alt="" coords="604,179,506,202,505,197,603,174"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a4814141aefb75e07a867a7cabc8b5476" title="Builds a bit sequence from a vector of uint8_t." alt="" coords="31,69,229,109"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="335,136,223,112,224,107,336,131"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a8733b0f588bd5d846fa9d77a3f90a9b2" title="Builds a sequence from a vector of bytes." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="335,156,255,156,255,151,335,151"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a6e27978045b1fcdcdbf8112c5ece88af" title="Builds a bit sequence from a file." alt="" coords="31,197,229,237"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="336,176,224,200,223,195,335,170"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ad4ed7d6bba9208b4802fda07c54a9dc6" title="Builds a sequence from a file." alt="" coords="5,261,255,301"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="337,171,304,188,289,202,281,219,273,235,256,251,234,263,231,259,253,247,268,232,276,216,285,199,301,183,335,167"/>
+</map>

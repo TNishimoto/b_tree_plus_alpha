@@ -1,0 +1,11 @@
+<map id="stool::bptree::BPTree::build_sub" name="stool::bptree::BPTree::build_sub">
+<area shape="rect" id="Node000001" title="Creates leaf containers from a vector of values." alt="" coords="743,37,899,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#afeb8bb89190560f58ce976aafd122ae0" title="Builds a complete B+ tree from a vector of values." alt="" coords="539,37,695,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="729,60,695,60,695,55,729,55"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a7623f4de8c9f6f310975c4d97ba7f90c" title="Builds a bit sequence from a vector of bool." alt="" coords="272,5,460,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="525,48,460,40,461,35,525,43"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a6b011f0912f286f8a7cc19ccf76bd0c7" title="Builds a new sequence from a vector of items." alt="" coords="241,69,491,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="525,72,491,76,490,71,525,66"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a5424b49d59c9059141482b0e841133ed" title="Builds a bit sequence from a vector of bool with default tree degree." alt="" coords="5,5,193,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="258,28,194,28,194,23,258,23"/>
+</map>

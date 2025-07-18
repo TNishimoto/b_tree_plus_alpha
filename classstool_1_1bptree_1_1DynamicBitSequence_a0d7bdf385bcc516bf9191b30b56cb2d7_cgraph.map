@@ -1,0 +1,44 @@
+<map id="stool::bptree::DynamicBitSequence::print" name="stool::bptree::DynamicBitSequence::print">
+<area shape="rect" id="Node000001" title="Prints the bit sequence." alt="" coords="5,326,193,366"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a78865a969bd9d82fec065d5b82c63663" title="Returns the name of the bit sequence." alt="" coords="241,294,429,334"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,331,227,326,228,331,194,336"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aeea7e1fc76391a72da73ebf99419c5f0" title="Converts the bit sequence to a string." alt="" coords="241,358,429,398"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,356,228,361,227,366,193,362"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a819f5a4995b584d74e3998ca30e069de" title="Pushes a single value to the B+ tree." alt="" coords="498,237,654,277"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="400,356,428,344,484,314,534,282,537,287,487,318,430,349,402,361"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="1417,241,1573,281"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="411,396,478,408,533,412,576,412,675,408,782,409,874,416,1031,431,1106,433,1184,425,1270,405,1368,369,1412,337,1463,289,1467,293,1416,341,1371,374,1271,410,1185,431,1106,438,1031,437,873,421,781,414,675,413,576,417,533,417,477,413,410,401"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a38e2b02f0affa625e9f6a8a7bbb28d1b" title="Converts the bit sequence to a vector of uint64_t." alt="" coords="477,358,675,398"/>
+<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="429,376,464,376,464,381,429,381"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a242bae2c45e7d85fc9f704fc26f117e2" title="Pushes multiple leaf containers into the B+ tree." alt="" coords="723,126,879,166"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="616,234,746,170,748,175,619,239"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="759,127,756,117,763,107,778,102,801,100,827,102,841,110,839,114,825,108,801,105,779,107,766,112,761,118,764,125"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a6b97b850a29117785e27b777f9ed5d2c" title="Returns a vector of NodePointer objects representing the path from the root to the last leaf." alt="" coords="947,78,1106,132"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="878,129,934,119,935,124,879,135"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="1621,106,1777,146"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1075,75,1122,53,1174,37,1286,14,1375,3,1419,4,1465,9,1574,37,1601,48,1627,63,1669,95,1666,99,1624,67,1599,53,1573,42,1464,15,1418,9,1376,9,1287,19,1175,42,1124,58,1077,80"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="1825,106,1981,146"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1777,124,1812,124,1812,129,1777,129"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="1525,238,1655,152,1658,156,1528,243"/>
+<area shape="poly" id="edge11_Node000009_Node000009" title=" " alt="" coords="1457,241,1455,231,1461,222,1475,216,1495,214,1519,217,1532,224,1529,229,1517,222,1495,220,1476,221,1464,226,1460,232,1462,240"/>
+<area shape="poly" id="edge24_Node000010_Node000009" title=" " alt="" coords="675,382,814,386,988,382,1083,375,1180,364,1276,348,1369,325,1413,308,1452,286,1455,291,1415,313,1370,330,1277,353,1180,369,1084,381,989,388,814,392,675,388"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1BPTree.html#a5db78a10b1b4c753a08b4f905795c9da" title="Resizes the B+ tree to contain a specified number of elements." alt="" coords="723,234,879,274"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="612,356,750,279,753,283,615,360"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1bptree_1_1BPTree.html#a16201b7a4b688592e6ef750eb220b296" title="Converts the B+ tree to a vector of values." alt="" coords="1417,349,1573,389"/>
+<area shape="poly" id="edge25_Node000010_Node000016" title=" " alt="" coords="675,390,723,394,905,406,1046,413,1188,410,1369,394,1403,389,1404,394,1370,400,1188,415,1046,418,904,412,722,400,675,395"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="819,232,865,188,925,143,936,136,939,141,928,147,868,192,822,236"/>
+<area shape="poly" id="edge23_Node000011_Node000009" title=" " alt="" coords="854,272,927,292,1051,311,1148,320,1245,316,1369,300,1432,283,1434,288,1370,305,1246,322,1148,325,1050,317,926,297,853,277"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1BPTree.html#aef3bcdb4ac61d9ad1a530d98567e883f" title="Returns the maximum number of values that can be stored in a leaf node." alt="" coords="927,227,1127,282"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="879,252,913,252,913,257,879,257"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1BPTree.html#aee889c5c53fc75e6a11d65acf12eee4b" title="Removes a value at a specific position in the B+ tree." alt="" coords="949,157,1105,197"/>
+<area shape="poly" id="edge16_Node000011_Node000013" title=" " alt="" coords="859,232,954,199,956,204,861,237"/>
+<area shape="poly" id="edge19_Node000013_Node000007" title=" " alt="" coords="1102,154,1125,141,1139,126,1147,110,1156,95,1173,81,1233,59,1296,48,1360,45,1424,49,1485,58,1542,71,1636,99,1634,104,1541,76,1484,63,1423,54,1360,50,1297,53,1235,64,1176,86,1160,98,1152,113,1144,130,1128,146,1104,159"/>
+<area shape="poly" id="edge22_Node000013_Node000009" title=" " alt="" coords="1105,170,1230,173,1301,181,1370,196,1413,212,1452,231,1450,236,1411,216,1369,201,1300,187,1230,179,1105,176"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1bptree_1_1BPTree.html#a62263123518c17a043e1420ed21b5054" title="Computes the path from the root to the leaf at position i." alt="" coords="1175,235,1369,290"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="1086,194,1180,228,1179,233,1084,199"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1bptree_1_1BPTree.html#a97612cc2112c4fc5d2a333af19c0a739" title="Removes a value at a specific position using a path to the leaf." alt="" coords="1193,96,1351,136"/>
+<area shape="poly" id="edge20_Node000013_Node000015" title=" " alt="" coords="1104,155,1179,136,1180,141,1105,160"/>
+<area shape="poly" id="edge18_Node000014_Node000014" title=" " alt="" coords="1229,235,1229,225,1237,216,1251,210,1272,208,1297,211,1311,219,1309,224,1295,216,1272,214,1252,215,1240,220,1234,227,1234,235"/>
+<area shape="poly" id="edge21_Node000015_Node000009" title=" " alt="" coords="1333,133,1371,152,1423,190,1467,229,1463,233,1420,194,1368,156,1331,138"/>
+<area shape="poly" id="edge26_Node000016_Node000007" title=" " alt="" coords="1517,347,1571,291,1629,220,1674,156,1679,159,1633,223,1575,295,1521,351"/>
+</map>

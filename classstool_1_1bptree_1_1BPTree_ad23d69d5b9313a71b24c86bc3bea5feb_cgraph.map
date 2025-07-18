@@ -1,0 +1,19 @@
+<map id="stool::bptree::BPTree::verify" name="stool::bptree::BPTree::verify">
+<area shape="rect" id="Node000001" title="Verifies the integrity of the B+ tree." alt="" coords="5,149,161,189"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aef3bcdb4ac61d9ad1a530d98567e883f" title="Returns the maximum number of values that can be stored in a leaf node." alt="" coords="237,5,437,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,146,150,108,208,70,223,63,226,68,211,75,153,112,108,150"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a2ebadffa4eab35a03e5e7e651158d7c1" title="Return the max degree of this tree. The number of children of every internal node does not exceed the..." alt="" coords="209,85,464,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,146,209,134,242,125,244,131,210,139,162,151"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a7eb7d40f8b62d3eedf9c60fa7e0a383c" title="Returns an iterator pointing to the first node in postorder traversal." alt="" coords="227,149,446,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,166,214,166,214,171,162,171"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a2b4934053cd8ea0b4b12e29b69c9327a" title="Returns an iterator pointing to the end of postorder traversal." alt="" coords="233,213,440,253"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="162,186,210,198,244,207,242,212,209,203,161,191"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#ab5df1410b475a374697c1022ccba9257" title="Return the number of values stored in this tree." alt="" coords="259,301,415,341"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="109,187,155,224,211,262,271,293,268,297,208,267,152,228,106,191"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a476c4d49525283051fe82de9d2e349eb" title="Checks if the B+ tree is empty." alt="" coords="512,225,668,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="422,186,465,198,523,217,522,223,463,203,421,191"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ac2221ea7f635799b6db2885d523c5df0" title="Return the height of this tree." alt="" coords="716,225,872,265"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="668,242,702,242,702,247,668,247"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="404,298,508,266,510,271,405,303"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="290,301,287,291,294,282,311,276,337,274,366,277,382,284,380,289,365,282,337,279,312,281,297,286,292,292,295,299"/>
+</map>

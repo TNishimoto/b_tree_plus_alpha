@@ -1,0 +1,15 @@
+<map id="stool::bptree::BPTree::resize" name="stool::bptree::BPTree::resize">
+<area shape="rect" id="Node000001" title="Resizes the B+ tree to contain a specified number of elements." alt="" coords="732,69,888,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#abdbf913eafc509e36278bf88e2b93d4a" title="Return the elements stored in this data structure as a vector of uint8_t." alt="" coords="477,5,684,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="724,68,652,48,654,43,725,63"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a38e2b02f0affa625e9f6a8a7bbb28d1b" title="Converts the bit sequence to a vector of uint64_t." alt="" coords="482,69,679,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="718,92,680,92,680,87,718,87"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a40d5f2bcb1868601dcc77945c1fdf74b" title="Converts the bit sequence to a vector of bool." alt="" coords="487,133,675,173"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="725,116,654,136,652,131,724,110"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aeea7e1fc76391a72da73ebf99419c5f0" title="Converts the bit sequence to a string." alt="" coords="241,69,429,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="468,92,429,92,429,87,468,87"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a0d7bdf385bcc516bf9191b30b56cb2d7" title="Prints the bit sequence." alt="" coords="5,37,193,77"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="227,77,193,73,194,67,228,72"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a1be3893332852cb64b8d4b32f82f4af0" title="Prints the content of the bit sequence." alt="" coords="5,101,193,141"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="228,107,194,111,193,106,227,101"/>
+</map>
