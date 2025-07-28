@@ -315,7 +315,7 @@ namespace stool
                 {
                     if (vec[i] != UINT64_MAX)
                     {
-                        uint64_t code_len = stool::Byte::get_code_length(~vec[i]);
+                        uint64_t code_len = stool::LSBByte::get_code_length(~vec[i]);
                         return (64 * i) + (64 - code_len);
                     }
                 }

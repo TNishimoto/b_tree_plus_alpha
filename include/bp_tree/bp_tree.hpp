@@ -772,6 +772,14 @@ namespace stool
                 {
                     std::cout << tree[i] << std::endl;
                 }
+
+                /*
+                if constexpr (USE_PSUM) {
+                    if(!this->root_is_leaf_){
+                        this->root->print_info();
+                    }
+                }
+                */
             }
 
             /**
@@ -1951,6 +1959,7 @@ namespace stool
                 {
                     Node *node = path[i].get_node();
                     uint64_t child_index = path[i + 1].get_parent_edge_index();
+
                     node->increment(child_index, -1, -delta);
                 }
 
@@ -2034,6 +2043,7 @@ namespace stool
                             {
                                 Node *node = this->tmp_path[i].get_node();
                                 uint64_t child_index = this->tmp_path[i + 1].get_parent_edge_index();
+
                                 node->increment(child_index, 1, sum_delta);
                             }
                             this->split_process_counter += this->balance_for_insertion(this->tmp_path);

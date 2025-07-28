@@ -35,7 +35,7 @@ namespace stool
             }
             uint64_t size() const
             {
-                return stool::Byte::get_code_length(this->bits) - 1;
+                return stool::LSBByte::get_code_length(this->bits) - 1;
             }
             uint64_t size_in_bytes(bool only_extra_bytes) const
             {
@@ -53,7 +53,7 @@ namespace stool
 
             uint64_t at(uint64_t pos) const
             {
-                return stool::Byte::get_bit(this->bits, pos);
+                return stool::LSBByte::get_bit(this->bits, pos);
             }
             void print() const
             {
@@ -88,7 +88,7 @@ namespace stool
                     uint64_t count = this->psum();
                     if (x <= count)
                     {
-                        return stool::Byte::select1(this->bits, x-1);
+                        return stool::LSBByte::select1(this->bits, x-1);
                     }
                     else
                     {
@@ -124,7 +124,7 @@ namespace stool
                 return r;
             }
             uint64_t to_uint64() const {
-                return stool::Byte::write_bit(this->bits, this->size(), false);
+                return stool::LSBByte::write_bit(this->bits, this->size(), false);
             }
 
             template<typename VEC>
@@ -141,12 +141,12 @@ namespace stool
             void insert(uint64_t pos, uint64_t value)
             {
                 assert(this->size() + 1 < 64);
-                this->bits = stool::Byte::insert_bit(this->bits, pos, value >= 1);
+                this->bits = stool::LSBByte::insert_bit(this->bits, pos, value >= 1);
             }
             void remove(uint64_t pos)
             {
                 assert(this->size() > 0);
-                this->bits = stool::Byte::remove_bit(this->bits, pos);
+                this->bits = stool::LSBByte::remove_bit(this->bits, pos);
             }
             void push_front(std::vector<uint64_t> &new_items)
             {
@@ -176,7 +176,7 @@ namespace stool
             void push_back(uint64_t value)
             {
                 assert(this->size() + 1 < 64);
-                this->bits = stool::Byte::insert_bit(this->bits, this->size(), value >= 1);
+                this->bits = stool::LSBByte::insert_bit(this->bits, this->size(), value >= 1);
             }
             void pop_front()
             {
@@ -244,11 +244,11 @@ namespace stool
             {
                 if (delta >= 1)
                 {
-                    this->bits = stool::Byte::write_bit(this->bits, i, true);
+                    this->bits = stool::LSBByte::write_bit(this->bits, i, true);
                 }
                 else if (delta <= -1)
                 {
-                    this->bits = stool::Byte::write_bit(this->bits, i, false);
+                    this->bits = stool::LSBByte::write_bit(this->bits, i, false);
                 }
             }
 
@@ -290,7 +290,7 @@ namespace stool
             }
             int64_t select0(uint64_t i) const
             {
-                        return stool::Byte::select0(this->bits, i);
+                        return stool::LSBByte::select0(this->bits, i);
             }
             
             void to_data(std::vector<uint8_t> &output) const{

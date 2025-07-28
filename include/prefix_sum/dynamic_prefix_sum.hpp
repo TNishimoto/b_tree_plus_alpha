@@ -17,7 +17,10 @@ namespace stool
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t>;
             using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true>;
-            static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
+            //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
+
+            //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
+            static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 1024;
 
         private:
             Tree tree;
@@ -344,7 +347,22 @@ namespace stool
                 {
                     r.push_back(s);
                 }
+
+                uint64_t total_bits_if_sequence_is_plain = 0;
+                for(uint64_t i = 0; i < size; ++i){
+                    total_bits_if_sequence_is_plain += stool::LSBByte::get_code_length(this->at(i));
+                }
+
+
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "The number of bits in input sequence: " + std::to_string(total_bits_if_sequence_is_plain));
+                if(total_bits_if_sequence_is_plain > 0){
+                    r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "Memory per input bit: " + std::to_string((double)size_in_bytes / (double)total_bits_if_sequence_is_plain) + " bytes");
+                }
+
+
                 r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
+
+            
                 return r;
             }
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
@@ -364,6 +382,12 @@ namespace stool
             void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicPrefixSum)[" << std::endl;                
                 this->tree.print_information_about_performance(message_paragraph + 1);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
+            }
+
+            void print_tree(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Tree(DynamicPrefixSum)[" << std::endl;
+                this->tree.print_tree();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
             }
 
@@ -423,6 +447,7 @@ namespace stool
 
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
+        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::ShortIntegerVector>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 

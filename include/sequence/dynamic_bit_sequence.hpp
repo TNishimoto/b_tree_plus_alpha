@@ -7,7 +7,7 @@
 #include "../bp_tree/bp_tree.hpp"
 #include "./bit_container.hpp"
 #include "./bit_forward_iterator.hpp"
-
+#include "./bit_deque_container.hpp"
 namespace stool
 {
     namespace bptree
@@ -22,6 +22,13 @@ namespace stool
             using NodePointer = bptree::BPNodePointer<BitContainer, bool>;
             using T = uint64_t;
             using Tree = bptree::BPTree<BitContainer, bool, false, true>;
+
+            /*
+            using NodePointer = bptree::BPNodePointer<BitDequeContainer, bool>;
+            using T = uint64_t;
+            using Tree = bptree::BPTree<BitDequeContainer, bool, false, true>;
+            */
+
 
             static inline constexpr int DEFAULT_CONTAINER_DEGREE = 62;
             //static inline constexpr int DEFAULT_CONTAINER_DEGREE = 124;
@@ -520,7 +527,7 @@ namespace stool
                     uint64_t i = 0;
                     while (i < 64 && counter < _size)
                     {
-                        bool b = stool::Byte::get_bit(bits, i);
+                        bool b = stool::LSBByte::get_bit(bits, i);
                         r[counter] = b;
                         counter++;
                         i++;

@@ -47,7 +47,7 @@ namespace stool
                 for (uint8_t c : _text)
                 {
                     int64_t c_rank = this->char_rank_vec[c];
-                    bool b = stool::Byte::get_bit(c_rank, bit_idx);
+                    bool b = stool::LSBByte::get_bit(c_rank, bit_idx);
                     bits[counter++] = b;
                     if (b)
                     {
@@ -71,7 +71,7 @@ namespace stool
                         for (uint8_t c : _text)
                         {
                             int64_t c_rank = this->char_rank_vec[c];
-                            bool b = stool::Byte::get_bit(c_rank, bit_idx);
+                            bool b = stool::LSBByte::get_bit(c_rank, bit_idx);
                             if (!b)
                             {
                                 left[counter++] = c;
@@ -87,7 +87,7 @@ namespace stool
                         for (uint8_t c : _text)
                         {
                             int64_t c_rank = this->char_rank_vec[c];
-                            bool b = stool::Byte::get_bit(c_rank, bit_idx);
+                            bool b = stool::LSBByte::get_bit(c_rank, bit_idx);
                             if (b)
                             {
                                 right[counter++] = c;
@@ -147,7 +147,7 @@ namespace stool
                 {
                     this->char_rank_vec[alphabet[i]] = i;
                 }
-                this->rank_bit_size = stool::Byte::get_code_length(alphabet.size() - 1);
+                this->rank_bit_size = stool::LSBByte::get_code_length(alphabet.size() - 1);
 
                 for (uint64_t i = 0; i < rank_bit_size; i++)
                 {
@@ -207,7 +207,7 @@ namespace stool
                 uint64_t pos = 0;
                 for (uint64_t i = 0; i < this->rank_bit_size; i++)
                 {
-                    bool b = stool::Byte::get_bit(c_rank, this->rank_bit_size - 1 - i);
+                    bool b = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - 1 - i);
                     this->bits_seq[i][pos].push_back(b ? 1 : 0);
                     pos = (pos * 2) + (b ? 1 : 0);
                 }
@@ -218,7 +218,7 @@ namespace stool
             }
             int64_t rank_sub(uint64_t i, uint64_t c_rank) const
             {
-                bool b1 = stool::Byte::get_bit(c_rank, this->rank_bit_size - 1);
+                bool b1 = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - 1);
                 uint64_t _rank = this->bits_seq[0][0].rank(i + 1, b1);
                 if (_rank == 0)
                 {
@@ -231,7 +231,7 @@ namespace stool
 
                     for (uint64_t i = 1; i < this->rank_bit_size; i++)
                     {
-                        bool bx = stool::Byte::get_bit(c_rank, this->rank_bit_size - 1 - i);
+                        bool bx = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - 1 - i);
 
                         if (nth >= this->bits_seq[i][next].size())
                         {
@@ -259,7 +259,7 @@ namespace stool
                 assert(depth > 0);
                 int64_t h = 0;
                 int64_t j = c_rank / 2;
-                bool hbit = stool::Byte::get_bit(c_rank, h);
+                bool hbit = stool::LSBByte::get_bit(c_rank, h);
                 assert(j < (int64_t)this->bits_seq[depth - h - 1].size());
                 uint64_t hbit_rank = this->bits_seq[depth - h - 1][j].count_c(hbit);
 
@@ -274,7 +274,7 @@ namespace stool
                     h++;
                     while (h < (int64_t)this->rank_bit_size)
                     {
-                        hbit = stool::Byte::get_bit(c_rank, h);
+                        hbit = stool::LSBByte::get_bit(c_rank, h);
                         assert(next_nth <= this->bits_seq[depth - h - 1][j].count_c(hbit));
                         hbit_select = this->bits_seq[depth - h - 1][j].select(next_nth - 1, hbit);
 
@@ -300,7 +300,7 @@ namespace stool
                     uint64_t j = 0;
                     for (int64_t h = 0; h < (int64_t)this->height(); h++)
                     {
-                        bool hbit = stool::Byte::get_bit(c_rank, this->rank_bit_size - h - 1);
+                        bool hbit = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - h - 1);
                         assert(next_nth <= this->bits_seq[h][j].size());
                         this->bits_seq[h][j].insert(next_nth, hbit);
                         next_nth = this->bits_seq[h][j].rank(next_nth, hbit);
@@ -537,7 +537,7 @@ namespace stool
                 {
                     uint64_t idx = (c_rank / 2);
                     uint64_t bit_idx = 0;
-                    bool b = stool::Byte::get_bit(c_rank, bit_idx);
+                    bool b = stool::LSBByte::get_bit(c_rank, bit_idx);
                     return this->bits_seq[this->bits_seq.size() - 1][idx].count_c(b);
                 }
             }

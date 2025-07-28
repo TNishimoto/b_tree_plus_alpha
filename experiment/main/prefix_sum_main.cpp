@@ -22,7 +22,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     std::chrono::system_clock::time_point st1, st2;
 
-    std::cout << "Construction..." << std::endl;
+    std::cout << "Construction..." << std::flush;
 
     st1 = std::chrono::system_clock::now();
 
@@ -54,9 +54,9 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
         }    
     }
 
-
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+    std::cout << "[done] (hash = " << hash << ")" << std::endl;
 
     if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
         density_when_build_is_complete = dynamic_prefix_sum.density();
@@ -66,7 +66,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "insertion")
     {
-        std::cout << "Random Insertion..." << std::endl;
+        std::cout << "Random Insertion..." << std::flush;
         for (uint64_t i = 0; i < query_num; i++)
         {
 
@@ -75,6 +75,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
             dynamic_prefix_sum.insert(pos, value);
             hash += value + pos;
         }
+        std::cout << "[done] (hash = " << hash << ")" << std::endl;
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_insertion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -82,21 +83,21 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "deletion")
     {
-        std::cout << "Random Deletion..." << std::endl;
+        std::cout << "Random Deletion..." << std::flush;
 
         int64_t n_delete = dynamic_prefix_sum.size() - query_num;
         if(n_delete < 0){
             throw std::runtime_error("n_delete < 0");
         }
+
         std::uniform_int_distribution<uint64_t> get_rand_for_delete(0, n_delete);
-
-
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t pos = get_rand_for_delete(mt64);
             dynamic_prefix_sum.remove(pos);
             hash += pos;
         }
+        std::cout << "[done] (hash = " << hash << ")" << std::endl;
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_deletion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -104,12 +105,14 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "access")
     {
-        std::cout << "Access..." << std::endl;
+        std::cout << "Access..." << std::flush;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
             hash += dynamic_prefix_sum.at(m);
         }
+        std::cout << "[done] (hash = " << hash << ")" << std::endl;
+
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -117,13 +120,16 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "psum")
     {
-        std::cout << "PSUM..." << std::endl;
+
+        std::cout << "PSUM..." << std::flush;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
             uint64_t value = dynamic_prefix_sum.psum(m);
             hash += value;
+            
         }
+        std::cout << "[done] (hash = " << hash << ")" << std::endl;
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_psum = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -134,13 +140,14 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "search")
     {
-        std::cout << "Search..." << std::endl;
+        std::cout << "Search..." << std::flush;
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_for_search(mt64);
             uint64_t value = dynamic_prefix_sum.search(m);
             hash += value;
         }
+        std::cout << "[done] (hash = " << hash << ")" << std::endl;
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_search = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
@@ -164,7 +171,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_prefix_sum.print_information_about_performance();
         dynamic_prefix_sum.print_memory_usage();
@@ -224,6 +231,11 @@ int main(int argc, char *argv[])
     {
         stool::bptree::PlainDynamicPrefixSum dps;
         bptree_prefix_sum_test(dps, "stool::bptree::PlainDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlphaY")
+    {
+        stool::bptree::DynamicSuccinctPrefixSum dps;
+        bptree_prefix_sum_test(dps, "stool::bptree::DynamicSuccinctPrefixSum", query_type, item_num, max_value, query_num, seed);
     }
     else if(index_name == "DYNAMIC")
     {

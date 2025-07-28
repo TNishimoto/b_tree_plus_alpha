@@ -48,7 +48,8 @@ namespace stool
                     {
                         this->children_value_count_deque_.push_back(_leaf_container_vec[(uint64_t)child].size());
 
-                        this->children_value_sum_deque_.push_back(_leaf_container_vec[(uint64_t)child].psum());
+                        uint64_t psum = _leaf_container_vec[(uint64_t)child].psum();
+                        this->children_value_sum_deque_.push_back(psum);
                     }
                 }
                 else
@@ -281,6 +282,8 @@ namespace stool
                 {
                     assert(child_index < this->children_value_sum_deque_.size());
                     this->children_value_sum_deque_[child_index] += sum_delta;
+
+
                 }
 
             }
