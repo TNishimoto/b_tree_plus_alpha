@@ -11,18 +11,22 @@ namespace stool
         /// @brief A forward iterator for traversing the bits stored in a BP-tree.
         ///
         ////////////////////////////////////////////////////////////////////////////////
+        template <typename CONTAINER, typename CONTAINER_ITERATOR>
         class BitForwardIterator
         {
-            using NodePointer = bptree::BPNodePointer<BitContainer, bool>;
+            using NodePointer = bptree::BPNodePointer<CONTAINER, bool>;
             using T = uint64_t;
-            using Tree = bptree::BPTree<BitContainer, bool, false, true>;
+            using Tree = bptree::BPTree<CONTAINER, bool, false, true>;
             using LeafForwardIterator = Tree::LeafForwardIterator;
 
         public:
             LeafForwardIterator _lf_iterator;
             Tree *tree = nullptr;
             uint64_t bits;
-            int16_t index_in_container = 0;
+            CONTAINER_ITERATOR container_iterator;
+            bool container_iterator_end_flag = true;
+            // uint64_t bits;
+            // int16_t index_in_container = 0;
 
             using iterator_category = std::bidirectional_iterator_tag;
             using difference_type = std::ptrdiff_t;
@@ -37,12 +41,23 @@ namespace stool
                 if (_root != nullptr)
                 {
                     _root->copy_to(this->_lf_iterator);
-                    ++(*this);
+
+                    if (this->_lf_iterator.is_end())
+                    {
+                        this->container_iterator_end_flag = true;
+                    }
+                    else
+                    {
+                        uint64_t leaf_index = *this->_lf_iterator;
+                        CONTAINER &container = this->tree->get_leaf_container(leaf_index);
+                        this->container_iterator_end_flag = false;
+                        this->container_iterator = container.begin();
+                        ++(*this);
+                    }
                 }
                 else
                 {
                     this->_lf_iterator.idx = UINT64_MAX;
-                    this->index_in_container = 0;
                 }
             }
 
@@ -54,10 +69,11 @@ namespace stool
 
             bool is_end() const
             {
-                return this->_lf_iterator.is_end() && this->index_in_container == 0;
+                return this->_lf_iterator.is_end() && this->container_iterator_end_flag;
             }
             int compare(const BitForwardIterator &other) const
             {
+
                 if (this->_lf_iterator.idx != other._lf_iterator.idx)
                 {
                     if (this->_lf_iterator.idx < other._lf_iterator.idx)
@@ -71,9 +87,9 @@ namespace stool
                 }
                 else
                 {
-                    if (this->index_in_container != other.index_in_container)
+                    if (this->container_iterator != other.container_iterator)
                     {
-                        if (this->index_in_container < other.index_in_container)
+                        if (this->container_iterator < other.container_iterator)
                         {
                             return -1;
                         }
@@ -84,7 +100,17 @@ namespace stool
                     }
                     else
                     {
-                        return 0;
+                        bool b1 = this->container_iterator_end_flag;
+                        bool b2 = other.container_iterator_end_flag;
+                        if(b1 != b2){
+                            if(b1){
+                                return -1;
+                            }else{
+                                return 1;
+                            }
+                        }else{
+                            return 0;
+                        }
                     }
                 }
             }
@@ -102,61 +128,76 @@ namespace stool
 
             BitForwardIterator &operator++()
             {
-                uint64_t current_bits = 0;
-                uint64_t current_bit_size = 0;
-                while (current_bit_size < 64 && !this->_lf_iterator.is_end())
+                int64_t current_bits = 0;
+                int64_t current_bit_size = 0;
+
+                if (this->is_end())
                 {
-                    uint64_t leaf_index = *this->_lf_iterator;
-                    BitContainer &container = this->tree->get_leaf_container(leaf_index);
-                    uint64_t container_size = container.size();
-
-
-                    if ((int64_t)this->index_in_container < (int64_t)container_size)
-                    {
-                        uint64_t _bits = (container.to_uint64() >> this->index_in_container);
-                        uint64_t _bits_size = container.size() - this->index_in_container;
-                        uint64_t _bits_size2 = current_bit_size + _bits_size <= 64 ? _bits_size : (64 - current_bit_size);
-
-                        current_bits = current_bits | (_bits << current_bit_size);
-                        current_bit_size += _bits_size2;
-
-                        this->index_in_container += _bits_size2;
-                    }
-                    else
-                    {
-                        this->index_in_container = 0;
-                        ++this->_lf_iterator;
-                        /*
-                        if(!this->_lf_iterator.is_end()){
-                            uint64_t _leaf_index = *this->_lf_iterator;
-                            BitContainer &_container = this->tree->get_leaf_container(_leaf_index);                            
-                        }
-                        */
-                    }
+                    throw std::invalid_argument("Error: BitForwardIterator::operator++()");
                 }
-                if (current_bit_size == 0)
-                {
-                    this->bits = 0;
-                        this->index_in_container = 0;
 
+
+                if (this->_lf_iterator.is_end() && !this->container_iterator_end_flag)
+                {
+                    this->container_iterator_end_flag = true;
+                    this->bits = 0;
+                    return *this;
                 }
                 else
                 {
-                    this->bits = current_bits;
-                    if(this->_lf_iterator.is_end()){
-                        this->index_in_container = -1;
+                    while (current_bit_size < 64 && !this->is_end())
+                    {
+                        if (!this->container_iterator_end_flag)
+                        {
+
+                            uint64_t xbits = this->container_iterator.read_64bit_MSB_string();
+                            uint64_t xbits_size = this->container_iterator.get_size() - this->container_iterator.index;
+
+                            current_bits = current_bits | (xbits >> current_bit_size);
+
+                            if (current_bit_size + xbits_size >= 64)
+                            {
+                                uint64_t read_bit_size = 64 - current_bit_size;
+                                this->container_iterator += read_bit_size;
+                                current_bit_size += read_bit_size;
+                            }
+                            else
+                            {
+                                this->container_iterator += xbits_size;
+                                current_bit_size += xbits_size;
+                            }
+
+                            if (this->container_iterator.is_end())
+                            {
+                                this->container_iterator_end_flag = true;
+                            }
+                        }
+                        else if (!this->_lf_iterator.is_end())
+                        {
+
+                            ++this->_lf_iterator;
+                            this->container_iterator_end_flag = false;
+                            if (!this->_lf_iterator.is_end())
+                            {
+                                uint64_t leaf_index = *this->_lf_iterator;
+                                CONTAINER &container = this->tree->get_leaf_container(leaf_index);
+                                this->container_iterator = container.begin();
+                            }
+                            else
+                            {
+
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            throw std::invalid_argument("Error: BitForwardIterator::operator++()");
+                        }
                     }
+                    this->bits = current_bits;
+                    return *this;
                 }
-                                return *this;
             }
-            /*
-            bool operator==(const BitForwardIterator &other) const { return this->idx == other.idx; }
-            bool operator!=(const BitForwardIterator &other) const { return this->idx != other.idx; }
-            bool operator<(const BitForwardIterator &other) const { return this->idx < other.idx; }
-            bool operator>(const BitForwardIterator &other) const { return this->idx > other.idx; }
-            bool operator<=(const BitForwardIterator &other) const { return this->idx <= other.idx; }
-            bool operator>=(const BitForwardIterator &other) const { return this->idx >= other.idx; }
-            */
 
             bool operator==(const BitForwardIterator &other) const { return this->compare(other) == 0; }
             bool operator!=(const BitForwardIterator &other) const { return this->compare(other) != 0; }

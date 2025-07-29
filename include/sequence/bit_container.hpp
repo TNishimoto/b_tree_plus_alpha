@@ -13,6 +13,182 @@ namespace stool
             uint64_t bits = 1;
 
         public:
+            class BitContainerIterator
+            {
+
+            public:
+                uint64_t bits;
+                uint16_t index;
+
+                using iterator_category = std::random_access_iterator_tag;
+                using value_type = bool;
+                using difference_type = std::ptrdiff_t;
+
+                BitContainerIterator() : bits(0), index(UINT16_MAX) {}
+                BitContainerIterator(uint64_t _bits, uint16_t _index) : bits(_bits), index(_index) {}
+
+                bool operator*() const
+                {
+                    return stool::LSBByte::get_bit(this->bits, index);
+                }
+                uint64_t get_size() const
+                {
+                    return stool::LSBByte::get_code_length(this->bits) - 1;
+                }
+                bool is_end() const
+                {
+                    return this->index == UINT16_MAX;
+                }
+
+                BitContainerIterator &operator++()
+                {
+                    uint64_t size = this->get_size();
+                    if (this->index + 1 < size)
+                    {
+                        this->index++;
+                    }
+                    else if (this->index + 1 == size)
+                    {
+                        this->index = UINT16_MAX;
+                    }
+                    else
+                    {
+                        throw std::invalid_argument("Error: BitDequeIterator::operator++()");
+                    }
+
+                    return *this;
+                }
+
+                BitContainerIterator operator++(int)
+                {
+                    BitContainerIterator temp = *this;
+
+                    ++(*this);
+                    return temp;
+                }
+
+                BitContainerIterator &operator--()
+                {
+                    if (this->index > 1)
+                    {
+                        this->index--;
+                    }
+                    else
+                    {
+                        throw std::invalid_argument("Error: BitDequeIterator::operator--()");
+                    }
+
+                    return *this;
+                }
+
+                BitContainerIterator operator--(int)
+                {
+                    BitContainerIterator temp = *this;
+                    --(*this);
+                    return temp;
+                }
+
+                BitContainerIterator operator+(difference_type n) const
+                {
+                    if (this->index + n < this->get_size())
+                    {
+                        return BitContainerIterator(this->bits, this->index + n);
+                    }
+                    else
+                    {
+                        return BitContainerIterator(this->bits, UINT16_MAX);
+                    }
+                }
+
+                BitContainerIterator &operator+=(difference_type n)
+                {
+                    if (this->index + n < this->get_size())
+                    {
+                        this->index += n;
+                    }
+                    else
+                    {
+                        this->index = UINT16_MAX;
+                    }
+                    return *this;
+                }
+
+                BitContainerIterator operator-(difference_type n) const
+                {
+                    if (this->index - n >= 0)
+                    {
+                        return BitContainerIterator(this->bits, this->index - n);
+                    }
+                    else
+                    {
+                        throw std::invalid_argument("Error: BitContainerIterator::operator-()");
+                    }
+                }
+
+                BitContainerIterator &operator-=(difference_type n)
+                {
+                    if (this->index < n)
+                    {
+                        throw std::invalid_argument("Error: BitDequeIterator::operator-()");
+                    }
+                    this->index -= n;
+                    return *this;
+                }
+
+                uint64_t read_64bit_MSB_string() const
+                {
+                    uint64_t size = this->get_size();
+                    if (this->index == size)
+                    {
+                        throw std::invalid_argument("Error: BitContainerIterator::read_64_bit_string()");
+                    }
+                    else if (size == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        uint64_t p = 64 - size + this->index;
+                        return this->bits << p;
+                    }
+                }
+
+                difference_type operator-(const BitContainerIterator &other) const
+                {
+                    return (int16_t)this->index - (int16_t)other.index;
+                }
+
+                /**
+                 * @brief Equality comparison
+                 */
+                bool operator==(const BitContainerIterator &other) const { return this->index == other.index; }
+
+                /**
+                 * @brief Inequality comparison
+                 */
+                bool operator!=(const BitContainerIterator &other) const { return this->index != other.index; }
+
+                /**
+                 * @brief Less than comparison
+                 */
+                bool operator<(const BitContainerIterator &other) const { return this->index < other.index; }
+
+                /**
+                 * @brief Greater than comparison
+                 */
+                bool operator>(const BitContainerIterator &other) const { return this->index > other.index; }
+
+                /**
+                 * @brief Less than or equal comparison
+                 */
+                bool operator<=(const BitContainerIterator &other) const { return this->index <= other.index; }
+
+                /**
+                 * @brief Greater than or equal comparison
+                 */
+                bool operator>=(const BitContainerIterator &other) const { return this->index >= other.index; }
+            };
+
             BitContainer()
             {
             }
@@ -25,12 +201,14 @@ namespace stool
             }
             BitContainer(std::vector<bool> &_items)
             {
-                for(uint64_t i = 0; i < _items.size();i++){
+                for (uint64_t i = 0; i < _items.size(); i++)
+                {
                     this->push_back(_items[i]);
                 }
             }
 
-            void swap(BitContainer &item){
+            void swap(BitContainer &item)
+            {
                 std::swap(this->bits, item.bits);
             }
             uint64_t size() const
@@ -39,17 +217,19 @@ namespace stool
             }
             uint64_t size_in_bytes(bool only_extra_bytes) const
             {
-                if(only_extra_bytes){
+                if (only_extra_bytes)
+                {
                     return 0;
-                }else{
+                }
+                else
+                {
                     return sizeof(uint64_t);
                 }
             }
             uint64_t unused_size_in_bytes() const
             {
-                return 0;   
+                return 0;
             }
-    
 
             uint64_t at(uint64_t pos) const
             {
@@ -88,7 +268,7 @@ namespace stool
                     uint64_t count = this->psum();
                     if (x <= count)
                     {
-                        return stool::LSBByte::select1(this->bits, x-1);
+                        return stool::LSBByte::select1(this->bits, x - 1);
                     }
                     else
                     {
@@ -123,12 +303,14 @@ namespace stool
                 }
                 return r;
             }
-            uint64_t to_uint64() const {
+            uint64_t to_uint64() const
+            {
                 return stool::LSBByte::write_bit(this->bits, this->size(), false);
             }
 
-            template<typename VEC>
-            void to_values(VEC &output_vec) const{
+            template <typename VEC>
+            void to_values(VEC &output_vec) const
+            {
                 output_vec.clear();
                 output_vec.resize(this->size());
                 for (uint64_t i = 0; i < this->size(); i++)
@@ -136,7 +318,6 @@ namespace stool
                     output_vec[i] = this->at(i);
                 }
             }
-
 
             void insert(uint64_t pos, uint64_t value)
             {
@@ -172,6 +353,9 @@ namespace stool
                 {
                     this->push_back(v);
                 }
+            }
+            void verify() const{
+                
             }
             void push_back(uint64_t value)
             {
@@ -252,48 +436,60 @@ namespace stool
                 }
             }
 
-            std::vector<uint64_t>::const_iterator begin() const
+            BitContainerIterator begin() const
             {
-                throw std::runtime_error("Error: BitContainer");
-            }
-
-            std::vector<uint64_t>::const_iterator end() const
-            {
-                throw std::runtime_error("Error: BitContainer");
-            }
-
-            int64_t rank1(uint64_t i) const{
-                if(i == 0){
-                    return 0;
-                }else{
-                    return this->psum(i-1);
+                if (this->size() == 0)
+                {
+                    return BitContainerIterator(this->bits, UINT16_MAX);
+                }
+                else
+                {
+                    return BitContainerIterator(this->bits, 0);
                 }
             }
 
-            int64_t rank0(uint64_t i) const{
-                return i - this->rank1(i);
-            }
-            int64_t rank(uint64_t i, bool b) const {
-                return b ? this->rank1(i) : this->rank0(i);
+            BitContainerIterator end() const
+            {
+                return BitContainerIterator(this->bits, UINT16_MAX);
             }
 
+            int64_t rank1(uint64_t i) const
+            {
+                if (i == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return this->psum(i - 1);
+                }
+            }
+
+            int64_t rank0(uint64_t i) const
+            {
+                return i - this->rank1(i);
+            }
+            int64_t rank(uint64_t i, bool b) const
+            {
+                return b ? this->rank1(i) : this->rank0(i);
+            }
 
             int64_t select(uint64_t i, bool b) const
             {
                 return b ? this->select1(i) : this->select0(i);
             }
 
-
             int64_t select1(uint64_t i) const
             {
-                    return this->search(i+1);
+                return this->search(i + 1);
             }
             int64_t select0(uint64_t i) const
             {
-                        return stool::LSBByte::select0(this->bits, i);
+                return stool::LSBByte::select0(this->bits, i);
             }
-            
-            void to_data(std::vector<uint8_t> &output) const{
+
+            void to_data(std::vector<uint8_t> &output) const
+            {
                 output.push_back(this->bits);
             }
             /*
@@ -302,12 +498,15 @@ namespace stool
             }
             */
 
-            static uint64_t get_byte_size(const std::vector<BitContainer> &items){
+            static uint64_t get_byte_size(const std::vector<BitContainer> &items)
+            {
                 return sizeof(uint64_t) + (items.size() * sizeof(BitContainer));
             }
-            static void save(const std::vector<BitContainer> &items, std::vector<uint8_t> &output, uint64_t &pos){
+            static void save(const std::vector<BitContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
+            {
                 uint64_t size = get_byte_size(items);
-                if(pos + size > output.size()){
+                if (pos + size > output.size())
+                {
                     output.resize(pos + size);
                 }
 
@@ -318,14 +517,15 @@ namespace stool
                 std::memcpy(output.data() + pos, items.data(), items_size * sizeof(BitContainer));
                 pos += size * sizeof(BitContainer);
             }
-            static void save(const std::vector<BitContainer> &items, std::ofstream &os){
+            static void save(const std::vector<BitContainer> &items, std::ofstream &os)
+            {
                 uint64_t items_size = items.size();
-	            os.write(reinterpret_cast<const char*>(&items_size), sizeof(uint64_t));
-	            os.write(reinterpret_cast<const char*>(items.data()), items.size() * sizeof(BitContainer));
+                os.write(reinterpret_cast<const char *>(&items_size), sizeof(uint64_t));
+                os.write(reinterpret_cast<const char *>(items.data()), items.size() * sizeof(BitContainer));
             }
 
-
-            static std::vector<BitContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos){
+            static std::vector<BitContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
                 uint64_t size = 0;
                 std::memcpy(&size, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
@@ -335,22 +535,22 @@ namespace stool
                 std::memcpy(output.data(), data.data() + pos, size * sizeof(BitContainer));
                 pos += size * sizeof(BitContainer);
                 return output;
-
             }
-            static std::vector<BitContainer> load_vector(std::ifstream &ifs){
+            static std::vector<BitContainer> load_vector(std::ifstream &ifs)
+            {
                 uint64_t size = 0;
-            	ifs.read(reinterpret_cast<char*>(&size), sizeof(uint64_t));
+                ifs.read(reinterpret_cast<char *>(&size), sizeof(uint64_t));
 
                 std::vector<BitContainer> output;
                 output.resize(size);
-                
-            	ifs.read(reinterpret_cast<char*>(output.data()), size * sizeof(BitContainer));
-                
+
+                ifs.read(reinterpret_cast<char *>(output.data()), size * sizeof(BitContainer));
 
                 return output;
-
             }
-            
+            void sort_leaf_containers()
+            {
+            }
         };
     }
 

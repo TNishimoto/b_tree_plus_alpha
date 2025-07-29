@@ -680,6 +680,7 @@ namespace stool
                     }
                     else
                     {
+
                         std::vector<VALUE> r;
                         BPFunctions::to_value_vector(*this->root, r, this->leaf_container_vec);
                         return r;
@@ -788,24 +789,24 @@ namespace stool
              *          and the number of leaf containers. It also prints the contents of each leaf
              *          container and the parent vector if USE_PARENT_FIELD is true.
              */
-            void print_info() const
+            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::cout << "========= BPTREE =========" << std::endl;
-                std::cout << "Height: " << this->height_ << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "========= BPTREE =========" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Height: " << this->height_ << std::endl;
 
                 // uint64_t id = 0;
                 for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
                 {
                     NodePointer pt = *it;
+                    
                     if (pt.is_leaf())
                     {
-                        std::cout << "LIDX: " << pt.get_leaf_container_index() << ": " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
-                        // std::vector<VALUE> vec = this->leaf_container_vec[pt.get_leaf_container_index()].to_value_vector();
-                        // stool::Printer::print(std::to_string(id), vec);
+                        std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Leaf: id = " << pt.get_leaf_container_index() << ", content = " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
+
                     }
                     else
                     {
-                        pt.get_node()->print_info();
+                        pt.get_node()->print_info(message_paragraph+1);
                     }
                     // id++;
                 }
@@ -1342,7 +1343,7 @@ namespace stool
              *          3. Adding the leaf container index to the unused indexes list
              *          4. Clearing the leaf container's contents
              */
-            void remove_emply_leaf(uint64_t idx, Node *parent, int64_t child_index)
+            void remove_empty_leaf(uint64_t idx, Node *parent, int64_t child_index)
             {
                 if (parent != nullptr)
                 {
@@ -1369,7 +1370,7 @@ namespace stool
              *          4. Either recycling the node pointer or deleting it based on the
              *             number of unused node pointers currently stored
              */
-            void remove_emply_node(Node *node, Node *parent, int64_t child_index)
+            void remove_empty_node(Node *node, Node *parent, int64_t child_index)
             {
                 // Node *parent = node->get_parent();
                 if (parent != nullptr)
@@ -1671,28 +1672,26 @@ namespace stool
                                     assert(leftSiblingDegree == threshold || rightSiblingDegree == threshold);
                                     if (leftSiblingDegree == threshold)
                                     {
-
                                         this->move_values_left(leftSibling, top.get_node(), degree, top.is_leaf(), parent, parent_edge_index);
                                         if (top.is_leaf())
                                         {
-                                            this->remove_emply_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
+                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
                                         }
                                         else
                                         {
-                                            this->remove_emply_node(top.get_node(), parent, parent_edge_index);
+                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
                                         }
                                     }
                                     else
                                     {
-
                                         this->move_values_right(top.get_node(), rightSibling, degree, top.is_leaf(), parent, parent_edge_index);
                                         if (top.is_leaf())
                                         {
-                                            this->remove_emply_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
+                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
                                         }
                                         else
                                         {
-                                            this->remove_emply_node(top.get_node(), parent, parent_edge_index);
+                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
                                         }
                                     }
                                     merge_counter++;
@@ -1717,7 +1716,7 @@ namespace stool
                                     bool b = this->root->is_parent_of_leaves();
                                     Node *new_root = this->root->get_child(0);
                                     this->root->remove_child(0);
-                                    this->remove_emply_node(this->root, nullptr, -1);
+                                    this->remove_empty_node(this->root, nullptr, -1);
                                     this->root = new_root;
                                     this->root_is_leaf_ = b;
                                     if (USE_PARENT_FIELD)
@@ -1972,7 +1971,7 @@ namespace stool
                     assert(path.size() == 1);
                     if (leaf_container_vec[x].size() == 0)
                     {
-                        this->remove_emply_leaf((uint64_t)this->root, nullptr, -1);
+                        this->remove_empty_leaf((uint64_t)this->root, nullptr, -1);
                         this->root = nullptr;
                         this->root_is_leaf_ = false;
                         this->height_ = 0;
@@ -2189,6 +2188,7 @@ namespace stool
                     if (USE_PSUM && parent != nullptr)
                     {
                         int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
+
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
                     }
@@ -2265,7 +2265,8 @@ namespace stool
              *          maintains tree invariants.
              */
             void split_node(Node *left_node, Node *right_node, bool is_leaf, Node *parent, int64_t parent_edge_index_of_left_node, [[maybe_unused]] std::vector<Node *> &parent_vec)
-            {
+            {                
+
                 uint64_t degree = 0;
                 if (is_leaf)
                 {

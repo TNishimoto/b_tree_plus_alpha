@@ -14,16 +14,27 @@ namespace stool
         template <typename LEAF_CONTAINER, typename VALUE>
         class BPInternalNode
         {
-        private:
+
+            #if DEBUG
+            public:
+            static inline int ID_COUNTER = 0;
+            uint64_t id;
+            #endif
+
+            private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE>;
             stool::SimpleDeque16<InternalNode *> children_;
             stool::SimpleDeque16<uint64_t> children_value_count_deque_;
             stool::SimpleDeque16<uint64_t> children_value_sum_deque_;
             bool is_parent_of_leaves_ = false;
 
+
         public:
             BPInternalNode()
             {
+                #if DEBUG
+                this->id = ID_COUNTER++;
+                #endif
             }
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -229,19 +240,23 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            void print_info() const
+            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::cout << "=================" << std::endl;
-                std::cout << "This: " << (uint64_t)this;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "================= NODE =================" << std::endl;
+                #if DEBUG
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "InternalNode ID: " << this->id ;
+                #else 
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "InternalNode ID: " << (uint64_t)this;
+                #endif
                 std::cout << ", is_parent_of_leaves: " << this->is_parent_of_leaves();
                 std::cout << ", count: " << this->get_value_count();
                 std::cout << ", sum: " << this->get_value_sum() << std::endl;
 
 
                 auto count_deq = this->children_value_count_deque_.to_deque();
-                stool::Printer::print("count_deque", count_deq);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "count_deque: " << stool::DebugPrinter::to_integer_string(count_deq) << std::endl;
                 auto sum_deq = this->children_value_sum_deque_.to_deque();
-                stool::Printer::print("sum_deque", sum_deq);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "sum_deque: " << stool::DebugPrinter::to_integer_string(sum_deq) << std::endl;
 
                 // std::cout << "Parent: " << (uint64_t)this->parent << std::endl;
 
@@ -250,8 +265,9 @@ namespace stool
                 {
                     vec.push_back((uint64_t)this->children_[i]);
                 }
-                stool::Printer::print("child", vec);
-                std::cout << "=================" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "children: " << stool::DebugPrinter::to_integer_string(vec) << std::endl;
+
+                std::cout << stool::Message::get_paragraph_string(message_paragraph)<< "==================================" << std::endl;
             }
 
             //@}

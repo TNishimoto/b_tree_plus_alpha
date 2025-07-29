@@ -13,6 +13,7 @@ namespace stool
             BitDeque bits;
 
         public:
+            using BitDequeContainerIterator = BitDeque::BitDequeIterator;
             BitDequeContainer()
             {
             }
@@ -75,7 +76,8 @@ namespace stool
             }
             int64_t search(uint64_t x) const noexcept
             {
-                return this->bits.search(x);
+                uint64_t v = this->bits.search(x);
+                return v;
             }
 
             std::string to_string() const
@@ -93,7 +95,23 @@ namespace stool
             }
             uint64_t to_uint64() const
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                uint64_t size = this->size();
+                if (size > 0)
+                {
+                    uint64_t value = this->bits.read_64_bit_string();
+                    if (size >= 64)
+                    {
+                        return value;
+                    }
+                    else
+                    {
+                        return value >> (64 - size);
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
             }
 
             template <typename VEC>
@@ -105,6 +123,9 @@ namespace stool
                 {
                     output_vec[i] = this->at(i);
                 }
+
+                
+
             }
 
             void insert(uint64_t pos, uint64_t value)
@@ -120,8 +141,9 @@ namespace stool
             {
                 for (int64_t i = new_items.size() - 1; i >= 0; i--)
                 {
-                    this->bits.push_front(new_items[i] >= 0);
+                    this->bits.push_front(new_items[i] >= 1);
                 }
+
             }
             void push_front(uint64_t new_item)
             {
@@ -132,7 +154,7 @@ namespace stool
             {
                 for (uint64_t v : new_items)
                 {
-                    this->push_back(v >= 0);
+                    this->push_back(v >= 1);
                 }
             }
             void push_back(uint64_t value)
@@ -150,7 +172,8 @@ namespace stool
                 std::vector<uint64_t> r;
                 for (uint64_t i = 0; i < len; i++)
                 {
-                    r.push_back(this->at(0));
+                    bool b = this->at(0);
+                    r.push_back(b ? 1 : 0);
                     this->pop_front();
                 }
                 return r;
@@ -169,7 +192,8 @@ namespace stool
 
                 for (uint64_t i = 0; i < len; i++)
                 {
-                    r[len - i - 1] = this->at(this->size() - 1);
+                    bool b = this->at(this->size() - 1);
+                    r[len - i - 1] = b ? 1 : 0;
                     this->pop_back();
                 }
                 return r;
@@ -188,16 +212,6 @@ namespace stool
             void increment(uint64_t i, int64_t delta)
             {
                 this->bits.increment(i, delta);
-            }
-
-            std::vector<uint64_t>::const_iterator begin() const
-            {
-                throw std::runtime_error("Error: BitContainer");
-            }
-
-            std::vector<uint64_t>::const_iterator end() const
-            {
-                throw std::runtime_error("Error: BitContainer");
             }
 
             int64_t rank1(uint64_t i) const
@@ -221,11 +235,11 @@ namespace stool
 
             int64_t select1(uint64_t i) const
             {
-                return this->search(i + 1);
+                return this->bits.select1(i);
             }
             int64_t select0(uint64_t i) const
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                return this->bits.select0(i);
             }
 
             void to_data(std::vector<uint8_t> &output) const
@@ -255,20 +269,78 @@ namespace stool
             }
             static void save(const std::vector<BitDequeContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                uint64_t size = get_byte_size(items);
+                if (pos + size > output.size())
+                {
+                    output.resize(pos + size);
+                }
+
+                uint64_t items_size = items.size();
+                std::memcpy(output.data() + pos, &items_size, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+
+                for (const auto &item : items)
+                {
+                    BitDeque::save(item.bits, output, pos);
+                }
             }
             static void save(const std::vector<BitDequeContainer> &items, std::ofstream &os)
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                uint64_t items_size = items.size();
+                os.write(reinterpret_cast<const char *>(&items_size), sizeof(uint64_t));
+    
+                for (const auto &item : items)
+                {
+                    BitDeque::save(item.bits, os);
+                }
             }
-
+            static BitDequeContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
+                BitDequeContainer r;
+                r.bits = BitDeque::load(data, pos);
+                return r;
+            }
+            static BitDequeContainer load(std::ifstream &ifs)
+            {
+                BitDequeContainer r;
+                r.bits = BitDeque::load(ifs);
+                return r;
+            }
             static std::vector<BitDequeContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                uint64_t size = 0;
+                std::memcpy(&size, data.data() + pos, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+    
+                std::vector<BitDequeContainer> output;
+                output.resize(size);
+                for (uint64_t i = 0; i < size; i++)
+                {
+                    output[i] = BitDequeContainer::load(data, pos);
+                }
+                return output;
             }
             static std::vector<BitDequeContainer> load_vector(std::ifstream &ifs)
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                uint64_t size = 0;
+                ifs.read(reinterpret_cast<char *>(&size), sizeof(uint64_t));
+    
+                std::vector<BitDequeContainer> output;
+                output.resize(size);
+                for (uint64_t i = 0; i < size; i++)
+                {
+                    output[i] = BitDequeContainer::load(ifs);
+                }
+    
+                return output;
+            }
+
+            BitDequeContainerIterator begin() const
+            {
+                return this->bits.begin();
+            }
+            BitDequeContainerIterator end() const
+            {
+                return this->bits.end();
             }
         };
     }

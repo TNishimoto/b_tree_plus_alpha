@@ -269,6 +269,13 @@ namespace stool
             int64_t select1(uint64_t i) const {
                 return this->select(1, i);
             }
+            void sort_leaf_containers()
+            {
+            }
+            void verify() const{
+                
+            }
+
 
 
         };

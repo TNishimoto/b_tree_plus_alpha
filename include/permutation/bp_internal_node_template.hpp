@@ -14,7 +14,13 @@ namespace stool
         template <>
         class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>
         {
-        private:
+            #if DEBUG
+            public:
+            static inline int ID_COUNTER = 0;
+            uint64_t id;
+            #endif
+
+            private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>;
             stool::SimpleDeque16<InternalNode *> children_;
             stool::SimpleDeque16<uint64_t> children_value_count_deque_;
@@ -24,6 +30,9 @@ namespace stool
         public:
             BPInternalNode()
             {
+                #if DEBUG
+                this->id = ID_COUNTER++;
+                #endif
             }
 
             ////////////////////////////////////////////////////////////////////////////////

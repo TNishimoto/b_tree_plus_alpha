@@ -222,6 +222,8 @@ namespace stool
                     std::vector<VALUE> tmp;
                     leaf_container_vec[i].to_values(tmp);
 
+
+
                     //std::vector<VALUE> tmp = leaf_container_vec[i].to_value_vector();
                     for (uint64_t j : tmp)
                     {
@@ -267,7 +269,7 @@ namespace stool
                     BPInternalNodeFunctions::get_leaf_container_index_vector(node, tmp);
                     for (uint64_t idx : tmp)
                     {
-                        s1 += "(" + leaf_container_vec[idx].to_string() + ")";
+                        s1 += "([" + std::to_string(idx) + "]" + leaf_container_vec[idx].to_string() + "])";
                     }
                     output[0] += s1;
                     width = s1.size();
@@ -283,21 +285,31 @@ namespace stool
                     }
                 }
                 std::string s = "";
-                for (uint64_t i = 0; i < width; i++)
-                {
-                    if (i == 0)
+
+                std::string id_str;
+                #if DEBUG
+                id_str = "[" + std::to_string(node.id) + "]";
+                #endif
+
+                while(s.size() < width){
+                    if (s.size() == 0)
                     {
                         s.push_back('[');
+                        if(s.size() + id_str.size() < width){
+                            s += id_str;
+                        }
                     }
-                    else if (i + 1 == width)
+                    else if (s.size() + 1 == width)
                     {
                         s.push_back(']');
                     }
                     else
                     {
+                        
                         s.push_back('-');
                     }
                 }
+
                 output[h] += s;
                 return width;
             }
@@ -351,9 +363,25 @@ namespace stool
                     {
                         value_count_sum += child->get_value_count();
                         value_sum_sum += child->get_value_sum();
+
                         if (p != child->is_parent_of_leaves())
                         {
                             b1 = false;
+                        }
+                    }
+                }
+
+                if(node.use_psum()){
+                    if(node.is_parent_of_leaves()){
+                        for(uint64_t i = 0; i < node.children_count(); i++){
+                            uint64_t x = (uint64_t)node.get_child(i);
+                            uint64_t psum = leaf_container_vec[x].psum();
+                            uint64_t psum2 = node.get_value_sum_deque()[i];
+
+                            if(psum != psum2){
+                                std::cout << "Error: psum = " << psum << " == True psum: " << psum2 << std::endl;
+                                throw std::logic_error("Error(5): BPInternalNode::verify()");
+                            }
                         }
                     }
                 }
