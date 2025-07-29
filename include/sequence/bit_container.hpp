@@ -148,8 +148,18 @@ namespace stool
                     }
                     else
                     {
-                        uint64_t p = 64 - size + this->index;
-                        return this->bits << p;
+                        uint64_t p = size - this->index;
+                        uint64_t return_bits = 0;
+
+
+                        for(uint64_t x = 0; x < p; x++){
+                            uint64_t y = x + this->index;
+                            if(stool::LSBByte::get_bit(this->bits, y)){
+                                return_bits = return_bits | (1ULL << (63-x));
+                            }
+                        }
+
+                        return return_bits;
                     }
                 }
 

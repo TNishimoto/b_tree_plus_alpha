@@ -526,6 +526,7 @@ namespace stool
                 uint64_t counter = 0;
 
 
+
                 auto _end = this->get_leaf_forward_iterator_end();
 
 
@@ -690,7 +691,7 @@ namespace stool
         };
 
         using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitContainer, stool::bptree::BitContainer::BitContainerIterator>;
-        using SimpleDynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator>;
+        using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator>;
 
         // template <typename T>
         // using VLCDequeSeq = DynamicSequence<VLCDeque, T>;

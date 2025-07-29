@@ -16,7 +16,7 @@ void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int message_paragraph = 
         std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Testing..." << std::endl;
     }
 
-    if constexpr (std::is_same<DBV, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<DBV, stool::bptree::SimpleDynamicBitDequeSequence>::value) {
+    if constexpr (std::is_same<DBV, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<DBV, stool::bptree::DynamicBitDequeSequence>::value) {
         stool::BitSequenceTest::build_test(dbv, insert_num, seed, message_paragraph+1);
 
         stool::BitSequenceTest::load_write_test(dbv, message_paragraph+1);
@@ -88,10 +88,10 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
     }
     else if (mode == 4){
         if(message_paragraph != stool::Message::NO_MESSAGE){
-            std::cout << stool::Message::get_paragraph_string(message_paragraph) << "TEST: SimpleDynamicBitDequeSequence" << std::endl; 
+            std::cout << stool::Message::get_paragraph_string(message_paragraph) << "TEST: DynamicBitDequeSequence" << std::endl; 
         }
 
-        stool::bptree::SimpleDynamicBitDequeSequence bit_seq;
+        stool::bptree::DynamicBitDequeSequence bit_seq;
 
         test(bit_seq, seed, 200, message_paragraph+1);
 

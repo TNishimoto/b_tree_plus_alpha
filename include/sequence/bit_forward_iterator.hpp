@@ -153,6 +153,7 @@ namespace stool
                             uint64_t xbits = this->container_iterator.read_64bit_MSB_string();
                             uint64_t xbits_size = this->container_iterator.get_size() - this->container_iterator.index;
 
+
                             current_bits = current_bits | (xbits >> current_bit_size);
 
                             if (current_bit_size + xbits_size >= 64)

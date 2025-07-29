@@ -46,7 +46,7 @@ namespace stool
             }
             uint64_t unused_size_in_bytes() const
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                return this->bits.unused_size_in_bytes();
             }
 
             uint64_t at(uint64_t pos) const

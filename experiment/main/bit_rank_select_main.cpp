@@ -34,7 +34,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
         std::vector<bool> buffer;
         uint64_t buffer_size = 10000;
 
@@ -68,7 +68,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
         density_when_build_is_complete = dynamic_bit_sequence.density();
     }
 
@@ -177,7 +177,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicBitSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_bit_sequence.print_information_about_performance();
         dynamic_bit_sequence.print_memory_usage();
@@ -221,8 +221,13 @@ int main(int argc, char *argv[])
 
     if (index_name == "BTreePlusAlpha")
     {
-        stool::bptree::DynamicBitSequence dbs;
+        stool::bptree::DynamicBitSequence<> dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", query_type, item_num, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlphaX")
+    {
+        stool::bptree::DynamicBitDequeSequence dbs;
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence", query_type, item_num, query_num, seed);
     }
     else if (index_name == "DYNAMIC")
     {

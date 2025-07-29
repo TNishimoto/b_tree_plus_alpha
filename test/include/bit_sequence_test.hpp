@@ -51,6 +51,8 @@ namespace stool
             for (uint64_t i = 0; i < spsi_container.size(); i++)
             {
                 if(r1[i] != spsi_container[i]){
+                    std::cout << stool::DebugPrinter::to_integer_string(r1) << std::endl;
+                    std::cout << spsi_container.to_string() << std::endl;
                     throw std::runtime_error("test_iterator::Error(2)");
                 }
             }
