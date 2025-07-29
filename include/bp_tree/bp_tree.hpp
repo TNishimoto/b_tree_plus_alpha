@@ -8,12 +8,16 @@ namespace stool
 {
     namespace bptree
     {
+        inline constexpr int DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE = 126;
+        inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
+
+
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPTree
         /// @brief      An implementation of B+-tree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, bool USE_PSUM>
+        template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, bool USE_PSUM, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE>
         class BPTree
         {
         public:
@@ -25,8 +29,6 @@ namespace stool
 
             using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, USE_PSUM>;
 
-            static inline constexpr int DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE = 126;
-            static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
         private:
             std::vector<LEAF_CONTAINER> leaf_container_vec;
@@ -35,8 +37,10 @@ namespace stool
             std::vector<Node *> unused_node_pointers;
             std::vector<NodePointer> tmp_path;
 
+            /*
             uint64_t _max_degree_of_internal_node = 8;
             uint64_t _max_count_of_values_in_leaf = 8;
+            */
             Node *root = nullptr;
             BPTree *linked_tree_ = nullptr;
             double density_threshold = 0.5;
@@ -67,8 +71,8 @@ namespace stool
                 this->unused_node_pointers = std::move(other.unused_node_pointers);
                 this->tmp_path = std::move(other.tmp_path);
 
-                this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
-                this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
+                //this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
+                //this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
                 this->root = other.root;
                 this->linked_tree_ = other.linked_tree_;
                 this->density_threshold = other.density_threshold;
@@ -102,8 +106,8 @@ namespace stool
                     this->unused_node_pointers = std::move(other.unused_node_pointers);
                     this->tmp_path = std::move(other.tmp_path);
 
-                    this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
-                    this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
+                    //this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
+                    //this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
                     this->root = other.root;
                     this->linked_tree_ = other.linked_tree_;
                     this->density_threshold = other.density_threshold;
@@ -134,26 +138,17 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            /**
-             * @brief Initializes the B+ tree with equal maximum degrees for internal nodes and leaf nodes
-             * @param __max_degree_of_internal_node The maximum degree for both internal nodes and leaf nodes
-             * @details This is a convenience overload that calls initialize() with the same value for both parameters
-             */
-            void initialize(uint64_t __max_degree_of_internal_node)
-            {
-                this->initialize(__max_degree_of_internal_node, __max_degree_of_internal_node);
-            }
 
             /**
              * @brief Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes
-             * @param __max_degree_of_internal_node The maximum degree for internal nodes
-             * @param __max_count_of_values_in_leaf The maximum number of values that can be stored in a leaf node
              * @throws std::runtime_error if either parameter is less than 4
              * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4
              * to maintain B+ tree properties. The function clears any existing data before initialization.
              */
-            void initialize(uint64_t __max_degree_of_internal_node, uint64_t __max_count_of_values_in_leaf)
+            void initialize()
             {
+                uint64_t __max_degree_of_internal_node = MAX_DEGREE;
+                uint64_t __max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
                 if (__max_degree_of_internal_node < 4)
                 {
                     throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_degree_of_internal_node must be larger than 3.");
@@ -164,8 +159,8 @@ namespace stool
                 }
 
                 this->clear();
-                this->_max_degree_of_internal_node = __max_degree_of_internal_node;
-                this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
+                //this->_max_degree_of_internal_node = __max_degree_of_internal_node;
+                //this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
                 this->root = nullptr;
                 this->root_is_leaf_ = false;
             }
@@ -185,8 +180,8 @@ namespace stool
                 this->unused_node_pointers.swap(_tree.unused_node_pointers);
                 this->unused_leaf_container_indexes.swap(_tree.unused_leaf_container_indexes);
                 this->tmp_path.swap(_tree.tmp_path);
-                std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
-                std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
+                //std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
+                //std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
                 std::swap(this->root, _tree.root);
                 if (swap_linked_tree)
                 {
@@ -280,7 +275,7 @@ namespace stool
              */
             uint64_t get_max_degree_of_internal_node() const
             {
-                return this->_max_degree_of_internal_node;
+                return MAX_DEGREE;
             }
 
             uint64_t get_split_process_counter() const
@@ -302,7 +297,7 @@ namespace stool
              */
             uint64_t get_max_count_of_values_in_leaf() const
             {
-                return this->_max_count_of_values_in_leaf;
+                return LEAF_CONTAINER_MAX_SIZE;
             }
 
             /**
@@ -732,7 +727,7 @@ namespace stool
                     else
                     {
                         Node *_node = pt.get_node();
-                        b = b && BPFunctions::verify(*_node, this->leaf_container_vec, this->get_max_degree_of_internal_node(), this->root == pt.get_node());
+                        b = b && BPFunctions::verify(*_node, this->leaf_container_vec, MAX_DEGREE, this->root == pt.get_node());
                         assert(b);
                     }
                     // std::cout << it.idx << "//" << it._st.size() << "/" << std::flush;
@@ -1006,8 +1001,8 @@ namespace stool
                 double bytes_per_value = size > 0 ? ((double)size_in_bytes / (double)size) : 0;
 
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(size_in_bytes) + " bytes, " + std::to_string(size) + " values, " + std::to_string(bytes_per_value)  + " bytes per value =");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Degree of Internal Node: " + std::to_string(this->get_max_degree_of_internal_node()));
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Count of Values in Leaf: " + std::to_string(this->get_max_count_of_values_in_leaf()));
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Degree of Internal Node: " + std::to_string(MAX_DEGREE));
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Count of Values in Leaf: " + std::to_string(LEAF_CONTAINER_MAX_SIZE));
                 //log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
 
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Internal Nodes: " + std::to_string(this->get_internal_node_memory()) + " bytes");
@@ -1438,6 +1433,7 @@ namespace stool
                 {
                     new_node = new Node();
                 }
+
                 return new_node;
             }
 
@@ -1537,7 +1533,7 @@ namespace stool
                 {
                     const NodePointer &top = path[t];
                     uint64_t degree = top.get_degree(this->leaf_container_vec);
-                    uint64_t threshold = top.is_leaf() ? this->get_max_count_of_values_in_leaf() : this->get_max_degree_of_internal_node();
+                    uint64_t threshold = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
                     uint64_t LR_threshold = threshold;
                     if(superLeftPushMode){
                         LR_threshold = (threshold * 3) / 4;
@@ -1627,7 +1623,7 @@ namespace stool
                 for (int64_t t = path.size() - 1; t >= 0; --t)
                 {
                     const NodePointer &top = path[t];
-                    uint64_t max_size = top.is_leaf() ? this->get_max_count_of_values_in_leaf() : this->get_max_degree_of_internal_node();
+                    uint64_t max_size = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
                     uint64_t threshold = max_size / 2;
 
                     uint64_t degree = top.get_degree(this->leaf_container_vec);
@@ -1713,12 +1709,15 @@ namespace stool
                             {
                                 if (!this->root_is_leaf_)
                                 {
+
                                     bool b = this->root->is_parent_of_leaves();
                                     Node *new_root = this->root->get_child(0);
                                     this->root->remove_child(0);
                                     this->remove_empty_node(this->root, nullptr, -1);
                                     this->root = new_root;
                                     this->root_is_leaf_ = b;
+
+
                                     if (USE_PARENT_FIELD)
                                     {
                                         if (b)
@@ -2036,12 +2035,16 @@ namespace stool
                         if (position_to_insert != -1)
                         {
                             uint64_t x = this->tmp_path[this->tmp_path.size() - 1].get_leaf_container_index();
+
+
+
                             this->leaf_container_vec[x].insert(position_to_insert, value);
 
                             for (int64_t i = this->tmp_path.size() - 2; i >= 0; i--)
                             {
                                 Node *node = this->tmp_path[i].get_node();
                                 uint64_t child_index = this->tmp_path[i + 1].get_parent_edge_index();
+
 
                                 node->increment(child_index, 1, sum_delta);
                             }
@@ -2054,6 +2057,7 @@ namespace stool
                     }
                     else
                     {
+
                         if (pos == 0)
                         {
                             this->create_root_leaf(value);
@@ -2507,7 +2511,7 @@ namespace stool
                     this->root_is_leaf_ = false;
                     this->height_ = current_height;
                 }
-                else if (nodes.size() <= this->_max_degree_of_internal_node)
+                else if (nodes.size() <= MAX_DEGREE)
                 {
 
                     Node *root = this->get_new_node_pointer();
@@ -2532,17 +2536,17 @@ namespace stool
                 {
                     uint64_t i = 0;
                     uint64_t counter = nodes.size();
-                    uint64_t threshold = this->_max_degree_of_internal_node * 2;
+                    uint64_t threshold = MAX_DEGREE * 2;
                     while (counter > 0)
                     {
                         uint64_t d = 0;
                         if (counter >= threshold)
                         {
-                            d = this->_max_degree_of_internal_node;
+                            d = MAX_DEGREE;
                         }
-                        else if (counter > this->_max_degree_of_internal_node)
+                        else if (counter > MAX_DEGREE)
                         {
-                            d = this->_max_degree_of_internal_node / 2;
+                            d = MAX_DEGREE / 2;
                         }
                         else
                         {
@@ -2598,7 +2602,7 @@ namespace stool
                     this->root_is_leaf_ = true;
                     this->height_ = 1;
                 }
-                else if (this->leaf_container_vec.size() <= this->_max_degree_of_internal_node)
+                else if (this->leaf_container_vec.size() <= MAX_DEGREE)
                 {
                     Node *root = this->get_new_node_pointer();
                     root->initialize(true, this->leaf_container_vec);
@@ -2623,17 +2627,17 @@ namespace stool
 
                     uint64_t i = 0;
                     uint64_t counter = this->leaf_container_vec.size();
-                    uint64_t threshold = this->_max_degree_of_internal_node * 2;
+                    uint64_t threshold = MAX_DEGREE * 2;
                     while (counter > 0)
                     {
                         uint64_t d = 0;
                         if (counter >= threshold)
                         {
-                            d = this->_max_degree_of_internal_node;
+                            d = MAX_DEGREE;
                         }
-                        else if (counter > this->_max_degree_of_internal_node)
+                        else if (counter > MAX_DEGREE)
                         {
-                            d = this->_max_degree_of_internal_node / 2;
+                            d = MAX_DEGREE / 2;
                         }
                         else
                         {
@@ -2678,7 +2682,7 @@ namespace stool
                 if (_values.size() == 0)
                 {
                 }
-                else if (_values.size() <= this->_max_count_of_values_in_leaf)
+                else if (_values.size() <= LEAF_CONTAINER_MAX_SIZE)
                 {
                     uint64_t leaf_index = this->get_new_container_index();
 
@@ -2690,7 +2694,7 @@ namespace stool
                 }
                 else
                 {
-                    uint64_t threshold = this->_max_count_of_values_in_leaf * 2;
+                    uint64_t threshold = LEAF_CONTAINER_MAX_SIZE * 2;
                     uint64_t counter = _values.size();
 
                     while (i < _values.size())
@@ -2698,17 +2702,17 @@ namespace stool
                         uint64_t d = 0;
                         if (counter >= threshold)
                         {
-                            d = this->_max_count_of_values_in_leaf;
+                            d = LEAF_CONTAINER_MAX_SIZE;
                         }
-                        else if (counter > this->_max_count_of_values_in_leaf)
+                        else if (counter > LEAF_CONTAINER_MAX_SIZE)
                         {
-                            d = this->_max_count_of_values_in_leaf / 2;
+                            d = LEAF_CONTAINER_MAX_SIZE / 2;
                         }
                         else
                         {
                             d = counter;
                         }
-                        assert(counter >= (this->_max_count_of_values_in_leaf / 2));
+                        assert(counter >= (LEAF_CONTAINER_MAX_SIZE / 2));
 
                         uint64_t leaf_index = this->get_new_container_index();
                         for (uint64_t j = 0; j < d; j++)
@@ -2792,15 +2796,18 @@ namespace stool
                     this->sort_leaf_containers();
                 }
 
-                uint64_t _size = sizeof(this->_max_degree_of_internal_node) + sizeof(this->_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(this->leaf_container_vec);
+                uint64_t _max_degree = MAX_DEGREE;
+                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+
+                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(this->leaf_container_vec);
                 if (pos + _size > output.size())
                 {
                     output.resize(pos + _size);
                 }
 
-                std::memcpy(output.data() + pos, &this->_max_degree_of_internal_node, sizeof(uint64_t));
+                std::memcpy(output.data() + pos, &_max_degree, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
-                std::memcpy(output.data() + pos, &this->_max_count_of_values_in_leaf, sizeof(uint64_t));
+                std::memcpy(output.data() + pos, &_max_count_of_values_in_leaf, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
 
                 LEAF_CONTAINER::save(this->leaf_container_vec, output, pos);
@@ -2820,9 +2827,11 @@ namespace stool
                 {
                     this->sort_leaf_containers();
                 }
+                uint64_t _max_degree = MAX_DEGREE;
+                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
 
-                os.write((const char *)(&this->_max_degree_of_internal_node), sizeof(uint64_t));
-                os.write((const char *)(&this->_max_count_of_values_in_leaf), sizeof(uint64_t));
+                os.write((const char *)(&_max_degree), sizeof(uint64_t));
+                os.write((const char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
                 LEAF_CONTAINER::save(this->leaf_container_vec, os);
             }
 
@@ -2838,10 +2847,12 @@ namespace stool
              */
             void build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
             {
+                uint64_t _max_degree;
+                uint64_t _max_count_of_values_in_leaf;
                 this->clear();
-                std::memcpy(&this->_max_degree_of_internal_node, data.data() + pos, sizeof(uint64_t));
+                std::memcpy(&_max_degree, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
-                std::memcpy(&this->_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
+                std::memcpy(&_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
 
                 auto tmp = LEAF_CONTAINER::load_vector(data, pos);
@@ -2861,8 +2872,10 @@ namespace stool
             void build_from_data(std::ifstream &ifs)
             {
                 this->clear();
-                ifs.read((char *)(&this->_max_degree_of_internal_node), sizeof(uint64_t));
-                ifs.read((char *)(&this->_max_count_of_values_in_leaf), sizeof(uint64_t));
+                uint64_t _max_degree;
+                uint64_t _max_count_of_values_in_leaf;
+                ifs.read((char *)(&_max_degree), sizeof(uint64_t));
+                ifs.read((char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
 
                 auto tmp = LEAF_CONTAINER::load_vector(ifs);
 
@@ -2927,12 +2940,12 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The height of this tree: " << this->height_ << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of stored values: " << this->size() << std::endl;
 
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The max degree of internal node (parameter): " << this->_max_degree_of_internal_node << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The max degree of internal node (parameter): " << MAX_DEGREE << std::endl;
                 if (internal_node_count > 0)
                 {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The average degree of internal node: " << (total_degree_of_internal_node / internal_node_count) << std::endl;
                 }
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The max count of values in leaf (parameter): " << this->_max_count_of_values_in_leaf << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The max count of values in leaf (parameter): " << LEAF_CONTAINER_MAX_SIZE << std::endl;
                 if (this->size() > 0)
                 {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The average count of values in leaf (parameter): " << (this->size() / leaf_count) << std::endl;

@@ -11,7 +11,7 @@
 
 namespace stool
 {
-    //using namespace stool::bptree;
+    // using namespace stool::bptree;
     class BitSequenceTest
     {
     public:
@@ -39,20 +39,24 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_iterator(BIT_SEQUENCE &spsi_container, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Testing iterator..." << std::endl;
             }
             auto r1 = spsi_container.to_vector();
 
-            if(r1.size() != spsi_container.size()){
+            if (r1.size() != spsi_container.size())
+            {
                 throw std::runtime_error("test_iterator::Error(1)");
             }
 
             for (uint64_t i = 0; i < spsi_container.size(); i++)
             {
-                if(r1[i] != spsi_container[i]){
+                if (r1[i] != spsi_container[i])
+                {
                     std::cout << stool::DebugPrinter::to_integer_string(r1) << std::endl;
                     std::cout << spsi_container.to_string() << std::endl;
+                    std::cout << "i: " << i << std::endl;
                     throw std::runtime_error("test_iterator::Error(2)");
                 }
             }
@@ -61,7 +65,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_rank(BIT_SEQUENCE &spsi_container, bool value, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_rank" << value << std::endl;
             }
             std::vector<uint64_t> items = spsi_container.to_value_vector();
@@ -104,7 +109,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_select(BIT_SEQUENCE &spsi_container, bool bit_value, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_select" << bit_value << std::endl;
             }
             std::vector<uint64_t> items = spsi_container.to_value_vector();
@@ -128,7 +134,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_select0(BIT_SEQUENCE &spsi_container, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_select0" << std::endl;
             }
             std::vector<uint64_t> items = spsi_container.to_value_vector();
@@ -152,7 +159,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_psum(BIT_SEQUENCE &spsi_container, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_psum" << std::endl;
             }
             std::vector<uint64_t> items = spsi_container.to_value_vector();
@@ -172,7 +180,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void test_search(BIT_SEQUENCE &spsi, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_search" << std::endl;
             }
 
@@ -201,26 +210,27 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void build_test(BIT_SEQUENCE &spsi, int64_t num, int64_t seed, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Building test..." << std::endl;
             }
             std::mt19937_64 mt64(seed);
             auto bits = create_sequence2(num, mt64);
-            auto tmp = BIT_SEQUENCE::build(bits);            
+            auto tmp = BIT_SEQUENCE::build(bits);
             spsi.swap(tmp);
 
             assert(bits.size() == spsi.size());
-            for(uint64_t i = 0; i < bits.size();i++){
+            for (uint64_t i = 0; i < bits.size(); i++)
+            {
                 assert(bits[i] == spsi[i]);
             }
-
         }
-
 
         template <typename BIT_SEQUENCE>
         static void insert_and_delete_test(BIT_SEQUENCE &spsi, int64_t num, int64_t seed, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "insert_and_delete_test" << std::endl;
             }
             std::mt19937_64 mt64(seed);
@@ -235,7 +245,9 @@ namespace stool
                 uint64_t pos = get_rand_uni_int(mt64) % (spsi.size() + 1);
                 uint64_t value = get_rand_uni_int(mt64) % 2;
                 assert(pos <= spsi.size());
+
                 spsi.insert(pos, value);
+
                 spsi.verify();
 
                 checksum += value;
@@ -260,7 +272,6 @@ namespace stool
                 std::string new_bits = spsi.to_string();
                 spsi.verify();
 
-
                 if (checksum != spsi.psum())
                 {
                     std::cout << "pos: " << pos << ", sum1: " << sum1 << ", sum2: " << sum2 << std::endl;
@@ -275,17 +286,16 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void load_write_test(BIT_SEQUENCE &spsi, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Loading and writing test..." << std::endl;
             }
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
-            std::cout << "save" << std::endl;
             BIT_SEQUENCE::save(spsi, bytes, pos);
 
             pos = 0;
-            std::cout << "load" << std::endl;
 
             BIT_SEQUENCE spsi2 = BIT_SEQUENCE::build_from_data(bytes, pos);
 
@@ -309,7 +319,8 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void load_write_test2(BIT_SEQUENCE &spsi, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Loading and writing test..." << std::endl;
             }
             {
@@ -326,8 +337,6 @@ namespace stool
             }
             BIT_SEQUENCE spsi2;
 
-            
-
             {
                 std::ifstream ifs;
                 ifs.open("bit_text.bits", std::ios::binary);
@@ -339,16 +348,14 @@ namespace stool
                 std::cout << "load" << std::endl;
                 auto tmp = BIT_SEQUENCE::build_from_data(ifs);
                 spsi2.swap(tmp);
-
             }
 
             std::remove("bit_text.bits");
-            
 
             if (spsi.size() != spsi2.size())
             {
-                assert(false);
-                throw -1;
+                std::cout << "size1: " << spsi.size() << ", size2: " << spsi2.size() << std::endl;
+                throw std::runtime_error("Error in load_write_test2: size mismatch");
             }
 
             for (uint64_t i = 0; i < spsi.size(); i++)
@@ -357,8 +364,7 @@ namespace stool
                 bool b2 = spsi2[i];
                 if (b1 != b2)
                 {
-                    assert(false);
-                    throw -1;
+                    throw std::runtime_error("load_write_test2::Error(2)");
                 }
             }
         }
@@ -366,24 +372,26 @@ namespace stool
         template <typename BIT_SEQUENCE>
         static void insert_and_delete_test2(BIT_SEQUENCE &spsi, int64_t num, int64_t seed, int message_paragraph = stool::Message::SHOW_MESSAGE)
         {
-            if(message_paragraph != stool::Message::NO_MESSAGE){
+            if (message_paragraph != stool::Message::NO_MESSAGE)
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "insert_and_delete_test2" << std::endl;
             }
             std::mt19937_64 mt64(seed);
             uint64_t checksum = 0;
 
             std::cout << spsi.to_string() << std::endl;
+            std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
 
             while (spsi.size() < (size_t)num)
             {
-                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, spsi.size());
-                std::uniform_int_distribution<uint64_t> get_rand_uni_int2(0, 1);
-                uint64_t pos = get_rand_uni_int(mt64);
-                uint64_t value = get_rand_uni_int2(mt64);
+                uint64_t pos = get_rand_uni_int(mt64) % (spsi.size() + 1);
+                uint64_t value = get_rand_uni_int(mt64) % 2;
                 assert(pos <= spsi.size());
+
                 spsi.insert(pos, value);
 
                 checksum += value;
+
 
                 if (checksum != spsi.psum())
                 {
@@ -392,18 +400,19 @@ namespace stool
             }
 
             spsi.sort_leaf_containers();
+
+
             while (spsi.size() > 0)
             {
-                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, spsi.size() - 1);
-                uint64_t pos = get_rand_uni_int(mt64);
+                uint64_t pos = get_rand_uni_int(mt64) % spsi.size();
 
                 checksum -= spsi.at(pos);
-
                 spsi.remove(pos);
 
                 if (checksum != spsi.psum())
                 {
-                    throw std::runtime_error("Error");
+                    std::cout << "checksum: " << checksum << ", psum: " << spsi.psum() << std::endl;
+                    throw std::runtime_error("Error in insert_and_delete_test2: checksum mismatch");
                 }
             }
         }

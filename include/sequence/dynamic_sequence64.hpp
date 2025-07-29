@@ -19,7 +19,7 @@ namespace stool
         class DynamicSequence64{
         public:
             using NodePointer = bptree::BPNodePointer<VLCDeque, uint64_t>;
-            using Tree = bptree::BPTree<VLCDeque, uint64_t, false, false>;
+            using Tree = bptree::BPTree<VLCDeque, uint64_t, false, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
         private:
             Tree tree;
 
@@ -46,7 +46,7 @@ namespace stool
              */
             DynamicSequence64()
             {
-                this->tree.initialize(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
+                this->tree.initialize();
             }
             /**
              * @brief Swaps the contents of this sequence with another.
@@ -62,14 +62,6 @@ namespace stool
             DynamicSequence64 &operator=(DynamicSequence64 &&) noexcept = default;
 
         public:
-            /**
-             * @brief Sets the degree of the tree.
-             * @param degree The new degree for the tree.
-             */
-            void set_degree(uint64_t degree)
-            {
-                this->tree.initialize(degree);
-            }
 
             /**
              * @brief Clears all elements from the sequence.
@@ -108,10 +100,10 @@ namespace stool
              * @param tree_degree The degree of the tree.
              * @return A new DynamicSequence64 instance.
              */
-            static DynamicSequence64 build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
+            static DynamicSequence64 build(const std::vector<uint64_t> &items)
             {
                 DynamicSequence64 r;
-                r.tree.initialize(tree_degree, tree_degree);
+                r.tree.initialize();
                 r.tree.build(items);
                 return r;
             }

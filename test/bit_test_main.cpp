@@ -93,7 +93,7 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
 
         stool::bptree::DynamicBitDequeSequence bit_seq;
 
-        test(bit_seq, seed, 200, message_paragraph+1);
+        test(bit_seq, seed, 1000, message_paragraph+1);
 
         if(message_paragraph != stool::Message::NO_MESSAGE){
             std::cout << "OK!" << std::endl;

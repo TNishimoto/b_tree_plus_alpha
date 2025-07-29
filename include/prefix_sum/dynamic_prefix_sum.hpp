@@ -16,11 +16,11 @@ namespace stool
         {
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t>;
-            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
-            static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 1024;
+            //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 1024;
 
         private:
             Tree tree;
@@ -28,7 +28,7 @@ namespace stool
         public:
             DynamicPrefixSum()
             {
-                this->tree.initialize(DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF);
+                this->tree.initialize();
             }
             DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
             DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
@@ -315,10 +315,12 @@ namespace stool
             {
                 this->tree.push_many(items);
             }
+            /*
             void set_degree(uint64_t degree)
             {
                 this->tree.initialize(degree);
             }
+            */
             double density() const{
                 return this->tree.get_value_density();
             }

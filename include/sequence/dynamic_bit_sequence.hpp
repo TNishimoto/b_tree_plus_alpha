@@ -19,13 +19,13 @@ namespace stool
         /// @brief      A dynamic data structure supporting rank and select queries on a bit sequence
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename CONTAINER = stool::bptree::BitContainer, typename CONTAINER_ITERATOR = stool::bptree::BitContainer::BitContainerIterator>
+        template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class DynamicBitSequence
         {
             
             using NodePointer = bptree::BPNodePointer<CONTAINER, bool>;
             using T = uint64_t;
-            using Tree = bptree::BPTree<CONTAINER, bool, false, true>;
+            using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
             
 
             
@@ -47,7 +47,6 @@ namespace stool
              */
             DynamicBitSequence()
             {
-                this->set_degree(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
             }
 
             /**
@@ -112,7 +111,7 @@ namespace stool
              */
             bool at(uint64_t pos) const
             {
-                return this->tree.at(pos);
+                return this->tree.at(pos) & 1;
             }
 
             /**
@@ -350,10 +349,7 @@ namespace stool
             void remove(uint64_t pos)
             {
                 assert(pos < this->size());
-
                 this->tree.remove(pos);
-
-
             }
 
             /**
@@ -509,6 +505,7 @@ namespace stool
                 for (uint64_t i = 0; i < bits.size(); i++)
                 {
                     s.push_back(bits[i] >= 1 ? '1' : '0');
+                    //assert(bits[i] == this->at(i));
                 }
                 s.push_back(']');
                 return s;
@@ -527,10 +524,11 @@ namespace stool
 
 
 
+
                 auto _end = this->get_leaf_forward_iterator_end();
 
 
-                for (BitForwardIterator<CONTAINER, CONTAINER_ITERATOR> it = this->get_bit_forward_iterator_begin(); it != _end; ++it)
+                for (BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin(); it != _end; ++it)
                 {
                     uint64_t bits = *it;
                     uint64_t i = 0;
@@ -540,6 +538,8 @@ namespace stool
                     {
                         bool b = stool::MSBByte::get_bit(bits, i);
                         r[counter] = b;
+
+                        
                         counter++;
                         i++;
                     }
@@ -581,23 +581,14 @@ namespace stool
              * @param tree_degree The degree of the tree.
              * @return DynamicBitSequence The built bit sequence.
              */
-            static DynamicBitSequence build(const std::vector<bool> &items, uint64_t tree_degree)
+            static DynamicBitSequence build(const std::vector<bool> &items)
             {
                 DynamicBitSequence r;
-                r.tree.initialize(tree_degree, DynamicBitSequence::DEFAULT_CONTAINER_DEGREE);
+                r.tree.initialize();
                 r.tree.build(items);
                 return r;
             }
 
-            /**
-             * @brief Builds a bit sequence from a vector of bool with default tree degree.
-             * @param items The vector of bool to build from.
-             * @return DynamicBitSequence The built bit sequence.
-             */
-            static DynamicBitSequence build(const std::vector<bool> &items)
-            {
-                return build(items, Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
-            }
 
             /**
              * @brief Builds a bit sequence from a vector of uint8_t.
@@ -634,19 +625,19 @@ namespace stool
              * @brief Returns an iterator to the beginning of the bit sequence.
              * @return BitForwardIterator The iterator.
              */
-            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR> get_bit_forward_iterator_begin() const
+            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_bit_forward_iterator_begin() const
             {
                 auto leaf_it = this->tree.get_leaf_forward_iterator_begin();
-                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR>(&leaf_it, &this->tree);
+                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(&leaf_it, &this->tree);
             }
 
             /**
              * @brief Returns an iterator to the end of the bit sequence.
              * @return BitForwardIterator The iterator.
              */
-            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR> get_leaf_forward_iterator_end() const
+            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_leaf_forward_iterator_end() const
             {
-                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR>(nullptr, &this->tree);
+                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(nullptr, &this->tree);
             }
             //@}
 
@@ -690,8 +681,8 @@ namespace stool
             
         };
 
-        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitContainer, stool::bptree::BitContainer::BitContainerIterator>;
-        using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator>;
+        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitContainer, stool::bptree::BitContainer::BitContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 62>;
+        using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
 
         // template <typename T>
         // using VLCDequeSeq = DynamicSequence<VLCDeque, T>;

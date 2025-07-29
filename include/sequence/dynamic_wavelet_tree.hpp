@@ -12,7 +12,8 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicWaveletTree
         {
-            std::vector<std::vector<DynamicBitSequence<>>> bits_seq;
+            using BIT_SEQUENCE = SimpleDynamicBitSequence;
+            std::vector<std::vector<BIT_SEQUENCE>> bits_seq;
             std::vector<int64_t> char_rank_vec;
             std::vector<uint8_t> alphabet;
             uint64_t rank_bit_size = 0;
@@ -58,7 +59,7 @@ namespace stool
                         bits0_count++;
                     }
                 }
-                DynamicBitSequence<> dbs = DynamicBitSequence<>::build(bits);
+                BIT_SEQUENCE dbs = BIT_SEQUENCE::build(bits);
                 this->bits_seq[h][i].swap(dbs);
                 if (h + 1 < rank_bit_size)
                 {
@@ -151,17 +152,17 @@ namespace stool
 
                 for (uint64_t i = 0; i < rank_bit_size; i++)
                 {
-                    this->bits_seq.push_back(std::vector<DynamicBitSequence<>>());
+                    this->bits_seq.push_back(std::vector<BIT_SEQUENCE>());
                     if (i == 0)
                     {
-                        this->bits_seq[i].push_back(DynamicBitSequence<>());
+                        this->bits_seq[i].push_back(BIT_SEQUENCE());
                     }
                     else
                     {
                         uint64_t x = 1ULL << i;
                         for (uint64_t j = 0; j < x; j++)
                         {
-                            this->bits_seq[i].push_back(DynamicBitSequence<>());
+                            this->bits_seq[i].push_back(BIT_SEQUENCE());
                         }
                     }
                 }
@@ -551,7 +552,7 @@ namespace stool
                 {
                     for (auto &it2 : it)
                     {
-                        DynamicBitSequence<>::save(it2, os);
+                        BIT_SEQUENCE::save(it2, os);
                         // it2->save(os);
                     }
                 }
@@ -571,7 +572,7 @@ namespace stool
                 {
                     for (auto &it2 : it)
                     {
-                        auto bits = DynamicBitSequence<>::build_from_data(ifs);
+                        auto bits = BIT_SEQUENCE::build_from_data(ifs);
                         it2.swap(bits);
                     }
                 }
@@ -583,7 +584,7 @@ namespace stool
                 uint64_t total_size_in_bytes = 0;
                 for (uint64_t h = 0; h < this->bits_seq.size(); h++)
                 {
-                    for (const DynamicBitSequence<> &seq : this->bits_seq[h])
+                    for (const BIT_SEQUENCE &seq : this->bits_seq[h])
                     {
                         total_size_in_bytes += seq.size_in_bytes();
                     }
@@ -605,7 +606,7 @@ namespace stool
                 uint64_t counter = 0;
                 for (uint64_t h = 0; h < this->bits_seq.size(); h++)
                 {
-                    for (const DynamicBitSequence<> &seq : this->bits_seq[h])
+                    for (const BIT_SEQUENCE &seq : this->bits_seq[h])
                     {
                         if (counter < 5)
                         {

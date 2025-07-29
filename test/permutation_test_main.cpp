@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
                 stool::bptree::DynamicPermutation dp;
                 stool::NaivePermutation npom;
                 
-                dp.set_degree(degree);
+                //dp.set_degree(degree);
                 
                 stool::PermutationTest::random_build_test(dp, num, seed++);
                 std::cout << "A" << std::flush;

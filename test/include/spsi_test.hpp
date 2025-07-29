@@ -30,7 +30,7 @@ namespace stool
         static uint64_t random_build(DynamicPrefixSum<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
-            spsi.set_degree(degree);
+            //spsi.set_degree(degree);
             uint64_t checksum = 0;
 
             while (spsi.size() < (size_t)num)

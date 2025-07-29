@@ -4,13 +4,13 @@
 
 namespace stool
 {
-    using ___PermutationTree = bptree::BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false>;
+    using ___PermutationTree = bptree::BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
     using ___PermutationNode = ___PermutationTree::Node;
 
     template <>
     void ___PermutationTree::move_values_right(___PermutationNode *left_node, ___PermutationNode *right_node, uint64_t len, bool is_leaf, ___PermutationNode *parent, int64_t parent_edge_index_of_left_node)
     {
-        using BPTree = BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false>;
+        using BPTree = BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
         if (is_leaf)
         {
             uint64_t left_leaf = (uint64_t)left_node;

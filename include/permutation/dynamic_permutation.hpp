@@ -13,7 +13,7 @@ namespace stool
         class DynamicPermutation
         {
         public:
-            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false>;
+            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
             using BPIterator = bptree::BPPostorderIterator<PermutationContainer, PermutationItem>;
             using PermIterator = PermutationContainer::PermutationIterator;
             using NodePointer = bptree::BPNodePointer<PermutationContainer, PermutationItem>;
@@ -28,7 +28,7 @@ namespace stool
                 this->pi_tree.set_linked_tree(&this->inverse_pi_tree);
                 this->inverse_pi_tree.set_linked_tree(&this->pi_tree);
 
-                this->set_degree(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
+                //this->set_degree(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
             }
 
             ~DynamicPermutation()
@@ -59,11 +59,13 @@ namespace stool
             };
 
         public:
+            /*
             void set_degree(uint64_t degree)
             {
                 this->pi_tree.initialize(degree);
                 this->inverse_pi_tree.initialize(degree);
             }
+            */
 
             void swap(DynamicPermutation &perm)
             {

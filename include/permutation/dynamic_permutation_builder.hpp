@@ -29,8 +29,8 @@ namespace stool
                 DynamicPermutation::Tree& pi_tree = perm.get_pi_tree();
                 DynamicPermutation::Tree& inverse_pi_tree = perm.get_inverse_pi_tree();
 
-                pi_tree.initialize(degree);
-                inverse_pi_tree.initialize(degree);
+                pi_tree.initialize();
+                inverse_pi_tree.initialize();
                 pi_tree.set_linked_tree(nullptr);
                 inverse_pi_tree.set_linked_tree(nullptr);
 

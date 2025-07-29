@@ -12,7 +12,7 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class PermutationContainer
         {
-            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false>;
+            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
             stool::SimpleDeque16<uint8_t> keys;
             stool::VLCDeque pointers;
 

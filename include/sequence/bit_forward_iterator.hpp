@@ -11,12 +11,12 @@ namespace stool
         /// @brief A forward iterator for traversing the bits stored in a BP-tree.
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename CONTAINER, typename CONTAINER_ITERATOR>
+        template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class BitForwardIterator
         {
             using NodePointer = bptree::BPNodePointer<CONTAINER, bool>;
             using T = uint64_t;
-            using Tree = bptree::BPTree<CONTAINER, bool, false, true>;
+            using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
             using LeafForwardIterator = Tree::LeafForwardIterator;
 
         public:
@@ -131,6 +131,7 @@ namespace stool
                 int64_t current_bits = 0;
                 int64_t current_bit_size = 0;
 
+
                 if (this->is_end())
                 {
                     throw std::invalid_argument("Error: BitForwardIterator::operator++()");
@@ -150,10 +151,11 @@ namespace stool
                         if (!this->container_iterator_end_flag)
                         {
 
-                            uint64_t xbits = this->container_iterator.read_64bit_MSB_string();
-                            uint64_t xbits_size = this->container_iterator.get_size() - this->container_iterator.index;
+                            uint64_t xbits_size = std::min((uint64_t)this->container_iterator.get_size() - this->container_iterator.index, 64ULL);
+                            uint64_t xbits = (this->container_iterator.read_64bit_MSB_string() >> (64 - xbits_size)) << (64 - xbits_size);
+                            assert(xbits_size >=1);
 
-
+                            assert(xbits_size <= 64);
                             current_bits = current_bits | (xbits >> current_bit_size);
 
                             if (current_bit_size + xbits_size >= 64)
@@ -183,6 +185,7 @@ namespace stool
                                 uint64_t leaf_index = *this->_lf_iterator;
                                 CONTAINER &container = this->tree->get_leaf_container(leaf_index);
                                 this->container_iterator = container.begin();
+
                             }
                             else
                             {
