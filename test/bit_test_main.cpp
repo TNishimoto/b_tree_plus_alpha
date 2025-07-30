@@ -10,14 +10,14 @@
 #include "include/bit_sequence_test.hpp"
 
 template <typename DBV>
-void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int message_paragraph = stool::Message::SHOW_MESSAGE)
+void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int trial_num, int message_paragraph = stool::Message::SHOW_MESSAGE)
 {
     if(message_paragraph != stool::Message::NO_MESSAGE){
         std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Testing..." << std::endl;
     }
 
     if constexpr (std::is_same<DBV, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<DBV, stool::bptree::DynamicBitDequeSequence>::value) {
-        stool::BitSequenceTest::build_test(dbv, insert_num, seed, message_paragraph+1);
+        stool::BitSequenceTest::build_test(dbv, insert_num, seed++, message_paragraph+1);
 
         stool::BitSequenceTest::load_write_test(dbv, message_paragraph+1);
         stool::BitSequenceTest::load_write_test2(dbv, message_paragraph+1);
@@ -37,10 +37,11 @@ void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int message_paragraph = 
 
 
     dbv.clear();
-    stool::BitSequenceTest::insert_and_delete_test(dbv, insert_num, seed, message_paragraph+1);
+    stool::BitSequenceTest::insert_and_delete_test(dbv, insert_num, seed++, message_paragraph+1);
 
     dbv.clear();
-    stool::BitSequenceTest::insert_and_delete_test2(dbv, insert_num, seed, message_paragraph+1);
+    stool::BitSequenceTest::insert_and_delete_test2(dbv, insert_num, seed++, message_paragraph+1);
+
 
 
 }
@@ -57,7 +58,7 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
         for(uint64_t i = 0; i < items.size();i++){
             plain_container.push_back(items[i] ? 1 : 0);
         }
-        test(plain_container, seed, 62, message_paragraph+1);
+        test(plain_container, seed, 62, 10, message_paragraph+1);
     }
     else if (mode == 2)
     {
@@ -68,7 +69,7 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
         std::mt19937_64 mt64(seed);
         std::vector<bool> items = stool::BitSequenceTest::create_sequence2(60, mt64);
         stool::bptree::BitContainer bit_container(items);
-        test(bit_container, seed, 62, message_paragraph+1);
+        test(bit_container, seed, 62, 10, message_paragraph+1);
     }
     else if (mode == 3)
     {
@@ -80,7 +81,7 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
         //std::vector<bool> items = stool::BitTest::create_sequence2(1000, mt64);
         stool::bptree::SimpleDynamicBitSequence bit_seq;
 
-        test(bit_seq, seed, 1000, message_paragraph+1);
+        test(bit_seq, seed, 10000, 10, message_paragraph+1);
 
         if(message_paragraph != stool::Message::NO_MESSAGE){
             std::cout << "OK!" << std::endl;
@@ -93,7 +94,7 @@ void _test(uint64_t mode, uint64_t seed, int message_paragraph = stool::Message:
 
         stool::bptree::DynamicBitDequeSequence bit_seq;
 
-        test(bit_seq, seed, 1000, message_paragraph+1);
+        test(bit_seq, seed, 10000, 10, message_paragraph+1);
 
         if(message_paragraph != stool::Message::NO_MESSAGE){
             std::cout << "OK!" << std::endl;

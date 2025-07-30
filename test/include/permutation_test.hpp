@@ -168,7 +168,7 @@ namespace stool
 
             // bptree::DynamicPermutation dp;
             bptree::DynamicPermutationBuilder dpb;
-            dpb.initialize(dp, permutation.size(), dp.get_max_degree());
+            dpb.initialize(dp, permutation.size());
 
             for (int64_t i = inv_permutation.size() - 1; i >= 0; i--)
             {

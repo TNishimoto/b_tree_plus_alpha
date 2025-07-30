@@ -326,7 +326,7 @@ namespace stool
             static bool verify(const InternalNode &node, const std::vector<LEAF_CONTAINER> &leaf_container_vec, uint64_t max_degree, bool is_root)
             {
                 #if DEBUG
-                if(node.id > InternalNode::ID_COUNTER){
+                if(node.id > (uint64_t)InternalNode::ID_COUNTER){
                     throw std::logic_error("Error(6): BPInternalNode::verify()");
                 }
                 #endif

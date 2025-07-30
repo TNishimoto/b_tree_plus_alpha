@@ -27,10 +27,6 @@ namespace stool
             using T = uint64_t;
             using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
             
-
-            
-
-
             static inline constexpr int DEFAULT_CONTAINER_DEGREE = 62;
             //static inline constexpr int DEFAULT_CONTAINER_DEGREE = 124;
 
@@ -682,7 +678,8 @@ namespace stool
         };
 
         using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitContainer, stool::bptree::BitContainer::BitContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 62>;
-        using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+        using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 1024>;
+        using DynamicBitDequeSequence2 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 2048>;
 
         // template <typename T>
         // using VLCDequeSeq = DynamicSequence<VLCDeque, T>;

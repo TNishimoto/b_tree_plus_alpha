@@ -15,6 +15,7 @@
 template <typename T>
 void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
+    
     std::cout << "Test: " << name << std::endl;
 
     std::mt19937_64 mt64(seed);
@@ -32,9 +33,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     st1 = std::chrono::system_clock::now();
 
-    
-
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
         std::vector<bool> buffer;
         uint64_t buffer_size = 10000;
 
@@ -68,7 +67,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
         density_when_build_is_complete = dynamic_bit_sequence.density();
     }
 
@@ -177,7 +176,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_bit_sequence.print_information_about_performance();
         dynamic_bit_sequence.print_memory_usage();
@@ -228,6 +227,11 @@ int main(int argc, char *argv[])
     {
         stool::bptree::DynamicBitDequeSequence dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence", query_type, item_num, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlphaY")
+    {
+        stool::bptree::DynamicBitDequeSequence2 dbs;
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence2", query_type, item_num, query_num, seed);
     }
     else if (index_name == "DYNAMIC")
     {

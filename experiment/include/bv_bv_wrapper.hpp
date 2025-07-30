@@ -1,5 +1,10 @@
 #pragma once
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "bit_vector/bv.hpp"
+#pragma GCC diagnostic pop
 
 class BVBVWrapper
 {

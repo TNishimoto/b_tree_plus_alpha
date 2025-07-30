@@ -9,6 +9,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#pragma GCC diagnostic ignored "-Wunused-variable"
 #include "../modules/DYNAMIC/include/dynamic/dynamic.hpp"
 #pragma GCC diagnostic pop
 

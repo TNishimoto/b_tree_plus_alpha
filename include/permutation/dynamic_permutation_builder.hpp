@@ -24,7 +24,7 @@ namespace stool
             std::unordered_map<uint64_t, uint64_t> mapper;
 
         public:
-            void initialize(DynamicPermutation &perm, uint64_t pi_vector_size, uint64_t degree)
+            void initialize(DynamicPermutation &perm, uint64_t pi_vector_size)
             {
                 DynamicPermutation::Tree& pi_tree = perm.get_pi_tree();
                 DynamicPermutation::Tree& inverse_pi_tree = perm.get_inverse_pi_tree();

@@ -17,7 +17,7 @@ namespace stool
             using NodePointer = bptree::BPNodePointer<CONTAINER, bool>;
             using T = uint64_t;
             using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
-            using LeafForwardIterator = Tree::LeafForwardIterator;
+            using LeafForwardIterator = typename Tree::LeafForwardIterator;
 
         public:
             LeafForwardIterator _lf_iterator;
@@ -202,7 +202,6 @@ namespace stool
                     return *this;
                 }
             }
-
             bool operator==(const BitForwardIterator &other) const { return this->compare(other) == 0; }
             bool operator!=(const BitForwardIterator &other) const { return this->compare(other) != 0; }
             bool operator<(const BitForwardIterator &other) const { return this->compare(other) < 0; }

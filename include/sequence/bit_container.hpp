@@ -90,7 +90,7 @@ namespace stool
 
                 BitContainerIterator operator+(difference_type n) const
                 {
-                    if (this->index + n < this->get_size())
+                    if ((uint64_t)(this->index + n) < this->get_size())
                     {
                         return BitContainerIterator(this->bits, this->index + n);
                     }
@@ -102,7 +102,7 @@ namespace stool
 
                 BitContainerIterator &operator+=(difference_type n)
                 {
-                    if (this->index + n < this->get_size())
+                    if ((uint64_t)(this->index + n) < this->get_size())
                     {
                         this->index += n;
                     }
@@ -163,6 +163,7 @@ namespace stool
                     }
                 }
 
+                
                 difference_type operator-(const BitContainerIterator &other) const
                 {
                     return (int16_t)this->index - (int16_t)other.index;

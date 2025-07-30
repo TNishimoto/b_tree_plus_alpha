@@ -1,5 +1,8 @@
 #pragma once
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+
 #include "../modules/DYNAMIC/include/dynamic/dynamic.hpp"
 #pragma GCC diagnostic pop
 
