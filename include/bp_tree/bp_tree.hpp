@@ -612,7 +612,7 @@ namespace stool
                             int64_t idx = parent->get_index(node);
                             assert(idx != -1);
 
-                            const stool::SimpleDeque16<uint64_t> &deq = parent->get_value_count_deque();
+                            const auto &deq = parent->get_value_count_deque();
                             uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
 
                             dist += sum;
@@ -2199,9 +2199,9 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        stool::SimpleDeque16<uint64_t> &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq[parent_edge_index_of_left_node] -= len;
-                        parent_count_deq[parent_edge_index_of_left_node + 1] += len;
+                        auto &parent_count_deq = parent->get_value_count_deque();
+                        parent_count_deq.decrement(parent_edge_index_of_left_node, len);
+                        parent_count_deq.increment(parent_edge_index_of_left_node + 1, len);
                     }
                     auto items = this->leaf_container_vec[left_leaf].pop_back(len);
                     this->leaf_container_vec[right_leaf].push_front(items);
@@ -2241,9 +2241,9 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        stool::SimpleDeque16<uint64_t> &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq[parent_edge_index_of_right_node] -= len;
-                        parent_count_deq[parent_edge_index_of_right_node - 1] += len;
+                        auto &parent_count_deq = parent->get_value_count_deque();
+                        parent_count_deq.decrement(parent_edge_index_of_right_node, len);
+                        parent_count_deq.increment(parent_edge_index_of_right_node - 1, len);
                     }
                     auto items = this->leaf_container_vec[right_leaf].pop_front(len);
                     this->leaf_container_vec[left_leaf].push_back(items);

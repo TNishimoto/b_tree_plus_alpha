@@ -10,10 +10,10 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class BitDequeContainer
         {
-            BitDeque bits;
+            BitArrayDeque bits;
 
         public:
-            using BitDequeContainerIterator = BitDeque::BitDequeIterator;
+            using BitDequeContainerIterator = BitArrayDeque::BitArrayDequeIterator;
             BitDequeContainer()
             {
             }
@@ -244,13 +244,13 @@ namespace stool
 
             void to_data(std::vector<uint8_t> &output) const
             {
-                uint64_t byte_size = BitDeque::get_byte_size(this->bits);
+                uint64_t byte_size = BitArrayDeque::get_byte_size(this->bits);
                 uint64_t size = this->size();
                 for (uint64_t i = 0; i < byte_size; i++)
                 {
                     output.push_back(0);
                 }
-                BitDeque::save(this->bits, output, size);
+                BitArrayDeque::save(this->bits, output, size);
             }
             /*
             void load_from_data(std::vector<uint64_t> &output){
@@ -263,7 +263,7 @@ namespace stool
                 uint64_t size = sizeof(uint64_t);
                 for (const auto &item : items)
                 {
-                    size += BitDeque::get_byte_size(item.bits);
+                    size += BitArrayDeque::get_byte_size(item.bits);
                 }
                 return size;
             }
@@ -281,7 +281,7 @@ namespace stool
 
                 for (const auto &item : items)
                 {
-                    BitDeque::save(item.bits, output, pos);
+                    BitArrayDeque::save(item.bits, output, pos);
                 }
             }
             static void save(const std::vector<BitDequeContainer> &items, std::ofstream &os)
@@ -291,18 +291,18 @@ namespace stool
     
                 for (const auto &item : items)
                 {
-                    BitDeque::save(item.bits, os);
+                    BitArrayDeque::save(item.bits, os);
                 }
             }
             static BitDequeContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
                 BitDequeContainer r;
-                r.bits = BitDeque::load(data, pos);
+                r.bits = BitArrayDeque::load(data, pos);
                 return r;
             }
             static BitDequeContainer load(std::ifstream &ifs)
             {
                 BitDequeContainer r;
-                r.bits = BitDeque::load(ifs);
+                r.bits = BitArrayDeque::load(ifs);
                 return r;
             }
             static std::vector<BitDequeContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
