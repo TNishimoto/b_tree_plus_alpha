@@ -26,7 +26,7 @@ namespace stool
             static uint64_t psum(const InternalNode &node)
             {
                 assert(node.use_psum());
-                const stool::IntegerArrayDeque64 &deq = node.get_value_sum_deque();
+                const stool::SimpleDeque16<uint64_t> &deq = node.get_value_sum_deque();
 
                 uint64_t sum = 0;
                 for (uint64_t p : deq)
@@ -60,7 +60,7 @@ namespace stool
                         }
                         else
                         {
-                            const stool::IntegerArrayDeque64 &sum_deq = current_node->get_value_sum_deque();
+                            const stool::SimpleDeque16<uint64_t> &sum_deq = current_node->get_value_sum_deque();
 
                             #if DEBUG
                             if(current_node->is_parent_of_leaves()){
@@ -99,7 +99,7 @@ namespace stool
                     bool b = false;
                     //assert(nth <= current_psum + current_node->get_value_sum());
                     assert(current_psum <= nth);
-                    const stool::IntegerArrayDeque64 &sum_deq = current_node->get_value_sum_deque();
+                    const stool::SimpleDeque16<uint64_t> &sum_deq = current_node->get_value_sum_deque();
                     const auto &count_deq = current_node->get_value_count_deque();
 
                     for (uint64_t x = 0; x < current_node->children_count(); x++)
@@ -141,7 +141,7 @@ namespace stool
                     bool b = false;
                     assert(sum <= current_psum + current_node->get_value_sum());
                     assert(current_psum <= sum);
-                    const stool::IntegerArrayDeque64 &sum_deq = current_node->get_value_sum_deque();
+                    const stool::SimpleDeque16<uint64_t> &sum_deq = current_node->get_value_sum_deque();
                     for (uint64_t x = 0; x < current_node->children_count(); x++)
                     {
                         if (current_psum + sum_deq[x] >= sum)
@@ -475,9 +475,9 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        stool::IntegerArrayDeque64 &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index, count_delta);
-                        parent_count_deq.increment(parent_edge_index + 1, count_delta);
+                        stool::SimpleDeque16<uint64_t> &parent_count_deq = parent->get_value_count_deque();
+                        parent_count_deq[parent_edge_index] -= count_delta;
+                        parent_count_deq[parent_edge_index + 1] += count_delta;
                     }
                 }
 
@@ -547,9 +547,9 @@ namespace stool
                     }
                     if (parent != nullptr)
                     {
-                        stool::IntegerArrayDeque64 &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index, count_delta);
-                        parent_count_deq.increment(parent_edge_index - 1, count_delta);
+                        stool::SimpleDeque16<uint64_t> &parent_count_deq = parent->get_value_count_deque();
+                        parent_count_deq[parent_edge_index] -= count_delta;
+                        parent_count_deq[parent_edge_index - 1] += count_delta;
                     }
                 }
 

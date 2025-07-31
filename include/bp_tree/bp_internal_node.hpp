@@ -24,8 +24,8 @@ namespace stool
             private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::IntegerArrayDeque64 children_value_count_deque_;
-            stool::IntegerArrayDeque64 children_value_sum_deque_;
+            stool::SimpleDeque16<uint64_t> children_value_count_deque_;
+            stool::SimpleDeque16<uint64_t> children_value_sum_deque_;
             bool is_parent_of_leaves_ = false;
 
 
@@ -113,15 +113,15 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::IntegerArrayDeque64 &get_value_count_deque() const
+            const stool::SimpleDeque16<uint64_t> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::IntegerArrayDeque64 &get_value_count_deque()
+            stool::SimpleDeque16<uint64_t> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::IntegerArrayDeque64 &get_value_sum_deque() const
+            const stool::SimpleDeque16<uint64_t> &get_value_sum_deque() const
             {
                 return this->children_value_sum_deque_;
             }
@@ -192,7 +192,7 @@ namespace stool
                 return sum;
             }
             void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value){
-                this->children_value_sum_deque_.increment(pos, value);
+                this->children_value_sum_deque_[pos] += value;
             }
             void __push_back_on_sum_deque(uint64_t value){
                 this->children_value_sum_deque_.push_back(value);
@@ -291,14 +291,14 @@ namespace stool
                 if (count_delta != 0)
                 {
                     assert(child_index < this->children_value_count_deque_.size());
-                    this->children_value_count_deque_.increment(child_index, count_delta);
+                    this->children_value_count_deque_[child_index] += count_delta;
                     //this->children_value_count_deque_[child_index] += count_delta;
                 }
 
                 if (sum_delta != 0)
                 {
                     assert(child_index < this->children_value_sum_deque_.size());
-                    this->children_value_sum_deque_.increment(child_index, sum_delta);
+                    this->children_value_sum_deque_[child_index] += sum_delta;
 
 
                 }

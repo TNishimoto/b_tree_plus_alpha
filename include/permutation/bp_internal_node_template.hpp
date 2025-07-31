@@ -23,7 +23,7 @@ namespace stool
             private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::IntegerArrayDeque64 children_value_count_deque_;
+            stool::SimpleDeque16<uint64_t> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
 
@@ -104,11 +104,11 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::IntegerArrayDeque64 &get_value_count_deque() const
+            const stool::SimpleDeque16<uint64_t> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::IntegerArrayDeque64 &get_value_count_deque()
+            stool::SimpleDeque16<uint64_t> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
@@ -269,7 +269,7 @@ namespace stool
 
             void increment(uint64_t child_index, int64_t count_delta, [[maybe_unused]] int64_t sum_delta)
             {
-                this->children_value_count_deque_.increment(child_index, count_delta);
+                this->children_value_count_deque_[child_index] += count_delta;
             }
 
             void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<stool::bptree::PermutationContainer> &leaf_container_vec)

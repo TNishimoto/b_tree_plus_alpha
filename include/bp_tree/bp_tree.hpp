@@ -2200,8 +2200,8 @@ namespace stool
                     if (parent != nullptr)
                     {
                         auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index_of_left_node, len);
-                        parent_count_deq.increment(parent_edge_index_of_left_node + 1, len);
+                        parent_count_deq[parent_edge_index_of_left_node] -= len;
+                        parent_count_deq[parent_edge_index_of_left_node + 1] += len;
                     }
                     auto items = this->leaf_container_vec[left_leaf].pop_back(len);
                     this->leaf_container_vec[right_leaf].push_front(items);
@@ -2242,8 +2242,8 @@ namespace stool
                     if (parent != nullptr)
                     {
                         auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index_of_right_node, len);
-                        parent_count_deq.increment(parent_edge_index_of_right_node - 1, len);
+                        parent_count_deq[parent_edge_index_of_right_node] -= len;
+                        parent_count_deq[parent_edge_index_of_right_node - 1] += len;
                     }
                     auto items = this->leaf_container_vec[right_leaf].pop_front(len);
                     this->leaf_container_vec[left_leaf].push_back(items);
