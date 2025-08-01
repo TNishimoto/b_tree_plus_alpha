@@ -50,12 +50,13 @@ namespace stool
                     const auto &count_deq = current_node->get_value_count_deque();
                     const auto &sum_deq = current_node->get_value_sum_deque();
                     uint64_t tmp_i = 0;
-                    int64_t search_result = count_deq.search(current_i, tmp_i);
+                    int64_t search_result = count_deq.search(current_i+1, tmp_i);
 
                     if (search_result != -1)
                     {
                         _is_leaf = current_node->is_parent_of_leaves();
                         current_node = current_node->get_child(search_result);
+
 
                         if (search_result != 0)
                         {
@@ -162,17 +163,9 @@ namespace stool
                 const auto &count_deq = node.get_value_count_deque();
 
                 uint64_t sum = 0;
-                int64_t search_result = count_deq.search(value_index + 1, sum);
+                int64_t search_result = count_deq.search(value_index+1, sum);
 
-                if (search_result != -1)
-                {
-                    uint64_t last_size = count_deq[search_result];
-                    return std::pair<int64_t, uint64_t>(search_result, value_index - (sum - last_size));
-                }
-                else
-                {
-                    return std::pair<int64_t, uint64_t>(search_result, value_index - sum);
-                }
+                return std::pair<int64_t, uint64_t>(search_result, value_index - sum);
 
                 /*
                 for (uint64_t i = 0; i < node.children_count(); i++)

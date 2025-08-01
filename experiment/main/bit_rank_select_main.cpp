@@ -142,12 +142,14 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
             uint64_t m = get_rand_item_num(mt64);
             uint64_t value = dynamic_bit_sequence.rank1(m);
             hash += value;
+
+
         }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_psum = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    std::cout << count1 << std::endl;
+    //std::cout << count1 << std::endl;
 
     std::cout << "Checksum: " << hash << std::endl;
 
@@ -178,11 +180,13 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
 
+    /*
     if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         dynamic_bit_sequence.print_information_about_performance();
         dynamic_bit_sequence.print_memory_usage();
     }
+    */
 
     stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
