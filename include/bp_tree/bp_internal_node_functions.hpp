@@ -82,29 +82,31 @@ namespace stool
 
                     return {sum_X, current_i_X};
                 };
-                
+
                 auto [new_sum, new_current_i] = process_node(current_i, sum, current_node);
                 */
 
                 while (!_is_leaf)
                 {
                     const auto &count_deq = current_node->get_value_count_deque();
-                    const stool::ByteArrayDeque16 &sum_deq = current_node->get_value_sum_deque();
+                    const auto &sum_deq = current_node->get_value_sum_deque();
                     uint64_t tmp_i = 0;
                     int64_t search_result = count_deq.search2(current_i, tmp_i);
-                    
-                    if(search_result != -1){
+
+                    if (search_result != -1)
+                    {
                         _is_leaf = current_node->is_parent_of_leaves();
                         current_node = current_node->get_child(search_result);
 
-                        if(search_result != 0){
-                            sum += sum_deq.psum(search_result-1);
+                        if (search_result != 0)
+                        {
+                            sum += sum_deq.psum(search_result - 1);
                         }
 
                         current_i -= tmp_i;
-
-
-                    }else{
+                    }
+                    else
+                    {
                         throw std::invalid_argument("psum error");
                     }
                 }
@@ -118,8 +120,6 @@ namespace stool
                     throw std::invalid_argument("psumB error");
                 }
                 */
-                
-                
 
                 uint64_t x = (uint64_t)current_node;
                 assert(x < leaf_container_vec.size());
@@ -178,31 +178,32 @@ namespace stool
 
                 while (!_is_leaf)
                 {
-                    bool b = false;
+                    // bool b = false;
                     assert(sum <= current_psum + current_node->get_value_sum());
                     assert(current_psum <= sum);
-                    const stool::ByteArrayDeque16 &sum_deq = current_node->get_value_sum_deque();
-                    for (uint64_t x = 0; x < current_node->children_count(); x++)
+                    const auto &sum_deq = current_node->get_value_sum_deque();
+                    const auto &count_deq = current_node->get_value_count_deque();
+                    uint64_t tmp_psum = 0;
+                    uint64_t search_sum = sum - current_psum;
+                    int64_t search_result = sum_deq.search2(search_sum, tmp_psum);
+                    if (search_result != -1)
                     {
-                        if (current_psum + sum_deq[x] >= sum)
+                        _is_leaf = current_node->is_parent_of_leaves();
+                        current_node = current_node->get_child(search_result);
+                        current_psum += tmp_psum;
+                        if (search_result != 0)
                         {
-                            _is_leaf = current_node->is_parent_of_leaves();
-                            current_node = current_node->get_child(x);
-                            b = true;
-                            break;
+                            result += count_deq.psum(search_result - 1);
                         }
-                        else
-                        {
-                            current_psum += sum_deq[x];
-                            const auto &count_deq = current_node->get_value_count_deque();
-                            result += count_deq[x];
-                        }
+
                     }
-                    if (!b)
+                    else
                     {
+                        std::cout << "sum: " << sum << " == True sum: " << current_psum << std::endl;
                         throw std::invalid_argument("psum error");
                     }
                 }
+
                 uint64_t x = (uint64_t)current_node;
                 return result + leaf_container_vec[x].search(sum - current_psum);
             }
