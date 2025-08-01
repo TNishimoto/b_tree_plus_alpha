@@ -44,54 +44,13 @@ namespace stool
                 bool _is_leaf = false;
                 uint64_t sum = 0;
 
-                /*
-
-                auto process_node = [&](uint64_t current_i_X, uint64_t sum_X, InternalNode *current_node_X) -> std::pair<uint64_t, uint64_t>
-                {
-                    bool is_leaf_X = false;
-                    while (!is_leaf_X)
-                    {
-                        bool b = false;
-                        for (uint64_t x = 0; x < current_node_X->children_count(); x++)
-                        {
-                            const auto &count_deq = current_node_X->get_value_count_deque();
-                            const auto &sum_deq = current_node_X->get_value_sum_deque();
-
-                            if (current_i_X < count_deq[x])
-                            {
-                                is_leaf_X = current_node_X->is_parent_of_leaves();
-                                current_node_X = current_node_X->get_child(x);
-                                b = true;
-                                if(i == 9999){
-                                    std::cout << "current_i_X: " << current_i_X << " sum X: " << sum_X << ", x: " << x << std::endl;
-                                }
-                                break;
-                            }
-                            else
-                            {
-
-                                sum_X += sum_deq[x];
-                                current_i_X -= count_deq[x];
-                            }
-                        }
-                        if (!b)
-                        {
-                            throw std::invalid_argument("psum error");
-                        }
-                    }
-
-                    return {sum_X, current_i_X};
-                };
-
-                auto [new_sum, new_current_i] = process_node(current_i, sum, current_node);
-                */
 
                 while (!_is_leaf)
                 {
                     const auto &count_deq = current_node->get_value_count_deque();
                     const auto &sum_deq = current_node->get_value_sum_deque();
                     uint64_t tmp_i = 0;
-                    int64_t search_result = count_deq.search2(current_i, tmp_i);
+                    int64_t search_result = count_deq.search(current_i, tmp_i);
 
                     if (search_result != -1)
                     {
@@ -107,19 +66,9 @@ namespace stool
                     }
                     else
                     {
-                        throw std::invalid_argument("psum error");
+                        throw std::invalid_argument("BPInternalNodeFunctions::psum(), psum error");
                     }
                 }
-
-                /*
-                if(new_sum != sum){
-                    std::cout << "new_sum: " << new_sum << " == True sum: " << sum << ", i = " << i << std::endl;
-                    throw std::invalid_argument("psumA error");
-                }
-                if(new_current_i != current_i){
-                    throw std::invalid_argument("psumB error");
-                }
-                */
 
                 uint64_t x = (uint64_t)current_node;
                 assert(x < leaf_container_vec.size());
@@ -185,7 +134,7 @@ namespace stool
                     const auto &count_deq = current_node->get_value_count_deque();
                     uint64_t tmp_psum = 0;
                     uint64_t search_sum = sum - current_psum;
-                    int64_t search_result = sum_deq.search2(search_sum, tmp_psum);
+                    int64_t search_result = sum_deq.search(search_sum, tmp_psum);
                     if (search_result != -1)
                     {
                         _is_leaf = current_node->is_parent_of_leaves();
@@ -200,7 +149,7 @@ namespace stool
                     else
                     {
                         std::cout << "sum: " << sum << " == True sum: " << current_psum << std::endl;
-                        throw std::invalid_argument("psum error");
+                        throw std::invalid_argument("BPInternalNodeFunctions::search(), psum error");
                     }
                 }
 
