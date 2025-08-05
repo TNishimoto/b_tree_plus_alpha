@@ -18,7 +18,7 @@ namespace stool
          */
         class DynamicSequence64{
         public:
-            using NodePointer = bptree::BPNodePointer<VLCDeque, uint64_t>;
+            using NodePointer = bptree::BPNodePointer<VLCDeque, uint64_t, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
             using Tree = bptree::BPTree<VLCDeque, uint64_t, false, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
         private:
             Tree tree;

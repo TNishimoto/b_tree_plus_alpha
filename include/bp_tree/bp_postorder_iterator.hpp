@@ -9,14 +9,14 @@ namespace stool
         /// @brief      The iterator of a post-order traversal on BPTree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         class BPPostorderIterator
         {
 
         public:
-            using SNode = StackNode<LEAF_CONTAINER, VALUE>;
-            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE>;
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE>;
+            using SNode = StackNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
             std::vector<SNode> _st;
             uint64_t idx = 0;
 

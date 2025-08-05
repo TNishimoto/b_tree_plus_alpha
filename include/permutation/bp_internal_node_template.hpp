@@ -11,8 +11,8 @@ namespace stool
         /// @brief      BPInternalNode for dynamic permutations
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <>
-        class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>
+        template <uint64_t MAX_DEGREE>
+        class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>
         {
             #if DEBUG
             public:
@@ -21,9 +21,9 @@ namespace stool
             #endif
 
             private:
-            using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>;
+            using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::ByteArrayDeque16 children_value_count_deque_;
+            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
 
@@ -104,15 +104,15 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::ByteArrayDeque16 &get_value_count_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::ByteArrayDeque16 &get_value_count_deque()
+            stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::ByteArrayDeque16 &get_value_sum_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_sum_deque() const
             {
                 throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::get_value_sum_deque(): No Implementation");
             }
@@ -180,7 +180,7 @@ namespace stool
             }
             uint64_t size_in_bytes() const
             {
-                return sizeof(BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem>) + this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true);
+                return sizeof(BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>) + this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true);
             }
             int64_t get_index(InternalNode *node) const
             {

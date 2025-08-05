@@ -11,7 +11,7 @@ namespace stool
         /// @brief      The internal node of BPTree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         class BPInternalNode
         {
 
@@ -22,10 +22,10 @@ namespace stool
             #endif
 
             private:
-            using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE>;
+            using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::ByteArrayDeque16 children_value_count_deque_;
-            stool::ByteArrayDeque16 children_value_sum_deque_;
+            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_count_deque_;
+            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_sum_deque_;
             bool is_parent_of_leaves_ = false;
 
 
@@ -113,15 +113,15 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::ByteArrayDeque16 &get_value_count_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::ByteArrayDeque16 &get_value_count_deque()
+            stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::ByteArrayDeque16 &get_value_sum_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_sum_deque() const
             {
                 return this->children_value_sum_deque_;
             }

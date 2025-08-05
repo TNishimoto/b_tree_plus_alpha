@@ -14,9 +14,9 @@ namespace stool
         {
         public:
             using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
-            using BPIterator = bptree::BPPostorderIterator<PermutationContainer, PermutationItem>;
+            using BPIterator = bptree::BPPostorderIterator<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
             using PermIterator = PermutationContainer::PermutationIterator;
-            using NodePointer = bptree::BPNodePointer<PermutationContainer, PermutationItem>;
+            using NodePointer = bptree::BPNodePointer<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
 
         private:
             Tree pi_tree;

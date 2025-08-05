@@ -14,7 +14,7 @@ namespace stool
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class BitForwardIterator
         {
-            using NodePointer = bptree::BPNodePointer<CONTAINER, bool>;
+            using NodePointer = bptree::BPNodePointer<CONTAINER, bool, MAX_TREE_DEGREE>;
             using T = uint64_t;
             using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
             using LeafForwardIterator = typename Tree::LeafForwardIterator;

@@ -21,13 +21,13 @@ namespace stool
         class BPTree
         {
         public:
-            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE>;
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE>;
-            using PostorderIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE>;
-            using ValueForwardIterator = BPValueForwardIterator<LEAF_CONTAINER, VALUE>;
-            using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE>;
+            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using PostorderIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using ValueForwardIterator = BPValueForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
 
-            using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, USE_PSUM>;
+            using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, USE_PSUM, MAX_DEGREE>;
 
 
         private:
@@ -562,6 +562,7 @@ namespace stool
                     return -1;
                 }
             }
+            inline static uint64_t time_count = 0;
 
             /**
              * @brief Returns the value at position pos in the B+ tree
@@ -574,9 +575,16 @@ namespace stool
                 {
                     assert(pos < this->size());
                     std::vector<NodePointer> path;
+
                     uint64_t idx = this->compute_path_from_root_to_leaf(pos);
+
                     assert(this->tmp_path.size() > 0);
+
+                    auto st3 = std::chrono::system_clock::now();
                     uint64_t leaf = this->tmp_path[this->tmp_path.size() - 1].get_leaf_container_index();
+                    auto st4 = std::chrono::system_clock::now();
+                    time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st4 - st3).count();
+
                     return this->leaf_container_vec[leaf].at(idx);
                 }
                 else
@@ -1138,6 +1146,8 @@ namespace stool
                 return this->compute_path_from_root_to_leaf(i, path);
             }
 
+            inline static uint64_t time_count2 = 0;
+
             /**
              * @brief Computes the path from root to leaf containing position i and returns leaf position
              * @param i The position in the B+ tree to find the path to
@@ -1164,12 +1174,21 @@ namespace stool
                     uint64_t current_i = i;
                     bool is_leaf = this->root_is_leaf_;
 
+                    //auto st1 = std::chrono::system_clock::now();
+
                     output_path[y++] = is_leaf ? NodePointer::build_leaf_pointer((uint64_t)this->root, -1) : NodePointer::build_internal_node_pointer(this->root, -1);
+
 
                     while (!is_leaf)
                     {
                         assert(current_i <= current_node->get_value_count());
+
+                        auto st1 = std::chrono::system_clock::now();
                         std::pair<int64_t, uint64_t> result = BPFunctions::access_child_index_by_value_index(*current_node, current_i);
+                        auto st2 = std::chrono::system_clock::now();
+                        time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+
+
                         if (result.first != -1)
                         {
                             is_leaf = current_node->is_parent_of_leaves();
@@ -1181,7 +1200,11 @@ namespace stool
                         {
                             throw std::runtime_error("Error: get_path_from_root_to_leaf2(1)");
                         }
+
                     }
+                    //auto st2 = std::chrono::system_clock::now();
+                    //time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+
                     assert(output_path.size() == y);
                     return current_i;
                 }
@@ -2341,6 +2364,13 @@ namespace stool
                     }
                 }
                 return b;
+            }
+
+            void print_debug_info() const{
+                std::cout << "BPTree::print_debug_info()" << std::endl;
+                std::cout << "BPInternalNodeFunctions::time_count: " << (double)BPFunctions::time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPTree::time_count: " << (double)BPTree::time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPTree::time_count2: " << (double)BPTree::time_count2 / 1000000.0 << " ms" << std::endl;
             }
 
         private:

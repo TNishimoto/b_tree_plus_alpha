@@ -10,10 +10,10 @@ namespace stool
         /// @brief      A pointer to a node of BPTree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         class BPNodePointer
         {
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
             Node *node_;
             int16_t parent_edge_index_;
             bool is_leaf_;

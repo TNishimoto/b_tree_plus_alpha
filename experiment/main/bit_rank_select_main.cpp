@@ -131,6 +131,15 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
+
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || 
+        std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value || 
+        std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value) {
+            dynamic_bit_sequence.print_debug_info();
+        }
+
+
+
     std::cout << "Checksum: " << hash << std::endl;
 
     st1 = std::chrono::system_clock::now();

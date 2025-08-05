@@ -9,18 +9,18 @@ namespace stool
         /// @brief      The item of the stack for traversing BPTree 
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         struct StackNode
         {
         public:
-            BPNodePointer<LEAF_CONTAINER, VALUE> pointer;
+            BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE> pointer;
             uint64_t position;
             bool checked;
 
             StackNode()
             {
             }
-            StackNode(BPNodePointer<LEAF_CONTAINER, VALUE> _pointer, uint64_t _position, bool _checked) : pointer(_pointer), position(_position), checked(_checked)
+            StackNode(BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE> _pointer, uint64_t _position, bool _checked) : pointer(_pointer), position(_position), checked(_checked)
             {
             }
 

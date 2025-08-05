@@ -7,15 +7,15 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         /// @brief  A forward iterator for traversing the leaves of a BP-tree.
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         class BPLeafForwardIterator
         {
 
         public:
-            using SNode = StackNode<LEAF_CONTAINER, VALUE>;
-            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE>;
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE>;
-            using BASE_ITE = BPPostorderIterator<LEAF_CONTAINER, VALUE>;
+            using SNode = StackNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using BASE_ITE = BPPostorderIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
 
             std::vector<SNode> _st;
             uint64_t idx = 0;

@@ -12,7 +12,7 @@ namespace stool
         /// @brief      The forward iterator of the values stored in BPTree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE>
         class BPValueForwardIterator
         {
         private:
@@ -46,10 +46,10 @@ namespace stool
             }
 
         public:
-            using SNode = StackNode<LEAF_CONTAINER, VALUE>;
-            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE>;
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE>;
-            using NodeIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE>;
+            using SNode = StackNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using NodeIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
 
             NodeIterator node_it;
             std::vector<uint64_t> tmp_values;
