@@ -147,11 +147,13 @@ namespace stool
             }
             void push_front(uint64_t new_item)
             {
+
                 this->bits.push_back64(new_item >= 1);
             }
 
             void push_back(std::vector<uint64_t> &new_items)
             {
+
                 for (uint64_t v : new_items)
                 {
                     this->push_back(v >= 1);
@@ -159,15 +161,18 @@ namespace stool
             }
             void push_back(uint64_t value)
             {
+
                 this->bits.push_back(value >= 1);
             }
             void pop_front()
             {
+
                 assert(this->size() > 0);
                 this->bits.pop_front();
             }
             std::vector<uint64_t> pop_front(uint64_t len)
             {
+
                 assert(len <= this->size());
                 std::vector<uint64_t> r;
                 for (uint64_t i = 0; i < len; i++)
@@ -180,12 +185,14 @@ namespace stool
             }
             void pop_back()
             {
+
                 assert(this->size() > 0);
                 this->bits.pop_back();
             }
 
             std::vector<uint64_t> pop_back(uint64_t len)
             {
+
                 assert(len <= this->size());
                 std::vector<uint64_t> r;
                 r.resize(len);

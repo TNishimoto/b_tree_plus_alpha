@@ -12,6 +12,8 @@ namespace stool
         inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
 
+        inline static uint64_t time_count2 = 0;
+
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPTree
         /// @brief      An implementation of B+-tree
@@ -580,12 +582,19 @@ namespace stool
 
                     assert(this->tmp_path.size() > 0);
 
-                    auto st3 = std::chrono::system_clock::now();
                     uint64_t leaf = this->tmp_path[this->tmp_path.size() - 1].get_leaf_container_index();
+
+                    #ifdef TIME_DEBUG
+                    auto st3 = std::chrono::system_clock::now();
+                    #endif
+                    uint64_t result = this->leaf_container_vec[leaf].at(idx);
+                    
+                    #ifdef TIME_DEBUG
                     auto st4 = std::chrono::system_clock::now();
                     time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st4 - st3).count();
+                    #endif
 
-                    return this->leaf_container_vec[leaf].at(idx);
+                    return result;
                 }
                 else
                 {
@@ -1146,7 +1155,6 @@ namespace stool
                 return this->compute_path_from_root_to_leaf(i, path);
             }
 
-            inline static uint64_t time_count2 = 0;
 
             /**
              * @brief Computes the path from root to leaf containing position i and returns leaf position
@@ -1183,10 +1191,10 @@ namespace stool
                     {
                         assert(current_i <= current_node->get_value_count());
 
-                        auto st1 = std::chrono::system_clock::now();
+                        //auto st1 = std::chrono::system_clock::now();
                         std::pair<int64_t, uint64_t> result = BPFunctions::access_child_index_by_value_index(*current_node, current_i);
-                        auto st2 = std::chrono::system_clock::now();
-                        time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+                        //auto st2 = std::chrono::system_clock::now();
+                        //time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
 
                         if (result.first != -1)
@@ -1846,6 +1854,7 @@ namespace stool
                     x++;
                     len++;
                 }
+
                 uint64_t sum = len > 0 ? this->leaf_container_vec[leaf].reverse_psum(len - 1) : 0;
 
                 for (int64_t j = path.size() - 2; j >= 0; --j)
@@ -1919,12 +1928,15 @@ namespace stool
                         this->leaf_container_vec[p].swap(containers[i]);
                         path.pop_back();
                         this->push_back_to_internal_node(p, path);
+
                     }
                     else
                     {
+
                         std::vector<VALUE> tmp_values;
                         containers[i].to_values(tmp_values);
                         this->push_many(tmp_values);
+
                     }
                     i++;
                 }
@@ -2368,9 +2380,15 @@ namespace stool
 
             void print_debug_info() const{
                 std::cout << "BPTree::print_debug_info()" << std::endl;
-                std::cout << "BPInternalNodeFunctions::time_count: " << (double)BPFunctions::time_count / 1000000.0 << " ms" << std::endl;
+                /*
+                std::cout << "BPInternalNodeFunctions::time_count: " << (double)stool::__time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPInternalNodeFunctions::time_count_counter: " << stool::__time_count_counter << std::endl;
+                std::cout << "BPInternalNodeFunctions::size_count: " << stool::__size_count << std::endl;
+                std::cout << "average: " << (double)stool::__time_count / stool::__time_count_counter << " ns" << std::endl;
+                std::cout << "average size: " << (double)stool::__size_count / stool::__time_count_counter << " elements" << std::endl;
+                */
                 std::cout << "BPTree::time_count: " << (double)BPTree::time_count / 1000000.0 << " ms" << std::endl;
-                std::cout << "BPTree::time_count2: " << (double)BPTree::time_count2 / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPTree::time_count2: " << (double)bptree::time_count2 / 1000000.0 << " ms" << std::endl;
             }
 
         private:

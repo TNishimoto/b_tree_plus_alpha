@@ -117,6 +117,11 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     std::cout << "Checksum: " << hash << std::endl;
 
+    dyn::__time_count = 0;
+    dyn::__time_count_counter = 0;
+    dyn::__size_count = 0;
+    stool::bptree::time_count2 = 0;
+
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "access")
     {
@@ -137,6 +142,17 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
         std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value) {
             dynamic_bit_sequence.print_debug_info();
         }
+
+        if( dyn::__time_count_counter > 0){
+            std::cout << "dynl::__time_count: " << (double)dyn::__time_count / 1000000.0 << " ms" << std::endl;
+            std::cout << "dyn::__time_count_counter: " << dyn::__time_count_counter << std::endl;
+            std::cout << "dyn::__size_count: " << dyn::__size_count << std::endl;
+
+            std::cout << "average: " << (double)dyn::__time_count / dyn::__time_count_counter << " ns" << std::endl;
+            std::cout << "average size: " << (double)dyn::__size_count / dyn::__time_count_counter << " elements" << std::endl;
+    
+        }
+    
 
 
 

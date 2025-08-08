@@ -27,13 +27,16 @@ namespace stool
             {
                 assert(node.use_psum());
                 const auto &deq = node.get_value_sum_deque();
+                return deq.psum();
 
+                /*
                 uint64_t sum = 0;
                 for (uint64_t p : deq)
                 {
                     sum += p;
                 }
                 return sum;
+                */
             }
 
             static uint64_t psum(const InternalNode &node, uint64_t i, const std::vector<LEAF_CONTAINER> &leaf_container_vec)
@@ -161,7 +164,6 @@ namespace stool
             inline static uint64_t time_count = 0;
             static std::pair<int64_t, uint64_t> access_child_index_by_value_index(const InternalNode &node, uint64_t value_index)
             {
-                //auto st1 = std::chrono::system_clock::now();
                 assert(value_index <= node.get_value_count());
 
                 const auto &count_deq = node.get_value_count_deque();
@@ -169,12 +171,14 @@ namespace stool
                 uint64_t sum = 0;
 
 
+
+                //auto st1 = std::chrono::system_clock::now();
                 int64_t search_result = count_deq.search(value_index+1, sum);
+                //auto st2 = std::chrono::system_clock::now();
+                //time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
                
                 auto pair = std::pair<int64_t, uint64_t>(search_result, value_index - sum);
-                //auto st2 = std::chrono::system_clock::now();
-                //time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
                 return pair;
             }

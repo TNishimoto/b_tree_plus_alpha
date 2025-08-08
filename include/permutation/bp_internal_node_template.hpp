@@ -23,7 +23,7 @@ namespace stool
             private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_count_deque_;
+            stool::StaticArrayDeque<MAX_DEGREE+2, true> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
 
@@ -104,15 +104,15 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque()
+            stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_sum_deque() const
+            const stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_sum_deque() const
             {
                 throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::get_value_sum_deque(): No Implementation");
             }

@@ -21,11 +21,16 @@ namespace stool
             uint64_t id;
             #endif
 
+            using DEQUE_TYPE = stool::NaiveArray<MAX_DEGREE+2>;
+            //using DEQUE_TYPE = stool::StaticArrayDeque<(MAX_DEGREE+2)*2, false>;
+            //using DEQUE_TYPE = stool::StaticArrayDeque<MAX_DEGREE+2, true>;
+            //using DEQUE_TYPE = stool::FasterStaticArrayDeque<MAX_DEGREE+2>;
+
             private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_count_deque_;
-            stool::StaticArrayDeque<MAX_DEGREE+2> children_value_sum_deque_;
+            DEQUE_TYPE children_value_count_deque_;
+            DEQUE_TYPE children_value_sum_deque_;
             bool is_parent_of_leaves_ = false;
 
 
@@ -113,15 +118,15 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque() const
+            const DEQUE_TYPE &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_count_deque()
+            DEQUE_TYPE &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2> &get_value_sum_deque() const
+            const DEQUE_TYPE &get_value_sum_deque() const
             {
                 return this->children_value_sum_deque_;
             }
@@ -174,22 +179,28 @@ namespace stool
             }
             uint64_t get_value_count() const
             {
+                return this->children_value_count_deque_.psum();
+                /*
                 uint64_t sum = 0;
                 for (uint64_t p : this->children_value_count_deque_)
                 {
                     sum += p;
                 }
                 return sum;
+                */
             }
             uint64_t get_value_sum() const
             {
+                return this->children_value_sum_deque_.psum();
 
+                /*
                 uint64_t sum = 0;
                 for (uint64_t p : this->children_value_sum_deque_)
                 {
                     sum += p;
                 }
                 return sum;
+                */
             }
             void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value){
                 this->children_value_sum_deque_.increment(pos, value);
