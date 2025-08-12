@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
     if (index_name == "BTreePlusAlpha")
     {
         stool::bptree::SimpleDynamicBitSequence dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", query_type, item_num, query_num, seed);
+        dynamic_bit_operation_test(dbs, "stool::bptree::SimpleDynamicBitSequence", query_type, item_num, query_num, seed);
     }
     else if (index_name == "BTreePlusAlpha1")
     {

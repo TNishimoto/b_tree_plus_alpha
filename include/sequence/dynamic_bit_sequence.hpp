@@ -693,7 +693,7 @@ namespace stool
         using DynamicBitDequeSequence3 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 8192>;
         using DynamicBitDequeSequence4 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 126, 8192>;
 
-        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 2048>;
+        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 8192>;
 
         //using DynamicBitDequeSequenceE = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 8190, 2048>;
 
