@@ -65,12 +65,14 @@ else()
     message(STATUS "Not a 64-bit architecture.")
 endif()
 
+add_executable(rank_select.out main/rank_select_main.cpp)
+target_link_libraries(rank_select.out)
+
+
 #add_executable(prefix_sum.out main/prefix_sum_main.cpp)
 #target_link_libraries(prefix_sum.out)
 
 
-#add_executable(rank_select.out main/rank_select_main.cpp)
-#target_link_libraries(rank_select.out)
 
 #add_executable(permutation.out main/permutation_main.cpp)
 #target_link_libraries(permutation.out)

@@ -7,12 +7,14 @@ for item in "${list[@]}" ; do
   echo "generate query $1"
 
   # nohup /usr/bin/time -f "#bit, BTreePlusAlpha, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlpha -n $1 -q 1000000 >> "./log/bit_rank_select_my.log"
-  nohup /usr/bin/time -f "#bit, BTreePlusAlphaX, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaX -n $1 -q 1000000 >> "./log/bit_rank_select_myx.log"
-  nohup /usr/bin/time -f "#bit, BTreePlusAlphaY, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaY -n $1 -q 1000000 >> "./log/bit_rank_select_myy.log"
   nohup /usr/bin/time -f "#bit, BTreePlusAlphaA, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaA -n $1 -q 1000000 >> "./log/bit_rank_select_mya.log"
   nohup /usr/bin/time -f "#bit, BTreePlusAlphaB, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaB -n $1 -q 1000000 >> "./log/bit_rank_select_myb.log"
   nohup /usr/bin/time -f "#bit, BTreePlusAlphaC, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaC -n $1 -q 1000000 >> "./log/bit_rank_select_myc.log"
   nohup /usr/bin/time -f "#bit, BTreePlusAlphaD, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlphaD -n $1 -q 1000000 >> "./log/bit_rank_select_myd.log"
+  nohup /usr/bin/time -f "#bit, BTreePlusAlpha1, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlpha1 -n $1 -q 1000000 >> "./log/bit_rank_select_my1.log"
+  nohup /usr/bin/time -f "#bit, BTreePlusAlpha2, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlpha2 -n $1 -q 1000000 >> "./log/bit_rank_select_my2.log"
+  nohup /usr/bin/time -f "#bit, BTreePlusAlpha3, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlpha3 -n $1 -q 1000000 >> "./log/bit_rank_select_my3.log"
+  nohup /usr/bin/time -f "#bit, BTreePlusAlpha4, n = $1, %e sec, %M KB" ./bit_rank_select.out -x BTreePlusAlpha4 -n $1 -q 1000000 >> "./log/bit_rank_select_my4.log"
 
   # nohup /usr/bin/time -f "#bit, bit_vector, n = $1, %e sec, %M KB" ./bit_rank_select.out -x bit_vector -n $1 -q 1000000 >> "./log/bit_rank_select_bv.log"
   # nohup /usr/bin/time -f "#bit, DYNAMIC, n = $1, %e sec, %M KB" ./bit_rank_select.out -x DYNAMIC -n $1 -q 1000000 >> "./log/bit_rank_select_dynamic.log"

@@ -682,16 +682,18 @@ namespace stool
             
         };
 
-        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitContainer, stool::bptree::BitContainer::BitContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 62>;
         using DynamicBitDequeSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 1024>;
         using DynamicBitDequeSequenceA = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 512>;
         using DynamicBitDequeSequenceB = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 1024>;
         using DynamicBitDequeSequenceC = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 2048>;
         using DynamicBitDequeSequenceD = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 4096>;
-        using DynamicBitDequeSequence1 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 126, 512>;
-        using DynamicBitDequeSequence2 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 126, 1024>;
-        using DynamicBitDequeSequence3 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 126, 2048>;
-        using DynamicBitDequeSequence4 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 126, 4096>;
+        using DynamicBitDequeSequence1 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 510, 4096>;
+        using DynamicBitDequeSequence2 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 1022, 1024>;
+        using DynamicBitDequeSequence3 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 2046, 2048>;
+        using DynamicBitDequeSequence4 = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 4094, 4096>;
+
+        using SimpleDynamicBitSequence = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 62, 2048>;
+
         //using DynamicBitDequeSequenceE = DynamicBitSequence<stool::bptree::BitDequeContainer, stool::bptree::BitDequeContainer::BitDequeContainerIterator, 8190, 2048>;
 
         // template <typename T>
