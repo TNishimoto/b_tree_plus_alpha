@@ -43,11 +43,11 @@ namespace stool
                 BitContainerIterator &operator++()
                 {
                     uint64_t size = this->get_size();
-                    if (this->index + 1 < size)
+                    if ((uint64_t)(this->index + 1) < size)
                     {
                         this->index++;
                     }
-                    else if (this->index + 1 == size)
+                    else if ((uint64_t)(this->index + 1) == size)
                     {
                         this->index = UINT16_MAX;
                     }

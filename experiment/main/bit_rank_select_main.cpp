@@ -77,9 +77,9 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    // if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
-    //     density_when_build_is_complete = dynamic_bit_sequence.density();
-    // }
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value) {
+         density_when_build_is_complete = dynamic_bit_sequence.density();
+    }
 
     std::cout << "Checksum: " << hash << std::endl;
     st1 = std::chrono::system_clock::now();
@@ -209,13 +209,13 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
-    /*
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
+    
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
-        dynamic_bit_sequence.print_information_about_performance();
-        dynamic_bit_sequence.print_memory_usage();
+        //dynamic_bit_sequence.print_information_about_performance();
+        //dynamic_bit_sequence.print_memory_usage();
     }
-    */
+    
 
     stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
