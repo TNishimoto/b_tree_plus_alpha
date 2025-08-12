@@ -15,7 +15,7 @@
 template <typename T>
 void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
-    
+
     std::cout << "Test: " << name << std::endl;
 
     std::mt19937_64 mt64(seed);
@@ -25,7 +25,6 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     uint64_t hash = 0;
     double density_when_build_is_complete = 0;
 
-
     std::chrono::system_clock::time_point st1, st2;
 
     std::cout << "Checksum: " << hash << std::endl;
@@ -33,9 +32,17 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || 
-        std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value || 
-        std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence1>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence3>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence4>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value)
+    {
         std::vector<bool> buffer;
         uint64_t buffer_size = 10000;
 
@@ -45,34 +52,34 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
             buffer.push_back(b);
             hash += (int)b;
 
-            if(buffer.size() >= buffer_size){
+            if (buffer.size() >= buffer_size)
+            {
                 dynamic_bit_sequence.push_many(buffer);
                 buffer.clear();
             }
         }
-        if(buffer.size() > 0){
+        if (buffer.size() > 0)
+        {
             dynamic_bit_sequence.push_many(buffer);
             buffer.clear();
         }
-    }else{
+    }
+    else
+    {
         for (uint64_t i = 0; i < item_num; i++)
         {
             bool b = get_rand_value(mt64) % 2 == 1;
             hash += (int)b;
             dynamic_bit_sequence.push_back(b);
         }
-    
     }
-    
-
 
     st2 = std::chrono::system_clock::now();
     uint64_t time_construction = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
-        density_when_build_is_complete = dynamic_bit_sequence.density();
-    }
-
+    // if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
+    //     density_when_build_is_complete = dynamic_bit_sequence.density();
+    // }
 
     std::cout << "Checksum: " << hash << std::endl;
     st1 = std::chrono::system_clock::now();
@@ -96,11 +103,11 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     {
         std::cout << "Random Deletion..." << std::endl;
         int64_t n_delete = dynamic_bit_sequence.size() - query_num;
-        if(n_delete < 0){
+        if (n_delete < 0)
+        {
             throw std::runtime_error("n_delete < 0");
         }
         std::uniform_int_distribution<uint64_t> get_rand_for_delete(0, n_delete);
-
 
         for (uint64_t i = 0; i < query_num; i++)
         {
@@ -117,10 +124,12 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     std::cout << "Checksum: " << hash << std::endl;
 
+    /*
     dyn::__time_count = 0;
     dyn::__time_count_counter = 0;
     dyn::__size_count = 0;
     stool::bptree::time_count2 = 0;
+    */
 
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "access")
@@ -136,25 +145,23 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value ||
+                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value)
+    {
+        dynamic_bit_sequence.print_debug_info();
+    }
+    /*
+            if( dyn::__time_count_counter > 0){
+                std::cout << "dynl::__time_count: " << (double)dyn::__time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "dyn::__time_count_counter: " << dyn::__time_count_counter << std::endl;
+                std::cout << "dyn::__size_count: " << dyn::__size_count << std::endl;
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || 
-        std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value || 
-        std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value) {
-            dynamic_bit_sequence.print_debug_info();
-        }
+                std::cout << "average: " << (double)dyn::__time_count / dyn::__time_count_counter << " ns" << std::endl;
+                std::cout << "average size: " << (double)dyn::__size_count / dyn::__time_count_counter << " elements" << std::endl;
 
-        if( dyn::__time_count_counter > 0){
-            std::cout << "dynl::__time_count: " << (double)dyn::__time_count / 1000000.0 << " ms" << std::endl;
-            std::cout << "dyn::__time_count_counter: " << dyn::__time_count_counter << std::endl;
-            std::cout << "dyn::__size_count: " << dyn::__size_count << std::endl;
-
-            std::cout << "average: " << (double)dyn::__time_count / dyn::__time_count_counter << " ns" << std::endl;
-            std::cout << "average size: " << (double)dyn::__size_count / dyn::__time_count_counter << " elements" << std::endl;
-    
-        }
-    
-
-
+            }
+            */
 
     std::cout << "Checksum: " << hash << std::endl;
 
@@ -167,14 +174,12 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
             uint64_t m = get_rand_item_num(mt64);
             uint64_t value = dynamic_bit_sequence.rank1(m);
             hash += value;
-
-
         }
     }
     st2 = std::chrono::system_clock::now();
     uint64_t time_psum = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    //std::cout << count1 << std::endl;
+    // std::cout << count1 << std::endl;
 
     std::cout << "Checksum: " << hash << std::endl;
 
@@ -203,7 +208,6 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::cout << "Select Time         : " << (time_search / (1000 * 1000)) << "[ms] (Avg: " << (time_search / query_num) << "[ns])" << std::endl;
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
-
 
     /*
     if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value) {
@@ -254,15 +258,25 @@ int main(int argc, char *argv[])
         stool::bptree::SimpleDynamicBitSequence dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitSequence", query_type, item_num, query_num, seed);
     }
-    else if (index_name == "BTreePlusAlphaX")
+    else if (index_name == "BTreePlusAlpha1")
     {
-        stool::bptree::DynamicBitDequeSequence dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence", query_type, item_num, query_num, seed);
+        stool::bptree::DynamicBitDequeSequence1 dbs;
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence1", query_type, item_num, query_num, seed);
     }
-    else if (index_name == "BTreePlusAlphaY")
+    else if (index_name == "BTreePlusAlpha2")
     {
         stool::bptree::DynamicBitDequeSequence2 dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence2", query_type, item_num, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlpha3")
+    {
+        stool::bptree::DynamicBitDequeSequence3 dbs;
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence3", query_type, item_num, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlpha4")
+    {
+        stool::bptree::DynamicBitDequeSequence4 dbs;
+        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence4", query_type, item_num, query_num, seed);
     }
     else if (index_name == "BTreePlusAlphaA")
     {
@@ -289,7 +303,7 @@ int main(int argc, char *argv[])
         DynSucBVWrapper dbs;
         dynamic_bit_operation_test(dbs, "DynSucBVWrapper", query_type, item_num, query_num, seed);
     }
-    else if(index_name == "bit_vector")
+    else if (index_name == "bit_vector")
     {
 #if defined(__x86_64__)
         BVBVWrapper dbs;
