@@ -62,7 +62,7 @@ namespace stool
 
 
                         if (search_result != 0)
-                        {
+                        {                            
                             sum += sum_deq.psum(search_result - 1);
                         }
 
@@ -78,7 +78,9 @@ namespace stool
                 assert(x < leaf_container_vec.size());
                 assert(current_i < leaf_container_vec[x].size());
 
-                return sum + leaf_container_vec[x].psum(current_i);
+                uint64_t leaf_psum = leaf_container_vec[x].psum(current_i);
+
+                return sum + leaf_psum;
             }
 
             static int64_t select0(const InternalNode &node, uint64_t i, const std::vector<LEAF_CONTAINER> &leaf_container_vec)

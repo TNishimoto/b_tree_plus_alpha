@@ -23,7 +23,7 @@ namespace stool
             private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::StaticArrayDeque<MAX_DEGREE+2, true> children_value_count_deque_;
+            stool::NaiveArray<MAX_DEGREE+2> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
 
@@ -104,24 +104,22 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_count_deque() const
+            const stool::NaiveArray<MAX_DEGREE+2> &get_value_count_deque() const
             {
                 return this->children_value_count_deque_;
             }
-            stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_count_deque()
+            stool::NaiveArray<MAX_DEGREE+2> &get_value_count_deque()
             {
                 return this->children_value_count_deque_;
             }
-            const stool::StaticArrayDeque<MAX_DEGREE+2, true> &get_value_sum_deque() const
+            const stool::NaiveArray<MAX_DEGREE+2> &get_value_sum_deque() const
             {
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::get_value_sum_deque(): No Implementation");
+                return this->children_value_count_deque_;
             }
-            /*
-            stool::SimpleDeque16<uint64_t> &get_value_sum_deque()
+            stool::NaiveArray<MAX_DEGREE+2> &get_value_sum_deque()
             {
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::get_value_sum_deque(): No Implementation");
+                return this->children_value_count_deque_;
             }
-            */
             void __increment_a_value_of_sum_deque([[maybe_unused]] uint64_t pos, [[maybe_unused]]int64_t value){
                 throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__increment_a_value_of_sum_deque(): No Implementation");
             }
@@ -213,11 +211,13 @@ namespace stool
 
             uint64_t get_value_count() const
             {
-                uint64_t sum = 0;
+                uint64_t sum = this->children_value_count_deque_.psum();
+                /*
                 for (uint64_t p : this->children_value_count_deque_)
                 {
                     sum += p;
                 }
+                */
                 return sum;
             }
             uint64_t get_value_sum() const
@@ -232,7 +232,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            void print_info() const
+            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << "=================" << std::endl;
                 std::cout << "This: " << (uint64_t)this;

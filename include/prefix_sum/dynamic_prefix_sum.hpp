@@ -11,12 +11,12 @@ namespace stool
         /// @brief      A dynamic data structure supporting prefix-sum query
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER = VLCDeque>
+        template <typename LEAF_CONTAINER = VLCDeque, uint64_t TREE_DEGREE = bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, uint64_t LEAF_CONTAINER_MAX_SIZE = bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>
         class DynamicPrefixSum
         {
         public:
-            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
-            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
@@ -388,9 +388,12 @@ namespace stool
             }
 
             void print_tree(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+                this->tree.print_info();
+                /*
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Tree(DynamicPrefixSum)[" << std::endl;
                 this->tree.print_tree();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
+                */
             }
 
             //@}
@@ -449,7 +452,7 @@ namespace stool
 
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
-        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::ShortIntegerVector>;
+        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::VLCArrayDeque<4096>, 62, 1024>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 

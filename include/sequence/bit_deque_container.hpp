@@ -8,12 +8,14 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         /// @brief  A container that stores a short sequence of bits.
         ////////////////////////////////////////////////////////////////////////////////
+        template <uint64_t MAX_BIT_SIZE = 8192ULL>
         class BitDequeContainer
         {
+            using BitArrayDeque = typename stool::BitArrayDeque<MAX_BIT_SIZE>;
             BitArrayDeque bits;
 
         public:
-            using BitDequeContainerIterator = BitArrayDeque::BitArrayDequeIterator;
+            using BitDequeContainerIterator = typename BitArrayDeque::BitArrayDequeIterator;
             BitDequeContainer()
             {
             }

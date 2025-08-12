@@ -17,7 +17,7 @@ public:
     void initialize([[maybe_unused]] uint64_t degree)
     {
     }
-    void swap(BVBVWrapper &item)
+    void swap([[maybe_unused]] BVBVWrapper &item)
     {
         throw -1;
         // this->bv = std::move(item.bv);
@@ -82,7 +82,7 @@ public:
         return s;
     }
 
-    static BVBVWrapper build(const std::vector<bool> &_items)
+    static BVBVWrapper build([[maybe_unused]] const std::vector<bool> &_items)
     {
         throw -1;
     }

@@ -11,8 +11,8 @@ else(CPP_STATIC)
 set(CMAKE_CXX_FLAGS "-m64  -D_INT128 -Wall -Wextra")
 endif(CPP_STATIC)
 
-#set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG")
-set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DNDEBUG -fsanitize=address -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG")
+#set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DNDEBUG -fsanitize=address -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Og -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -DTIME_DEBUG")
 #set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -Rpass=loop-vectorize")
@@ -69,8 +69,8 @@ add_executable(rank_select.out main/rank_select_main.cpp)
 target_link_libraries(rank_select.out)
 
 
-#add_executable(prefix_sum.out main/prefix_sum_main.cpp)
-#target_link_libraries(prefix_sum.out)
+add_executable(prefix_sum.out main/prefix_sum_main.cpp)
+target_link_libraries(prefix_sum.out)
 
 
 

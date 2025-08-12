@@ -26,7 +26,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value) {
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value) {
         std::vector<uint64_t> buffer;
         uint64_t buffer_size = 10000;
 
@@ -127,6 +127,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
             uint64_t m = get_rand_item_num(mt64);
             uint64_t value = dynamic_prefix_sum.psum(m);
             hash += value;
+
             
         }
         std::cout << "[done] (hash = " << hash << ")" << std::endl;
@@ -173,8 +174,8 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
-        dynamic_prefix_sum.print_information_about_performance();
-        dynamic_prefix_sum.print_memory_usage();
+        //dynamic_prefix_sum.print_information_about_performance();
+        //dynamic_prefix_sum.print_memory_usage();
     }
     /*
     std::cout << "Update Time         : " << (time2 / (1000 * 1000)) << "[ms] (Avg: " << (time2 / (2 * len)) << "[ns])" << std::endl;

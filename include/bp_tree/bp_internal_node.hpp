@@ -202,7 +202,13 @@ namespace stool
                 return sum;
                 */
             }
-            void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value){
+            void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value){                
+                #if DEBUG
+                if(value < 0){
+                    assert(this->children_value_sum_deque_.at(pos) >=  -value);
+                }
+                #endif
+
                 this->children_value_sum_deque_.increment(pos, value);
             }
             void __push_back_on_sum_deque(uint64_t value){
@@ -264,10 +270,10 @@ namespace stool
                 std::cout << ", sum: " << this->get_value_sum() << std::endl;
 
 
-                auto count_deq = this->children_value_count_deque_.to_deque();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "count_deque: " << stool::DebugPrinter::to_integer_string(count_deq) << std::endl;
-                auto sum_deq = this->children_value_sum_deque_.to_deque();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "sum_deque: " << stool::DebugPrinter::to_integer_string(sum_deq) << std::endl;
+                auto count_deq_str = this->children_value_count_deque_.to_string();
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "count_deque: " << count_deq_str << std::endl;
+                auto sum_deq_str = this->children_value_sum_deque_.to_string();
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "sum_deque: " << sum_deq_str << std::endl;
 
                 // std::cout << "Parent: " << (uint64_t)this->parent << std::endl;
 

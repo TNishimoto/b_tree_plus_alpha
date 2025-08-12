@@ -630,7 +630,8 @@ namespace stool
                             assert(idx != -1);
 
                             const auto &deq = parent->get_value_count_deque();
-                            uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
+                            uint64_t sum = deq.psum(idx);
+                            //uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
 
                             dist += sum;
                             node = parent;
@@ -1516,9 +1517,12 @@ namespace stool
                     }
                     parent_edge_index = 0;
 
+
                     this->root = _parent;
                     this->root_is_leaf_ = false;
                     this->height_++;
+
+
 
                     if (USE_PARENT_FIELD)
                     {
@@ -1956,6 +1960,7 @@ namespace stool
                 uint64_t i = 0;
                 std::vector<NodePointer> path;
 
+
                 while (i < values.size())
                 {
                     path.clear();
@@ -2227,6 +2232,7 @@ namespace stool
                     if (USE_PSUM && parent != nullptr)
                     {
                         int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
+
 
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
                         parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
