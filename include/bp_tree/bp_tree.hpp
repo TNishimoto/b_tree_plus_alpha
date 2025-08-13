@@ -1190,6 +1190,7 @@ namespace stool
 
                     while (!is_leaf)
                     {
+
                         assert(current_i <= current_node->get_value_count());
 
                         //auto st1 = std::chrono::system_clock::now();
