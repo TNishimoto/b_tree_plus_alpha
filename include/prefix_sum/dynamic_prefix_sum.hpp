@@ -452,7 +452,7 @@ namespace stool
 
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
-        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::VLCArrayDeque<4096>, 62, 1024>;
+        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::NaiveVLCArray<4096>, 62, 128>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 

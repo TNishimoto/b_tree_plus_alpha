@@ -59,13 +59,13 @@ FILE(GLOB SOURCES lib/dynamic_rank_select/*.cpp)
 
 add_executable(bit_rank_select.out main/bit_rank_select_main.cpp)
 target_link_libraries(bit_rank_select.out)
-
+message(STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}")
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|AMD64)$")
     target_compile_options(bit_rank_select.out PRIVATE -mbmi2)
     message(STATUS "64-bit architecture.")
 
 else()
-    message(STATUS "Not a 64-bit architecture.")
+message(STATUS "Not a 64-bit architecture.")
 endif()
 
 add_executable(rank_select.out main/rank_select_main.cpp)
