@@ -26,7 +26,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value) {
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value || std::is_same<T, stool::bptree::EFDynamicPrefixSum>::value) {
         std::vector<uint64_t> buffer;
         uint64_t buffer_size = 10000;
 
@@ -237,6 +237,11 @@ int main(int argc, char *argv[])
     {
         stool::bptree::DynamicSuccinctPrefixSum dps;
         bptree_prefix_sum_test(dps, "stool::bptree::DynamicSuccinctPrefixSum", query_type, item_num, max_value, query_num, seed);
+    }
+    else if (index_name == "BTreePlusAlphaZ")
+    {
+        stool::bptree::EFDynamicPrefixSum dps;
+        bptree_prefix_sum_test(dps, "stool::bptree::EFDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
     }
     else if(index_name == "DYNAMIC")
     {

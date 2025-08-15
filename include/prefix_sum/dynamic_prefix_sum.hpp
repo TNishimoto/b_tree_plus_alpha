@@ -1,6 +1,7 @@
 #pragma once
 #include "./plain_spsi_container.hpp"
 #include "stool/include/light_stool.hpp"
+#include "stool/include/develop/short_integer_vector.hpp"
 
 namespace stool
 {
@@ -451,8 +452,10 @@ namespace stool
         };
 
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
+
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
         using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::NaiveVLCArray<4096>, 62, 128>;
+        using EFDynamicPrefixSum = DynamicPrefixSum<stool::NaiveFLCVector, 62, 128>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 
