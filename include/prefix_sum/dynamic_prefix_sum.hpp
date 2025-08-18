@@ -389,12 +389,11 @@ namespace stool
             }
 
             void print_tree(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
-                this->tree.print_info();
-                /*
+                
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Tree(DynamicPrefixSum)[" << std::endl;
                 this->tree.print_tree();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
-                */
+                
             }
 
             //@}
@@ -451,11 +450,11 @@ namespace stool
             //@}
         };
 
+        using SimpleDynamicPrefixSum = DynamicPrefixSum<stool::NaiveFLCVector<>, 62, 256>;
         using PlainDynamicPrefixSum = DynamicPrefixSum<PlainSPSIContainer>;
-
         using VLCDequeDynamicPrefixSum = DynamicPrefixSum<VLCDeque>;
-        using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::NaiveVLCArray<4096>, 62, 128>;
-        using EFDynamicPrefixSum = DynamicPrefixSum<stool::NaiveFLCVector, 62, 128>;
+        //using DynamicSuccinctPrefixSum = DynamicPrefixSum<stool::NaiveVLCArray<4096>, 62, 128>;
+        //using EFDynamicPrefixSum = DynamicPrefixSum<stool::NaiveFLCVector<>, 62, 256>;
 
         // using GapEncodedSPSI = SPSI<GapEncodedContainer>;
 

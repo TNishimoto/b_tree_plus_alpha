@@ -26,7 +26,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value || std::is_same<T, stool::bptree::EFDynamicPrefixSum>::value) {
+    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::SimpleDynamicPrefixSum>::value || std::is_same<T, stool::bptree::VLCDequeDynamicPrefixSum>::value) {
         std::vector<uint64_t> buffer;
         uint64_t buffer_size = 10000;
 
@@ -109,7 +109,8 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
-            hash += dynamic_prefix_sum.at(m);
+            uint64_t v = dynamic_prefix_sum.at(m);
+            hash += v;
         }
         std::cout << "[done] (hash = " << hash << ")" << std::endl;
 
@@ -172,7 +173,7 @@ void bptree_prefix_sum_test(T &dynamic_prefix_sum, std::string name, std::string
     std::cout << "Insertion Time      : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time       : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
-    if constexpr (std::is_same<T, stool::bptree::DynamicPrefixSum<>>::value || std::is_same<T, stool::bptree::DynamicSuccinctPrefixSum>::value) {
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicPrefixSum>::value || std::is_same<T, stool::bptree::VLCDequeDynamicPrefixSum>::value) {
         std::cout << "Density of the B-tree when the build is complete: " << density_when_build_is_complete << std::endl;
         //dynamic_prefix_sum.print_information_about_performance();
         //dynamic_prefix_sum.print_memory_usage();
@@ -225,23 +226,13 @@ int main(int argc, char *argv[])
 
     if (index_name == "BTreePlusAlpha")
     {
-        stool::bptree::DynamicPrefixSum<> dps;
-        bptree_prefix_sum_test(dps, "stool::bptree::DynamicPrefixSum<>", query_type, item_num, max_value, query_num, seed);
+        stool::bptree::SimpleDynamicPrefixSum dps;
+        bptree_prefix_sum_test(dps, "stool::bptree::SimpleDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
     }
-    else if (index_name == "BTreePlusAlphaX")
+    else if (index_name == "Old_BTreePlusAlpha")
     {
-        stool::bptree::PlainDynamicPrefixSum dps;
-        bptree_prefix_sum_test(dps, "stool::bptree::PlainDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaY")
-    {
-        stool::bptree::DynamicSuccinctPrefixSum dps;
-        bptree_prefix_sum_test(dps, "stool::bptree::DynamicSuccinctPrefixSum", query_type, item_num, max_value, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaZ")
-    {
-        stool::bptree::EFDynamicPrefixSum dps;
-        bptree_prefix_sum_test(dps, "stool::bptree::EFDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
+        stool::bptree::VLCDequeDynamicPrefixSum dps;
+        bptree_prefix_sum_test(dps, "stool::bptree::VLCDequeDynamicPrefixSum", query_type, item_num, max_value, query_num, seed);
     }
     else if(index_name == "DYNAMIC")
     {

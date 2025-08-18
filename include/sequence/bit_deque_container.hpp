@@ -143,11 +143,43 @@ namespace stool
                 assert(this->size() > 0);
                 this->bits.erase(pos);
             }
-            void push_front(std::vector<uint64_t> &new_items)
+            uint64_t to_bit_array(const std::vector<uint64_t> &new_items, std::array<uint64_t, MAX_BIT_SIZE / 64> &output){
+                uint64_t added_block_size = ((new_items.size()-1) / 64) + 1;
+                for(uint64_t i = 0; i < added_block_size; i++){
+                    output[i] = 0;
+                }
+                for(uint64_t i = 0; i < new_items.size(); i++){
+                    uint64_t v = i / 64;
+                    uint64_t w = i % 64;
+                    output[v] |= ((new_items[i] >= 1) ? 1ULL : 0ULL) << (63 - w);
+                }
+                return added_block_size;
+            }
+            void push_front(const std::vector<uint64_t> &new_items)
             {
-                for (int64_t i = new_items.size() - 1; i >= 0; i--)
-                {
-                    this->bits.push_front(new_items[i] >= 1);
+                if(new_items.size() > 0){
+                    std::array<uint64_t, MAX_BIT_SIZE / 64> tmp_buffer;
+                    uint64_t added_block_size = this->to_bit_array(new_items, tmp_buffer);
+
+                    #ifdef DEBUG
+                    uint64_t sum1 = this->bits.psum();
+                    uint64_t sum2 = 0;
+                    for(uint64_t i = 0; i < new_items.size(); i++){
+                        sum2 += new_items[i] >= 1 ? 1 : 0;
+                    }
+                    uint64_t x_size = this->size();
+                    #endif
+
+                    this->bits.push_front64(tmp_buffer, new_items.size(), added_block_size);
+
+                    #ifdef DEBUG
+                    if(sum1 + sum2 != this->bits.psum()){
+                        std::cout << new_items.size() << "/" << x_size << std::endl;
+                        std::cout << sum1 << "/" << sum2 << std::endl;
+                        std::cout << this->bits.psum() << std::endl;
+                    }
+                    assert(sum1 + sum2 == this->bits.psum());
+                    #endif
                 }
 
             }
@@ -157,12 +189,13 @@ namespace stool
                 this->bits.push_back64(new_item >= 1);
             }
 
-            void push_back(std::vector<uint64_t> &new_items)
+            void push_back(const std::vector<uint64_t> &new_items)
             {
 
-                for (uint64_t v : new_items)
-                {
-                    this->push_back(v >= 1);
+                if(new_items.size() > 0){
+                    std::array<uint64_t, MAX_BIT_SIZE / 64> tmp_buffer;
+                    uint64_t added_block_size = this->to_bit_array(new_items, tmp_buffer);
+                    this->bits.push_back64(tmp_buffer, new_items.size(), added_block_size);
                 }
             }
             void push_back(uint64_t value)
@@ -180,13 +213,24 @@ namespace stool
             {
 
                 assert(len <= this->size());
+                std::array<uint64_t, MAX_BIT_SIZE / 64> tmp_buffer;
+                this->bits.pop_front(len, tmp_buffer, MAX_BIT_SIZE / 64);
                 std::vector<uint64_t> r;
+
+                for(uint64_t i = 0; i < len; i++){
+                    uint64_t v = i / 64;
+                    uint64_t w = i % 64;
+                    r.push_back((tmp_buffer[v] >> (63 - w)) & 1);
+                }
+
+                /*
                 for (uint64_t i = 0; i < len; i++)
                 {
                     bool b = this->at(0);
                     r.push_back(b ? 1 : 0);
                     this->pop_front();
                 }
+                */
                 return r;
             }
             void pop_back()

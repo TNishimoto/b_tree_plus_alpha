@@ -232,7 +232,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            void print_info([[maybe_unused]] int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << "=================" << std::endl;
                 std::cout << "This: " << (uint64_t)this;
