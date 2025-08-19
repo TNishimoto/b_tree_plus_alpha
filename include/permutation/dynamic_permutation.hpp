@@ -13,7 +13,9 @@ namespace stool
         class DynamicPermutation
         {
         public:
-            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+            //using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+            using Tree = typename PermutationContainer::Tree;
+
             using BPIterator = bptree::BPPostorderIterator<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
             using PermIterator = PermutationContainer::PermutationIterator;
             using NodePointer = bptree::BPNodePointer<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
@@ -21,6 +23,7 @@ namespace stool
         private:
             Tree pi_tree;
             Tree inverse_pi_tree;
+
 
         public:
             DynamicPermutation()
@@ -192,6 +195,8 @@ namespace stool
                 this->pi_tree.insert(pi_index, PermutationItem(_size1 + 1, UINT8_MAX), 0);
                 this->inverse_pi_tree.insert(inverse_pi_index, PermutationItem(_size2 + 1, UINT8_MAX), 0);
 
+
+
                 // std::vector<NodePointer> path1, path2;
                 uint64_t value_idx1 = this->pi_tree.compute_path_from_root_to_leaf(pi_index);
                 uint64_t value_idx2 = this->inverse_pi_tree.compute_path_from_root_to_leaf(inverse_pi_index);
@@ -206,6 +211,8 @@ namespace stool
 
                 cont1.set_value(value_idx1, PermutationItem(idx2, key));
                 cont2.set_value(value_idx2, PermutationItem(idx1, key));
+
+
             }
             void erase(int64_t pi_index)
             {
@@ -213,7 +220,9 @@ namespace stool
                 const std::vector<NodePointer> &path = const_cast<std::vector<NodePointer> &>(this->pi_tree.get_temporary_path());
                 uint64_t inverse_pi_index = this->access(path, idx1);
                 this->pi_tree.remove_using_path(path, idx1);
+                assert(inverse_pi_index < this->inverse_pi_tree.size());
                 this->inverse_pi_tree.remove(inverse_pi_index);
+                assert(this->pi_tree.size() == this->inverse_pi_tree.size());
             }
             void clear()
             {
@@ -262,6 +271,7 @@ namespace stool
                 uint64_t idx2 = leaf2.get_index(PermutationItem(leaf_index, item.key));
 
                 uint64_t result = this->inverse_pi_tree.get_value_index(item.pointer, idx2);
+
                 return result;
             }
 
@@ -319,20 +329,22 @@ namespace stool
                 }
                 return r;
             }
-            void print() const
+            void print(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::cout << "========= DP ========" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "========= DP ========" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "PI: " << std::endl;
                 auto pi_vec = this->get_pi_vector();
-                auto inv_pi_vec = this->get_inverse_pi_vector();
-                stool::DebugPrinter::print_integers(pi_vec, "pi_vector");
-                stool::DebugPrinter::print_integers(inv_pi_vec, "inverse_pi_vector");
-
+                stool::DebugPrinter::print_integers(pi_vec, stool::Message::get_paragraph_string(message_paragraph) + "pi_vector");
                 this->pi_tree.print_tree();
-                this->inverse_pi_tree.print_tree();
-
                 this->pi_tree.print_leaves();
+                std::cout << std::endl;
+                std::cout << "Inv_PI: " << std::endl;
+                auto inv_pi_vec = this->get_inverse_pi_vector();
+                stool::DebugPrinter::print_integers(inv_pi_vec, stool::Message::get_paragraph_string(message_paragraph) +"inverse_pi_vector");
+                this->inverse_pi_tree.print_tree();
+                this->inverse_pi_tree.print_internal_nodes();
                 this->inverse_pi_tree.print_leaves();
-                std::cout << "=====================" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "=====================" << std::endl;
             }
             void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicPermutation)[" << std::endl;

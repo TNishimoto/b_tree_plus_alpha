@@ -12,12 +12,17 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class PermutationContainer
         {
-            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+            //using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+
             stool::SimpleDeque16<uint8_t> keys;
-            stool::VLCDeque pointers;
+            stool::NaiveFLCVector<false> pointers;
 
         public:
-            ////////////////////////////////////////////////////////////////////////////////
+            static constexpr uint64_t ___PermutationLeafSize = 8;
+
+            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, ___PermutationLeafSize>;
+
+        ////////////////////////////////////////////////////////////////////////////////
             /// @class      PermutationIterator
             /// @brief      The forward iterator of values stored in PermutationContainer
             ///
@@ -40,6 +45,8 @@ namespace stool
 
                 PermutationIterator &operator++()
                 {
+                    assert(this->_m_idx < this->_m_deq->size());
+
                     ++this->_m_idx;
                     return *this;
                 }
@@ -68,6 +75,8 @@ namespace stool
                 PermutationIterator operator+(difference_type n) const
                 {
                     int16_t sum = (int16_t)this->_m_idx + (int16_t)n;
+                    assert(sum < this->_m_deq->size());
+
                     return PermutationIterator(this->_m_deq, sum);
                 }
 
@@ -133,6 +142,9 @@ namespace stool
 
             PermutationItem at(uint64_t pos) const
             {
+                assert(pos < this->keys.size());
+                assert(pos < this->pointers.size());
+
                 return PermutationItem(this->pointers.at(pos), this->keys[pos]);
             }
             void print() const
@@ -144,11 +156,17 @@ namespace stool
             {
                 this->keys.clear();
                 this->pointers.clear();
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void swap(PermutationContainer &item)
             {
+                assert(item.keys.size() == item.pointers.size());
+
                 this->keys.swap(item.keys);
                 this->pointers.swap(item.pointers);
+
+                assert(this->keys.size() == this->pointers.size());
             }
             static std::string name()
             {
@@ -168,7 +186,15 @@ namespace stool
             }
             int64_t get_index(const PermutationItem &&item) const
             {
-                int64_t i = 0;
+                int64_t size = this->pointers.size();
+                for(int64_t i = 0; i < size; i++){
+                    if(this->pointers[i] == item.pointer && this->keys[i] == item.key){
+                        return i;
+                    }
+                }
+                return -1;
+
+                /*
                 for (uint64_t pointer : this->pointers)
                 {
                     if (pointer == item.pointer && this->keys[i] == item.key)
@@ -177,24 +203,23 @@ namespace stool
                     }
                     i++;
                 }
-                return -1;
+                */
             }
 
             std::string to_string() const
             {
+                assert(this->keys.size() == this->pointers.size());
 
                 std::string s;
                 s.push_back('[');
 
-                int64_t i = 0;
-                for (uint64_t pointer : this->pointers)
-                {
-                    s += "(" + std::to_string(pointer) + ", " + std::to_string(this->keys[i]) + ")";
+                int64_t size = this->pointers.size();
+                for(int64_t i = 0; i < size; i++){
+                    s += "(" + std::to_string(this->pointers[i]) + ", " + std::to_string(this->keys[i]) + ")";
                     if (i + 1 < (int64_t)this->size())
                     {
                         s += ", ";
                     }
-                    i++;
                 }
 
                 s.push_back(']');
@@ -210,11 +235,15 @@ namespace stool
             {
                 this->keys.insert(this->keys.begin() + pos, value.key);
                 this->pointers.insert(pos, value.pointer);
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void remove(uint64_t pos)
             {
                 this->keys.erase(this->keys.begin() + pos);
                 this->pointers.remove(pos);
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void push_front(const std::vector<PermutationItem> &new_items)
             {
@@ -223,11 +252,15 @@ namespace stool
                     this->keys.push_front(new_items[i].key);
                     this->pointers.push_front(new_items[i].pointer);
                 }
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void push_front(const PermutationItem &new_item)
             {
                 this->keys.push_front(new_item.key);
                 this->pointers.push_front(new_item.pointer);
+
+                assert(this->keys.size() == this->pointers.size());
             }
 
             void push_back(const std::vector<PermutationItem> &new_items)
@@ -237,11 +270,15 @@ namespace stool
                     this->keys.push_back(item.key);
                     this->pointers.push_back(item.pointer);
                 }
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void push_back(PermutationItem value)
             {
                 this->keys.push_back(value.key);
                 this->pointers.push_back(value.pointer);
+
+                assert(this->keys.size() == this->pointers.size());
             }
             PermutationItem pop_front()
             {
@@ -249,6 +286,8 @@ namespace stool
                 uint64_t pointer = this->pointers.head();
                 this->keys.pop_front();
                 this->pointers.pop_front();
+
+                assert(this->keys.size() == this->pointers.size());
                 return PermutationItem(pointer, key);
             }
 
@@ -259,6 +298,8 @@ namespace stool
                 {
                     r.push_back(this->pop_front());
                 }
+
+                assert(this->keys.size() == this->pointers.size());                
                 return r;
             }
             PermutationItem pop_back()
@@ -268,6 +309,8 @@ namespace stool
                 uint64_t pointer = this->pointers.tail();
                 this->keys.pop_back();
                 this->pointers.pop_back();
+
+                assert(this->keys.size() == this->pointers.size());
                 return PermutationItem(pointer, key);
             }
 
@@ -280,6 +323,8 @@ namespace stool
                 {
                     tmp1[k--] = this->pop_back();
                 }
+
+                assert(this->keys.size() == this->pointers.size());
                 return tmp1;
             }
             uint64_t reverse_psum([[maybe_unused]] uint64_t i) const
@@ -298,17 +343,18 @@ namespace stool
                 vec.push_back(0);
                 vec.push_back(0);
 
-                int64_t i = 0;
-                for (uint64_t pointer : this->pointers)
-                {
+
+                int64_t size = this->pointers.size();
+                for(int64_t i = 0; i < size; i++){
+                    uint64_t pointer = this->pointers[i];                    
                     if (pointer == pointer_to_linked_container)
                     {
                         uint64_t idx = this->keys[i] / 64;
-                        uint64_t geta = 64 * idx;
+                        uint64_t geta = idx * 64;
 
                         vec[idx] = vec[idx] | (1LL << (63 - (this->keys[i] - geta)));
                     }
-                    i++;
+
                 }
 
                 for (uint64_t i = 0; i < vec.size(); i++)
@@ -338,17 +384,21 @@ namespace stool
                 container.pointers.set_value(idx, leaf_index_of_this_container);
                 container.keys[idx] = new_key;
                 this->keys[ith] = new_key;
+
+                assert(this->keys.size() == this->pointers.size());
             }
             void set_value(uint64_t ith, const PermutationItem &&item)
             {
                 assert(ith < this->size());
                 this->keys[ith] = item.key;
                 this->pointers.set_value(ith, item.pointer);
+
+                assert(this->keys.size() == this->pointers.size());
             }
 
             static uint64_t get_byte_size(const PermutationContainer &item)
             {
-                return SimpleDeque16<uint8_t>::get_byte_size(item.keys) + VLCDeque::get_byte_size(item.pointers);
+                return SimpleDeque16<uint8_t>::get_byte_size(item.keys) + NaiveFLCVector<false>::get_byte_size(item.pointers);
             }
 
             static uint64_t get_byte_size(const std::vector<PermutationContainer> &items)
@@ -364,12 +414,12 @@ namespace stool
             static void save(const PermutationContainer &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 SimpleDeque16<uint8_t>::save(item.keys, output, pos);
-                VLCDeque::save(item.pointers, output, pos);
+                NaiveFLCVector<false>::save(item.pointers, output, pos);
             }
             static void save(const PermutationContainer &item, std::ofstream &os)
             {
                 SimpleDeque16<uint8_t>::save(item.keys, os);
-                VLCDeque::save(item.pointers, os);
+                NaiveFLCVector<false>::save(item.pointers, os);
             }
 
             static void save(const std::vector<PermutationContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
@@ -397,7 +447,7 @@ namespace stool
             {
                 PermutationContainer r;
                 SimpleDeque16<uint8_t> tmp1 = SimpleDeque16<uint8_t>::load(data, pos);
-                VLCDeque tmp2 = VLCDeque::load(data, pos);
+                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load(data, pos);
                 r.keys.swap(tmp1);
                 r.pointers.swap(tmp2);
 
@@ -407,7 +457,7 @@ namespace stool
             {
                 PermutationContainer r;
                 SimpleDeque16<uint8_t> tmp1 = SimpleDeque16<uint8_t>::load(ifs);
-                VLCDeque tmp2 = VLCDeque::load(ifs);
+                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load(ifs);
                 r.keys.swap(tmp1);
                 r.pointers.swap(tmp2);
 

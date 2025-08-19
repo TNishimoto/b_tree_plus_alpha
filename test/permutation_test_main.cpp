@@ -33,6 +33,59 @@ int main(int argc, char *argv[])
 
     uint64_t num = 16;
     uint64_t seed = 0;
+
+    /*
+
+    std::cout << "random_insert_test: " << std::flush;
+    for (uint64_t num = 16; num < 10000; num *= 2)
+    {
+        std::cout << "+" << std::flush;
+        
+        for (uint64_t x = 0; x < 10; x++)
+        {
+            stool::bptree::DynamicPermutation dp;
+            stool::NaivePermutation npom;
+            stool::PermutationTest::random_insert_test(dp, npom, num, seed++);
+            stool::PermutationTest::random_remove_test(dp, npom, seed++);
+        }
+    }
+    std::cout << "[DONE]" << std::endl;
+
+
+    std::cout << "random_build_test: " << std::flush;
+    for (uint64_t num = 16; num < 10000; num *= 2)
+    {
+        std::cout << "+" << std::flush;
+        
+        for (uint64_t x = 0; x < 10; x++)
+        {
+            stool::bptree::DynamicPermutation dp;
+            stool::PermutationTest::random_build_test(dp, num, seed++);    
+        }
+    }
+    std::cout << "[DONE]" << std::endl;
+    */
+
+    std::cout << "random_insert_and_remove_test: " << std::flush;
+    for (uint64_t num = 16; num < 10000; num *= 2)
+    {
+        std::cout << "+" << std::flush;
+        
+        for (uint64_t x = 0; x < 10; x++)
+        {
+            stool::bptree::DynamicPermutation dp;
+            stool::NaivePermutation npom;            
+            stool::PermutationTest::random_insert_and_remove_test(dp, npom, num, seed++);
+
+        }
+    }
+
+
+    throw std::runtime_error("test");
+
+    /*
+
+
     for (uint64_t i = 0; i < 10; i++)
     {
         uint64_t degree = 4;
@@ -51,7 +104,8 @@ int main(int argc, char *argv[])
                 stool::NaivePermutation npom;
                 
                 //dp.set_degree(degree);
-                
+
+                std::cout << "_" << std::flush;
                 stool::PermutationTest::random_build_test(dp, num, seed++);
                 std::cout << "A" << std::flush;
                 dp.clear();
@@ -87,4 +141,6 @@ int main(int argc, char *argv[])
 
         num *= 4;
     }
+            */
+
 }

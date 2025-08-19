@@ -52,12 +52,21 @@ namespace stool
             uint64_t pi_index = get_rand_uni_int(mt64);
             uint64_t rev_pi_index = get_rand_uni_int(mt64);
 
+            //pom.print();
+            //std::cout << "pi_index: " << pi_index << " rev_pi_index: " << rev_pi_index << std::endl;
+
             npom.insert(pi_index, rev_pi_index);
             pom.insert(pi_index, rev_pi_index);
 
             if (verification)
             {
-                PermutationTest::equal_check(npom, pom);
+                try{
+                    PermutationTest::equal_check(npom, pom);
+                }
+                catch(std::logic_error &e){
+                    pom.print();
+                    throw e;
+                }
             }
 
             // stool::EqualChecker::equal_check(pom_value_vector, npom.value_list);
@@ -88,7 +97,19 @@ namespace stool
             dp.build(permutation.begin(), permutation.end(), permutation.size(), stool::Message::NO_MESSAGE);
             std::vector<uint64_t> result = dp.get_pi_vector();
 
-            stool::EqualChecker::equal_check(permutation, result);
+            try{
+                stool::EqualChecker::equal_check(permutation, result);
+            }
+            catch(std::logic_error &e){
+                std::cout << std::endl;
+                stool::DebugPrinter::print_integers(permutation, "permutation");
+                stool::DebugPrinter::print_integers(result, "test_permutation");
+                dp.print();
+
+                std::cout << "Error: " << e.what() << std::endl;
+                throw e;
+            }
+
         }
         static void random_insert_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t num, uint64_t seed)
         {
@@ -109,7 +130,13 @@ namespace stool
 
             // dp.print();
 
-            PermutationTest::equal_check(npom, dp);
+            try{
+                PermutationTest::equal_check(npom, dp);
+            }catch(std::logic_error &e){
+                dp.print();
+                throw e;
+            }
+
         }
         static void random_remove_test(bptree::DynamicPermutation &dp, stool::NaivePermutation &npom, uint64_t seed)
         {

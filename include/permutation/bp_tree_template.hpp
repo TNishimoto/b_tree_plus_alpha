@@ -4,7 +4,8 @@
 
 namespace stool
 {
-    using ___PermutationTree = bptree::BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+
+    using ___PermutationTree = bptree::BPTree<bptree::PermutationContainer, bptree::PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::PermutationContainer::___PermutationLeafSize>;
     using ___PermutationNode = ___PermutationTree::Node;
 
     template <>

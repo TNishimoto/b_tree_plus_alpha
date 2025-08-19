@@ -152,7 +152,8 @@ namespace stool
                         {
 
                             uint64_t xbits_size = std::min((uint64_t)this->container_iterator.get_size() - this->container_iterator.index, 64ULL);
-                            uint64_t xbits = (this->container_iterator.read_64bit_MSB_string() >> (64 - xbits_size)) << (64 - xbits_size);
+
+                            uint64_t xbits = (this->container_iterator.read_64bits_string() >> (64 - xbits_size)) << (64 - xbits_size);
                             assert(xbits_size >=1);
 
                             assert(xbits_size <= 64);
@@ -179,6 +180,7 @@ namespace stool
                         {
 
                             ++this->_lf_iterator;
+
                             this->container_iterator_end_flag = false;
                             if (!this->_lf_iterator.is_end())
                             {

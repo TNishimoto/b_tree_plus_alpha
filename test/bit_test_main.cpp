@@ -18,11 +18,11 @@ void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int trial_num, int messa
 
     if constexpr (std::is_same<DBV, stool::bptree::SimpleDynamicBitSequence>::value || std::is_same<DBV, stool::bptree::DynamicBitDequeSequence>::value) {
         stool::BitSequenceTest::build_test(dbv, insert_num, seed++, message_paragraph+1);
+        stool::BitSequenceTest::test_iterator(dbv, message_paragraph+1);    
 
         stool::BitSequenceTest::load_write_test(dbv, message_paragraph+1);
         stool::BitSequenceTest::load_write_test2(dbv, message_paragraph+1);
         
-        stool::BitSequenceTest::test_iterator(dbv, message_paragraph+1);    
     }
 
 

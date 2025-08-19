@@ -231,15 +231,16 @@ namespace stool
         {
             if (message_paragraph != stool::Message::NO_MESSAGE)
             {
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "insert_and_delete_test" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "insert_and_delete_test: " << std::flush;
             }
             std::mt19937_64 mt64(seed);
             uint64_t checksum = 0;
 
-            std::cout << spsi.to_string() << std::endl;
+            //std::cout << spsi.to_string() << std::endl;
 
             std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
 
+            
             while (spsi.size() < (size_t)num)
             {
                 uint64_t pos = get_rand_uni_int(mt64) % (spsi.size() + 1);
@@ -249,6 +250,10 @@ namespace stool
                 spsi.insert(pos, value);
 
                 spsi.verify();
+
+                if(spsi.size() % 1000 == 0){
+                    std::cout << "+" << std::flush;
+                }
 
                 checksum += value;
 
@@ -260,6 +265,9 @@ namespace stool
 
             while (spsi.size() > 0)
             {
+                if(spsi.size() % 1000 == 0){
+                    std::cout << "-" << std::flush;
+                }
 
                 uint64_t pos = get_rand_uni_int(mt64) % spsi.size();
 
@@ -281,6 +289,7 @@ namespace stool
                     throw std::runtime_error("insert_and_delete_test(2)::Error, checksum error, " + std::to_string(checksum) + "/" + std::to_string(spsi.psum()));
                 }
             }
+            std::cout << "[DONE]" << std::endl;
         }
 
         template <typename BIT_SEQUENCE>

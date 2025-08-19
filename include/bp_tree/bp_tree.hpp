@@ -630,10 +630,12 @@ namespace stool
                             assert(idx != -1);
 
                             const auto &deq = parent->get_value_count_deque();
-                            uint64_t sum = deq.psum(idx);
+                            if(idx > 0){
+                                uint64_t sum = deq.psum(idx-1);
+                                dist += sum;
+                            }
                             //uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
 
-                            dist += sum;
                             node = parent;
                             parent = node->get_parent();
                         }
@@ -853,6 +855,20 @@ namespace stool
                     }
                     // id++;
                 }
+            }
+            void print_internal_nodes() const{
+                std::cout << "INTERNAL NODES: " << std::endl;
+                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                {
+                    NodePointer pt = *it;
+                    if (!pt.is_leaf())
+                    {
+                        Node *node = (Node *)pt.get_node();
+                        std::cout << " " << node->to_string() << std::endl;
+                    }
+                    // id++;
+                }
+
             }
 
             /**

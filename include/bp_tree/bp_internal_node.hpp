@@ -47,7 +47,7 @@ namespace stool
             ///   Initializers
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            void initialize(const std::vector<InternalNode *> _children, bool _is_parent_of_leaves, const std::vector<LEAF_CONTAINER> &_leaf_container_vec)
+            void initialize(const std::vector<InternalNode *> &_children, bool _is_parent_of_leaves, const std::vector<LEAF_CONTAINER> &_leaf_container_vec)
             {
                 this->is_parent_of_leaves_ = _is_parent_of_leaves;
                 this->children_.clear();
@@ -347,6 +347,19 @@ namespace stool
                 this->children_.erase(this->children_.begin() + pos);
                 this->children_value_count_deque_.erase(pos);
                 this->children_value_sum_deque_.erase(pos);
+            }
+
+            std::string to_string() const{
+                std::string s;
+                #if DEBUG
+                s += "InternalNode ID: " + std::to_string(this->id);
+                #else
+                s += "InternalNode ID: " + std::to_string((uint64_t)this);
+                #endif
+                s += ", is_parent_of_leaves: " + std::to_string(this->is_parent_of_leaves());
+                s += ", count: " + std::to_string(this->get_value_count());
+                s += ", sum: " + std::to_string(this->get_value_sum());
+                return s;
             }
 
             //@}

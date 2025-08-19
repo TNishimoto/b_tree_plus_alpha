@@ -528,9 +528,28 @@ namespace stool
 
                 auto _end = this->get_leaf_forward_iterator_end();
 
+                BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin();
+                while(!it.is_end()){
+                    uint64_t bits = *it;
+                    uint64_t i = 0;
 
+                    while (i < 64 && counter < _size)
+                    {
+                        bool b = stool::MSBByte::get_bit(bits, i);
+                        r[counter] = b;
+
+                        
+                        counter++;
+                        i++;
+                    }
+                    ++it;
+
+                }
+
+                /*
                 for (BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin(); it != _end; ++it)
                 {
+                    
                     uint64_t bits = *it;
                     uint64_t i = 0;
 
@@ -545,6 +564,7 @@ namespace stool
                         i++;
                     }
                 }
+                */
                 assert(counter == _size);
                 return r;
             }

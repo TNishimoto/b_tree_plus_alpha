@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
     // p.add<std::string>("input_file", 'i', "input file name", true);
     p.add<std::string>("index_name", 'x', "index_name", true);
     p.add<uint64_t>("item_num", 'n', "item_num", false, 1000000);
-    p.add<uint64_t>("query_num", 'q', "query_num", false, 100000);
+    p.add<uint64_t>("query_num", 'q', "query_num", false, 1000000);
     p.add<uint64_t>("alphabet_size", 'a', "alphabet_size", false, 16);
     p.add<uint64_t>("seed", 's', "seed", false, 0);
 

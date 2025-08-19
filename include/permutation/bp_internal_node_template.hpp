@@ -294,6 +294,21 @@ namespace stool
                 this->children_.push_back(child);
                 this->children_value_count_deque_.push_back(child_count);
             }
+            std::string to_string() const{
+                std::string s;
+                #if DEBUG
+                s += "InternalNode ID: " + std::to_string(this->id);
+                #else
+                s += "InternalNode ID: " + std::to_string((uint64_t)this);
+                #endif
+                s += ", is_parent_of_leaves: " + std::to_string(this->is_parent_of_leaves());
+                s += ", count: " + std::to_string(this->get_value_count());
+
+                s += ", Count Array: "; 
+                s += this->children_value_count_deque_.to_string();
+
+                return s;
+            }
 
             //@}
         };
