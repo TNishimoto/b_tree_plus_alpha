@@ -6,7 +6,25 @@
 #include <chrono>
 #include "stool/include/light_stool.hpp"
 #include "../../include/b_tree_plus_alpha.hpp"
-#include "../../test/include/permutation_test.hpp"
+//#include "../../test/include/permutation_test.hpp"
+
+std::vector<uint64_t> create_random_permutation(uint64_t num, std::mt19937_64 &mt64)
+        {
+            std::vector<uint64_t> r;
+            for (uint64_t i = 0; i < num; i++)
+            {
+                r.push_back(i);
+            }
+            std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, num - 1);
+
+            for (uint64_t i = 0; i < num; i++)
+            {
+                uint64_t pos1 = get_rand_uni_int(mt64);
+                uint64_t pos2 = get_rand_uni_int(mt64);
+                std::swap(r[pos1], r[pos2]);
+            }
+            return r;
+        }
 
 void bptree_permutation_test(stool::bptree::DynamicPermutation &dynamic_permutation, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
@@ -18,7 +36,7 @@ void bptree_permutation_test(stool::bptree::DynamicPermutation &dynamic_permutat
 
     std::chrono::system_clock::time_point st1, st2;
 
-    std::vector<uint64_t> permutation = stool::PermutationTest::create_random_permutation(item_num, mt64);
+    std::vector<uint64_t> permutation = create_random_permutation(item_num, mt64);
 
     std::cout << "Construction..." << std::endl;
     st1 = std::chrono::system_clock::now();
@@ -104,12 +122,14 @@ void bptree_permutation_test(stool::bptree::DynamicPermutation &dynamic_permutat
     std::cout << "Insertion Time \t\t : " << (time_insertion / (1000 * 1000)) << "[ms] (Avg: " << (time_insertion / query_num) << "[ns])" << std::endl;
     std::cout << "Deletion Time \t\t : " << (time_deletion / (1000 * 1000)) << "[ms] (Avg: " << (time_deletion / query_num) << "[ns])" << std::endl;
 
+    /*
     std::cout << "== B-trees information in Dynamic Permutation (pi-tree) == " << std::endl;   
     std::cout << "Density of the B-tree when the build is complete: " << density_for_pi_tree_when_build_is_complete << std::endl;
     dynamic_permutation.get_pi_tree().print_information_about_performance(1);
     std::cout << "== B-trees information in Dynamic Permutation (inverse pi-tree) == " << std::endl;   
     std::cout << "Density of the B-tree when the build is complete: " << density_for_inverse_pi_tree_when_build_is_complete << std::endl;
     dynamic_permutation.get_inverse_pi_tree().print_information_about_performance(1);
+    */
 
     stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;

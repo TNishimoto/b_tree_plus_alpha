@@ -6,7 +6,6 @@
 #include <chrono>
 #include "stool/include/light_stool.hpp"
 #include "include/spsi_test.hpp"
-#include "include/permutation_test.hpp"
 
 int main(int argc, char *argv[])
 {
