@@ -2290,7 +2290,7 @@ namespace stool
                             assert(this->leaf_container_vec[left_leaf].psum() == parent->get_value_sum_deque().at(parent_edge_index_of_left_node));
                             int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
 
-                            assert(sum <= this->leaf_container_vec[left_leaf].psum());
+                            assert(sum <= (int64_t)this->leaf_container_vec[left_leaf].psum());
 
                             //assert(parent->get_value_sum_deque().at(parent_edge_index_of_left_node) >= sum);
     
