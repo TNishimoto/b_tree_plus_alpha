@@ -403,10 +403,10 @@ namespace stool
             ///   The functions for building and writing this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            static DynamicPrefixSum build(const std::vector<uint64_t> &items, uint64_t tree_degree = Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE)
+            static DynamicPrefixSum build(const std::vector<uint64_t> &items)
             {
                 DynamicPrefixSum r;
-                r.tree.initialize(tree_degree, tree_degree);
+                r.tree.initialize();
                 r.tree.build(items);
                 assert(r.size() == items.size());
                 return r;
