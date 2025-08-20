@@ -30,8 +30,8 @@ INCLUDE_DIRECTORIES(../modules)
 add_executable(permutation_test.out permutation_test_main.cpp)
 target_link_libraries(permutation_test.out)
 
-add_executable(spsi_test.out spsi_test_main.cpp)
-target_link_libraries(spsi_test.out)
+add_executable(prefix_sum_test.out prefix_sum_test_main.cpp)
+target_link_libraries(prefix_sum_test.out)
 
 add_executable(bit_test.out bit_test_main.cpp)
 target_link_libraries(bit_test.out)

@@ -31,6 +31,11 @@ namespace stool
             {
                 this->tree.initialize();
             }
+            DynamicPrefixSum(const std::vector<uint64_t> &items){
+                this->tree.initialize();
+                this->tree.build(items);
+                assert(this->size() == items.size());
+            }
             DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
             DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
             DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
@@ -294,6 +299,14 @@ namespace stool
             {
                 this->tree.push_front(value);
             }
+            void pop_back()
+            {
+                this->tree.remove(this->size() - 1);
+            }
+            void pop_front()
+            {
+                this->tree.remove(0);
+            }
 
             void insert(uint64_t pos, uint64_t value)
             {
@@ -316,6 +329,16 @@ namespace stool
             {
                 this->tree.push_many(items);
             }
+            void set_value(uint64_t i, uint64_t value){
+                uint64_t old_value = this->at(i);
+                if(old_value > value){
+                    this->decrement(i, old_value - value);
+                }
+                else if(old_value < value){
+                    this->increment(i, value - old_value);
+                }
+            }
+
             /*
             void set_degree(uint64_t degree)
             {
