@@ -6,8 +6,8 @@ int main(int argc, char *argv[])
 
     std::vector<uint64_t> values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    std::cout << "Build DynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" << std::endl;
-    stool::bptree::DynamicPrefixSum<> S = stool::bptree::DynamicPrefixSum<>::build(values);
+    std::cout << "Build SimpleDynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" << std::endl;
+    stool::bptree::SimpleDynamicPrefixSum S = stool::bptree::SimpleDynamicPrefixSum::build(values);
 
     std::cout << "Print the values stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::DynamicPrefixSum<>::save(S, ofs);
+        stool::bptree::SimpleDynamicPrefixSum::save(S, ofs);
         ofs.close();
     }
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::DynamicPrefixSum<> tmp = stool::bptree::DynamicPrefixSum<>::build_from_data(ifs);
+        stool::bptree::SimpleDynamicPrefixSum tmp = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }

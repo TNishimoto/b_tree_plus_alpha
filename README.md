@@ -49,7 +49,7 @@ This class is implemented based on the technique described in Section 2.2 of [th
 |                  | S.at(i)           | O(log n) time           | Return S[i]                                               |
 
 Here, S is a non-negative integer sequence stored in DynamicPrefixSum; n is the number of values in S; M is the sum of the values in S.  
-See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1prefix__sum_1_1_s_p_s_i.html) for the member functions supported by DynamicPrefixSum.
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1bptree_1_1DynamicPrefixSum.html) for the member functions supported by DynamicPrefixSum.
 
 #### Example
 
@@ -110,7 +110,7 @@ When this example is executed, the following message is displayed:
 |                  | select0(i)        | O(log n) time           | Return the position of the (i+1)-th 0 in S                |
 
 Here, S is a bit sequence stored in DynamicBitSequence; n is the number of values in S.  
-See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_bit_sequence.html) for the member functions supported by DynamicBitSequence.
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1bptree_1_1DynamicBitSequence.html) for the member functions supported by DynamicBitSequence.
 
 #### Example
 
@@ -164,7 +164,7 @@ When this example is executed, the following message is displayed:
 | Query            | S.at(i)           | O(log n) time           | Return S[i]                                           |
 
 Here, S is a non-negative integer sequence stored in DynamicSequence64; n is the number of values in S; M is the sum of the values in S.  
-See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_sequence64.html) for the member functions supported by DynamicSequence64.
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1bptree_1_1DynamicSequence64.html) for the member functions supported by DynamicSequence64.
 
 #### Example
 
@@ -212,7 +212,7 @@ When this example is executed, the following message is displayed:
 |                  | S.select(i, c)    | O(log σ log n) time           | Return the position of the (i+1)-th c in S                    |
 
 Here, S is a string stored in DynamicWaveletTree; n is the length of S; σ is the the alphabet size of S.  
-See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1sequence_1_1_dynamic_wavelet_tree.html) for the member functions supported by DynamicWaveletTree.
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/html/classstool_1_1bptree_1_1DynamicWaveletTree.html) for the member functions supported by DynamicWaveletTree.
 
 #### Example
 
@@ -261,7 +261,7 @@ When this example is executed, the following message is displayed:
 |                  | S.inverse(i)          | O(log n) time           | Return the index j that satisfies S[j] = i           |
 
 Here, S is a permutation of n integers 0, 1, ..., n-1 stored in DynamicPermutation.  
-See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/dynamic_permutation.hpp) for the member functions supported by DynamicPermutation.
+See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/classstool_1_1bptree_1_1DynamicPermutation.html) for the member functions supported by DynamicPermutation.
 
 #### Example
 

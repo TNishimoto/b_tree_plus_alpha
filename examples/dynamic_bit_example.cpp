@@ -6,8 +6,8 @@ int main(int argc, char *argv[])
 
     std::vector<bool> values = {1, 0, 1, 0, 1, 0, 1, 0, 1, 1};
 
-    std::cout << "Build DynamicBitSequence S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]" << std::endl;
-    stool::bptree::DynamicBitSequence S = stool::bptree::DynamicBitSequence::build(values);
+    std::cout << "Build SimpleDynamicBitSequence S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]" << std::endl;
+    stool::bptree::SimpleDynamicBitSequence S = stool::bptree::SimpleDynamicBitSequence::build(values);
     std::cout << "Print the bits stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::DynamicBitSequence::save(S, ofs);
+        stool::bptree::SimpleDynamicBitSequence::save(S, ofs);
         ofs.close();
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::DynamicBitSequence tmp = stool::bptree::DynamicBitSequence::build_from_data(ifs);
+        stool::bptree::SimpleDynamicBitSequence tmp = stool::bptree::SimpleDynamicBitSequence::build_from_data(ifs);
         ifs.close();
         S.swap(tmp);
     }
