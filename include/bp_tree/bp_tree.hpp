@@ -716,12 +716,8 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-            /**
-             * @brief Verifies the integrity of the B+ tree
-             * @return true if the tree is valid, false otherwise
-             */
-            bool verify() const
-            {
+
+            bool verify_sub() const {
                 bool b = true;
                 uint64_t p = 0;
                 for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
@@ -757,6 +753,48 @@ namespace stool
                     throw std::logic_error("Error(BPTree::verify)");
                 }
                 return b;
+            }
+            void verify_sum_deque(Node *node) const {
+                 if(node->is_parent_of_leaves()){
+                    uint64_t true_sum = 0;
+                    auto &children = node->get_children();
+                    for(uint64_t i = 0; i < children.size(); i++){
+                        uint64_t id = (uint64_t)children[i];
+                        true_sum += this->leaf_container_vec[id].psum();
+                    }
+                    if(true_sum != node->get_value_sum()){
+                        throw std::runtime_error("Error: verify_sum_deque");
+                    }
+                 }else{
+                    uint64_t true_sum = 0;
+                    auto &children = node->get_children();
+                    for(uint64_t i = 0; i < children.size(); i++){
+                        Node *child = children[i];
+                        this->verify_sum_deque(child);
+                        true_sum += child->get_value_sum();
+                    }
+
+                    if(true_sum != node->get_value_sum()){
+                        throw std::runtime_error("Error: verify_sum_deque");
+                    }
+
+                }
+
+            }
+            /**
+             * @brief Verifies the integrity of the B+ tree
+             * @return true if the tree is valid, false otherwise
+             */
+            bool verify() const
+            {
+                bool b1 = this->verify_sub();
+                if(USE_PSUM){
+                    if(!this->root_is_leaf_ && this->size() > 0){
+                        this->verify_sum_deque(this->root);
+                    }
+    
+                }
+                return b1;
             }
 
             /**
@@ -2246,14 +2284,25 @@ namespace stool
                     assert(left_leaf < this->leaf_container_vec.size());
                     assert(right_leaf < this->leaf_container_vec.size());
 
-                    if (USE_PSUM && parent != nullptr)
-                    {
-                        int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
+                    if constexpr (USE_PSUM){
+                        if (parent != nullptr)
+                        {
+                            assert(this->leaf_container_vec[left_leaf].psum() == parent->get_value_sum_deque().at(parent_edge_index_of_left_node));
+                            int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
 
+                            assert(sum <= this->leaf_container_vec[left_leaf].psum());
 
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
+                            //assert(parent->get_value_sum_deque().at(parent_edge_index_of_left_node) >= sum);
+    
+                            
+    
+    
+                            parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
+                            parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
+                        }
+    
                     }
+
 
                     if (parent != nullptr)
                     {

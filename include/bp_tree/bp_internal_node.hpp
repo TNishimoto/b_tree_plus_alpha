@@ -205,7 +205,10 @@ namespace stool
             void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value){                
                 #if DEBUG
                 if(value < 0){
-                    assert((int64_t)this->children_value_sum_deque_.at(pos) >=  -value);
+                    if(this->children_value_sum_deque_.at(pos) < -value){
+                        std::cout << "pos: " << pos << ", value: " << value << ", sum: " << this->children_value_sum_deque_.at(pos) << std::endl;
+                        throw std::runtime_error("Error: __increment_a_value_of_sum_deque");
+                    }
                 }
                 #endif
 
