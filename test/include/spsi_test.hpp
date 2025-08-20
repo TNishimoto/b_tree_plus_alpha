@@ -26,8 +26,8 @@ namespace stool
             return r;
         }
 
-        template <typename T>
-        static uint64_t random_build(DynamicPrefixSum<T> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
+        template <typename A, uint64_t B, uint64_t C>
+        static uint64_t random_build(DynamicPrefixSum<A, B, C> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
             //spsi.set_degree(degree);
@@ -50,11 +50,17 @@ namespace stool
                     throw std::runtime_error("insert_and_delete_test::Error");
                 }
             }
+
+            uint64_t checksum2 = 0;
+            for(auto it : spsi){
+                checksum2 += it;
+            }
+            assert(checksum == checksum2);
             return checksum;
         }
 
-        template <typename T>
-        static uint64_t random_remove(DynamicPrefixSum<T> &spsi, int64_t seed)
+        template <typename A, uint64_t B, uint64_t C>
+        static uint64_t random_remove(DynamicPrefixSum<A, B, C> &spsi, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
             uint64_t checksum = 0;
@@ -72,21 +78,21 @@ namespace stool
             return checksum;
         }
 
-        template <typename T>
-        static void load_write_bits_test(stool::bptree::DynamicPrefixSum<T> &spsi)
+        template <typename A, uint64_t B, uint64_t C>
+        static void load_write_bits_test(stool::bptree::DynamicPrefixSum<A, B, C> &spsi)
         {
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
 
             std::cout << "save" << std::endl;
-            stool::bptree::DynamicPrefixSum<T>::save(spsi, bytes, pos);
+            stool::bptree::DynamicPrefixSum<A, B, C>::save(spsi, bytes, pos);
 
 
             pos = 0;
             std::cout << "load" << std::endl;
 
-            stool::bptree::DynamicPrefixSum<T> spsi2 = stool::bptree::DynamicPrefixSum<T>::build_from_data(bytes, pos);
+            stool::bptree::DynamicPrefixSum<A, B, C> spsi2 = stool::bptree::DynamicPrefixSum<A, B, C>::build_from_data(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -105,8 +111,8 @@ namespace stool
                 }
             }
         }
-        template <typename T>
-static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
+        template <typename A, uint64_t B, uint64_t C>
+static void load_write_file_test(stool::bptree::DynamicPrefixSum<A, B, C> &spsi)
         {
             {
                 std::ofstream os;
@@ -118,12 +124,12 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
                 }
 
                 std::cout << "save" << std::endl;
-                stool::bptree::DynamicPrefixSum<T>::save(spsi, os);
+                stool::bptree::DynamicPrefixSum<A, B, C>::save(spsi, os);
             }
 
 
 
-            stool::bptree::DynamicPrefixSum<T> spsi2;
+            stool::bptree::DynamicPrefixSum<A, B, C> spsi2;
 
             {
                 std::ifstream ifs;
@@ -134,7 +140,7 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<T> &spsi)
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = stool::bptree::DynamicPrefixSum<T>::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicPrefixSum<A, B, C>::build_from_data(ifs);
                 spsi2.swap(tmp);
             }
             std::remove("spsi_text.bits");
