@@ -3025,7 +3025,13 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of unused nodes: " << this->unused_node_pointers.size() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of unused leaf containers: " << this->unused_leaf_container_indexes.size() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of stored parent pointers: " << this->parent_vec.size() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Estimated memory usage: " << this->size_in_bytes() << " bytes" << std::endl;
+
+                uint64_t total_memory_usage = this->size_in_bytes();
+                uint64_t num = this->size();
+                if(USE_PARENT_FIELD){
+                    total_memory_usage += this->parent_vec.size() * sizeof(Node *);
+                }
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Estimated memory usage: " << total_memory_usage << " bytes (Avg: " << (total_memory_usage / num) << " bytes)" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
         };

@@ -18,7 +18,7 @@ namespace stool
             stool::NaiveFLCVector<false> pointers;
 
         public:
-            static constexpr uint64_t ___PermutationLeafSize = 255;
+            static constexpr uint64_t ___PermutationLeafSize = 252;
             using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, ___PermutationLeafSize>;
 
         ////////////////////////////////////////////////////////////////////////////////
