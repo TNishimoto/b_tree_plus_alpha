@@ -1,0 +1,11 @@
+<map id="stool::bptree::DynamicBitSequence::set_degree" name="stool::bptree::DynamicBitSequence::set_degree">
+<area shape="rect" id="Node000001" title="Sets the degree of the tree." alt="" coords="5,5,193,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a23b34a5e692554e9eda03fb34364bc0a" title="Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes." alt="" coords="241,5,397,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,23,228,23,228,28,193,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ad14e498fa339b75279dc84b1b80d35bf" title="Clears all contents of the B+ tree and resets it to an empty state." alt="" coords="445,5,601,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,23,432,23,432,28,397,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="649,5,805,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="601,23,636,23,636,28,601,28"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="853,5,1009,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="805,23,840,23,840,28,805,28"/>
+</map>

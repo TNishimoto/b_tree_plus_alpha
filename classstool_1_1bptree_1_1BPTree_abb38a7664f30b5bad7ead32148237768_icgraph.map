@@ -1,0 +1,11 @@
+<map id="stool::bptree::BPTree::save" name="stool::bptree::BPTree::save">
+<area shape="rect" id="Node000001" title="Saves the B+ tree structure to a byte vector." alt="" coords="303,101,459,141"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a48c10bbef048ea73d23932f129e8c368" title="Saves the bit sequence to a file." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,97,254,60,218,48,220,43,256,55,334,92"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a80c996c5808bcee9b9dfc84820a7916b" title="Saves the bit sequence to a vector." alt="" coords="36,69,224,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,112,224,104,225,99,289,107"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ab6aa78a92d92a86c4c23870831cf3389" title="Saves the sequence to a file." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,136,255,140,254,135,289,130"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a0537204011df46bd49cf8a25647cc464" title="Saves the sequence to a vector of bytes." alt="" coords="5,197,255,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="334,151,256,188,220,200,218,195,254,183,332,146"/>
+</map>

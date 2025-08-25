@@ -1,0 +1,11 @@
+<map id="stool::bptree::BPTree::initialize" name="stool::bptree::BPTree::initialize">
+<area shape="rect" id="Node000001" title="Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes." alt="" coords="303,101,459,141"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a586a9b49cf9d3ed49ce6012504599e01" title="Builds a bit sequence from a vector of bool." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,97,254,60,218,48,220,43,256,55,334,92"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ac8b3537af276a5b86ea64d54b014e6ae" title="Builds a new sequence from a vector of items." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,112,254,108,255,103,289,107"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a16898ae890aec9c48f8ec41f498a50a8" title="Default constructor initializes the tree with a default degree." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,136,255,140,254,135,289,130"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#adb8fced3937225765312a0ef6aec224f" title="Sets the degree of the tree." alt="" coords="36,197,224,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="334,151,256,188,220,200,218,195,254,183,332,146"/>
+</map>

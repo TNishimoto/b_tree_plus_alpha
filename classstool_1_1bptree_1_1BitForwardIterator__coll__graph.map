@@ -1,0 +1,7 @@
+<map id="stool::bptree::BitForwardIterator&lt; CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE &gt;" name="stool::bptree::BitForwardIterator&lt; CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE &gt;">
+<area shape="rect" id="Node000001" title="A forward iterator for traversing the bits stored in a BP&#45;tree." alt="" coords="339,45,584,114"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPLeafForwardIterator.html" title="A forward iterator for traversing the leaves of a BP&#45;tree." alt="" coords="5,5,215,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,46,339,60,338,66,228,51"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html" title="An implementation of B+&#45;tree." alt="" coords="7,84,213,168"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,108,338,93,339,98,227,113"/>
+</map>

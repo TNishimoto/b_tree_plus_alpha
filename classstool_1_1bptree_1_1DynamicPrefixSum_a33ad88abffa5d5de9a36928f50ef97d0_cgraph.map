@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicPrefixSum::to_vector" name="stool::bptree::DynamicPrefixSum::to_vector">
+<area shape="rect" id="Node000001" title="Return the elements stored in this data structure as a vector." alt="" coords="5,5,212,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a3505a5dbec0f7d03ac054de8dc599e44" title="Converts the B+ tree to a vector of values." alt="" coords="260,5,416,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,23,246,23,246,28,212,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="464,5,620,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,23,450,23,450,28,416,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="668,5,824,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="620,23,654,23,654,28,620,28"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="stool::bptree::BPTree::verify" name="stool::bptree::BPTree::verify">
+<area shape="rect" id="Node000001" title="Verifies the integrity of the B+ tree." alt="" coords="5,29,161,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a4179469d1249bd9088acd8c596389b20" title="Return the number of values stored in this tree." alt="" coords="209,29,365,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,47,196,47,196,52,161,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="249,30,247,20,253,11,267,5,287,3,311,6,324,13,321,18,309,11,287,8,268,10,256,15,252,21,254,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="413,29,569,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="365,47,400,47,400,52,365,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="617,29,773,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="569,47,604,47,604,52,569,52"/>
+</map>

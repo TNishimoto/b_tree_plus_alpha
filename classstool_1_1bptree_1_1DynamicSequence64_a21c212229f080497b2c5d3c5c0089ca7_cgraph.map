@@ -1,0 +1,11 @@
+<map id="stool::bptree::DynamicSequence64::push_front" name="stool::bptree::DynamicSequence64::push_front">
+<area shape="rect" id="Node000001" title="Adds an element to the beginning of the sequence." alt="" coords="5,13,255,53"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#abc7fdd2c9a7e53114d430ecee3b9cc53" title="Inserts a value at the front of the B+ tree." alt="" coords="303,13,459,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,30,289,30,289,35,255,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#acb430734f8751796f76d1a7542ae36ae" title="Returns a vector of NodePointer objects representing the path from the root to the first leaf." alt="" coords="507,5,665,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="459,30,493,30,493,35,459,35"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="713,13,869,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="666,30,700,30,700,35,666,35"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="917,13,1073,53"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="869,30,904,30,904,35,869,35"/>
+</map>

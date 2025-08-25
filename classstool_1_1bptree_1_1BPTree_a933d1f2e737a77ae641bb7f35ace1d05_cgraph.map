@@ -1,0 +1,12 @@
+<map id="stool::bptree::BPTree::push_back" name="stool::bptree::BPTree::push_back">
+<area shape="rect" id="Node000001" title="Pushes a single value to the B+ tree." alt="" coords="5,29,161,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a2620da610f7dcbf4ed58a8053de19b1f" title="Pushes multiple leaf containers into the B+ tree." alt="" coords="209,29,365,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,47,196,47,196,52,161,52"/>
+<area shape="poly" id="edge5_Node000002_Node000002" title=" " alt="" coords="249,30,247,20,253,11,267,5,287,3,311,6,324,13,321,18,309,11,287,8,268,10,256,15,252,21,254,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ad30bdcfae0caf445160bef28659f2423" title="Returns a vector of NodePointer objects representing the path from the root to the last leaf." alt="" coords="413,22,572,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="366,47,399,47,399,52,366,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="620,29,776,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="572,47,606,47,606,52,572,52"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="824,29,980,69"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="776,47,810,47,810,52,776,52"/>
+</map>

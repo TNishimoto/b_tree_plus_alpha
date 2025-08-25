@@ -1,0 +1,12 @@
+<map id="stool::bptree::BPTree::increment" name="stool::bptree::BPTree::increment">
+<area shape="rect" id="Node000001" title="Increments a value at a given position in the B+ tree." alt="" coords="600,69,756,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a8f978db54eea835d377172e2256bcc5d" title="Decrements the value at a specified position by a given delta." alt="" coords="303,5,552,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,69,506,48,507,43,587,64"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a538f602e99c665406a33fb5cbe13a1c1" title="Increments the value at a specified position by a given delta." alt="" coords="303,69,552,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="586,92,552,92,552,87,586,87"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a4ca784c00aa4aa4a53b62695fb25cea6" title="Sets the bit at the specified position." alt="" coords="333,133,521,173"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="587,115,507,136,506,131,586,110"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a594c4841bdaaad8829ea5755a0621c86" title="Sets the value at a specified position in the sequence." alt="" coords="5,37,255,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="289,43,255,47,254,41,289,38"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="289,77,254,73,255,68,289,72"/>
+</map>

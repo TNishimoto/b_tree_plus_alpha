@@ -1,0 +1,28 @@
+<map id="stool::bptree::DynamicBitSequence::build" name="stool::bptree::DynamicBitSequence::build">
+<area shape="rect" id="Node000001" title="Builds a bit sequence from a vector of bool." alt="" coords="5,189,193,229"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a600239ed8f1925e857cb3367e0d2de54" title="Builds a complete B+ tree from a vector of values." alt="" coords="241,157,397,197"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,193,228,188,228,193,194,198"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1BPTree.html#a23b34a5e692554e9eda03fb34364bc0a" title="Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes." alt="" coords="241,221,397,261"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="194,220,228,225,228,231,193,226"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a2fddbbeb0caf2f6fe6de00640853294f" title="Creates the first layer of internal nodes from leaf containers." alt="" coords="445,29,691,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,155,385,116,444,79,461,72,463,77,447,84,389,121,343,159"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#aad80a8917ff9f7f4879507449c13423b" title="Builds a layer of internal nodes from a vector of child nodes." alt="" coords="445,93,691,133"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="397,155,476,134,477,139,398,160"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a9e2c15fc82997a4cfd024096c06b6440" title="Creates leaf containers from a vector of values." alt="" coords="490,157,646,197"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="397,175,476,175,476,180,397,180"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#ad14e498fa339b75279dc84b1b80d35bf" title="Clears all contents of the B+ tree and resets it to an empty state." alt="" coords="490,221,646,261"/>
+<area shape="poly" id="edge12_Node000002_Node000010" title=" " alt="" coords="398,195,477,215,476,220,397,200"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a66ec38a1d641db47cd5197312c5a6573" title="Returns the prefix sum of the B+ tree." alt="" coords="739,29,895,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="691,47,725,47,725,52,691,52"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a4179469d1249bd9088acd8c596389b20" title="Return the number of values stored in this tree." alt="" coords="739,117,895,157"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="654,67,692,79,764,109,762,114,690,84,652,72"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="778,30,776,20,782,11,796,5,817,3,840,6,853,13,851,18,839,11,817,8,797,10,786,15,781,21,784,28"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#abd13ee90f0020618f4b30ec907423ba7" title="Checks if the B+ tree is empty." alt="" coords="943,117,1099,157"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="868,67,896,79,963,109,961,114,894,84,866,72"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ad2017c7f7b97e02edb00ef15d470cfa5" title="Return the height of this tree." alt="" coords="1147,117,1303,157"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1099,135,1133,135,1133,140,1099,140"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="895,135,929,135,929,140,895,140"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="778,118,776,108,782,99,796,93,817,91,840,94,853,101,851,106,839,99,817,96,797,98,786,103,781,109,784,116"/>
+<area shape="poly" id="edge13_Node000010_Node000005" title=" " alt="" coords="646,222,894,167,929,158,930,163,895,172,647,228"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="397,239,476,239,476,244,397,244"/>
+</map>

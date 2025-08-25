@@ -1,0 +1,27 @@
+<map id="stool::bptree::BPTree::push_back" name="stool::bptree::BPTree::push_back">
+<area shape="rect" id="Node000001" title="Pushes a single value to the B+ tree." alt="" coords="605,165,761,205"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af14839ca8e0e7c5c4abf472e10801bd4" title="Returns memory usage information." alt="" coords="303,5,557,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="658,156,614,106,586,81,556,60,531,48,533,43,559,55,590,77,618,102,662,152"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a07f5b9ebab6e1b03de093a4c3423a4d3" title="Returns information about the memory usage of the sequence." alt="" coords="305,69,555,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="635,161,556,124,520,112,522,107,558,119,637,156"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ae3cafc531ed48f805a34cb2ec1132e5e" title="Inserts a value at a specific position in the B+ tree." alt="" coords="352,133,508,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="592,176,508,166,508,160,592,171"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a7ea4e00958c4704c199e3c0aee82bc24" title="Adds a bit to the end of the sequence." alt="" coords="336,197,524,237"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="592,200,525,208,524,203,591,194"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a3c3c9b1eb0837f226c10e31fb4bcc83c" title="Adds an element to the end of the sequence." alt="" coords="305,261,555,301"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="637,215,558,252,522,264,520,259,556,247,635,210"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a6f93ebb2840fd313944f8592ef583640" title="Converts the bit sequence to a string." alt="" coords="336,325,524,365"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="662,218,618,269,590,294,559,316,526,330,523,326,556,311,586,290,614,265,658,215"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a865cc94bab1a8f17a12a0298f50bf00b" title="Prints memory usage information." alt="" coords="15,5,245,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="289,28,245,28,245,23,289,23"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a109e114a902f625e9cdad243df9e7167" title="Prints the memory usage of the sequence." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="291,92,255,92,255,87,291,87"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ae45ff735ffd6de4d845e8f10b6fda50e" title="Inserts a bit at the specified position." alt="" coords="36,133,224,173"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="338,156,224,156,224,151,338,151"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ad7d93dde6644e9d648702f9735354a4b" title="Inserts a value at a specified position in the sequence." alt="" coords="5,197,255,237"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="339,175,225,200,224,195,338,170"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a58553650feb3528db9d4008ec4fe8ea4" title="Prints the bit sequence." alt="" coords="36,293,224,333"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="322,337,224,326,225,321,323,331"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ae336d5039cac7ba94f3f65a6090fbd6a" title="Prints the content of the bit sequence." alt="" coords="36,357,224,397"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="323,359,225,370,224,365,322,354"/>
+</map>
