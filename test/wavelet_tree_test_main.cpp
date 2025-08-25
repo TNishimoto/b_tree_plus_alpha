@@ -5,6 +5,9 @@
 #include <cassert>
 #include <chrono>
 #include "../include/b_tree_plus_alpha.hpp"
+#include "../modules/stool/test/sources/dynamic_string_test.hpp"
+#include "../modules/stool/test/sources/string_test.hpp"
+
 
 void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &dyn_text, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet)
 {
@@ -88,7 +91,6 @@ void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
             stool::EqualChecker::equal_check(test_str, text.text);
         }
     }
-
 }
 
 void save_and_load_test(stool::bptree::DynamicWaveletTree &ds)
@@ -170,6 +172,14 @@ int main(int argc, char *argv[])
         uint64_t seed = 0;
         std::mt19937_64 mt64(seed);
 
+        {
+            stool::bptree::DynamicWaveletTree dwt;
+            stool::StringTest::access_character_test1(dwt, 10000, 1000, seed);
+            stool::DynamicStringTest::insert_character_test(dwt, 10000, seed);
+            stool::DynamicStringTest::remove_character_test(dwt, 10000, seed);
+
+        }
+
         for (uint64_t type = 0; type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); type++)
         {
             uint64_t len = 2;
@@ -195,11 +205,11 @@ int main(int argc, char *argv[])
                 select_test(ds, dyn_text, chars);
                 std::cout << "D" << std::flush;
                 save_and_load_test(ds);
-                std::cout << "E" << std::flush;
-                insert_test(ds, dyn_text, chars, 1000, seed++);
+                //std::cout << "E" << std::flush;
+                //insert_test(ds, dyn_text, chars, 1000, seed++);
                 std::cout << "F" << std::flush;
-                remove_test(ds, dyn_text, seed++);
-                std::cout << "G" << std::flush;
+                //remove_test(ds, dyn_text, seed++);
+                //std::cout << "G" << std::flush;
                 len *= 4;
                 seed++;
             }
