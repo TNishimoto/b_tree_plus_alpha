@@ -36,6 +36,7 @@ namespace stool
             DynamicWaveletTree &operator=(DynamicWaveletTree &&) noexcept = default;
 
         private:
+
             void build_bits(const std::vector<uint8_t> &_text, uint64_t h, uint64_t i)
             {
                 uint64_t bit_idx = this->rank_bit_size - h - 1;
@@ -100,7 +101,11 @@ namespace stool
             }
 
         public:
-            static DynamicWaveletTree build(const std::vector<uint8_t> &_text, const std::vector<uint8_t> &_alphabet)
+        void build_from_text(const std::vector<uint8_t> &_text, const std::vector<uint8_t> &_alphabet){
+            DynamicWaveletTree dwt = DynamicWaveletTree::build(_text, _alphabet);
+            this->swap(dwt);
+        }
+        static DynamicWaveletTree build(const std::vector<uint8_t> &_text, const std::vector<uint8_t> &_alphabet)
             {
                 DynamicWaveletTree dwt(_alphabet);
                 dwt.build_bits(_text, 0, 0);

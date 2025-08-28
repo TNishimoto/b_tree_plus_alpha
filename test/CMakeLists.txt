@@ -42,5 +42,7 @@ target_link_libraries(wavelet_tree_test.out)
 add_executable(sequence_test.out sequence_test_main.cpp)
 target_link_libraries(sequence_test.out)
 
+add_executable(range_search_test.out range_search_test_main.cpp)
+target_link_libraries(range_search_test.out)
 
 

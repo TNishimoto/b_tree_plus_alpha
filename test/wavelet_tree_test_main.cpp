@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
 
         {
             stool::bptree::DynamicWaveletTree dwt;
-            stool::StringTest::access_character_test1(dwt, 10000, 1000, seed);
+            stool::StringTest::access_character_test(dwt, 10000, 1000, seed);
             stool::DynamicStringTest::insert_character_test(dwt, 10000, seed);
             stool::DynamicStringTest::remove_character_test(dwt, 10000, seed);
 

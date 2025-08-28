@@ -232,6 +232,23 @@ namespace stool
                 }
             }
 
+            int64_t count0() const {
+                uint64_t _size = this->size();
+                if(_size > 0){
+                    return this->rank0(_size);
+                }else{
+                    return 0;
+                }
+            }
+            int64_t count1() const{
+                uint64_t _size = this->size();
+                if(_size > 0){
+                    return this->rank1(_size);
+                }else{
+                    return 0;
+                }
+            }
+
             /**
              * @brief Returns the bit at the specified position.
              * @param n The position to query.
