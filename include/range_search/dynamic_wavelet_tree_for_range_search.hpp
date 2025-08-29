@@ -31,7 +31,7 @@ namespace stool
             }
             */
 
-            void add(uint64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank){
+            void add(int64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank){
                 uint64_t node_size = this->bits_seq[h][h_node_id].size();
                 if(h + 1 < this->height()){
                     uint64_t left_node_id = 2 * h_node_id;
@@ -92,9 +92,42 @@ namespace stool
                         this->build(rank_elements);    
                     }
                 }
+            }
+            void remove(uint64_t y_rank){
+                int64_t height = this->height();
+                if(height > 0){
+                    uint64_t h_y_rank = y_rank;
+                    uint64_t h_node_id = 0;
+                                    
+                    for(int64_t h = 0; h < height; h++){
+                        bool b = this->bits_seq[h][h_node_id].at(h_y_rank);
+                        uint64_t next_node_id = (2 * h_node_id) + (uint64_t)b;
+                        if(b){
+                            uint64_t rmv_y_rank = this->bits_seq[h][h_node_id].rank0(h_y_rank);
+                            this->bits_seq[h][h_node_id].remove(h_y_rank);
+                            h_y_rank -= rmv_y_rank;
+                        }else{
+                            uint64_t rmv_y_rank = this->bits_seq[h][h_node_id].rank1(h_y_rank);
+                            this->bits_seq[h][h_node_id].remove(h_y_rank); 
+                            h_y_rank -= rmv_y_rank;
+                        }
+                        h_node_id = next_node_id;
+                    }
+                    this->remove_element_from_leaf(h_node_id, h_y_rank);
 
+                    uint64_t upper_size = this->get_upper_size_of_internal_node(0);
+                    uint64_t size = this->size();
+                    if(size < upper_size / 2){
+                        auto rank_elements = this->to_rank_elements();
+                        this->build(rank_elements);
+                    }
+                }else{
+                    this->remove_element_from_leaf(0, y_rank);
+                }
 
             }
+
+
             static uint64_t get_full_size_of_tree(uint64_t height) {
                 return LEAF_MAX_SIZE << height;
             }
@@ -508,10 +541,12 @@ namespace stool
                 }
                 r.push_back(s);
 
+                std::cout << "===== TREE =====" << std::endl;
 
                 for(uint64_t i = 0; i < r.size(); i++){
                     std::cout << r[i] << std::endl;
                 }
+                std::cout << "===== [END] =====" << std::endl;
             }
 
         };
