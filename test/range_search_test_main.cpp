@@ -27,6 +27,79 @@ std::vector<uint64_t> create_random_rank_array(uint64_t size, uint64_t seed)
     return r;
 }
 
+void insert_element_to_rank_array(std::vector<uint64_t> &rank_array, uint64_t new_x_rank, uint64_t new_y_rank){
+    for(uint64_t i = 0; i < rank_array.size(); i++){
+        if(rank_array[i] >= new_x_rank){
+            rank_array[i]++;
+        }
+    }
+    rank_array.insert(rank_array.begin() + new_y_rank, new_x_rank);
+}
+
+void insert_test(uint64_t size, bool detail_check, uint64_t seed)
+{
+    std::mt19937_64 mt64(seed);
+    std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
+    std::vector<uint64_t> rank_array;
+    rank_array.clear();
+    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    ds.build(rank_array);
+
+    for(uint64_t i = 0; i < size; i++){
+        uint64_t new_x_rank = get_rand_uni_int(mt64) % (i+1);
+        uint64_t new_y_rank = get_rand_uni_int(mt64) % (i+1);
+        insert_element_to_rank_array(rank_array, new_x_rank, new_y_rank);
+        ds.add(new_x_rank, new_y_rank);
+
+
+        if(detail_check){
+            std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+            try{
+                stool::EqualChecker::equal_check(rank_array, test_rank_array);
+            }catch(const std::exception& e){
+                std::cout << "Error: " << e.what() << std::endl;
+                stool::DebugPrinter::print_integers(rank_array,      "rank_array     ");
+                stool::DebugPrinter::print_integers(test_rank_array, "test_rank_array");
+                ds.print_tree();
+                throw e;
+            }    
+        }
+
+    }
+
+    {
+        std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+        try{
+            stool::EqualChecker::equal_check(rank_array, test_rank_array);
+        }catch(const std::exception& e){
+            std::cout << "Error: " << e.what() << std::endl;
+            stool::DebugPrinter::print_integers(rank_array,      "rank_array     ");
+            stool::DebugPrinter::print_integers(test_rank_array, "test_rank_array");
+            ds.print_tree();
+            throw e;
+        }
+    
+    }
+
+}
+
+void insert_test(uint64_t size, uint64_t number_of_trials, bool detail_check, uint64_t seed)
+{
+    
+    std::cout << "INSERT TEST" << std::endl;
+    for(uint64_t len = 1; len <= size; len*=2){
+        std::cout << "\t len: " << len << ": " << std::flush;
+        for(uint64_t i = 0; i < number_of_trials; i++){
+            std::cout << "+" << std::flush;
+            insert_test(len, detail_check, seed++);
+        }    
+        std::cout << std::endl;
+    }
+    std::cout << "[END]" << std::endl;
+
+}
+
+
 
 void build_test(uint64_t size, uint64_t seed)
 {
@@ -154,7 +227,8 @@ int main(int argc, char *argv[])
     uint64_t seed = p.get<uint64_t>("seed");
     //uint64_t mode = p.get<uint>("mode");
 
-    range_search_test(10000, 50, 100, seed);
+    insert_test(10000, 10, false, seed);
+    //range_search_test(10000, 50, 100, seed);
 
     //build_test(10000, 100, seed);
 

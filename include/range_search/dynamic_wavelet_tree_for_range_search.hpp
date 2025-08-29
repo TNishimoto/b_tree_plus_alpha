@@ -31,40 +31,100 @@ namespace stool
             }
             */
 
+            void add(uint64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank){
+                uint64_t node_size = this->bits_seq[h][h_node_id].size();
+                if(h + 1 < this->height()){
+                    uint64_t left_node_id = 2 * h_node_id;
+                    uint64_t right_node_id = 2 * h_node_id + 1;
+                    uint64_t left_tree_size = this->bits_seq[h+1][left_node_id].size();
+                    if(x_rank <= left_tree_size){
+                        uint64_t new_y_rank = y_rank < node_size ? this->bits_seq[h][h_node_id].rank0(y_rank) : left_tree_size;
+                        this->add(h + 1, left_node_id, x_rank, new_y_rank);
 
-            void add(uint64_t x_rank, uint64_t y_rank){
-                uint64_t h_tree_pos = 0;
-                uint64_t h_element_pos = y_rank;
-                uint64_t h_x_rank = x_rank;
-
-                int64_t height = this->bits_seq.size();
-                for(int64_t h = 0; h < height - 1; h++){
-                    uint64_t left_tree_size = this->bits_seq[h][h_tree_pos].count0();
-                    if(h_x_rank < left_tree_size){
-                        this->bits_seq[h][h_tree_pos].insert(h_element_pos, 0);
-                        h_element_pos -= this->bits_seq[h][h_tree_pos].rank1(h_element_pos);
-                        h_tree_pos = 2 * h_tree_pos;
+                        this->bits_seq[h][h_node_id].insert(y_rank, false);
                     }else{
-                        this->bits_seq[h][h_tree_pos].insert(h_element_pos, 1);
-                        h_element_pos -= this->bits_seq[h][h_tree_pos].rank0(h_element_pos);
-                        h_tree_pos = 2 * h_tree_pos + 1;
-                        h_x_rank -= left_tree_size;
+                        uint64_t new_y_rank = y_rank < node_size ? this->bits_seq[h][h_node_id].rank1(y_rank) : (node_size - left_tree_size);
+                        uint64_t new_x_rank = x_rank - left_tree_size;
+                        this->add(h + 1, right_node_id, new_x_rank, new_y_rank);
+
+                        this->bits_seq[h][h_node_id].insert(y_rank, true);
+
+                    }
+                }else{
+                    uint64_t left_leaf_id = 2 * h_node_id;
+                    uint64_t right_leaf_id = 2 * h_node_id + 1;
+                    uint64_t left_tree_size = this->leaves[left_leaf_id].size();
+
+                    if(x_rank <= left_tree_size){
+                        uint64_t new_y_rank = y_rank < node_size ? this->bits_seq[h][h_node_id].rank0(y_rank) : left_tree_size;
+                        this->insert_element_into_leaf(left_leaf_id, new_y_rank, x_rank);
+                        this->bits_seq[h][h_node_id].insert(y_rank, false);
+
+                    }else{
+                        uint64_t new_y_rank = y_rank < node_size ? this->bits_seq[h][h_node_id].rank1(y_rank) : (node_size - left_tree_size);
+                        uint64_t new_x_rank = x_rank - left_tree_size;
+                        this->insert_element_into_leaf(right_leaf_id, new_y_rank, new_x_rank);
+                        this->bits_seq[h][h_node_id].insert(y_rank, true);
+
                     }
                 }
 
-                this->bits_seq[height - 1][h_tree_pos].insert(h_element_pos, 0);
+                uint64_t upper_size = this->get_upper_size_of_internal_node(h);
+                if(this->size() < upper_size && this->is_unbalanced_node(h, h_node_id)){
+                    std::vector<uint64_t> rank_elements = this->to_rank_elements(h, h_node_id);
+                    this->rebuild_internal_node(h, h_node_id, rank_elements);
+                }
+            }
+        
+            void add(uint64_t x_rank, uint64_t y_rank){
+                if(this->height() > 0){
+                    this->add(0, 0, x_rank, y_rank);
+                    uint64_t upper_size = this->get_upper_size_of_internal_node(0);
+                    if(this->size() >= upper_size){
+                        std::vector<uint64_t> rank_elements = this->to_rank_elements();
+                        this->build(rank_elements);    
+                    }
+                }else{
+                    this->insert_element_into_leaf(0, y_rank, x_rank);
+                    uint64_t upper_size = this->get_upper_size_of_leaf();
+                    if(this->size() >= upper_size){
+                        std::vector<uint64_t> rank_elements = this->to_rank_elements();
+                        this->build(rank_elements);    
+                    }
+                }
+
+
             }
             static uint64_t get_full_size_of_tree(uint64_t height) {
                 return LEAF_MAX_SIZE << height;
             }
+            static uint64_t get_upper_size_of_tree(uint64_t height) {
+                return _get_upper_size_of_internal_node(0, height);
+            }
+
 
             uint64_t get_full_size_of_internal_node(uint64_t h) const {
                 uint64_t H = this->bits_seq.size();
                 return LEAF_MAX_SIZE << (H - h);
             }
+            uint64_t get_upper_size_of_leaf() const {
+                return LEAF_MAX_SIZE;
+            }
+
+            static uint64_t _get_upper_size_of_internal_node(uint64_t h, uint64_t H) {
+                uint64_t u1 = 1;
+                uint64_t u2 = 1;
+                for(uint64_t p = h; p < H;p++){
+                    u1 *= 3;
+                    u2 *= 2;
+                }
+                uint64_t r = (u1 * LEAF_MAX_SIZE) / u2;
+                return r;
+            }
+
+
             uint64_t get_upper_size_of_internal_node(uint64_t h) const {
-                uint64_t fsize = this->get_full_size_of_internal_node(h);
-                return (fsize / 4) * 3;
+                return _get_upper_size_of_internal_node(h, this->height());
             }
             uint64_t get_lower_size_of_internal_node(uint64_t h) const {
                 uint64_t fsize = this->get_full_size_of_internal_node(h);
@@ -84,8 +144,8 @@ namespace stool
             void build(const std::vector<uint64_t> &rank_elements){
                 uint64_t height = 0;
                 while(true){
-                    uint64_t fsize = this->get_full_size_of_tree(height);
-                    if(rank_elements.size() <= fsize){
+                    uint64_t fsize = get_upper_size_of_tree(height);
+                    if(rank_elements.size() < fsize){
                         break;
                     }else{
                         height++;
@@ -109,6 +169,7 @@ namespace stool
                 }
 
                 if(height > 0){
+                    assert(rank_elements.size() < this->get_upper_size_of_internal_node(0));
                     this->rebuild_internal_node(0, 0, rank_elements);
                 }else{
                     this->rebuild_leaf(0, rank_elements);
@@ -117,10 +178,42 @@ namespace stool
                 assert(this->verify());
             }
 
+            bool is_unbalanced_node(uint8_t h, uint64_t h_node_id) const {
+                if(h + 1 < this->height()){
+                    uint64_t left_node_id = 2 * h_node_id;
+                    uint64_t right_node_id = 2 * h_node_id + 1;
+                    uint64_t left_tree_size = this->bits_seq[h+1][left_node_id].size();
+                    uint64_t right_tree_size = this->bits_seq[h+1][right_node_id].size();
+                    bool unbalance_flag_LR = left_tree_size > (right_tree_size*2) || right_tree_size > (left_tree_size*2);
+                    uint64_t child_upper_size = this->get_upper_size_of_internal_node(h+1);
+                    bool full_flag_L = left_tree_size >= child_upper_size;
+                    bool full_flag_R = right_tree_size >= child_upper_size;
+                    return unbalance_flag_LR || full_flag_L || full_flag_R;
+                }else{
+                    uint64_t left_node_id = 2 * h_node_id;
+                    uint64_t right_node_id = 2 * h_node_id + 1;
+                    uint64_t left_tree_size = this->leaves[left_node_id].size();
+                    uint64_t right_tree_size = this->leaves[right_node_id].size();
+
+                    bool unbalance_flag_LR = left_tree_size > (right_tree_size*2) || right_tree_size > (left_tree_size*2);
+                    uint64_t child_upper_size = this->get_upper_size_of_leaf();
+                    bool full_flag_L = left_tree_size >= child_upper_size;
+                    bool full_flag_R = right_tree_size >= child_upper_size;
+
+                    return unbalance_flag_LR || full_flag_L || full_flag_R;
+                }
+            }
+
             void rebuild_internal_node(uint8_t h, uint64_t h_node_id, const std::vector<uint64_t> &rank_elements){
                 assert(h < this->bits_seq.size());
-                uint64_t full_size = this->get_full_size_of_internal_node(h);                
-                assert(rank_elements.size() <= full_size);
+                uint64_t upper_size = this->get_upper_size_of_internal_node(h);
+
+                if(rank_elements.size() > upper_size){
+                    std::cout << "Rebuild: h = " << (int)h << "/ H = " << (int)this->height() << ", h_node_id = " << h_node_id << ", rank_elements.size() = " << rank_elements.size() << ", upper_size = " << upper_size << std::endl;
+                    this->print_tree();
+                }
+
+                assert(rank_elements.size() <= upper_size);
                 uint64_t left_counter = 0;
 
                 uint64_t half_size = rank_elements.size() / 2;
@@ -212,28 +305,6 @@ namespace stool
                 assert(y_rank < this->size());
                 uint64_t x_rank = this->compute_local_x_rank(0, 0, y_rank);
                 return x_rank;
-                /*
-
-                uint64_t x_rank = 0;
-                uint64_t h_y_rank = y_rank;
-                uint64_t node_id = 0;
-                int64_t height = this->height();
-                for(int64_t h = 0; h < height; h++){
-                    bool b = this->bits_seq[h][node_id].at(h_y_rank);
-                    uint64_t next_node_id = (2 * node_id) + (uint64_t)b;
-                    if(b){
-                        uint64_t left_tree_size = this->bits_seq[h][node_id].count0();
-                        x_rank += left_tree_size;
-                        h_y_rank -= this->bits_seq[h][node_id].rank0(h_y_rank);
-                    }else{
-                        h_y_rank -= this->bits_seq[h][node_id].rank1(h_y_rank);
-                    }
-                    node_id = next_node_id;
-                }
-                assert(node_id < this->leaves.size());
-                assert(h_y_rank < this->leaves[node_id].size());
-                return x_rank + this->leaves[node_id][h_y_rank];
-                */
             }
             bool verify() const {
                 for(uint64_t h = 0; h < this->bits_seq.size(); h++){
@@ -252,56 +323,64 @@ namespace stool
                 return true;
                 
             }
-            /*
-            uint64_t access_y_rank(uint64_t x_rank) const{
-                uint64_t h_x_rank = x_rank;
-                uint64_t y_rank = 0;
-                uint64_t node_id = 0;
-                int64_t height = this->height();
-                for(int64_t h = 0; h < height; h++){
-                    uint64_t left_tree_size = this->bits_seq[h][node_id].count0();
-                    bool b = h_x_rank < left_tree_size;
-                    uint64_t next_node_id = (2 * node_id) + (uint64_t)b;
 
-                    if(b){
-                        h_x_rank -= left_tree_size;
-                        uint64_t p = this->bits_seq[h][node_id].select1(h_x_rank + 1);
+            std::vector<uint64_t> to_rank_elements(uint64_t h, uint64_t node_id) const {
+                uint64_t height = this->height();
+                uint64_t node_size = this->bits_seq[h][node_id].size();
+                std::vector<uint64_t> r;
+                r.resize(node_size, UINT64_MAX);
+                if(h + 1 < height){
+                    uint64_t counterL = 0;
+                    uint64_t counterR = 0;
+                    uint64_t leaf_id_L = 2 * node_id;
+                    uint64_t leaf_id_R = 2 * node_id + 1;
+                    uint64_t left_tree_size = this->bits_seq[h+1][leaf_id_L].size();
 
+                    std::vector<uint64_t> left_elements = this->to_rank_elements(h + 1, leaf_id_L);
+                    std::vector<uint64_t> right_elements = this->to_rank_elements(h + 1, leaf_id_R);
 
-                    }else{
-
+                    for(uint64_t i = 0; i < node_size; i++){
+                        bool b = this->bits_seq[h][node_id].at(i);                        
+                        if(b){
+                            r[i] = right_elements[counterR++] + left_tree_size;
+                        }else{
+                            r[i] = left_elements[counterL++];
+                        }
                     }
 
+                }else{
+                    uint64_t counterL = 0;
+                    uint64_t counterR = 0;
+                    uint64_t leaf_id_L = 2 * node_id;
+                    uint64_t leaf_id_R = 2 * node_id + 1;
+                    uint64_t left_tree_size = this->leaves[leaf_id_L].size();
 
-                    bool b = this->bits_seq[h][node_id].at(h_y_rank);
-                    if(b){
-                        uint64_t left_tree_size = this->bits_seq[h][node_id].count0();
-                        x_rank += left_tree_size;
-                        h_y_rank -= this->bits_seq[h][node_id].rank0(h_y_rank);
-                    }        
-                }
-                uint64_t leaf_size = this->leaves[node_id].size();
-                for(uint64_t i = 0; i < leaf_size; i++){
-                    uint64_t v = this->leaves[node_id][i];
-                    if(v == h_y_rank){
-                        return x_rank + i;
+
+                    for(uint64_t i = 0; i < node_size; i++){
+                        bool b = this->bits_seq[h][node_id].at(i);                        
+                        if(b){
+                            r[i] = this->leaves[leaf_id_R][counterR++] + left_tree_size;
+                        }else{
+                            r[i] = this->leaves[leaf_id_L][counterL++];
+                        }
                     }
                 }
-                throw std::runtime_error("Not found");
+                return r;
 
             }
-            */
+
 
             std::vector<uint64_t> to_rank_elements() const {
-                std::vector<uint64_t> rank_elements;
-                uint64_t size = this->size();
-                rank_elements.resize(size, UINT64_MAX);
-
-                for(uint64_t y = 0; y < size; y++){
-                    uint64_t x = this->access_x_rank(y);
-                    rank_elements[y] = x;
+                if(this->height() > 0){
+                    return this->to_rank_elements(0, 0);
+                }else{
+                    std::vector<uint64_t> r;
+                    r.resize(this->size(), UINT64_MAX);
+                    for(uint64_t i = 0; i < this->size(); i++){
+                        r[i] = this->leaves[0][i];
+                    }
+                    return r;
                 }
-                return rank_elements;
             }
 
             uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t element_position_in_node) const {
@@ -363,8 +442,6 @@ namespace stool
 
                     int64_t hy_min_0 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank0(hy_min)) : 0;
                     int64_t hy_min_1 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank1(hy_min)) : 0;
-
-
 
                     uint64_t next_node_id_L = 2 * node_id;
                     uint64_t next_node_id_R = next_node_id_L + 1;

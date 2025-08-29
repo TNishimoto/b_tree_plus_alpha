@@ -11,34 +11,34 @@
 #include "include/naive_permutation.hpp"
 
 std::vector<uint64_t> create_random_permutation(uint64_t num, std::mt19937_64 &mt64)
-        {
-            std::vector<uint64_t> r;
-            for (uint64_t i = 0; i < num; i++)
-            {
-                r.push_back(i);
-            }
-            std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, num - 1);
+{
+    std::vector<uint64_t> r;
+    for (uint64_t i = 0; i < num; i++)
+    {
+        r.push_back(i);
+    }
+    std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, num - 1);
 
-            for (uint64_t i = 0; i < num; i++)
-            {
-                uint64_t pos1 = get_rand_uni_int(mt64);
-                uint64_t pos2 = get_rand_uni_int(mt64);
-                std::swap(r[pos1], r[pos2]);
-            }
-            return r;
-        }
-        bool equal_check(stool::NaivePermutation &npom, stool::bptree::DynamicPermutation &pom)
-        {
-            pom.get_pi_tree().verify();
-            pom.get_inverse_pi_tree().verify();
+    for (uint64_t i = 0; i < num; i++)
+    {
+        uint64_t pos1 = get_rand_uni_int(mt64);
+        uint64_t pos2 = get_rand_uni_int(mt64);
+        std::swap(r[pos1], r[pos2]);
+    }
+    return r;
+}
+bool equal_check(stool::NaivePermutation &npom, stool::bptree::DynamicPermutation &pom)
+{
+    pom.get_pi_tree().verify();
+    pom.get_inverse_pi_tree().verify();
 
-            std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
-            std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
+    std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
+    std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
 
-            stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list, "Check1");
-            stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list, "Check2");
-            return true;
-        }
+    stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list, "Check1");
+    stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list, "Check2");
+    return true;
+}
 
 void permutation_test_random_delete(stool::NaivePermutation &npom, stool::bptree::DynamicPermutation &pom, bool verification, std::mt19937_64 &mt64)
 {
@@ -385,5 +385,4 @@ int main(int argc, char *argv[])
     permutation_builder_test(max_element_count, trial_count, false, seed);
     load_write_file_test(max_element_count, trial_count, false, seed);
     load_write_bits_test(max_element_count, trial_count, false, seed);
-
 }
