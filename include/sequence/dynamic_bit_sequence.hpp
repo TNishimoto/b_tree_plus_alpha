@@ -123,7 +123,10 @@ namespace stool
                 }
                 else if (i <= this->size())
                 {
-                    return this->tree.psum(i - 1);
+                    uint64_t p = this->tree.psum(i - 1);
+
+
+                    return p;
                 }
                 else
                 {

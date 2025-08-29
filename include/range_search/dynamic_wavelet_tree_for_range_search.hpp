@@ -210,6 +210,10 @@ namespace stool
 
             uint64_t access_x_rank(uint64_t y_rank) const{
                 assert(y_rank < this->size());
+                uint64_t x_rank = this->compute_local_x_rank(0, 0, y_rank);
+                return x_rank;
+                /*
+
                 uint64_t x_rank = 0;
                 uint64_t h_y_rank = y_rank;
                 uint64_t node_id = 0;
@@ -227,19 +231,9 @@ namespace stool
                     node_id = next_node_id;
                 }
                 assert(node_id < this->leaves.size());
-                if(h_y_rank >= this->leaves[node_id].size()){
-                    std::cout << "y_rank:" << y_rank << std::endl;
-                    std::cout << "x_rank:" << x_rank << std::endl;
-                    std::cout << "h_y_rank:" << h_y_rank << std::endl;
-                    std::cout << "node_id:" << node_id << std::endl;
-                    std::cout << this->leaves[node_id].to_string() << std::endl;
-
-                    throw std::runtime_error("Error in access_x_rank: not found, y_rank: " + std::to_string(y_rank));
-                }
-
-
                 assert(h_y_rank < this->leaves[node_id].size());
                 return x_rank + this->leaves[node_id][h_y_rank];
+                */
             }
             bool verify() const {
                 for(uint64_t h = 0; h < this->bits_seq.size(); h++){
@@ -308,6 +302,105 @@ namespace stool
                     rank_elements[y] = x;
                 }
                 return rank_elements;
+            }
+
+            uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t element_position_in_node) const {
+                uint64_t x_rank = 0;
+                uint64_t h_y_rank = element_position_in_node;
+                uint64_t h_node_id = node_id;
+                int64_t height = this->height();
+                for(int64_t h = node_y; h < height; h++){
+                    bool b = this->bits_seq[h][h_node_id].at(h_y_rank);
+                    uint64_t next_node_id = (2 * h_node_id) + (uint64_t)b;
+                    if(b){
+                        uint64_t left_tree_size = this->bits_seq[h][h_node_id].count0();
+                        x_rank += left_tree_size;
+                        h_y_rank -= this->bits_seq[h][h_node_id].rank0(h_y_rank);
+                    }else{
+                        h_y_rank -= this->bits_seq[h][h_node_id].rank1(h_y_rank);
+                    }
+                    h_node_id = next_node_id;
+                }
+                x_rank += this->leaves[h_node_id][h_y_rank];
+                return x_rank;
+            }
+
+            template<typename APPENDABLE_VECTOR>
+            uint64_t local_range_report_on_internal_node(uint64_t h, uint64_t node_id, uint64_t x_rank_gap, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const {
+                for(uint64_t i = hy_min; i <= hy_max; i++){
+                    uint64_t x = this->compute_local_x_rank(h, node_id, i) + x_rank_gap;
+                    out.push_back(x);
+                }
+                return hy_max - hy_min + 1;
+            }
+            template<typename APPENDABLE_VECTOR>
+            uint64_t local_range_report_on_leaf(uint64_t leaf_id, uint64_t x_rank_gap, uint64_t x_min, uint64_t x_max, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const {
+                assert(hy_max < this->leaves[leaf_id].size());
+
+                for(uint64_t i = hy_min; i <= hy_max; i++){
+                    uint64_t x = this->leaves[leaf_id][i] + x_rank_gap;
+                    if(x >= x_min && x <= x_max){
+                        out.push_back(x);
+
+                    }
+                }
+                return hy_max - hy_min + 1;
+            }
+
+            template<typename APPENDABLE_VECTOR>
+            uint64_t recursive_range_report_on_internal_nodes(uint64_t h, uint64_t node_id, uint64_t x_rank_gap, int64_t x_min, int64_t x_max, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const {
+                uint64_t found_elements_count = 0;
+                int64_t node_x_min = x_rank_gap;
+                int64_t node_size = this->bits_seq[h][node_id].size();
+                if(x_min <= node_x_min && (node_x_min + node_size-1) <= x_max){
+                    found_elements_count += local_range_report_on_internal_node(h, node_id, node_x_min, hy_min, hy_max, out);
+                }else{
+                    uint64_t node_x_min_L = node_x_min;
+                    uint64_t node_x_min_R = node_x_min + this->bits_seq[h][node_id].count0();
+
+                    int64_t hy_max_0 = ((int64_t)this->bits_seq[h][node_id].rank0(hy_max+1)) - 1;
+                    int64_t hy_max_1 = ((int64_t)this->bits_seq[h][node_id].rank1(hy_max+1)) - 1;
+
+                    int64_t hy_min_0 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank0(hy_min)) : 0;
+                    int64_t hy_min_1 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank1(hy_min)) : 0;
+
+
+
+                    uint64_t next_node_id_L = 2 * node_id;
+                    uint64_t next_node_id_R = next_node_id_L + 1;
+
+                    if((int64_t)h + 1 < this->height()){
+                        if(hy_min_0 >= 0 && hy_min_0 <= hy_max_0){
+                            found_elements_count += this->recursive_range_report_on_internal_nodes(h + 1, next_node_id_L, node_x_min_L, x_min, x_max, hy_min_0, hy_max_0, out);
+                        }
+                        if(hy_min_1 >= 0 && hy_min_1 <= hy_max_1){
+                            found_elements_count += this->recursive_range_report_on_internal_nodes(h + 1, next_node_id_R, node_x_min_R, x_min, x_max, hy_min_1, hy_max_1, out);
+                        }
+                    }else{
+                        if(hy_min_0 >= 0 && hy_min_0 <= hy_max_0){
+                            assert(hy_max_0 < (int64_t)this->leaves[next_node_id_L].size());
+                            found_elements_count += this->local_range_report_on_leaf(next_node_id_L, node_x_min_L, x_min, x_max, hy_min_0, hy_max_0, out);
+                        }
+                        if(hy_min_1 >= 0 && hy_min_1 <= hy_max_1){
+                            assert(hy_max_1 < (int64_t)this->leaves[next_node_id_R].size());
+                            found_elements_count += this->local_range_report_on_leaf(next_node_id_R, node_x_min_R, x_min, x_max, hy_min_1, hy_max_1, out);
+                        }
+                    }
+                }
+                return found_elements_count;
+
+            }
+
+
+            template<typename APPENDABLE_VECTOR>
+            uint64_t range_report(uint64_t x_min, uint64_t x_max, uint64_t y_min, uint64_t y_max, APPENDABLE_VECTOR &out) const{
+                uint64_t found_elements_count = 0;
+                if(this->height() > 0){
+                    found_elements_count = this->recursive_range_report_on_internal_nodes(0, 0, 0, x_min, x_max, y_min, y_max, out);
+                }else{
+                    found_elements_count = this->local_range_report_on_leaf(0, 0, x_min, x_max, y_min, y_max, out);
+                }
+                return found_elements_count;
             }
 
 
