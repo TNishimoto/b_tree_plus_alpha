@@ -218,6 +218,20 @@ namespace stool
                 s += ")";
                 return s;
             }
+            void push_front(uint64_t value)
+            {
+                this->tree.push_front(value);
+            }
+            void pop_back()
+            {
+                this->tree.remove(this->size() - 1);
+            }
+            void pop_front()
+            {
+                this->tree.remove(0);
+            }
+
+
             /**
              * @brief Adds multiple elements to the end of the sequence.
              * @param items The vector of items to add.
@@ -251,6 +265,9 @@ namespace stool
                 }
                 r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return r;
+            }
+            void print_info() const {
+                this->print_statistics();
             }
             /**
              * @brief Prints the memory usage of the sequence.
@@ -308,6 +325,10 @@ namespace stool
                 return r;
             }
 
+            static DynamicSequence64 load(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                return DynamicSequence64::build_from_data(data, pos);
+            }
             /**
              * @brief Builds a sequence from a file.
              * @param ifs The input stream to build the sequence from.
@@ -318,6 +339,10 @@ namespace stool
                 DynamicSequence64 r;
                 r.tree.build_from_data(ifs);
                 return r;
+            }
+            static DynamicSequence64 load(std::ifstream &ifs)
+            {
+                return DynamicSequence64::build_from_data(ifs);
             }
             /**
              * @brief Returns the value at a specified position in the sequence.
@@ -352,5 +377,8 @@ namespace stool
                 std::cout << "================== SPSI[END] =============" << std::endl;
             }
         };
+
+
+        using SimpleDynamicSequence64 = DynamicSequence64<stool::NaiveFLCVector<>, 62, 256>;
     }
 }

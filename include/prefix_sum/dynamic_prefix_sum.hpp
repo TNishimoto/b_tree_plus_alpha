@@ -418,6 +418,9 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
                 
             }
+            void print_info() const {
+                this->print_statistics();
+            }
 
             //@}
 
@@ -440,6 +443,10 @@ namespace stool
                 r.tree.build_from_data(data, pos);
                 return r;
             }
+            static DynamicPrefixSum load(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                return DynamicPrefixSum::build_from_data(data, pos);
+            }
 
             static DynamicPrefixSum build_from_data(std::ifstream &ifs)
             {
@@ -447,6 +454,11 @@ namespace stool
                 r.tree.build_from_data(ifs);
                 return r;
             }
+            static DynamicPrefixSum load(std::ifstream &ifs)
+            {
+                return DynamicPrefixSum::build_from_data(ifs);
+            }
+
             static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 item.tree.save(output, pos);

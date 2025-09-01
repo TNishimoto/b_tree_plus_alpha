@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cstdio>
 #include "../include/b_tree_plus_alpha.hpp"
+#include "stool/test/sources/template/dynamic_integer_test.hpp"
 
 using SEQ = stool::bptree::DynamicSequence64<stool::NaiveFLCVector<>, 62, 256>;
 
@@ -130,49 +131,24 @@ int main(int argc, char *argv[])
     p.parse_check(argc, argv);
     uint64_t mode = p.get<uint>("mode");
 
-    if (mode == 0)
-    {
-    }
-    else if (mode == 1)
-    {
-        uint64_t seed = 0;
-        std::mt19937_64 mt64(seed);
+    uint64_t seed = 0;
+    uint64_t seq_len = 10000;
+    uint64_t number_of_trials = 100;
+    uint64_t max_value = 1000000;
 
-        for (uint64_t type = 0; type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); type++)
-        {
-            uint64_t len = 2;
-                
-            std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
+    using SEQ = stool::bptree::SimpleDynamicSequence64;
 
-            while (len < 10000)
-            {
-                std::vector<uint64_t> text; 
+    stool::DynamicIntegerTest::build_test<SEQ>(seq_len, max_value, number_of_trials, seed);
+    //stool::DynamicIntegerTest::psum_test<SEQ>(seq_len, max_value, number_of_trials, seed);
+    //stool::DynamicIntegerTest::search_test<SEQ>(seq_len, max_value, number_of_trials, seed);
+    stool::DynamicIntegerTest::load_write_file_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
+    stool::DynamicIntegerTest::load_write_bits_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
 
-                for(uint64_t i = 0; i < len;i++){
-                    text.push_back(get_rand_uni_int(mt64));
-                }
+    stool::DynamicIntegerTest::push_and_pop_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
+    stool::DynamicIntegerTest::insert_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
+    stool::DynamicIntegerTest::remove_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
+    stool::DynamicIntegerTest::replace_test<SEQ>(seq_len, max_value, number_of_trials, seed, false);
+    stool::DynamicIntegerTest::random_test<SEQ, false>(seq_len, max_value, number_of_trials, 100, seed, false);
 
-                std::vector<uint64_t> dyn_text;
 
-                // stool::Printer::print_string(text);
-                // stool::Printer::print_chars("Alphabet", chars);
-
-                SEQ ds;
-
-                std::cout << "A" << std::flush;
-                build_test(ds, dyn_text, text);
-                std::cout << "B" << std::flush;
-                save_and_load_test(ds);
-                std::cout << "C" << std::flush;
-                insert_test(ds, dyn_text, 1000, seed++);
-                std::cout << "D" << std::flush;
-                remove_test(ds, dyn_text, seed++);
-                std::cout << "E" << std::flush;
-                len *= 4;
-                seed++;
-            }
-                std::cout << std::endl;
-
-        }
-    }
 }

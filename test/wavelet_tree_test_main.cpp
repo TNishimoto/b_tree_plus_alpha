@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include "../include/b_tree_plus_alpha.hpp"
-#include "../modules/stool/test/sources/dynamic_string_test.hpp"
+#include "../modules/stool/test/sources/template/dynamic_string_test.hpp"
 #include "../modules/stool/test/sources/string_test.hpp"
 
 
