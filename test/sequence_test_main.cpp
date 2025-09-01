@@ -7,10 +7,12 @@
 #include <cstdio>
 #include "../include/b_tree_plus_alpha.hpp"
 
-void build_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &dyn_text, const std::vector<uint64_t> &text)
+using SEQ = stool::bptree::DynamicSequence64<stool::NaiveFLCVector<>, 62, 256>;
+
+void build_test(SEQ &ds, std::vector<uint64_t> &dyn_text, const std::vector<uint64_t> &text)
 {
 
-    auto tmp = stool::bptree::DynamicSequence64::build(text);
+    auto tmp = SEQ::build(text);
     ds.swap(tmp);
     for (auto c : text)
     {
@@ -21,7 +23,7 @@ void build_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &dyn
 
 }
 
-void insert_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &text, uint64_t insert_char_count, uint64_t seed)
+void insert_test(SEQ &ds, std::vector<uint64_t> &text, uint64_t insert_char_count, uint64_t seed)
 {
 
     std::mt19937_64 mt64(seed);
@@ -38,7 +40,7 @@ void insert_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &te
     stool::EqualChecker::equal_check(test_str, text);
 
 }
-void remove_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &text, uint64_t seed)
+void remove_test(SEQ &ds, std::vector<uint64_t> &text, uint64_t seed)
 {
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, text.size());
@@ -57,7 +59,7 @@ void remove_test(stool::bptree::DynamicSequence64 &ds, std::vector<uint64_t> &te
 
 }
 
-void save_and_load_test(stool::bptree::DynamicSequence64 &ds)
+void save_and_load_test(SEQ &ds)
 {
     std::string file_name = "byte_text" + std::to_string(ds.size()) + ".bits";
     {
@@ -69,9 +71,9 @@ void save_and_load_test(stool::bptree::DynamicSequence64 &ds)
             throw std::runtime_error("File open error");
         }
 
-        stool::bptree::DynamicSequence64::save(ds, os);
+        SEQ::save(ds, os);
     }
-    stool::bptree::DynamicSequence64 ds2;
+    SEQ ds2;
 
     {
         std::ifstream ifs;
@@ -81,7 +83,7 @@ void save_and_load_test(stool::bptree::DynamicSequence64 &ds)
             std::cerr << "Error: Could not open file for reading." << std::endl;
             throw std::runtime_error("File open error");
         }
-        stool::bptree::DynamicSequence64 tmp = stool::bptree::DynamicSequence64::build_from_data(ifs);
+        SEQ tmp = SEQ::build_from_data(ifs);
 
         ds2.swap(tmp);
     }
@@ -155,7 +157,7 @@ int main(int argc, char *argv[])
                 // stool::Printer::print_string(text);
                 // stool::Printer::print_chars("Alphabet", chars);
 
-                stool::bptree::DynamicSequence64 ds;
+                SEQ ds;
 
                 std::cout << "A" << std::flush;
                 build_test(ds, dyn_text, text);

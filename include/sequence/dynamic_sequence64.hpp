@@ -13,13 +13,16 @@ namespace stool
         /**
          * @class DynamicSequence64
          * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers.
-         * 
+         *
          * This class provides a dynamic sequence of 64-bit non-negative integers with operations for insertion, deletion, and modification.
          */
-        class DynamicSequence64{
+        template <typename LEAF_CONTAINER = stool::NaiveFLCVector<>, uint64_t TREE_DEGREE = 62, uint64_t LEAF_CONTAINER_MAX_SIZE = 256>
+        class DynamicSequence64
+        {
         public:
-            using NodePointer = bptree::BPNodePointer<VLCDeque, uint64_t, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE>;
-            using Tree = bptree::BPTree<VLCDeque, uint64_t, false, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
+            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, false, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
+
         private:
             Tree tree;
 
@@ -62,7 +65,6 @@ namespace stool
             DynamicSequence64 &operator=(DynamicSequence64 &&) noexcept = default;
 
         public:
-
             /**
              * @brief Clears all elements from the sequence.
              */
@@ -173,11 +175,15 @@ namespace stool
              * @param pos The position to set the value at.
              * @param value The new value to set.
              */
-            void set_value(uint64_t pos, uint64_t value){
+            void set_value(uint64_t pos, uint64_t value)
+            {
                 uint64_t v = this->at(pos);
-                if(v < value){
+                if (v < value)
+                {
                     this->increment(pos, value - v);
-                }else if(v > value){
+                }
+                else if (v > value)
+                {
                     this->decrement(pos, v - value);
                 }
             }
@@ -235,15 +241,15 @@ namespace stool
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph+1);
+                std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph + 1);
 
                 std::vector<std::string> r;
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph)  + "=DynamicSequence64: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicSequence64: " + std::to_string(this->size_in_bytes()) + " bytes =");
                 for (std::string &s : log1)
                 {
                     r.push_back(s);
                 }
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph)  + "==");
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return r;
             }
             /**
@@ -345,8 +351,6 @@ namespace stool
 
                 std::cout << "================== SPSI[END] =============" << std::endl;
             }
-
-
         };
     }
 }

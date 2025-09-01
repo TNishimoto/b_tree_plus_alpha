@@ -9,7 +9,7 @@ namespace stool
         /// @brief  A container that stores a short sequence of bits.
         ////////////////////////////////////////////////////////////////////////////////
         template <uint64_t MAX_BIT_SIZE = 8192ULL>
-        class BitDequeContainer
+        class BitVectorContainer
         {
             //using BitArrayDeque = typename stool::BitArrayDeque<MAX_BIT_SIZE>;
             using BitArrayDeque = typename stool::NaiveBitVector<MAX_BIT_SIZE>;
@@ -17,20 +17,20 @@ namespace stool
             BitArrayDeque bits;
 
         public:
-            //using BitDequeContainerIterator = typename BitArrayDeque::BitArrayDequeIterator;
+            //using BitVectorContainerIterator = typename BitArrayDeque::BitArrayDequeIterator;
 
-            using BitDequeContainerIterator = typename BitArrayDeque::NaiveBitVectorIterator;
-            BitDequeContainer()
+            using BitVectorContainerIterator = typename BitArrayDeque::NaiveBitVectorIterator;
+            BitVectorContainer()
             {
             }
-            BitDequeContainer(std::vector<uint64_t> &_items)
+            BitVectorContainer(std::vector<uint64_t> &_items)
             {
                 for (uint64_t x : _items)
                 {
                     this->push_back(x);
                 }
             }
-            BitDequeContainer(std::vector<bool> &_items)
+            BitVectorContainer(std::vector<bool> &_items)
             {
                 for (uint64_t i = 0; i < _items.size(); i++)
                 {
@@ -38,7 +38,7 @@ namespace stool
                 }
             }
 
-            void swap(BitDequeContainer &item)
+            void swap(BitVectorContainer &item)
             {
                 std::swap(this->bits, item.bits);
             }
@@ -61,7 +61,7 @@ namespace stool
             }
             void print() const
             {
-                throw std::runtime_error("Error: BitDequeContainer");
+                throw std::runtime_error("Error: BitVectorContainer");
             }
 
             void clear()
@@ -70,7 +70,7 @@ namespace stool
             }
             static std::string name()
             {
-                return "BitDequeContainer";
+                return "BitVectorContainer";
             }
             uint64_t psum(uint64_t i) const noexcept
             {
@@ -315,7 +315,7 @@ namespace stool
             }
             */
 
-            static uint64_t get_byte_size(const std::vector<BitDequeContainer> &items)
+            static uint64_t get_byte_size(const std::vector<BitVectorContainer> &items)
             {
                 uint64_t size = sizeof(uint64_t);
                 for (const auto &item : items)
@@ -324,7 +324,7 @@ namespace stool
                 }
                 return size;
             }
-            static void save(const std::vector<BitDequeContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
+            static void save(const std::vector<BitVectorContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 uint64_t size = get_byte_size(items);
                 if (pos + size > output.size())
@@ -341,7 +341,7 @@ namespace stool
                     BitArrayDeque::save(item.bits, output, pos);
                 }
             }
-            static void save(const std::vector<BitDequeContainer> &items, std::ofstream &os)
+            static void save(const std::vector<BitVectorContainer> &items, std::ofstream &os)
             {
                 uint64_t items_size = items.size();
                 os.write(reinterpret_cast<const char *>(&items_size), sizeof(uint64_t));
@@ -351,51 +351,51 @@ namespace stool
                     BitArrayDeque::save(item.bits, os);
                 }
             }
-            static BitDequeContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
-                BitDequeContainer r;
+            static BitVectorContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
+                BitVectorContainer r;
                 r.bits = BitArrayDeque::load(data, pos);
                 return r;
             }
-            static BitDequeContainer load(std::ifstream &ifs)
+            static BitVectorContainer load(std::ifstream &ifs)
             {
-                BitDequeContainer r;
+                BitVectorContainer r;
                 r.bits = BitArrayDeque::load(ifs);
                 return r;
             }
-            static std::vector<BitDequeContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
+            static std::vector<BitVectorContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 uint64_t size = 0;
                 std::memcpy(&size, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
     
-                std::vector<BitDequeContainer> output;
+                std::vector<BitVectorContainer> output;
                 output.resize(size);
                 for (uint64_t i = 0; i < size; i++)
                 {
-                    output[i] = BitDequeContainer::load(data, pos);
+                    output[i] = BitVectorContainer::load(data, pos);
                 }
                 return output;
             }
-            static std::vector<BitDequeContainer> load_vector(std::ifstream &ifs)
+            static std::vector<BitVectorContainer> load_vector(std::ifstream &ifs)
             {
                 uint64_t size = 0;
                 ifs.read(reinterpret_cast<char *>(&size), sizeof(uint64_t));
     
-                std::vector<BitDequeContainer> output;
+                std::vector<BitVectorContainer> output;
                 output.resize(size);
                 for (uint64_t i = 0; i < size; i++)
                 {
-                    output[i] = BitDequeContainer::load(ifs);
+                    output[i] = BitVectorContainer::load(ifs);
                 }
     
                 return output;
             }
 
-            BitDequeContainerIterator begin() const
+            BitVectorContainerIterator begin() const
             {
                 return this->bits.begin();
             }
-            BitDequeContainerIterator end() const
+            BitVectorContainerIterator end() const
             {
                 return this->bits.end();
             }
