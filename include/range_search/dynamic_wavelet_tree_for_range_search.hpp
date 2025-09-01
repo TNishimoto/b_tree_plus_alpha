@@ -209,8 +209,22 @@ namespace stool
 
             DynamicWaveletTreeForRangeSearch()
             {
+                this->clear();
+            }
+
+            void clear(){
+                for(uint64_t i = 0; i < this->bits_seq.size(); i++){
+                    for(uint64_t j = 0; j < this->bits_seq[i].size(); j++){
+                        this->bits_seq[i][j].clear();
+                    }
+                }
+                for(uint64_t i = 0; i < this->leaves.size(); i++){
+                    this->leaves[i].clear();
+                }
                 this->bits_seq.clear();
                 this->leaves.clear();
+
+                this->leaves.push_back(stool::NaiveFLCVector<false>());
             }
 
             /*
@@ -576,6 +590,7 @@ namespace stool
             }
             uint64_t size() const
             {
+                assert(this->leaves.size() > 0);
                 if (this->height() == 0)
                 {
                     return this->leaves[0].size();
