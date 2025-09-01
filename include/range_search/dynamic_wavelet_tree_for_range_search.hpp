@@ -339,6 +339,51 @@ namespace stool
                 uint64_t x_rank = this->compute_local_x_rank(0, 0, y_rank);
                 return x_rank;
             }
+            std::pair<uint64_t, uint64_t> locus_element(uint64_t x_rank) const {
+                uint64_t current_x_rank = x_rank;
+                uint64_t current_node_id = 0;
+                uint64_t height = this->height();
+
+                for(uint64_t h = 0; h < height; h++){
+                    uint64_t left_tree_size = this->bits_seq[h][current_node_id].count0();
+                    
+                    if(current_x_rank < left_tree_size){
+                        current_node_id = 2 * current_node_id;
+                    }else{
+                        current_x_rank = current_x_rank - left_tree_size;
+                        current_node_id = 2 * current_node_id + 1;
+                    }
+                }
+                uint64_t leaf_size = this->leaves[current_node_id].size();
+                for(uint64_t i = 0; i < leaf_size; i++){
+                    uint64_t v = this->leaves[current_node_id][i];
+                    if(v == current_x_rank){
+                        return std::make_pair(current_node_id, i);
+                    }
+                }
+                throw std::runtime_error("Locus element not found");
+            }
+            uint64_t access_y_rank(uint64_t x_rank) const{
+                std::pair<uint64_t, uint64_t> locus = this->locus_element(x_rank);
+                uint64_t current_y_rank = locus.second;
+                uint64_t prev_node_id = locus.first;
+                uint64_t height = this->height();
+                for(int64_t h = height - 1; h >= 0; h--){
+                    if(prev_node_id % 2 == 0){
+                        uint64_t next_node_id = prev_node_id/2;
+                        uint64_t next_y_rank = this->bits_seq[h][next_node_id].select0(current_y_rank);
+                        current_y_rank = next_y_rank;
+                        prev_node_id = next_node_id;
+                    }else{
+                        uint64_t next_node_id = prev_node_id/2;
+                        uint64_t next_y_rank = this->bits_seq[h][next_node_id].select1(current_y_rank);
+                        current_y_rank = next_y_rank;
+                        prev_node_id = next_node_id;
+                    }
+                }
+                return current_y_rank;
+            }
+
             bool verify() const {
                 for(uint64_t h = 0; h < this->bits_seq.size(); h++){
                     for(uint64_t i = 0; i < this->bits_seq[h].size(); i++){
@@ -415,6 +460,15 @@ namespace stool
                     return r;
                 }
             }
+            std::vector<uint64_t> to_rank_elements_in_x_order() const {
+                std::vector<uint64_t> r;
+                r.resize(this->size(), UINT64_MAX);
+                for(uint64_t i = 0; i < this->size(); i++){
+                    r[i] = this->access_y_rank(i);
+                }
+                return r;
+            }
+
 
             uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t element_position_in_node) const {
                 uint64_t x_rank = 0;

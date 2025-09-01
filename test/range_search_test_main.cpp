@@ -27,6 +27,15 @@ std::vector<uint64_t> create_random_rank_array(uint64_t size, uint64_t seed)
     return r;
 }
 
+std::vector<uint64_t> sort_elements_in_x_order(const std::vector<uint64_t> &rank_array){
+    std::vector<uint64_t> r;
+    r.resize(rank_array.size(), UINT64_MAX);
+    for(uint64_t i = 0; i < rank_array.size(); i++){
+        r[rank_array[i]] = i;
+    }
+    return r;
+}
+
 void insert_element_to_rank_array(std::vector<uint64_t> &rank_array, uint64_t new_x_rank, uint64_t new_y_rank){
     for(uint64_t i = 0; i < rank_array.size(); i++){
         if(rank_array[i] >= new_x_rank){
@@ -181,7 +190,7 @@ void build_test(uint64_t size, uint64_t seed)
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
     try{
-        stool::EqualChecker::equal_check(test_rank_array, rank_array);
+        stool::EqualChecker::equal_check(test_rank_array, rank_array, "build_test(1)");
     }catch(const std::exception& e){
         std::cout << "Error: " << e.what() << std::endl;
         ds.print_tree();
@@ -193,6 +202,27 @@ void build_test(uint64_t size, uint64_t seed)
         stool::DebugPrinter::print_integers(rank_array);
         throw e;
     }
+
+    std::vector<uint64_t> test_rank_array_in_x_order = ds.to_rank_elements_in_x_order();
+    std::vector<uint64_t> rank_array_in_x_order = sort_elements_in_x_order(rank_array);
+    try{
+        stool::EqualChecker::equal_check(test_rank_array_in_x_order, rank_array_in_x_order, "build_test(2)");
+    }catch(const std::exception& e){
+        std::cout << "Error: " << e.what() << std::endl;
+        std::cout << "rank_array: ";
+        stool::DebugPrinter::print_integers(rank_array);
+
+
+        std::cout << "test_rank_array_in_x_order: ";
+        stool::DebugPrinter::print_integers(test_rank_array_in_x_order);
+        std::cout << "rank_array_in_x_order    : ";
+        stool::DebugPrinter::print_integers(rank_array_in_x_order);
+
+
+        ds.print_tree();
+        throw e;
+    }
+    
 }
 void build_test(uint64_t size, uint64_t number_of_trials, uint64_t seed)
 {
@@ -299,12 +329,12 @@ int main(int argc, char *argv[])
     uint64_t seed = p.get<uint64_t>("seed");
     //uint64_t mode = p.get<uint>("mode");
 
-    remove_test(10000, 10, false, seed);
-
-    insert_test(10000, 10, false, seed);
+    build_test(10000, 100, seed);
     range_search_test(10000, 50, 100, seed);
 
-    build_test(10000, 100, seed);
+    remove_test(10000, 10, false, seed);
+    insert_test(10000, 10, false, seed);
+
 
 
 
