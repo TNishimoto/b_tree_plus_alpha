@@ -10,7 +10,7 @@
 #include "include/bit_sequence_test.hpp"
 
 template <typename DBV>
-void test(DBV &dbv, uint64_t seed, uint64_t insert_num, int trial_num, int message_paragraph = stool::Message::SHOW_MESSAGE)
+void test(DBV &dbv, uint64_t seed, uint64_t insert_num, [[maybe_unused]]int trial_num, int message_paragraph = stool::Message::SHOW_MESSAGE)
 {
     if(message_paragraph != stool::Message::NO_MESSAGE){
         std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Testing..." << std::endl;

@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     p.add<uint>("mode", 'm', "mode", false, 1);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
+    [[maybe_unused]]uint64_t mode = p.get<uint>("mode");
 
     uint64_t seed = 0;
     uint64_t seq_len = 10000;

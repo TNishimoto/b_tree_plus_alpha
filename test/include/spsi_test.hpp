@@ -27,7 +27,7 @@ namespace stool
         }
 
         template <typename A, uint64_t B, uint64_t C>
-        static uint64_t random_build(DynamicPrefixSum<A, B, C> &spsi, uint64_t num, uint64_t max_value, uint64_t degree, int64_t seed)
+        static uint64_t random_build(DynamicPrefixSum<A, B, C> &spsi, uint64_t num, uint64_t max_value, [[maybe_unused]] uint64_t degree, int64_t seed)
         {
             std::mt19937_64 mt64(seed);
             //spsi.set_degree(degree);
