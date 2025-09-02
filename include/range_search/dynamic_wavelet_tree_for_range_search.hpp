@@ -609,6 +609,10 @@ namespace stool
             }
             std::pair<uint64_t, uint64_t> locus_element(uint64_t x_rank) const
             {
+                if(x_rank >= this->size()){
+                    throw std::runtime_error("ERROR in locus_element: x_rank is out of range");
+                }
+
                 uint64_t current_x_rank = x_rank;
                 uint64_t current_node_id = 0;
                 uint64_t height = this->height();
@@ -636,6 +640,11 @@ namespace stool
                         return std::make_pair(current_node_id, i);
                     }
                 }
+
+                this->print_tree();
+                std::cout << "size: " << this->size() << std::endl;
+                std::cout << "x_rank = " << x_rank << std::endl;
+                std::cout << "locus_element not found" << std::endl;
                 throw std::runtime_error("Locus element not found");
             }
             uint64_t access_y_rank(uint64_t x_rank) const
@@ -896,7 +905,12 @@ namespace stool
 
             XRankIterator x_rank_begin() const
             {
-                return XRankIterator(this, 0, this->access_y_rank(0));
+                if(this->size() == 0){
+                    return XRankIterator(this, this->size(), this->size());
+
+                }else{
+                    return XRankIterator(this, 0, this->access_y_rank(0));
+                }
             }
             XRankIterator x_rank_end() const
             {
@@ -904,7 +918,14 @@ namespace stool
             }
             YRankIterator y_rank_begin() const
             {
-                return YRankIterator(this, this->access_x_rank(0), 0);
+                if (this->size() == 0)
+                {
+                    return YRankIterator(this, this->size(), this->size());
+                }
+                else
+                {
+                    return YRankIterator(this, this->access_x_rank(0), 0);
+                }
             }
             YRankIterator y_rank_end() const
             {
