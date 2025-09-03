@@ -16,7 +16,7 @@ namespace stool
         class DynamicPrefixSum
         {
         public:
-            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE>;
+            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE, true>;
             using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 

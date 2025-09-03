@@ -12,7 +12,7 @@ namespace stool
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <uint64_t MAX_DEGREE>
-        class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>
+        class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>
         {
             #if DEBUG
             public:
@@ -21,7 +21,7 @@ namespace stool
             #endif
 
             private:
-            using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>;
+            using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>;
             stool::SimpleDeque16<InternalNode *> children_;
             stool::NaiveArray<MAX_DEGREE+2> children_value_count_deque_;
             InternalNode *parent_ = nullptr;
@@ -178,7 +178,7 @@ namespace stool
             }
             uint64_t size_in_bytes() const
             {
-                return sizeof(BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE>) + this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true);
+                return sizeof(BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>) + this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true);
             }
             int64_t get_index(InternalNode *node) const
             {

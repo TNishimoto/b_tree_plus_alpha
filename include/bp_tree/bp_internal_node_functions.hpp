@@ -14,7 +14,7 @@ namespace stool
         template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, bool USE_PSUM, uint64_t MAX_DEGREE>
         class BPInternalNodeFunctions
         {
-            using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
 
         public:
             ////////////////////////////////////////////////////////////////////////////////
@@ -434,7 +434,7 @@ namespace stool
 
                 assert(left_node.is_parent_of_leaves() == right_node.is_parent_of_leaves());
 
-                if (USE_PSUM)
+                if constexpr (USE_PSUM)
                 {
                     // stool::SimpleDeque16<uint64_t> &left_sum_deq = left_node.get_value_sum_deque();
                     // stool::SimpleDeque16<uint64_t> &right_sum_deq = right_node.get_value_sum_deque();
@@ -512,7 +512,7 @@ namespace stool
 
                 assert(right_node.is_parent_of_leaves() == left_node.is_parent_of_leaves());
 
-                if (USE_PSUM)
+                if constexpr (USE_PSUM)
                 {
                     // stool::SimpleDeque16<uint64_t> &left_sum_deq = left_node.get_value_sum_deque();
                     // stool::SimpleDeque16<uint64_t> &right_sum_deq = right_node.get_value_sum_deque();

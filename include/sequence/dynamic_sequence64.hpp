@@ -20,7 +20,7 @@ namespace stool
         class DynamicSequence64
         {
         public:
-            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE>;
+            using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE, false>;
             using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, false, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
 
         private:
@@ -142,6 +142,7 @@ namespace stool
              */
             void insert(uint64_t pos, uint64_t value)
             {
+                assert(pos <= this->size());
                 this->tree.insert(pos, value, value);
             }
             /**

@@ -23,11 +23,11 @@ namespace stool
         class BPTree
         {
         public:
-            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
-            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
-            using PostorderIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
-            using ValueForwardIterator = BPValueForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
-            using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE>;
+            using NodePointer = BPNodePointer<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
+            using Node = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
+            using PostorderIterator = BPPostorderIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
+            using ValueForwardIterator = BPValueForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
+            using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
 
             using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, USE_PSUM, MAX_DEGREE>;
 
@@ -1946,7 +1946,7 @@ namespace stool
                 Node *node = path[path.size() - 1].get_node();
                 uint64_t child_count = this->leaf_container_vec[leaf_index].size();
                 uint64_t child_sum = 0;
-                if (USE_PSUM)
+                if constexpr (USE_PSUM)
                 {
                     child_sum = this->leaf_container_vec[leaf_index].psum();
                 }
@@ -2139,6 +2139,8 @@ namespace stool
                             {
                                 Node *node = this->tmp_path[i].get_node();
                                 uint64_t child_index = this->tmp_path[i + 1].get_parent_edge_index();
+
+                                assert(child_index < node->children_count());
 
 
                                 node->increment(child_index, 1, sum_delta);
@@ -2644,7 +2646,7 @@ namespace stool
                         }
                         uint64_t count = nodes[i]->get_value_count();
                         uint64_t sum = 0;
-                        if (USE_PSUM)
+                        if constexpr (USE_PSUM)
                         {
                             sum = nodes[i]->get_value_sum();
                         }
@@ -2683,7 +2685,7 @@ namespace stool
                             }
                             uint64_t count = nodes[i]->get_value_count();
                             uint64_t sum = 0;
-                            if (USE_PSUM)
+                            if constexpr (USE_PSUM)
                             {
                                 sum = nodes[i]->get_value_sum();
                             }
@@ -2729,7 +2731,7 @@ namespace stool
                     for (uint64_t i = 0; i < this->leaf_container_vec.size(); i++)
                     {
                         uint64_t psum = 0;
-                        if (USE_PSUM)
+                        if constexpr (USE_PSUM)
                         {
                             psum += this->leaf_container_vec[i].psum();
                         }
@@ -2769,7 +2771,7 @@ namespace stool
                         for (uint64_t j = 0; j < d; j++)
                         {
                             uint64_t psum = 0;
-                            if (USE_PSUM)
+                            if constexpr (USE_PSUM)
                             {
                                 psum += this->leaf_container_vec[i].psum();
                             }

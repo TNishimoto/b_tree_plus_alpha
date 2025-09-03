@@ -23,7 +23,7 @@ namespace stool
         class DynamicBitSequence
         {
             
-            using NodePointer = bptree::BPNodePointer<CONTAINER, bool, MAX_TREE_DEGREE>;
+            using NodePointer = bptree::BPNodePointer<CONTAINER, bool, MAX_TREE_DEGREE, true>;
             using T = uint64_t;
             using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
             
