@@ -21,7 +21,7 @@ namespace stool
         {
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE, false>;
-            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, false, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE,false, false>;
 
         private:
             Tree tree;

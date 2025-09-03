@@ -19,7 +19,7 @@ namespace stool
         /// @brief      An implementation of B+-tree
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, bool USE_PSUM, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE>
+        template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE, bool USE_PARENT_FIELD, bool USE_PSUM>
         class BPTree
         {
         public:
@@ -29,7 +29,7 @@ namespace stool
             using ValueForwardIterator = BPValueForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
             using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
 
-            using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, USE_PSUM, MAX_DEGREE>;
+            using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, MAX_DEGREE, USE_PSUM>;
 
 
         private:

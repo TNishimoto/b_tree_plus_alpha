@@ -17,7 +17,7 @@ namespace stool
         {
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE, true>;
-            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, false, true, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE, false, true>;
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
             //static inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;

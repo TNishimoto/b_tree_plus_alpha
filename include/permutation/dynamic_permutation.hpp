@@ -13,7 +13,6 @@ namespace stool
         class DynamicPermutation
         {
         public:
-            //using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
             using Tree = typename PermutationContainer::Tree;
 
             using BPIterator = bptree::BPPostorderIterator<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, false>;

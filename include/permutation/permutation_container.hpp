@@ -12,14 +12,13 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class PermutationContainer
         {
-            //using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>;
 
             stool::NaiveFLCVector<false> keys;
             stool::NaiveFLCVector<false> pointers;
 
         public:
             static constexpr uint64_t ___PermutationLeafSize = 252;
-            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, true, false, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, ___PermutationLeafSize>;
+            using Tree = bptree::BPTree<PermutationContainer, PermutationItem, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, ___PermutationLeafSize, true, false>;
 
         ////////////////////////////////////////////////////////////////////////////////
             /// @class      PermutationIterator

@@ -16,7 +16,7 @@ namespace stool
         {
             using NodePointer = bptree::BPNodePointer<CONTAINER, bool, MAX_TREE_DEGREE, true>;
             using T = uint64_t;
-            using Tree = bptree::BPTree<CONTAINER, bool, false, true, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>;
+            using Tree = bptree::BPTree<CONTAINER, bool, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE, false, true>;
             using LeafForwardIterator = typename Tree::LeafForwardIterator;
 
         public:

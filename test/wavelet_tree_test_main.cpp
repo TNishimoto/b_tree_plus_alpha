@@ -6,7 +6,7 @@
 #include <chrono>
 #include "../include/b_tree_plus_alpha.hpp"
 #include "../modules/stool/test/sources/template/dynamic_string_test.hpp"
-#include "../modules/stool/test/sources/string_test.hpp"
+#include "../modules/stool/test/sources/template/string_test.hpp"
 
 
 void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString &dyn_text, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet)
@@ -172,11 +172,22 @@ int main(int argc, char *argv[])
         uint64_t seed = 0;
         std::mt19937_64 mt64(seed);
 
+        bool detailed_check = false;
+        uint64_t max_text_size = 10000;
+        uint64_t number_of_access = 100;
+        uint64_t number_of_insertion = 100;
+        uint64_t number_of_removal = 100;
+
+        std::function<void(stool::bptree::DynamicWaveletTree &, const std::vector<uint8_t> &, const std::vector<uint8_t> &)> builder_function = [](stool::bptree::DynamicWaveletTree &dwt, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet){
+            auto _tmp = stool::bptree::DynamicWaveletTree::build(text, alphabet);
+            dwt.swap(_tmp);
+        };
+
         {
-            stool::bptree::DynamicWaveletTree dwt;
-            stool::StringTest::access_character_test(dwt, 10000, 1000, seed);
-            stool::DynamicStringTest::insert_character_test(dwt, 10000, seed);
-            stool::DynamicStringTest::remove_character_test(dwt, 10000, seed);
+            //stool::bptree::DynamicWaveletTree dwt;
+            stool::StringTest::access_character_test(max_text_size, number_of_access, 100, builder_function, seed);
+            stool::DynamicStringTest::insert_character_test(max_text_size, number_of_insertion, 100, builder_function, detailed_check, seed);
+            stool::DynamicStringTest::remove_character_test(max_text_size, number_of_removal, 100, builder_function, detailed_check, seed);
 
         }
 

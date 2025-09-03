@@ -11,7 +11,7 @@ namespace stool
         /// @brief      Helper functions of BPInternalNode
         ///
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, bool USE_PSUM, uint64_t MAX_DEGREE>
+        template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, uint64_t MAX_DEGREE, bool USE_PSUM>
         class BPInternalNodeFunctions
         {
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
@@ -25,18 +25,12 @@ namespace stool
 
             static uint64_t psum(const InternalNode &node)
             {
-                assert(node.use_psum());
-                const auto &deq = node.get_value_sum_deque();
-                return deq.psum();
-
-                /*
-                uint64_t sum = 0;
-                for (uint64_t p : deq)
-                {
-                    sum += p;
+                if constexpr (USE_PSUM){
+                    const auto &deq = node.get_value_sum_deque();
+                    return deq.psum();    
+                }else{
+                    throw std::runtime_error("BPInternalNodeFunctions::psum(): psum is not supported");
                 }
-                return sum;
-                */
             }
 
             static uint64_t psum(const InternalNode &node, uint64_t i, const std::vector<LEAF_CONTAINER> &leaf_container_vec)
@@ -376,7 +370,7 @@ namespace stool
                     }
                 }
 
-                if (node.use_psum())
+                if constexpr (USE_PSUM)
                 {
                     if (node.is_parent_of_leaves())
                     {
