@@ -683,13 +683,21 @@ namespace stool
                         uint64_t right_tree_size = this->bits_seq[h][i].count1();
                         if (h + 1 < this->bits_seq.size())
                         {
-                            assert(left_tree_size == this->bits_seq[h + 1][2 * i].size());
-                            assert(right_tree_size == this->bits_seq[h + 1][2 * i + 1].size());
+                            if(left_tree_size != this->bits_seq[h + 1][2 * i].size()){
+                                throw std::runtime_error("Error: verify, left_tree_size != this->bits_seq[h + 1][2 * i].size()");
+                            }
+                            if(right_tree_size != this->bits_seq[h + 1][2 * i + 1].size()){
+                                throw std::runtime_error("Error: verify, right_tree_size != this->bits_seq[h + 1][2 * i + 1].size()");
+                            }
                         }
                         else
                         {
-                            assert(left_tree_size == this->leaves[2 * i].size());
-                            assert(right_tree_size == this->leaves[2 * i + 1].size());
+                            if(left_tree_size != this->leaves[2 * i].size()){
+                                throw std::runtime_error("Error: verify, left_tree_size != this->leaves[2 * i].size()");
+                            }
+                            if(right_tree_size != this->leaves[2 * i + 1].size()){
+                                throw std::runtime_error("Error: verify, right_tree_size != this->leaves[2 * i + 1].size()");
+                            }
                         }
                     }
                 }

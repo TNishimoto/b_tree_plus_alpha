@@ -633,8 +633,9 @@ namespace stool
             }
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
+                std::string s = this->to_string();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicWaveletTree):" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "String: " << this->to_string() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "String: " << s << "(" << s.size() << ")" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
