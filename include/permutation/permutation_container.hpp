@@ -431,18 +431,18 @@ namespace stool
                 return bytes;
             }
 
-            static void save(const PermutationContainer &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(const PermutationContainer &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                NaiveFLCVector<false>::save(item.keys, output, pos);
-                NaiveFLCVector<false>::save(item.pointers, output, pos);
+                NaiveFLCVector<false>::store_to_bytes(item.keys, output, pos);
+                NaiveFLCVector<false>::store_to_bytes(item.pointers, output, pos);
             }
-            static void save(const PermutationContainer &item, std::ofstream &os)
+            static void store_to_file(const PermutationContainer &item, std::ofstream &os)
             {
-                NaiveFLCVector<false>::save(item.keys, os);
-                NaiveFLCVector<false>::save(item.pointers, os);
+                NaiveFLCVector<false>::store_to_file(item.keys, os);
+                NaiveFLCVector<false>::store_to_file(item.pointers, os);
             }
 
-            static void save(const std::vector<PermutationContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(const std::vector<PermutationContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 uint64_t size = items.size();
                 std::memcpy(output.data() + pos, &size, sizeof(size));
@@ -450,24 +450,24 @@ namespace stool
 
                 for (auto &it : items)
                 {
-                    PermutationContainer::save(it, output, pos);
+                    PermutationContainer::store_to_bytes(it, output, pos);
                 }
             }
-            static void save(const std::vector<PermutationContainer> &items, std::ofstream &os)
+            static void store_to_file(const std::vector<PermutationContainer> &items, std::ofstream &os)
             {
                 uint64_t size = items.size();
                 os.write(reinterpret_cast<const char *>(&size), sizeof(size));
                 for (auto &it : items)
                 {
-                    PermutationContainer::save(it, os);
+                    PermutationContainer::store_to_file(it, os);
                 }
             }
 
             static PermutationContainer load(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 PermutationContainer r;
-                NaiveFLCVector<false> tmp1 = NaiveFLCVector<false>::load(data, pos);
-                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load(data, pos);
+                NaiveFLCVector<false> tmp1 = NaiveFLCVector<false>::load_from_bytes(data, pos);
+                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load_from_bytes(data, pos);
                 r.keys.swap(tmp1);
                 r.pointers.swap(tmp2);
 
@@ -476,8 +476,8 @@ namespace stool
             static PermutationContainer load(std::ifstream &ifs)
             {
                 PermutationContainer r;
-                NaiveFLCVector<false> tmp1 = NaiveFLCVector<false>::load(ifs);
-                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load(ifs);
+                NaiveFLCVector<false> tmp1 = NaiveFLCVector<false>::load_from_file(ifs);
+                NaiveFLCVector<false> tmp2 = NaiveFLCVector<false>::load_from_file(ifs);
                 r.keys.swap(tmp1);
                 r.pointers.swap(tmp2);
 

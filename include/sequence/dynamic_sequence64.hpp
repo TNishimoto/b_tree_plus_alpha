@@ -299,18 +299,18 @@ namespace stool
              * @param output The vector to save the sequence to.
              * @param pos The position in the vector to start saving at.
              */
-            static void save(DynamicSequence64 &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicSequence64 &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                item.tree.save(output, pos);
+                Tree::store_to_bytes(item.tree, output, pos);
             }
             /**
              * @brief Saves the sequence to a file.
              * @param item The sequence to save.
              * @param os The output stream to save the sequence to.
              */
-            static void save(DynamicSequence64 &item, std::ofstream &os)
+            static void store_to_file(DynamicSequence64 &item, std::ofstream &os)
             {
-                item.tree.save(os);
+                Tree::store_to_file(item.tree, os);
             }
 
             /**
@@ -319,23 +319,19 @@ namespace stool
              * @param pos The position in the vector to start building from.
              * @return A new DynamicSequence64 instance.
              */
-            static DynamicSequence64 build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicSequence64 load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicSequence64 r;
                 r.tree.build_from_data(data, pos);
                 return r;
             }
 
-            static DynamicSequence64 load(const std::vector<uint8_t> &data, uint64_t &pos)
-            {
-                return DynamicSequence64::build_from_data(data, pos);
-            }
             /**
              * @brief Builds a sequence from a file.
              * @param ifs The input stream to build the sequence from.
              * @return A new DynamicSequence64 instance.
              */
-            static DynamicSequence64 build_from_data(std::ifstream &ifs)
+            static DynamicSequence64 load_from_file(std::ifstream &ifs)
             {
                 DynamicSequence64 r;
                 r.tree.build_from_data(ifs);
@@ -343,7 +339,7 @@ namespace stool
             }
             static DynamicSequence64 load(std::ifstream &ifs)
             {
-                return DynamicSequence64::build_from_data(ifs);
+                return DynamicSequence64::load_from_file(ifs);
             }
             /**
              * @brief Returns the value at a specified position in the sequence.

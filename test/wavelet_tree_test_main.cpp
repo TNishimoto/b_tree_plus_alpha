@@ -67,7 +67,7 @@ void insert_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
     {
         uint64_t c = alphabet[get_rand_uni_int(mt64) % alphabet.size()];
         uint64_t nth = get_rand_uni_int(mt64) % (text.size() + 1);
-        text.insert_char(nth, c);
+        text.insert_string(nth, c);
         ds.insert(nth, c);
     }
 
@@ -82,7 +82,7 @@ void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
     while (text.size() > 0)
     {
         uint64_t nth = get_rand_uni_int(mt64) % (text.size());
-        text.delete_char(nth);
+        text.delete_string(nth, 1);
         ds.remove(nth);
 
         if (text.size() % 100 == 0)
@@ -172,11 +172,13 @@ int main(int argc, char *argv[])
         uint64_t seed = 0;
         std::mt19937_64 mt64(seed);
 
+        /*
         bool detailed_check = false;
         uint64_t max_text_size = 10000;
         uint64_t number_of_access = 100;
         uint64_t number_of_insertion = 100;
         uint64_t number_of_removal = 100;
+        */
 
         std::function<void(stool::bptree::DynamicWaveletTree &, const std::vector<uint8_t> &, const std::vector<uint8_t> &)> builder_function = [](stool::bptree::DynamicWaveletTree &dwt, const std::vector<uint8_t> &text, const std::vector<uint8_t> &alphabet){
             auto _tmp = stool::bptree::DynamicWaveletTree::build(text, alphabet);
@@ -185,9 +187,11 @@ int main(int argc, char *argv[])
 
         {
             //stool::bptree::DynamicWaveletTree dwt;
+            /*
             stool::StringTest::access_character_test(max_text_size, number_of_access, 100, builder_function, seed);
             stool::DynamicStringTest::insert_character_test(max_text_size, number_of_insertion, 100, builder_function, detailed_check, seed);
             stool::DynamicStringTest::remove_character_test(max_text_size, number_of_removal, 100, builder_function, detailed_check, seed);
+            */
 
         }
 

@@ -302,7 +302,7 @@ namespace stool
             std::vector<uint8_t> bytes;
             uint64_t pos = 0;
 
-            BIT_SEQUENCE::save(spsi, bytes, pos);
+            BIT_SEQUENCE::store_to_bytes(spsi, bytes, pos);
 
             pos = 0;
 
@@ -342,7 +342,7 @@ namespace stool
                 }
 
                 std::cout << "save" << std::endl;
-                BIT_SEQUENCE::save(spsi, os);
+                BIT_SEQUENCE::store_to_file(spsi, os);
             }
             BIT_SEQUENCE spsi2;
 

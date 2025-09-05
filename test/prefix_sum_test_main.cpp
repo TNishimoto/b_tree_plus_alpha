@@ -36,6 +36,23 @@ int main(int argc, char *argv[])
     uint64_t number_of_trials = 100;
     uint64_t max_value = 1000000;
 
+    stool::DynamicIntegerTest<stool::bptree::SimpleDynamicPrefixSum, true, true> test;
+
+    test.build_test(seq_len, max_value, number_of_trials, seed);
+    test.psum_test(seq_len, max_value, number_of_trials, seed);
+    test.search_test(seq_len, max_value, number_of_trials, seed);
+    test.load_and_save_file_test(seq_len, max_value, number_of_trials, false, seed);
+    test.load_and_save_bytes_test(seq_len, max_value, number_of_trials, false, seed);
+
+    test.push_back_test(seq_len, max_value, number_of_trials, false, seed);
+    test.pop_back_test(seq_len, max_value, number_of_trials, false, seed);
+    test.insert_test(seq_len, max_value, number_of_trials, false, seed);
+    test.remove_test(seq_len, max_value, number_of_trials, false, seed);
+    test.replace_test(seq_len, max_value, number_of_trials, false, seed);
+    test.template random_test<false>(seq_len, max_value, number_of_trials, 100, false, seed);
+
+
+    /*
     stool::DynamicIntegerTest::build_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, seed);
     stool::DynamicIntegerTest::psum_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, seed);
     stool::DynamicIntegerTest::search_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, seed);
@@ -47,5 +64,6 @@ int main(int argc, char *argv[])
     stool::DynamicIntegerTest::remove_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, seed, false);
     stool::DynamicIntegerTest::replace_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, seed, false);
     stool::DynamicIntegerTest::random_test<stool::bptree::SimpleDynamicPrefixSum>(seq_len, max_value, number_of_trials, 100, seed, false);
+    */
 
 }

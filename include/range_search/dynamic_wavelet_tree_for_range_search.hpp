@@ -1000,7 +1000,7 @@ namespace stool
                 std::cout << "===== [END] =====" << std::endl;
             }
 
-            static void save(DynamicWaveletTreeForRangeSearch &item, std::ofstream &os)
+            static void store_to_file(DynamicWaveletTreeForRangeSearch &item, std::ofstream &os)
             {
                 uint64_t height = item.height();
                 os.write(reinterpret_cast<const char *>(&height), sizeof(uint64_t));
@@ -1009,16 +1009,16 @@ namespace stool
                 {
                     for (uint64_t i = 0; i < item.bits_seq[h].size(); i++)
                     {
-                        BIT_SEQUENCE::save(item.bits_seq[h][i], os);
+                        BIT_SEQUENCE::store_to_file(item.bits_seq[h][i], os);
                     }
                 }
 
                 for (uint64_t i = 0; i < item.leaves.size(); i++)
                 {
-                    NaiveFLCVector<false>::save(item.leaves[i], os);
+                    NaiveFLCVector<false>::store_to_file(item.leaves[i], os);
                 }
             }
-            static void save(DynamicWaveletTreeForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicWaveletTreeForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
 
                 uint64_t bytes = item.size_in_bytes();
@@ -1030,29 +1030,29 @@ namespace stool
                 std::memcpy(output.data() + pos, &height, sizeof(height));
                 pos += sizeof(height);
 
-                for (uint64_t h = 0; h < height; h++)
+                for (int64_t h = 0; h < (int64_t)height; h++)
                 {
                     for (uint64_t i = 0; i < item.bits_seq[h].size(); i++)
                     {
-                        BIT_SEQUENCE::save(item.bits_seq[h][i], output, pos);
+                        BIT_SEQUENCE::store_to_bytes(item.bits_seq[h][i], output, pos);
                     }
                 }
                 for (uint64_t i = 0; i < item.leaves.size(); i++)
                 {
-                    NaiveFLCVector<false>::save(item.leaves[i], output, pos);
+                    NaiveFLCVector<false>::store_to_bytes(item.leaves[i], output, pos);
                 }
             }
             uint64_t size_in_bytes(bool only_extra_bytes = false) const
             {
                 uint64_t sum = 0;
                 sum += sizeof(uint64_t);
-                for(uint64_t h = 0; h < this->height(); h++){
+                for(int64_t h = 0; h < (int64_t)this->height(); h++){
                     for(uint64_t i = 0; i < this->bits_seq[h].size(); i++){
-                        sum += this->bits_seq[h][i].size_in_bytes(false);
+                        sum += this->bits_seq[h][i].size_in_bytes(only_extra_bytes);
                     }
                 }
-                for(uint64_t i = 0; i < this->leaves.size(); i++){
-                    sum += this->leaves[i].size_in_bytes(false);
+                for(int64_t i = 0; i < (int64_t)this->leaves.size(); i++){
+                    sum += this->leaves[i].size_in_bytes(only_extra_bytes);
                 }
                 return sum;
 
@@ -1080,7 +1080,7 @@ namespace stool
                 r.leaves.resize(width);
                 for (uint64_t i = 0; i < width; i++)
                 {
-                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load(ifs);
+                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load_from_file(ifs);
                     r.leaves[i].swap(leaves);
                 }
                 return r;
@@ -1108,7 +1108,7 @@ namespace stool
                 r.leaves.resize(width);
                 for (uint64_t i = 0; i < width; i++)
                 {
-                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load(data, pos);
+                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load_from_bytes(data, pos);
                     r.leaves[i].swap(leaves);
                 }
                 return r;

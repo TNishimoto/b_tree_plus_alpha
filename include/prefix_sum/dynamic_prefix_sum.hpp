@@ -156,6 +156,11 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            uint64_t reverse_psum([[maybe_unused]] uint64_t i) const
+            {
+                throw std::runtime_error("No implementation");
+            }
+
             /**
              * @brief Return the sum of the first i values stored in this data structure.
              */
@@ -437,18 +442,18 @@ namespace stool
                 assert(r.size() == items.size());
                 return r;
             }
-            static DynamicPrefixSum build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicPrefixSum build_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicPrefixSum r;
                 r.tree.build_from_data(data, pos);
                 return r;
             }
-            static DynamicPrefixSum load(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicPrefixSum load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
-                return DynamicPrefixSum::build_from_data(data, pos);
+                return DynamicPrefixSum::build_from_bytes(data, pos);
             }
 
-            static DynamicPrefixSum build_from_data(std::ifstream &ifs)
+            static DynamicPrefixSum load_from_file(std::ifstream &ifs)
             {
                 DynamicPrefixSum r;
                 r.tree.build_from_data(ifs);
@@ -456,16 +461,16 @@ namespace stool
             }
             static DynamicPrefixSum load(std::ifstream &ifs)
             {
-                return DynamicPrefixSum::build_from_data(ifs);
+                return DynamicPrefixSum::load_from_file(ifs);
             }
 
-            static void save(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                item.tree.save(output, pos);
+                Tree::store_to_bytes(item.tree, output, pos);
             }
-            static void save(DynamicPrefixSum &item, std::ofstream &os)
+            static void store_to_file(DynamicPrefixSum &item, std::ofstream &os)
             {
-                item.tree.save(os);
+                Tree::store_to_file(item.tree, os);
             }
             //@}
 

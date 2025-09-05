@@ -601,9 +601,9 @@ namespace stool
              * @param output The output vector.
              * @param pos The position in the output vector.
              */
-            static void save(DynamicBitSequence &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicBitSequence &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                item.tree.save(output, pos);
+                Tree::store_to_bytes(item.tree, output, pos);
             }
 
             /**
@@ -611,9 +611,9 @@ namespace stool
              * @param item The bit sequence to save.
              * @param os The output file stream.
              */
-            static void save(DynamicBitSequence &item, std::ofstream &os)
+            static void store_to_file(DynamicBitSequence &item, std::ofstream &os)
             {
-                item.tree.save(os);
+                Tree::store_to_file(item.tree, os);
             }
 
             /**

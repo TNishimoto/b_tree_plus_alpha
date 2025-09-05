@@ -254,7 +254,7 @@ void load_write_file_test(uint64_t max_element_count, uint64_t trial_count, [[ma
                     std::cerr << "Error: Could not open file for writing." << std::endl;
                     throw std::runtime_error("File open error");
                 }
-                stool::bptree::DynamicPermutation::save(dp, os);
+                stool::bptree::DynamicPermutation::store_to_file(dp, os);
             }
 
             stool::bptree::DynamicPermutation dp2;
@@ -317,7 +317,7 @@ void load_write_bits_test(uint64_t max_element_count, uint64_t trial_count, [[ma
             // std::cout << "save" << std::endl;
             // dp.print();
 
-            stool::bptree::DynamicPermutation::save(dp, bytes, pos);
+            stool::bptree::DynamicPermutation::store_to_bytes(dp, bytes, pos);
             // dp.print();
 
             pos = 0;

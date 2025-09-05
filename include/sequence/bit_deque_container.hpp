@@ -307,7 +307,7 @@ namespace stool
                 {
                     output.push_back(0);
                 }
-                BitArrayDeque::save(this->bits, output, size);
+                BitArrayDeque::store_to_bytes(this->bits, output, size);
             }
             /*
             void load_from_data(std::vector<uint64_t> &output){
@@ -324,7 +324,7 @@ namespace stool
                 }
                 return size;
             }
-            static void save(const std::vector<BitVectorContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(const std::vector<BitVectorContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 uint64_t size = get_byte_size(items);
                 if (pos + size > output.size())
@@ -338,28 +338,28 @@ namespace stool
 
                 for (const auto &item : items)
                 {
-                    BitArrayDeque::save(item.bits, output, pos);
+                    BitArrayDeque::store_to_bytes(item.bits, output, pos);
                 }
             }
-            static void save(const std::vector<BitVectorContainer> &items, std::ofstream &os)
+            static void store_to_file(const std::vector<BitVectorContainer> &items, std::ofstream &os)
             {
                 uint64_t items_size = items.size();
                 os.write(reinterpret_cast<const char *>(&items_size), sizeof(uint64_t));
     
                 for (const auto &item : items)
                 {
-                    BitArrayDeque::save(item.bits, os);
+                    BitArrayDeque::store_to_file(item.bits, os);
                 }
             }
             static BitVectorContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
                 BitVectorContainer r;
-                r.bits = BitArrayDeque::load(data, pos);
+                r.bits = BitArrayDeque::load_from_bytes(data, pos);
                 return r;
             }
             static BitVectorContainer load(std::ifstream &ifs)
             {
                 BitVectorContainer r;
-                r.bits = BitArrayDeque::load(ifs);
+                r.bits = BitArrayDeque::load_from_file(ifs);
                 return r;
             }
             static std::vector<BitVectorContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)

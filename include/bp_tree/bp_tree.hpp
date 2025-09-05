@@ -2914,17 +2914,17 @@ namespace stool
              *          3. Saving leaf container data
              *          The output vector is resized if needed to accommodate the data
              */
-            void save(std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(BPTree &bp, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                if (!this->check_if_leaf_container_vec_is_sorted())
+                if (!bp.check_if_leaf_container_vec_is_sorted())
                 {
-                    this->sort_leaf_containers();
+                    bp.sort_leaf_containers();
                 }
 
                 uint64_t _max_degree = MAX_DEGREE;
                 uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
 
-                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(this->leaf_container_vec);
+                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(bp.leaf_container_vec);
                 if (pos + _size > output.size())
                 {
                     output.resize(pos + _size);
@@ -2935,7 +2935,7 @@ namespace stool
                 std::memcpy(output.data() + pos, &_max_count_of_values_in_leaf, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
 
-                LEAF_CONTAINER::save(this->leaf_container_vec, output, pos);
+                LEAF_CONTAINER::store_to_bytes(bp.leaf_container_vec, output, pos);
             }
 
             /**
@@ -2946,18 +2946,18 @@ namespace stool
              *          2. Writing tree parameters (max degrees)
              *          3. Saving leaf container data to the file
              */
-            void save(std::ofstream &os)
+            static void store_to_file(BPTree &bp, std::ofstream &os)
             {
-                if (!this->check_if_leaf_container_vec_is_sorted())
+                if (!bp.check_if_leaf_container_vec_is_sorted())
                 {
-                    this->sort_leaf_containers();
+                    bp.sort_leaf_containers();
                 }
                 uint64_t _max_degree = MAX_DEGREE;
                 uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
 
                 os.write((const char *)(&_max_degree), sizeof(uint64_t));
                 os.write((const char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
-                LEAF_CONTAINER::save(this->leaf_container_vec, os);
+                LEAF_CONTAINER::store_to_file(bp.leaf_container_vec, os);
             }
 
             /**

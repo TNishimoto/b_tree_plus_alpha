@@ -319,7 +319,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
             std::cerr << "Error: Could not open file for writing." << std::endl;
             throw std::runtime_error("File open error");
         }
-        stool::bptree::DynamicWaveletTreeForRangeSearch::save(ds, os);
+        stool::bptree::DynamicWaveletTreeForRangeSearch::store_to_file(ds, os);
     }
 
     stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
@@ -369,7 +369,7 @@ void load_write_bits_test(uint64_t size, uint64_t seed)
     ds.build(rank_array);
     std::vector<uint8_t> bytes;
     uint64_t pos = 0;
-    stool::bptree::DynamicWaveletTreeForRangeSearch::save(ds, bytes, pos);
+    stool::bptree::DynamicWaveletTreeForRangeSearch::store_to_bytes(ds, bytes, pos);
     pos = 0;
 
     stool::bptree::DynamicWaveletTreeForRangeSearch ds2;

@@ -409,17 +409,17 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
-            static void save(DynamicPermutation &dp, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicPermutation &dp, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 dp.pi_tree.sort_leaf_containers();
                 dp.inverse_pi_tree.sort_leaf_containers();
-                dp.pi_tree.save(output, pos);
-                dp.inverse_pi_tree.save(output, pos);
+                Tree::store_to_bytes(dp.pi_tree, output, pos);
+                Tree::store_to_bytes(dp.inverse_pi_tree, output, pos);
             }
-            static void save(DynamicPermutation &dp, std::ofstream &os)
+            static void store_to_file(DynamicPermutation &dp, std::ofstream &os)
             {
-                dp.pi_tree.save(os);
-                dp.inverse_pi_tree.save(os);
+                Tree::store_to_file(dp.pi_tree, os);
+                Tree::store_to_file(dp.inverse_pi_tree, os);
             }
 
             static DynamicPermutation build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)

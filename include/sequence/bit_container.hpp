@@ -513,7 +513,7 @@ namespace stool
             {
                 return sizeof(uint64_t) + (items.size() * sizeof(BitContainer));
             }
-            static void save(const std::vector<BitContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(const std::vector<BitContainer> &items, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 uint64_t size = get_byte_size(items);
                 if (pos + size > output.size())
@@ -528,7 +528,7 @@ namespace stool
                 std::memcpy(output.data() + pos, items.data(), items_size * sizeof(BitContainer));
                 pos += size * sizeof(BitContainer);
             }
-            static void save(const std::vector<BitContainer> &items, std::ofstream &os)
+            static void store_to_file(const std::vector<BitContainer> &items, std::ofstream &os)
             {
                 uint64_t items_size = items.size();
                 os.write(reinterpret_cast<const char *>(&items_size), sizeof(uint64_t));
