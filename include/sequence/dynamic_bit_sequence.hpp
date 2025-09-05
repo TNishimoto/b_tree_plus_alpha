@@ -79,9 +79,9 @@ namespace stool
              * @brief Returns the size of the bit sequence in bytes.
              * @return uint64_t The number of bytes used by the sequence.
              */
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes([[maybe_unused]] bool only_extra_bytes = false) const
             {
-                return this->tree.size_in_bytes();
+                return this->tree.size_in_bytes(only_extra_bytes);
             }
 
             //@}

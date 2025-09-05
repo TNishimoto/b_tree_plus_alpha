@@ -228,16 +228,17 @@ void build_test(uint64_t size, uint64_t number_of_trials, uint64_t seed)
 {
     std::cout << "BUILD TEST" << std::endl;
     for(uint64_t len = 1; len <= size; len*=2){
-        std::cout << "len: " << len << std::endl;
+        std::cout << "\t len: " << len << ": " << std::flush;
         for(uint64_t i = 0; i < number_of_trials; i++){
             std::cout << "+" << std::flush;
-
             build_test(len, seed++);
         }    
+        std::cout << std::endl;
     }
     std::cout << "[END]" << std::endl;
-
 }
+
+
 void range_search_test_sub(uint64_t size, uint64_t number_of_trials, uint64_t seed)
 {
     std::mt19937_64 mt64(seed);
@@ -293,7 +294,7 @@ void range_search_test(uint64_t max_size, uint64_t number_of_trials1, uint64_t n
 {
     std::cout << "RANGE SEARCH TEST" << std::endl;
     for(uint64_t len = 1; len <= max_size; len*=2){
-        std::cout << "len: " << len << ": " << std::flush;
+        std::cout << "\tlen: " << len << ": " << std::flush;
         for(uint64_t i = 0; i < number_of_trials1; i++){
             std::cout << "+" << std::flush;
             range_search_test_sub(len, number_of_trials2 ,seed++);
@@ -302,6 +303,107 @@ void range_search_test(uint64_t max_size, uint64_t number_of_trials1, uint64_t n
     }
     std::cout << "[END]" << std::endl;
 }
+
+void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
+{
+    
+    std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
+    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    ds.build(rank_array);
+
+    {
+        std::ofstream os;
+        os.open(filepath, std::ios::binary);
+        if (!os)
+        {
+            std::cerr << "Error: Could not open file for writing." << std::endl;
+            throw std::runtime_error("File open error");
+        }
+        stool::bptree::DynamicWaveletTreeForRangeSearch::save(ds, os);
+    }
+
+    stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
+    {
+        std::ifstream ifs;
+        ifs.open(filepath, std::ios::binary);
+        if (!ifs)
+        {
+            std::cerr << "Error: Could not open file for reading." << std::endl;
+        }
+        ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::build_from_data(ifs);
+    }
+
+    std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements();
+    try{
+        stool::EqualChecker::equal_check(test_rank_array, test_rank_array2, "load_write_file_test");
+    }catch(const std::exception& e){
+        std::cout << "Error: " << e.what() << std::endl;
+        ds.print_tree();
+        ds2.print_tree();
+        throw e;
+    }
+}
+
+
+void load_write_file_test(uint64_t size, uint64_t number_of_trials, std::string filepath, uint64_t seed)
+{
+    std::cout << "LOAD WRITE FILE TEST" << std::endl;
+    for(uint64_t len = 1; len <= size; len*=2){
+        std::cout << "\t len: " << len << ": " << std::flush;
+        for(uint64_t i = 0; i < number_of_trials; i++){
+            std::cout << "+" << std::flush;
+
+            load_write_file_test(len, filepath, seed++);
+        }    
+        std::cout << std::endl;
+    }
+    std::cout << "[END]" << std::endl;
+}
+
+void load_write_bits_test(uint64_t size, uint64_t seed)
+{
+    
+    std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
+    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    ds.build(rank_array);
+    std::vector<uint8_t> bytes;
+    uint64_t pos = 0;
+    stool::bptree::DynamicWaveletTreeForRangeSearch::save(ds, bytes, pos);
+    pos = 0;
+
+    stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
+    ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::build_from_data(bytes, pos);
+
+
+    std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements();
+    try{
+        stool::EqualChecker::equal_check(test_rank_array, test_rank_array2, "load_write_file_test");
+    }catch(const std::exception& e){
+        std::cout << "Error: " << e.what() << std::endl;
+        ds.print_tree();
+        ds2.print_tree();
+        throw e;
+    }
+}
+
+
+void load_write_bits_test(uint64_t size, uint64_t number_of_trials, uint64_t seed)
+{
+    std::cout << "LOAD WRITE BITS TEST" << std::endl;
+    for(uint64_t len = 1; len <= size; len*=2){
+        std::cout << "\t len: " << len << ": " << std::flush;
+        for(uint64_t i = 0; i < number_of_trials; i++){
+            std::cout << "+" << std::flush;
+
+            load_write_bits_test(len, seed++);
+        }    
+        std::cout << std::endl;
+    }
+    std::cout << "[END]" << std::endl;
+}
+
 
 
 int main(int argc, char *argv[])
@@ -329,11 +431,16 @@ int main(int argc, char *argv[])
     uint64_t seed = p.get<uint64_t>("seed");
     //uint64_t mode = p.get<uint>("mode");
 
-    build_test(10000, 100, seed);
-    range_search_test(10000, 50, 100, seed);
+    uint64_t text_size = 4000;
 
-    remove_test(10000, 10, false, seed);
-    insert_test(10000, 10, false, seed);
+    build_test(text_size, 100, seed);
+    range_search_test(text_size, 50, 100, seed);
+
+    remove_test(text_size, 10, false, seed);
+    insert_test(text_size, 10, false, seed);
+
+    load_write_file_test(text_size, 10, "range_search_test.bits", seed);
+    load_write_bits_test(text_size, 10, seed);
 
 
 

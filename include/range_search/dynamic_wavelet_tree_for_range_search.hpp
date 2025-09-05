@@ -23,7 +23,7 @@ namespace stool
                 using difference_type = std::ptrdiff_t;
 
                 const DynamicWaveletTreeForRangeSearch *container = nullptr;
-                uint64_t x_rank = 0;            
+                uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
                 YRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
                 YRankIterator(const DynamicWaveletTreeForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
@@ -119,7 +119,7 @@ namespace stool
                 using difference_type = std::ptrdiff_t;
 
                 const DynamicWaveletTreeForRangeSearch *container = nullptr;
-                uint64_t x_rank = 0;            
+                uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
                 XRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
                 XRankIterator(const DynamicWaveletTreeForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
@@ -212,13 +212,17 @@ namespace stool
                 this->clear();
             }
 
-            void clear(){
-                for(uint64_t i = 0; i < this->bits_seq.size(); i++){
-                    for(uint64_t j = 0; j < this->bits_seq[i].size(); j++){
+            void clear()
+            {
+                for (uint64_t i = 0; i < this->bits_seq.size(); i++)
+                {
+                    for (uint64_t j = 0; j < this->bits_seq[i].size(); j++)
+                    {
                         this->bits_seq[i][j].clear();
                     }
                 }
-                for(uint64_t i = 0; i < this->leaves.size(); i++){
+                for (uint64_t i = 0; i < this->leaves.size(); i++)
+                {
                     this->leaves[i].clear();
                 }
                 this->bits_seq.clear();
@@ -551,6 +555,11 @@ namespace stool
                     this->bits_seq[h][h_node_id].push_many(tmp_bit_sequence);
                 }
             }
+            void swap(DynamicWaveletTreeForRangeSearch &item)
+            {
+                this->bits_seq.swap(item.bits_seq);
+                this->leaves.swap(item.leaves);
+            }
             void rebuild_leaf(uint64_t leaf_id, const std::vector<uint64_t> &rank_elements)
             {
                 stool::NaiveFLCVector<false> tmp(rank_elements);
@@ -609,7 +618,8 @@ namespace stool
             }
             std::pair<uint64_t, uint64_t> locus_element(uint64_t x_rank) const
             {
-                if(x_rank >= this->size()){
+                if (x_rank >= this->size())
+                {
                     throw std::runtime_error("ERROR in locus_element: x_rank is out of range");
                 }
 
@@ -683,19 +693,23 @@ namespace stool
                         uint64_t right_tree_size = this->bits_seq[h][i].count1();
                         if (h + 1 < this->bits_seq.size())
                         {
-                            if(left_tree_size != this->bits_seq[h + 1][2 * i].size()){
+                            if (left_tree_size != this->bits_seq[h + 1][2 * i].size())
+                            {
                                 throw std::runtime_error("Error: verify, left_tree_size != this->bits_seq[h + 1][2 * i].size()");
                             }
-                            if(right_tree_size != this->bits_seq[h + 1][2 * i + 1].size()){
+                            if (right_tree_size != this->bits_seq[h + 1][2 * i + 1].size())
+                            {
                                 throw std::runtime_error("Error: verify, right_tree_size != this->bits_seq[h + 1][2 * i + 1].size()");
                             }
                         }
                         else
                         {
-                            if(left_tree_size != this->leaves[2 * i].size()){
+                            if (left_tree_size != this->leaves[2 * i].size())
+                            {
                                 throw std::runtime_error("Error: verify, left_tree_size != this->leaves[2 * i].size()");
                             }
-                            if(right_tree_size != this->leaves[2 * i + 1].size()){
+                            if (right_tree_size != this->leaves[2 * i + 1].size())
+                            {
                                 throw std::runtime_error("Error: verify, right_tree_size != this->leaves[2 * i + 1].size()");
                             }
                         }
@@ -913,10 +927,12 @@ namespace stool
 
             XRankIterator x_rank_begin() const
             {
-                if(this->size() == 0){
+                if (this->size() == 0)
+                {
                     return XRankIterator(this, this->size(), this->size());
-
-                }else{
+                }
+                else
+                {
                     return XRankIterator(this, 0, this->access_y_rank(0));
                 }
             }
@@ -983,6 +999,121 @@ namespace stool
                 }
                 std::cout << "===== [END] =====" << std::endl;
             }
+
+            static void save(DynamicWaveletTreeForRangeSearch &item, std::ofstream &os)
+            {
+                uint64_t height = item.height();
+                os.write(reinterpret_cast<const char *>(&height), sizeof(uint64_t));
+
+                for (uint64_t h = 0; h < height; h++)
+                {
+                    for (uint64_t i = 0; i < item.bits_seq[h].size(); i++)
+                    {
+                        BIT_SEQUENCE::save(item.bits_seq[h][i], os);
+                    }
+                }
+
+                for (uint64_t i = 0; i < item.leaves.size(); i++)
+                {
+                    NaiveFLCVector<false>::save(item.leaves[i], os);
+                }
+            }
+            static void save(DynamicWaveletTreeForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
+            {
+
+                uint64_t bytes = item.size_in_bytes();
+                if(output.size() < pos + bytes){
+                    output.resize(pos + bytes);
+                }
+                uint64_t height = item.height();
+        
+                std::memcpy(output.data() + pos, &height, sizeof(height));
+                pos += sizeof(height);
+
+                for (uint64_t h = 0; h < height; h++)
+                {
+                    for (uint64_t i = 0; i < item.bits_seq[h].size(); i++)
+                    {
+                        BIT_SEQUENCE::save(item.bits_seq[h][i], output, pos);
+                    }
+                }
+                for (uint64_t i = 0; i < item.leaves.size(); i++)
+                {
+                    NaiveFLCVector<false>::save(item.leaves[i], output, pos);
+                }
+            }
+            uint64_t size_in_bytes(bool only_extra_bytes = false) const
+            {
+                uint64_t sum = 0;
+                sum += sizeof(uint64_t);
+                for(uint64_t h = 0; h < this->height(); h++){
+                    for(uint64_t i = 0; i < this->bits_seq[h].size(); i++){
+                        sum += this->bits_seq[h][i].size_in_bytes(false);
+                    }
+                }
+                for(uint64_t i = 0; i < this->leaves.size(); i++){
+                    sum += this->leaves[i].size_in_bytes(false);
+                }
+                return sum;
+
+            }
+
+            static DynamicWaveletTreeForRangeSearch build_from_data(std::ifstream &ifs)
+            {
+                DynamicWaveletTreeForRangeSearch r;
+                uint64_t _height = 0;
+                ifs.read(reinterpret_cast<char *>(&_height), sizeof(uint64_t));
+
+                r.bits_seq.resize(_height);
+                uint64_t width = 1;
+                for (uint64_t h = 0; h < _height; h++)
+                {
+                    r.bits_seq[h].resize(width);
+                    for (uint64_t i = 0; i < width; i++)
+                    {
+                        SimpleDynamicBitSequence bits = BIT_SEQUENCE::build_from_data(ifs);
+                        r.bits_seq[h][i].swap(bits);
+                    }
+                    width *= 2;
+                }
+
+                r.leaves.resize(width);
+                for (uint64_t i = 0; i < width; i++)
+                {
+                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load(ifs);
+                    r.leaves[i].swap(leaves);
+                }
+                return r;
+            }
+            static DynamicWaveletTreeForRangeSearch build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                DynamicWaveletTreeForRangeSearch r;
+                uint64_t _height;
+                std::memcpy(&_height, data.data() + pos, sizeof(_height));
+                pos += sizeof(_height);
+
+                r.bits_seq.resize(_height);
+                uint64_t width = 1;
+                for (uint64_t h = 0; h < _height; h++)
+                {
+                    r.bits_seq[h].resize(width);
+                    for (uint64_t i = 0; i < width; i++)
+                    {
+                        SimpleDynamicBitSequence bits = BIT_SEQUENCE::build_from_data(data, pos);
+                        r.bits_seq[h][i].swap(bits);
+                    }
+                    width *= 2;
+                }
+
+                r.leaves.resize(width);
+                for (uint64_t i = 0; i < width; i++)
+                {
+                    NaiveFLCVector<false> leaves = NaiveFLCVector<false>::load(data, pos);
+                    r.leaves[i].swap(leaves);
+                }
+                return r;
+            }
+
         };
     }
 }

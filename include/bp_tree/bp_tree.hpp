@@ -928,10 +928,13 @@ namespace stool
              * @brief Returns the total memory size of the B+ tree
              * @return The total memory size of the B+ tree
              */
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes([[maybe_unused]] bool only_extra_bytes = false) const
             {
-                return this->get_internal_node_memory() + this->get_unused_leaf_container_vector_memory() + this->get_unused_leaf_container_vector_memory() + this->get_leaf_container_memory() + this->get_unused_node_pointers_memory() +
-                       this->get_parent_vector_memory();
+                uint64_t _max_degree = MAX_DEGREE;
+                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(this->leaf_container_vec);
+
+                return _size;
             }
 
             /**
