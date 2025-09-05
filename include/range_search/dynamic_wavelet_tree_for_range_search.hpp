@@ -1058,7 +1058,7 @@ namespace stool
 
             }
 
-            static DynamicWaveletTreeForRangeSearch build_from_data(std::ifstream &ifs)
+            static DynamicWaveletTreeForRangeSearch load_from_file(std::ifstream &ifs)
             {
                 DynamicWaveletTreeForRangeSearch r;
                 uint64_t _height = 0;
@@ -1085,7 +1085,7 @@ namespace stool
                 }
                 return r;
             }
-            static DynamicWaveletTreeForRangeSearch build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicWaveletTreeForRangeSearch load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicWaveletTreeForRangeSearch r;
                 uint64_t _height;
