@@ -302,8 +302,17 @@ namespace stool
                     uint64_t upper_size = this->get_upper_size_of_internal_node(0);
                     if (this->size() >= upper_size)
                     {
+                        std::cout << "Rebuilding range reporting data structure ...: ";
+                        std::chrono::system_clock::time_point st1, st2;
+                        st1 = std::chrono::system_clock::now();                    
+
                         std::vector<uint64_t> rank_elements = this->to_rank_elements();
                         this->build(rank_elements);
+                        
+                        st2 = std::chrono::system_clock::now();
+                        uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
+                        std::cout << "[DONE] Elapsed Time: " << sec_time << " sec, the number of elements: " << rank_elements.size() << std::endl;
+
                     }
                 }
                 else
@@ -511,7 +520,7 @@ namespace stool
                         }
                     }
                     uint64_t next_id = 2 * h_node_id;
-                    if (h + 1 < this->bits_seq.size())
+                    if ((int64_t)(h + 1) < (int64_t)this->bits_seq.size())
                     {
                         this->rebuild_internal_node(h + 1, next_id, left_elements);
                         assert(left_elements.size() == this->bits_seq[h + 1][next_id].size());
@@ -538,7 +547,7 @@ namespace stool
                         }
                     }
                     uint64_t next_id = (2 * h_node_id) + 1;
-                    if (h + 1 < this->bits_seq.size())
+                    if ((int64_t)(h + 1) < (int64_t)this->bits_seq.size())
                     {
                         this->rebuild_internal_node(h + 1, next_id, right_elements);
                         assert(right_elements.size() == this->bits_seq[h + 1][next_id].size());

@@ -245,9 +245,9 @@ namespace stool
              * @brief Returns the size of the sequence in bytes.
              * @return The size of the sequence in bytes.
              */
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes([[maybe_unused]] bool only_extra_bytes = false) const
             {
-                return this->tree.size_in_bytes();
+                return this->tree.size_in_bytes(only_extra_bytes);
             }
             /**
              * @brief Returns information about the memory usage of the sequence.
