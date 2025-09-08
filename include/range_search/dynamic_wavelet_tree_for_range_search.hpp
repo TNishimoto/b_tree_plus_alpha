@@ -1123,6 +1123,38 @@ namespace stool
                 return r;
             }
 
+            std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            {
+
+				std::vector<std::string> r;
+                uint64_t size_in_bytes = this->size_in_bytes();
+                uint64_t element_count = this->size();
+
+                double bits_per_element = element_count > 0 ? ((double)size_in_bytes / (double)element_count) : 0;
+
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicWaveletTreeForRangeSearch: " + std::to_string(this->size_in_bytes()) 
+                + " bytes, " + std::to_string(element_count) + " elements, " + std::to_string(bits_per_element)  + " bytes per element =");
+
+                for(uint64_t h = 0; h < this->bits_seq.size(); h++){
+                    uint64_t _sub_size = 0; 
+                    for(uint64_t i = 0; i < this->bits_seq[h].size(); i++){
+                        _sub_size += this->bits_seq[h][i].size_in_bytes();
+                    }
+                    uint64_t _bits_per_element = element_count > 0 ? ((double)_sub_size / (double)element_count) : 0;
+                    r.push_back(stool::Message::get_paragraph_string(message_paragraph+1) + "Level " + std::to_string(h) + " in range tree: " + std::to_string(_sub_size) + " bytes" + " (" + std::to_string(_bits_per_element) + " bytes per element)");
+                }
+                uint64_t _sub_size_for_leaves = 0; 
+                for(uint64_t i = 0; i < this->leaves.size(); i++){
+                    _sub_size_for_leaves += this->leaves[i].size_in_bytes();
+                }
+                uint64_t _bits_per_element_for_leaves = element_count > 0 ? ((double)_sub_size_for_leaves / (double)element_count) : 0;
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph+1) + "Leaves: " + std::to_string(_sub_size_for_leaves) + " bytes" + " (" + std::to_string(_bits_per_element_for_leaves) + " bytes per element)");
+
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
+
+				return r;
+			}
+
         };
     }
 }
