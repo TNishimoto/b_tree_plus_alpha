@@ -489,7 +489,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns the prefix sum of the B+ tree at position i
+             * @brief Returns the prefix sum of the first (i+1) eleemnts in the B+ tree at position i
              * @param i The position in the B+ tree
              * @return The prefix sum of the B+ tree at position i
              */

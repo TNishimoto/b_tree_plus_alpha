@@ -306,7 +306,7 @@ namespace stool
 
             pos = 0;
 
-            BIT_SEQUENCE spsi2 = BIT_SEQUENCE::build_from_data(bytes, pos);
+            BIT_SEQUENCE spsi2 = BIT_SEQUENCE::load_from_bytes(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -355,7 +355,7 @@ namespace stool
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = BIT_SEQUENCE::build_from_data(ifs);
+                auto tmp = BIT_SEQUENCE::load_from_file(ifs);
                 spsi2.swap(tmp);
             }
 

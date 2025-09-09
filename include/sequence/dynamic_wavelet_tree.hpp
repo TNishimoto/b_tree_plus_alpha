@@ -577,7 +577,7 @@ namespace stool
                 {
                     for (auto &it2 : it)
                     {
-                        auto bits = BIT_SEQUENCE::build_from_data(ifs);
+                        auto bits = BIT_SEQUENCE::load_from_file(ifs);
                         it2.swap(bits);
                     }
                 }

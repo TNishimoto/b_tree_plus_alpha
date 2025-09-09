@@ -73,7 +73,7 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
 
 
         if(detail_check){
-            std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+            std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
             try{
                 stool::EqualChecker::equal_check(rank_array, test_rank_array);
             }catch(const std::exception& e){
@@ -88,7 +88,7 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
     }
 
     {
-        std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+        std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
         try{
             stool::EqualChecker::equal_check(rank_array, test_rank_array);
         }catch(const std::exception& e){
@@ -134,7 +134,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
 
 
         if(detail_check){
-            std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+            std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
             try{
                 stool::EqualChecker::equal_check(rank_array, test_rank_array);
             }catch(const std::exception& e){
@@ -149,7 +149,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
     }
 
     {
-        std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+        std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
         try{
             stool::EqualChecker::equal_check(rank_array, test_rank_array);
         }catch(const std::exception& e){
@@ -188,35 +188,26 @@ void build_test(uint64_t size, uint64_t seed)
     stool::bptree::DynamicWaveletTreeForRangeSearch ds;
     ds.build(rank_array);
 
-    std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
+    std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
     try{
-        stool::EqualChecker::equal_check(test_rank_array, rank_array, "build_test(1)");
+        stool::EqualChecker::equal_check(rank_array, test_rank_array, "build_test(1)");
     }catch(const std::exception& e){
         std::cout << "Error: " << e.what() << std::endl;
         ds.print_tree();
-
-
-        std::cout << "test_rank_array: ";
-        stool::DebugPrinter::print_integers(test_rank_array);
-        std::cout << "rank_array: ";
-        stool::DebugPrinter::print_integers(rank_array);
+        stool::DebugPrinter::print_integers(test_rank_array, "test_rank_array");
+        stool::DebugPrinter::print_integers(rank_array, "rank_array");
         throw e;
     }
 
     std::vector<uint64_t> test_rank_array_in_x_order = ds.to_rank_elements_in_x_order();
     std::vector<uint64_t> rank_array_in_x_order = sort_elements_in_x_order(rank_array);
     try{
-        stool::EqualChecker::equal_check(test_rank_array_in_x_order, rank_array_in_x_order, "build_test(2)");
+        stool::EqualChecker::equal_check(rank_array_in_x_order,test_rank_array_in_x_order, "build_test(2)");
     }catch(const std::exception& e){
         std::cout << "Error: " << e.what() << std::endl;
-        std::cout << "rank_array: ";
-        stool::DebugPrinter::print_integers(rank_array);
-
-
-        std::cout << "test_rank_array_in_x_order: ";
-        stool::DebugPrinter::print_integers(test_rank_array_in_x_order);
-        std::cout << "rank_array_in_x_order    : ";
-        stool::DebugPrinter::print_integers(rank_array_in_x_order);
+        stool::DebugPrinter::print_integers(rank_array, "rank_array");
+        stool::DebugPrinter::print_integers(test_rank_array_in_x_order, "test_rank_array_in_x_order");
+        stool::DebugPrinter::print_integers(rank_array_in_x_order, "rank_array_in_x_order");
 
 
         ds.print_tree();
@@ -274,7 +265,7 @@ void range_search_test_sub(uint64_t size, uint64_t number_of_trials, uint64_t se
         std::sort(test_out.begin(), test_out.end());
 
         try{
-            stool::EqualChecker::equal_check(test_out, expected_out, "range_search_test");
+            stool::EqualChecker::equal_check(expected_out, test_out, "range_search_test");
         }catch(const std::exception& e){
             std::cout << "Error: " << e.what() << std::endl;
             stool::DebugPrinter::print_integers(rank_array, "rank_array");
@@ -330,11 +321,11 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
         {
             std::cerr << "Error: Could not open file for reading." << std::endl;
         }
-        ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::build_from_data(ifs);
+        ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::load_from_file(ifs);
     }
 
-    std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
-    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements();
+    std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
+    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements_in_y_order();
     try{
         stool::EqualChecker::equal_check(test_rank_array, test_rank_array2, "load_write_file_test");
     }catch(const std::exception& e){
@@ -373,11 +364,11 @@ void load_write_bits_test(uint64_t size, uint64_t seed)
     pos = 0;
 
     stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
-    ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::build_from_data(bytes, pos);
+    ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::load_from_bytes(bytes, pos);
 
 
-    std::vector<uint64_t> test_rank_array = ds.to_rank_elements();
-    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements();
+    std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
+    std::vector<uint64_t> test_rank_array2 = ds2.to_rank_elements_in_y_order();
     try{
         stool::EqualChecker::equal_check(test_rank_array, test_rank_array2, "load_write_file_test");
     }catch(const std::exception& e){
@@ -433,14 +424,18 @@ int main(int argc, char *argv[])
 
     uint64_t text_size = 4000;
 
+    load_write_file_test(text_size, 10, "range_search_test.bits", seed);
+    load_write_bits_test(text_size, 10, seed);
+
+
+    remove_test(text_size, 10, false, seed);
+
+    insert_test(text_size, 10, true, seed);
+
     build_test(text_size, 100, seed);
     range_search_test(text_size, 50, 100, seed);
 
-    remove_test(text_size, 10, false, seed);
-    insert_test(text_size, 10, false, seed);
 
-    load_write_file_test(text_size, 10, "range_search_test.bits", seed);
-    load_write_bits_test(text_size, 10, seed);
 
 
 

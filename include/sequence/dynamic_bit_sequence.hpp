@@ -111,7 +111,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns the number of 1s up to position i.
+             * @brief Returns the number of 1 in S[0..i-1].
              * @param i The position to query.
              * @return int64_t The number of 1s.
              */
@@ -136,7 +136,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns the number of 0s up to position i.
+             * @brief Returns the number of 0 in S[0..i-1].
              * @param i The position to query.
              * @return int64_t The number of 0s.
              */
@@ -389,6 +389,12 @@ namespace stool
                 }
             }
 
+            void set_bits(uint64_t i, std::vector<bool> &bits){
+                for(uint64_t j = 0; j < bits.size(); j++){
+                    this->set_bit(i + j, bits[j]);
+                }
+            }
+
             /**
              * @brief Sorts the leaf containers.
              */
@@ -637,7 +643,7 @@ namespace stool
              * @param pos The position in the input vector.
              * @return DynamicBitSequence The built bit sequence.
              */
-            static DynamicBitSequence build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicBitSequence load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicBitSequence r;
                 r.tree.build_from_data(data, pos);
@@ -649,7 +655,7 @@ namespace stool
              * @param ifs The input file stream.
              * @return DynamicBitSequence The built bit sequence.
              */
-            static DynamicBitSequence build_from_data(std::ifstream &ifs)
+            static DynamicBitSequence load_from_file(std::ifstream &ifs)
             {
                 DynamicBitSequence r;
                 r.tree.build_from_data(ifs);

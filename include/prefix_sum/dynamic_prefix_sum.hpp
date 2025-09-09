@@ -104,9 +104,9 @@ namespace stool
              * @brief Return the size of this data structure in bytes.
              * @return The size of this data structure in bytes.
              */
-            uint64_t size_in_bytes() const
+            uint64_t size_in_bytes(bool only_extra_bytes = false) const
             {
-                return this->tree.size_in_bytes();
+                return this->tree.size_in_bytes(only_extra_bytes);
             }
 
             //@}
@@ -162,7 +162,7 @@ namespace stool
             }
 
             /**
-             * @brief Return the sum of the first i values stored in this data structure.
+             * @brief Return the sum of the first (i+1) values stored in this data structure.
              */
             uint64_t psum(uint64_t i) const
             {
@@ -341,6 +341,14 @@ namespace stool
                 }
                 else if(old_value < value){
                     this->increment(i, value - old_value);
+                }
+            }
+            void set_values(uint64_t i, const std::vector<uint64_t> &values){
+                assert(i < this->size());
+                assert(i + values.size() <= this->size());
+
+                for(uint64_t j = 0; j < values.size(); j++){
+                    this->set_value(i + j, values[j]);
                 }
             }
 
