@@ -646,8 +646,10 @@ namespace stool
             }
 
 
-            void build(const std::vector<uint64_t> &rank_elements)
+            void build(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
             {
+
+
                 this->clear();
                 
                 uint64_t height = 0;
@@ -664,6 +666,13 @@ namespace stool
                     }
                 }
 
+                if(message_paragraph != stool::Message::NO_MESSAGE){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Building wavelet tree for range search... " << "(input size = " << rank_elements.size() << ", tree height = " << height << ")" << std::endl;
+                }
+                std::chrono::system_clock::time_point st1, st2;
+                st1 = std::chrono::system_clock::now();
+
+
                 this->bits_seq.resize(height);
                 this->length_seq.resize(height);
                 for(uint64_t h = 0; h < height; h++){
@@ -675,8 +684,11 @@ namespace stool
                     this->length_seq[0].push_back(rank_elements.size());
                     std::vector<uint64_t> tmp_rank_elements = rank_elements;
 
-                    
                     for(uint64_t h = 0; h < height; h++){
+
+                        if(message_paragraph != stool::Message::NO_MESSAGE){
+                            std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Building the " << h << "-th bit sequence in the wavelet tree... " << std::endl;
+                        }
                         std::vector<uint64_t> next_rank_elements;
                         std::vector<uint64_t> next_length_seq;
         
@@ -691,6 +703,13 @@ namespace stool
                 }
 
                 assert(this->verify());
+
+                st2 = std::chrono::system_clock::now();
+                uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
+
+                if(message_paragraph != stool::Message::NO_MESSAGE){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[DONE] Elapsed Time: " << sec_time << " sec" << std::endl;
+                }
             }
             
             uint64_t get_bit_count_in_node(uint64_t h, uint64_t h_node_id) const {
