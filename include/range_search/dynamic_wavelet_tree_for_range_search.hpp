@@ -249,7 +249,7 @@ namespace stool
             /*
             return the number of 0 in S[0..i];
             */
-            uint64_t rank0_in_bit_sequence_of_node(uint64_t h, uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
+            uint64_t rank0_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
                 return this->bits_seq[h].rank0(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].rank0(node_x_pos_in_bit_sequence);
@@ -258,7 +258,7 @@ namespace stool
             /*
             return the number of 1 in S[0..i];
             */
-            uint64_t rank1_in_bit_sequence_of_node(uint64_t h, uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
+            uint64_t rank1_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
                 return this->bits_seq[h].rank1(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].rank1(node_x_pos_in_bit_sequence);
