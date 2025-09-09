@@ -1439,10 +1439,9 @@ namespace stool
 
                 for(uint64_t h = 0; h < this->bits_seq.size(); h++){
                     uint64_t _sub_size = 0; 
-                    for(uint64_t i = 0; i < this->bits_seq[h].size(); i++){
-                        _sub_size += this->bits_seq[h].size_in_bytes();
-                        _sub_size += this->length_seq[h].size_in_bytes();
-                    }
+                    _sub_size += this->bits_seq[h].size_in_bytes();
+                    _sub_size += this->length_seq[h].size_in_bytes();
+
                     uint64_t _bits_per_element = element_count > 0 ? ((double)_sub_size / (double)element_count) : 0;
                     r.push_back(stool::Message::get_paragraph_string(message_paragraph+1) + "Level " + std::to_string(h) + " in range tree: " + std::to_string(_sub_size) + " bytes" + " (" + std::to_string(_bits_per_element) + " bytes per element)");
                 }
