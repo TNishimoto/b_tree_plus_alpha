@@ -548,7 +548,7 @@ namespace stool
                 }
             }
 
-            static void save(DynamicWaveletTree &item, std::ofstream &os)
+            static void store_to_file(DynamicWaveletTree &item, std::ofstream &os)
             {
                 uint64_t alphabet_size = item.alphabet.size();
                 os.write(reinterpret_cast<const char *>(&alphabet_size), sizeof(uint64_t));
@@ -562,7 +562,7 @@ namespace stool
                     }
                 }
             }
-            static DynamicWaveletTree build_from_data(std::ifstream &ifs)
+            static DynamicWaveletTree load_from_file(std::ifstream &ifs)
             {
                 DynamicWaveletTree r;
                 uint64_t _alphabet_size = 0;

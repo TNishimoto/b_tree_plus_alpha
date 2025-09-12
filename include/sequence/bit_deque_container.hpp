@@ -351,12 +351,12 @@ namespace stool
                     BitArrayDeque::store_to_file(item.bits, os);
                 }
             }
-            static BitVectorContainer load(const std::vector<uint8_t> &data, uint64_t &pos){
+            static BitVectorContainer load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos){
                 BitVectorContainer r;
                 r.bits = BitArrayDeque::load_from_bytes(data, pos);
                 return r;
             }
-            static BitVectorContainer load(std::ifstream &ifs)
+            static BitVectorContainer load_from_file(std::ifstream &ifs)
             {
                 BitVectorContainer r;
                 r.bits = BitArrayDeque::load_from_file(ifs);
@@ -372,7 +372,7 @@ namespace stool
                 output.resize(size);
                 for (uint64_t i = 0; i < size; i++)
                 {
-                    output[i] = BitVectorContainer::load(data, pos);
+                    output[i] = BitVectorContainer::load_from_bytes(data, pos);
                 }
                 return output;
             }
@@ -385,7 +385,7 @@ namespace stool
                 output.resize(size);
                 for (uint64_t i = 0; i < size; i++)
                 {
-                    output[i] = BitVectorContainer::load(ifs);
+                    output[i] = BitVectorContainer::load_from_file(ifs);
                 }
     
                 return output;

@@ -422,7 +422,7 @@ namespace stool
                 Tree::store_to_file(dp.inverse_pi_tree, os);
             }
 
-            static DynamicPermutation build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicPermutation load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicPermutation r;
                 r.pi_tree.build_from_data(data, pos);
@@ -430,7 +430,7 @@ namespace stool
                 return r;
             }
 
-            static DynamicPermutation build_from_data(std::ifstream &ifs)
+            static DynamicPermutation load_from_file(std::ifstream &ifs)
             {
                 DynamicPermutation r;
                 r.pi_tree.build_from_data(ifs);
