@@ -425,16 +425,16 @@ namespace stool
             static DynamicPermutation load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicPermutation r;
-                r.pi_tree.build_from_data(data, pos);
-                r.inverse_pi_tree.build_from_data(data, pos);
+                r.pi_tree.load_from_bytes(data, pos);
+                r.inverse_pi_tree.load_from_bytes(data, pos);
                 return r;
             }
 
             static DynamicPermutation load_from_file(std::ifstream &ifs)
             {
                 DynamicPermutation r;
-                r.pi_tree.build_from_data(ifs);
-                r.inverse_pi_tree.build_from_data(ifs);
+                r.pi_tree.load_from_file(ifs);
+                r.inverse_pi_tree.load_from_file(ifs);
                 return r;
             }
         };

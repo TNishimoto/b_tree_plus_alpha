@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::DynamicWaveletTree::save(S, ofs);
+        stool::bptree::DynamicWaveletTree::store_to_file(S, ofs);
         ofs.close();
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
+        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::load_from_file(ifs);
         ifs.close();
         S.swap(tmp);
     }

@@ -2970,7 +2970,7 @@ namespace stool
              *          3. Loading leaf containers
              *          4. Rebuilding the tree structure
              */
-            void build_from_data(const std::vector<uint8_t> &data, uint64_t &pos)
+            void load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 uint64_t _max_degree;
                 uint64_t _max_count_of_values_in_leaf;
@@ -2994,7 +2994,7 @@ namespace stool
              *          3. Loading leaf containers from the file
              *          4. Rebuilding the tree structure
              */
-            void build_from_data(std::ifstream &ifs)
+            void load_from_file(std::ifstream &ifs)
             {
                 this->clear();
                 uint64_t _max_degree;

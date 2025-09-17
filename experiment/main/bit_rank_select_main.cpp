@@ -32,16 +32,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
 
     st1 = std::chrono::system_clock::now();
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence1>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence3>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence4>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value)
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value)
     {
         std::vector<bool> buffer;
         uint64_t buffer_size = 10000;
@@ -145,9 +136,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     st2 = std::chrono::system_clock::now();
     uint64_t time_access = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
-    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequence>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequence2>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceA>::value ||
-                  std::is_same<T, stool::bptree::DynamicBitDequeSequenceB>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceC>::value || std::is_same<T, stool::bptree::DynamicBitDequeSequenceD>::value)
+    if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value)
     {
         dynamic_bit_sequence.print_debug_info();
     }
@@ -257,46 +246,6 @@ int main(int argc, char *argv[])
     {
         stool::bptree::SimpleDynamicBitSequence dbs;
         dynamic_bit_operation_test(dbs, "stool::bptree::SimpleDynamicBitSequence", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlpha1")
-    {
-        stool::bptree::DynamicBitDequeSequence1 dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence1", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlpha2")
-    {
-        stool::bptree::DynamicBitDequeSequence2 dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence2", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlpha3")
-    {
-        stool::bptree::DynamicBitDequeSequence3 dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence3", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlpha4")
-    {
-        stool::bptree::DynamicBitDequeSequence4 dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequence4", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaA")
-    {
-        stool::bptree::DynamicBitDequeSequenceA dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequenceA", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaB")
-    {
-        stool::bptree::DynamicBitDequeSequenceB dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequenceB", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaC")
-    {
-        stool::bptree::DynamicBitDequeSequenceC dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequenceC", query_type, item_num, query_num, seed);
-    }
-    else if (index_name == "BTreePlusAlphaD")
-    {
-        stool::bptree::DynamicBitDequeSequenceD dbs;
-        dynamic_bit_operation_test(dbs, "stool::bptree::DynamicBitDequeSequenceD", query_type, item_num, query_num, seed);
     }
     else if (index_name == "DYNAMIC")
     {

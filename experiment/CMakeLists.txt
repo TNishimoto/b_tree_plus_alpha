@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DNDEBUG")
 #set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG -fsanitize=address -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Og -DNDEBUG")
 #set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -DTIME_DEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -Rpass=loop-vectorize")
+set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG")
 
 if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     message("Release Mode")

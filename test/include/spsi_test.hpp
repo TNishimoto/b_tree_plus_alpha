@@ -92,7 +92,7 @@ namespace stool
             pos = 0;
             std::cout << "load" << std::endl;
 
-            stool::bptree::DynamicPrefixSum<A, B, C> spsi2 = stool::bptree::DynamicPrefixSum<A, B, C>::build_from_data(bytes, pos);
+            stool::bptree::DynamicPrefixSum<A, B, C> spsi2 = stool::bptree::DynamicPrefixSum<A, B, C>::load_from_bytes(bytes, pos);
 
             if (spsi.size() != spsi2.size())
             {
@@ -140,7 +140,7 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<A, B, C> &spsi)
                     throw std::runtime_error("File open error");
                 }
                 std::cout << "load" << std::endl;
-                auto tmp = stool::bptree::DynamicPrefixSum<A, B, C>::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicPrefixSum<A, B, C>::load_from_file(ifs);
                 spsi2.swap(tmp);
             }
             std::remove("spsi_text.bits");

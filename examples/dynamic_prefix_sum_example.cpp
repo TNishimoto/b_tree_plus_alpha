@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::SimpleDynamicPrefixSum::save(S, ofs);
+        stool::bptree::SimpleDynamicPrefixSum::store_to_file(S, ofs);
         ofs.close();
     }
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::SimpleDynamicPrefixSum tmp = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
+        stool::bptree::SimpleDynamicPrefixSum tmp = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
         ifs.close();
         S.swap(tmp);
     }

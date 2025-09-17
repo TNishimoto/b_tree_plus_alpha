@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     std::cout << "Write S to S.bin" << std::endl;
     {
         std::ofstream ofs("S.bin");    
-        stool::bptree::DynamicPermutation::save(S, ofs);
+        stool::bptree::DynamicPermutation::store_to_file(S, ofs);
         ofs.close();
     }
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     std::cout << "Read S from S.bin" << std::endl;
     {
         std::ifstream ifs("S.bin");
-        stool::bptree::DynamicPermutation tmp = stool::bptree::DynamicPermutation::build_from_data(ifs);
+        stool::bptree::DynamicPermutation tmp = stool::bptree::DynamicPermutation::load_from_file(ifs);
         ifs.close();
         S.swap(tmp);
     }

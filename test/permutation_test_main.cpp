@@ -268,7 +268,7 @@ void load_write_file_test(uint64_t max_element_count, uint64_t trial_count, [[ma
                     throw std::runtime_error("File open error");
                 }
 
-                auto tmp = stool::bptree::DynamicPermutation::build_from_data(ifs);
+                auto tmp = stool::bptree::DynamicPermutation::load_from_file(ifs);
                 dp2.swap(tmp);
             }
             std::remove("permutation_text.bits");
@@ -323,7 +323,7 @@ void load_write_bits_test(uint64_t max_element_count, uint64_t trial_count, [[ma
             pos = 0;
             // std::cout << "load" << std::endl;
 
-            stool::bptree::DynamicPermutation dp2 = stool::bptree::DynamicPermutation::build_from_data(bytes, pos);
+            stool::bptree::DynamicPermutation dp2 = stool::bptree::DynamicPermutation::load_from_bytes(bytes, pos);
 
             if (dp.size() != dp2.size())
             {

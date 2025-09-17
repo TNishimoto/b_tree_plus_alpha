@@ -105,7 +105,7 @@ void save_and_load_test(stool::bptree::DynamicWaveletTree &ds)
             throw std::runtime_error("File open error");
         }
 
-        stool::bptree::DynamicWaveletTree::save(ds, os);
+        stool::bptree::DynamicWaveletTree::store_to_file(ds, os);
     }
     stool::bptree::DynamicWaveletTree ds2;
 
@@ -117,7 +117,7 @@ void save_and_load_test(stool::bptree::DynamicWaveletTree &ds)
             std::cerr << "Error: Could not open file for reading." << std::endl;
             throw std::runtime_error("File open error");
         }
-        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
+        stool::bptree::DynamicWaveletTree tmp = stool::bptree::DynamicWaveletTree::load_from_file(ifs);
 
         ds2.swap(tmp);
     }

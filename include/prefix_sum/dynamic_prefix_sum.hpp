@@ -450,21 +450,25 @@ namespace stool
                 assert(r.size() == items.size());
                 return r;
             }
-            static DynamicPrefixSum build_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
-            {
-                DynamicPrefixSum r;
-                r.tree.build_from_data(data, pos);
-                return r;
-            }
+            /*
             static DynamicPrefixSum load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
-                return DynamicPrefixSum::build_from_bytes(data, pos);
+                DynamicPrefixSum r;
+                r.tree.load_from_bytes(data, pos);
+                return r;
+            }
+            */
+            static DynamicPrefixSum load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                DynamicPrefixSum r;
+                r.tree.load_from_bytes(data, pos);
+                return r;
             }
 
             static DynamicPrefixSum load_from_file(std::ifstream &ifs)
             {
                 DynamicPrefixSum r;
-                r.tree.build_from_data(ifs);
+                r.tree.load_from_file(ifs);
                 return r;
             }
             static DynamicPrefixSum load(std::ifstream &ifs)

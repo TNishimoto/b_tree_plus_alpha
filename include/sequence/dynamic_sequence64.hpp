@@ -122,18 +122,11 @@ namespace stool
              * @brief Adds an element to the end of the sequence.
              * @param value The value to add.
              */
-            void push_back(int64_t value)
+            void push_back(uint64_t value)
             {
                 this->tree.push_back(value);
             }
-            /**
-             * @brief Adds an element to the beginning of the sequence.
-             * @param value The value to add.
-             */
-            void push_front(int64_t value)
-            {
-                this->tree.push_front(value);
-            }
+            
 
             /**
              * @brief Inserts a value at a specified position in the sequence.
@@ -322,7 +315,7 @@ namespace stool
             static DynamicSequence64 load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicSequence64 r;
-                r.tree.build_from_data(data, pos);
+                r.tree.load_from_bytes(data, pos);
                 return r;
             }
 
@@ -334,7 +327,7 @@ namespace stool
             static DynamicSequence64 load_from_file(std::ifstream &ifs)
             {
                 DynamicSequence64 r;
-                r.tree.build_from_data(ifs);
+                r.tree.load_from_file(ifs);
                 return r;
             }
             static DynamicSequence64 load(std::ifstream &ifs)
