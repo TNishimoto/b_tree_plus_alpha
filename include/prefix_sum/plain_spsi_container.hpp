@@ -7,7 +7,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      PlainSPSIContainer
-        /// @brief      A container stored in the BPTree of SPSI. The values of this container are stored in a vector.
+        /// @brief      A container stored in the BPTree of SPSI. The values of this container are stored in a vector. [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         class PlainSPSIContainer

@@ -7,7 +7,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPNodePointer
-        /// @brief      A pointer to a node of BPTree
+        /// @brief      A pointer to a node of BPTree [Unchecked AI's Comment] 
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>

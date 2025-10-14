@@ -16,7 +16,7 @@ namespace stool
 
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPTree
-        /// @brief      An implementation of B+-tree
+        /// @brief      An implementation of B+-tree [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE, bool USE_PARENT_FIELD, bool USE_PSUM>

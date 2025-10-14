@@ -7,7 +7,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      DynamicPermutationBuilder
-        /// @brief      A builder of DynamicPermutation
+        /// @brief      A builder of DynamicPermutation [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicPermutationBuilder

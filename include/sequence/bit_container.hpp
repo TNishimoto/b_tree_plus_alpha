@@ -6,7 +6,7 @@ namespace stool
     namespace bptree
     {
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief  A container that stores a short sequence of bits.
+        /// @brief  A container that stores a short sequence of bits. [Unchecked AI's Comment]
         ////////////////////////////////////////////////////////////////////////////////
         class BitContainer
         {

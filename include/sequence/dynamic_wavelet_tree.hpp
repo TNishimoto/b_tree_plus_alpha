@@ -7,7 +7,7 @@ namespace stool
     {
 
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      A dynamic data structure supporting rank and select queries on a string.
+        /// @brief      A dynamic data structure supporting rank and select queries on a string. [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicWaveletTree

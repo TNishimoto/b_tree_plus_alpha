@@ -9,7 +9,7 @@ namespace stool
     {
 
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      A dynamic data structure supporting prefix-sum query
+        /// @brief      A dynamic data structure supporting prefix-sum query [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER = VLCDeque, uint64_t TREE_DEGREE = bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, uint64_t LEAF_CONTAINER_MAX_SIZE = bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>

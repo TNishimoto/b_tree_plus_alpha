@@ -7,7 +7,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      PermutationContainer
-        /// @brief      The container stored in the BPTree of DynamicPermutation
+        /// @brief      The container stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         class PermutationContainer

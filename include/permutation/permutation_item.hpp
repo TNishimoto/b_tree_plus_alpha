@@ -8,7 +8,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      PermutationItem
-        /// @brief      The value stored in the BPTree of DynamicPermutation
+        /// @brief      The value stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         struct PermutationItem

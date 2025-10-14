@@ -7,6 +7,10 @@ namespace stool
     namespace bptree
     {
 
+        ////////////////////////////////////////////////////////////////////////////////
+        /// @brief      DynamicWaveletTreeForRangeSearch. [Unchecked AI's Comment]
+        ///
+        ////////////////////////////////////////////////////////////////////////////////
         class DynamicWaveletTreeForRangeSearch
         {
             using BIT_SEQUENCE = SimpleDynamicBitSequence;

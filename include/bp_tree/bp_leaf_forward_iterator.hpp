@@ -5,7 +5,7 @@ namespace stool
     namespace bptree
     {
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief  A forward iterator for traversing the leaves of a BP-tree.
+        /// @brief  A forward iterator for traversing the leaves of a BP-tree. [Unchecked AI's Comment] 
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
         class BPLeafForwardIterator

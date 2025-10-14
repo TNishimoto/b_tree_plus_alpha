@@ -9,7 +9,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPValueForwardIterator
-        /// @brief      The forward iterator of the values stored in BPTree
+        /// @brief      The forward iterator of the values stored in BPTree [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>

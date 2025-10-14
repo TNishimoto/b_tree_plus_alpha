@@ -8,7 +8,7 @@ namespace stool
     {
 
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      BPInternalNode for dynamic permutations
+        /// @brief      BPInternalNode for dynamic permutations [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <uint64_t MAX_DEGREE>

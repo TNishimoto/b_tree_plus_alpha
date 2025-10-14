@@ -16,7 +16,7 @@ namespace stool
     {
 
         ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      A dynamic data structure supporting rank and select queries on a bit sequence
+        /// @brief      A dynamic data structure supporting rank and select queries on a bit sequence [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>

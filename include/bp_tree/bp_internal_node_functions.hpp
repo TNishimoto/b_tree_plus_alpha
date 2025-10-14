@@ -8,7 +8,7 @@ namespace stool
 
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPInternalNodeFunctions
-        /// @brief      Helper functions of BPInternalNode
+        /// @brief      Helper functions of BPInternalNode [Unchecked AI's Comment] 
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, bool USE_PARENT_FIELD, uint64_t MAX_DEGREE, bool USE_PSUM>

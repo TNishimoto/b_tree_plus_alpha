@@ -6,7 +6,7 @@ namespace stool
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      StackNode
-        /// @brief      The item of the stack for traversing BPTree 
+        /// @brief      The item of the stack for traversing BPTree  [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
