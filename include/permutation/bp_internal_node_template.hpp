@@ -248,7 +248,7 @@ namespace stool
                 {
                     vec.push_back((uint64_t)this->children_[i]);
                 }
-                stool::Printer::print("child", vec);
+                stool::DebugPrinter::print_integers(vec, "children");
                 std::cout << "=================" << std::endl;
             }
 

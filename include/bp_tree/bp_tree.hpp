@@ -871,7 +871,7 @@ namespace stool
                     {
                         r.push_back((uint64_t)x);
                     }
-                    stool::Printer::print(r);
+                    stool::DebugPrinter::print_integers(r);
                 }
                 std::cout << "==========================" << std::endl;
             }

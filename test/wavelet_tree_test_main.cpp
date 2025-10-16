@@ -199,7 +199,7 @@ int main(int argc, char *argv[])
         {
             uint64_t len = 2;
             std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(type);
-            stool::Printer::print_chars("Alphabet", chars);
+            stool::DebugPrinter::print_characters(chars, "Alphabet");
                 
 
             while (len < 10000)

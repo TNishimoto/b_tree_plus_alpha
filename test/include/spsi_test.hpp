@@ -217,7 +217,7 @@ static void load_write_file_test(stool::bptree::DynamicPrefixSum<A, B, C> &spsi)
                 items2.push_back(p);
             }
 
-            stool::Printer::print("Item", items);
+            stool::DebugPrinter::print_integers(items, "Item");
 
             DynamicPrefixSum<T> spsi;
             spsi.build(items2, degree);
