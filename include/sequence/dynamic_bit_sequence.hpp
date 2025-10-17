@@ -75,6 +75,10 @@ namespace stool
                 return this->tree.size();
             }
 
+            uint64_t height() const {
+                return this->tree.height();
+            }
+
             /**
              * @brief Returns the size of the bit sequence in bytes.
              * @return uint64_t The number of bytes used by the sequence.
@@ -731,6 +735,7 @@ namespace stool
         using BDC = typename stool::bptree::BitVectorContainer<10000ULL>;
 
         using DynamicBitDequeSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 1024>;
+        //using SimpleDynamicBitSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 62, 8192>;
         using SimpleDynamicBitSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 62, 8192>;
 
         /*

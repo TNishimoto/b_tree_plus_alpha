@@ -68,6 +68,7 @@ else()
 message(STATUS "Not a 64-bit architecture.")
 endif()
 
+
 add_executable(rank_select.out main/rank_select_main.cpp)
 target_link_libraries(rank_select.out)
 

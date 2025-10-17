@@ -21,8 +21,8 @@ namespace stool
             uint64_t id;
 #endif
 
-            using DEQUE_TYPE = stool::NaiveArray<MAX_DEGREE + 2>;
-            //using DEQUE_TYPE = stool::NaiveArrayForFasterPsum<MAX_DEGREE + 2>;
+            //using DEQUE_TYPE = stool::NaiveArray<MAX_DEGREE + 2>;
+            using DEQUE_TYPE = stool::NaiveArrayForFasterPsum<MAX_DEGREE + 2>;
 
         private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
