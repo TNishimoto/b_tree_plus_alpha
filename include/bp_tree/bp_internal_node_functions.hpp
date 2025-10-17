@@ -435,7 +435,7 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        parent->decrement_on_sum_deque(parent_edge_index, -sum_delta);
+                        parent->decrement_on_sum_deque(parent_edge_index, sum_delta);
                         parent->increment_on_sum_deque(parent_edge_index + 1, sum_delta);
 
                     }
@@ -504,7 +504,7 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        parent->decrement_on_sum_deque(parent_edge_index, -sum_delta);
+                        parent->decrement_on_sum_deque(parent_edge_index, sum_delta);
                         parent->increment_on_sum_deque(parent_edge_index - 1, sum_delta);
 
                         // parent_sum_deq[parent_edge_index] -= sum_delta;
