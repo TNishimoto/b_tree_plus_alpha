@@ -26,8 +26,7 @@ namespace stool
             static uint64_t psum(const InternalNode &node)
             {
                 if constexpr (USE_PSUM){
-                    const auto &deq = node.get_value_sum_deque();
-                    return deq.psum();    
+                    return node.psum_on_sum_deque();    
                 }else{
                     throw std::runtime_error("BPInternalNodeFunctions::psum(): psum is not supported");
                 }
@@ -44,21 +43,20 @@ namespace stool
 
                 while (!_is_leaf)
                 {
-                    const auto &count_deq = current_node->get_value_count_deque();
-                    const auto &sum_deq = current_node->get_value_sum_deque();
                     uint64_t tmp_i = 0;
-                    int64_t search_result = count_deq.search(current_i+1, tmp_i);
+                    int64_t search_result = current_node->search_query_on_count_deque(current_i+1, tmp_i);
 
                     if (search_result != -1)
                     {
+                        if (search_result != 0)
+                        {                            
+                            sum += current_node->psum_on_sum_deque(search_result - 1);
+                        }
+
                         _is_leaf = current_node->is_parent_of_leaves();
                         current_node = current_node->get_child(search_result);
 
 
-                        if (search_result != 0)
-                        {                            
-                            sum += sum_deq.psum(search_result - 1);
-                        }
 
                         current_i -= tmp_i;
                     }
@@ -88,14 +86,11 @@ namespace stool
                 while (!_is_leaf)
                 {
                     bool b = false;
-                    // assert(nth <= current_psum + current_node->get_value_sum());
                     assert(current_psum <= nth);
-                    const auto &sum_deq = current_node->get_value_sum_deque();
-                    const auto &count_deq = current_node->get_value_count_deque();
 
                     for (uint64_t x = 0; x < current_node->children_count(); x++)
                     {
-                        int64_t sub_count0 = count_deq[x] - sum_deq[x];
+                        int64_t sub_count0 = current_node->access_count_deque(x) - current_node->access_sum_deque(x);
                         if (current_psum + sub_count0 >= nth)
                         {
                             _is_leaf = current_node->is_parent_of_leaves();
@@ -106,7 +101,7 @@ namespace stool
                         else
                         {
                             current_psum += sub_count0;
-                            result += count_deq[x];
+                            result += current_node->access_count_deque(x);
                         }
                     }
                     if (!b)
@@ -128,22 +123,21 @@ namespace stool
                 while (!_is_leaf)
                 {
                     // bool b = false;
-                    assert(sum <= current_psum + current_node->get_value_sum());
+                    assert(sum <= current_psum + current_node->psum_on_sum_deque());
                     assert(current_psum <= sum);
-                    const auto &sum_deq = current_node->get_value_sum_deque();
-                    const auto &count_deq = current_node->get_value_count_deque();
                     uint64_t tmp_psum = 0;
                     uint64_t search_sum = sum - current_psum;
-                    int64_t search_result = sum_deq.search(search_sum, tmp_psum);
+                    int64_t search_result = current_node->search_query_on_sum_deque(search_sum, tmp_psum);
                     if (search_result != -1)
                     {
+                        if (search_result != 0)
+                        {
+                            result += current_node->psum_on_count_deque(search_result - 1);
+                        }
+
                         _is_leaf = current_node->is_parent_of_leaves();
                         current_node = current_node->get_child(search_result);
                         current_psum += tmp_psum;
-                        if (search_result != 0)
-                        {
-                            result += count_deq.psum(search_result - 1);
-                        }
 
                     }
                     else
@@ -160,18 +154,10 @@ namespace stool
             inline static uint64_t time_count = 0;
             static std::pair<int64_t, uint64_t> access_child_index_by_value_index(const InternalNode &node, uint64_t value_index)
             {
-                assert(value_index <= node.get_value_count());
-
-                const auto &count_deq = node.get_value_count_deque();
-
+                assert(value_index <= node.psum_on_count_deque());
+                
                 uint64_t sum = 0;
-
-
-
-                //auto st1 = std::chrono::system_clock::now();
-                int64_t search_result = count_deq.search(value_index+1, sum);
-                //auto st2 = std::chrono::system_clock::now();
-                //time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+                int64_t search_result = node.search_query_on_count_deque(value_index+1, sum);
 
                
                 auto pair = std::pair<int64_t, uint64_t>(search_result, value_index - sum);
@@ -360,8 +346,8 @@ namespace stool
 
                     for (InternalNode *child : children)
                     {
-                        value_count_sum += child->get_value_count();
-                        value_sum_sum += child->get_value_sum();
+                        value_count_sum += child->psum_on_count_deque();
+                        value_sum_sum += child->psum_on_sum_deque();
 
                         if (p != child->is_parent_of_leaves())
                         {
@@ -378,7 +364,7 @@ namespace stool
                         {
                             uint64_t x = (uint64_t)node.get_child(i);
                             uint64_t psum = leaf_container_vec[x].psum();
-                            uint64_t psum2 = node.get_value_sum_deque()[i];
+                            uint64_t psum2 = node.access_sum_deque(i);
 
                             if (psum != psum2)
                             {
@@ -389,21 +375,25 @@ namespace stool
                     }
                 }
 
-                if (!(value_count_sum == node.get_value_count()))
+                if (!(value_count_sum == node.psum_on_count_deque()))
                 {
-                    std::cout << "Error: count = " << node.get_value_count() << " == True count: " << value_count_sum << std::endl;
+                    std::cout << "Error: count = " << node.psum_on_count_deque() << " == True count: " << value_count_sum << std::endl;
                     // stool::Printer::print("Count VEC", node.children_value_count_deque_.to_deque());
 
                     // this->print_tree(leaf_container_vec);
                     throw std::logic_error("Error(1): BPInternalNode::verify()");
                 }
 
-                if (!(value_sum_sum == node.get_value_sum()))
-                {
-                    std::cout << "Error: sum = " << node.get_value_sum() << " == True sum: " << value_sum_sum << std::endl;
-                    // this->print_tree(leaf_container_vec);
-                    throw std::logic_error("Error(2): BPInternalNode::verify()");
+                if constexpr (USE_PSUM){
+                    if (!(value_sum_sum == node.psum_on_sum_deque()))
+                    {
+                        std::cout << "Error: sum = " << node.psum_on_sum_deque() << " == True sum: " << value_sum_sum << std::endl;
+                        // this->print_tree(leaf_container_vec);
+                        throw std::logic_error("Error(2): BPInternalNode::verify()");
+                    }
+    
                 }
+
 
                 if (node.get_degree() > max_degree)
                 {
@@ -430,17 +420,14 @@ namespace stool
 
                 if constexpr (USE_PSUM)
                 {
-                    // stool::SimpleDeque16<uint64_t> &left_sum_deq = left_node.get_value_sum_deque();
-                    // stool::SimpleDeque16<uint64_t> &right_sum_deq = right_node.get_value_sum_deque();
-                    // assert(left_sum_deq.size() >= len);
 
                     int64_t sum_delta = 0;
                     for (uint64_t i = 0; i < len; i++)
                     {
-                        uint64_t _sum = left_node.__last_item_on_sum_deque();
+                        uint64_t _sum = left_node.access_last_item_on_sum_deque();
                         // uint64_t _sum = left_sum_deq[left_sum_deq.size() - 1];
-                        left_node.__pop_back_on_sum_deque();
-                        right_node.__push_front_on_sum_deque(_sum);
+                        left_node.pop_back_on_sum_deque();
+                        right_node.push_front_on_sum_deque(_sum);
                         // left_sum_deq.pop_back();
                         // right_sum_deq.push_front(_sum);
                         sum_delta += _sum;
@@ -448,34 +435,31 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index, -sum_delta);
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index + 1, sum_delta);
+                        parent->decrement_on_sum_deque(parent_edge_index, -sum_delta);
+                        parent->increment_on_sum_deque(parent_edge_index + 1, sum_delta);
 
-                        // stool::SimpleDeque16<uint64_t> &parent_sum_deq = parent->get_value_sum_deque();
-                        // parent_sum_deq[parent_edge_index] -= sum_delta;
-                        // parent_sum_deq[parent_edge_index + 1] += sum_delta;
                     }
                 }
 
                 {
-                    auto &left_count_deq = left_node.get_value_count_deque();
-                    auto &right_count_deq = right_node.get_value_count_deque();
                     int64_t count_delta = 0;
+
+                    uint64_t left_children_size = left_node.children_count();
 
                     for (uint64_t i = 0; i < len; i++)
                     {
                         assert(left_node.children_count() > 0);
-                        uint64_t _count = left_count_deq[left_count_deq.size() - 1];
-                        left_count_deq.pop_back();
-                        right_count_deq.push_front(_count);
+                        uint64_t _count = left_node.access_count_deque(left_children_size - 1);
+                        left_children_size--;
+                        left_node.pop_back_on_count_deque();
+                        right_node.push_front_on_count_deque(_count);
                         count_delta += _count;
                     }
 
                     if (parent != nullptr)
                     {
-                        auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index, count_delta);
-                        parent_count_deq.increment(parent_edge_index + 1, count_delta);
+                        parent->decrement_on_count_deque(parent_edge_index, count_delta);
+                        parent->increment_on_count_deque(parent_edge_index + 1, count_delta);
                     }
                 }
 
@@ -508,23 +492,20 @@ namespace stool
 
                 if constexpr (USE_PSUM)
                 {
-                    // stool::SimpleDeque16<uint64_t> &left_sum_deq = left_node.get_value_sum_deque();
-                    // stool::SimpleDeque16<uint64_t> &right_sum_deq = right_node.get_value_sum_deque();
 
                     int64_t sum_delta = 0;
                     for (uint64_t i = 0; i < len; i++)
                     {
-                        uint64_t _sum = right_node.get_value_sum_deque()[0];
-                        right_node.__pop_front_on_sum_deque();
-                        left_node.__push_back_on_sum_deque(_sum);
+                        uint64_t _sum = right_node.access_sum_deque(0);
+                        right_node.pop_front_on_sum_deque();
+                        left_node.push_back_on_sum_deque(_sum);
                         sum_delta += _sum;
                     }
 
                     if (parent != nullptr)
                     {
-                        // stool::SimpleDeque16<uint64_t> &parent_sum_deq = parent->get_value_sum_deque();
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index, -sum_delta);
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index - 1, sum_delta);
+                        parent->decrement_on_sum_deque(parent_edge_index, -sum_delta);
+                        parent->increment_on_sum_deque(parent_edge_index - 1, sum_delta);
 
                         // parent_sum_deq[parent_edge_index] -= sum_delta;
                         // parent_sum_deq[parent_edge_index - 1] += sum_delta;
@@ -532,22 +513,19 @@ namespace stool
                 }
 
                 {
-                    auto &left_count_deq = left_node.get_value_count_deque();
-                    auto &right_count_deq = right_node.get_value_count_deque();
 
                     int64_t count_delta = 0;
                     for (uint64_t i = 0; i < len; i++)
                     {
-                        uint64_t _count = right_count_deq[0];
-                        right_count_deq.pop_front();
-                        left_count_deq.push_back(_count);
+                        uint64_t _count = right_node.access_count_deque(0);
+                        right_node.pop_front_on_count_deque();
+                        left_node.push_back_on_count_deque(_count);
                         count_delta += _count;
                     }
                     if (parent != nullptr)
                     {
-                        auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index, count_delta);
-                        parent_count_deq.increment(parent_edge_index - 1, count_delta);
+                        parent->decrement_on_count_deque(parent_edge_index, count_delta);
+                        parent->increment_on_count_deque(parent_edge_index - 1, count_delta);
                     }
                 }
 

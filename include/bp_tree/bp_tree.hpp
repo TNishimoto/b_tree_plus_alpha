@@ -327,7 +327,7 @@ namespace stool
                     }
                     else
                     {
-                        return this->root->get_value_count();
+                        return this->root->psum_on_count_deque();
                     }
                 }
             }
@@ -629,9 +629,8 @@ namespace stool
                             int64_t idx = parent->get_index(node);
                             assert(idx != -1);
 
-                            const auto &deq = parent->get_value_count_deque();
                             if(idx > 0){
-                                uint64_t sum = deq.psum(idx-1);
+                                uint64_t sum = parent->psum_on_count_deque(idx-1);
                                 dist += sum;
                             }
                             //uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
@@ -762,7 +761,7 @@ namespace stool
                         uint64_t id = (uint64_t)children[i];
                         true_sum += this->leaf_container_vec[id].psum();
                     }
-                    if(true_sum != node->get_value_sum()){
+                    if(true_sum != node->psum_on_sum_deque()){
                         throw std::runtime_error("Error: verify_sum_deque");
                     }
                  }else{
@@ -771,10 +770,10 @@ namespace stool
                     for(uint64_t i = 0; i < children.size(); i++){
                         Node *child = children[i];
                         this->verify_sum_deque(child);
-                        true_sum += child->get_value_sum();
+                        true_sum += child->psum_on_sum_deque();
                     }
 
-                    if(true_sum != node->get_value_sum()){
+                    if(true_sum != node->psum_on_sum_deque()){
                         throw std::runtime_error("Error: verify_sum_deque");
                     }
 
@@ -1248,7 +1247,7 @@ namespace stool
                     while (!is_leaf)
                     {
 
-                        assert(current_i <= current_node->get_value_count());
+                        assert(current_i <= current_node->psum_on_count_deque());
 
                         //auto st1 = std::chrono::system_clock::now();
                         std::pair<int64_t, uint64_t> result = BPFunctions::access_child_index_by_value_index(*current_node, current_i);
@@ -2292,18 +2291,17 @@ namespace stool
                     if constexpr (USE_PSUM){
                         if (parent != nullptr)
                         {
-                            assert(this->leaf_container_vec[left_leaf].psum() == parent->get_value_sum_deque().at(parent_edge_index_of_left_node));
+                            assert(this->leaf_container_vec[left_leaf].psum() == parent->access_sum_deque(parent_edge_index_of_left_node));
                             int64_t sum = len != 0 ? this->leaf_container_vec[left_leaf].reverse_psum(len - 1) : 0;
 
                             assert(sum <= (int64_t)this->leaf_container_vec[left_leaf].psum());
 
-                            //assert(parent->get_value_sum_deque().at(parent_edge_index_of_left_node) >= sum);
     
                             
     
     
-                            parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node, -sum);
-                            parent->__increment_a_value_of_sum_deque(parent_edge_index_of_left_node + 1, sum);
+                            parent->decrement_on_sum_deque(parent_edge_index_of_left_node, sum);
+                            parent->increment_on_sum_deque(parent_edge_index_of_left_node + 1, sum);
                         }
     
                     }
@@ -2311,9 +2309,8 @@ namespace stool
 
                     if (parent != nullptr)
                     {
-                        auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index_of_left_node, len);
-                        parent_count_deq.increment(parent_edge_index_of_left_node + 1, len);
+                        parent->decrement_on_count_deque(parent_edge_index_of_left_node, len);
+                        parent->increment_on_count_deque(parent_edge_index_of_left_node + 1, len);
                     }
                     auto items = this->leaf_container_vec[left_leaf].pop_back(len);
                     this->leaf_container_vec[right_leaf].push_front(items);
@@ -2347,15 +2344,14 @@ namespace stool
                     if (USE_PSUM && parent != nullptr)
                     {
                         uint64_t sum = len != 0 ? this->leaf_container_vec[right_leaf].psum(len - 1) : 0;
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index_of_right_node, -sum);
-                        parent->__increment_a_value_of_sum_deque(parent_edge_index_of_right_node - 1, sum);
+                        parent->decrement_on_sum_deque(parent_edge_index_of_right_node, sum);
+                        parent->increment_on_sum_deque(parent_edge_index_of_right_node - 1, sum);
                     }
 
                     if (parent != nullptr)
                     {
-                        auto &parent_count_deq = parent->get_value_count_deque();
-                        parent_count_deq.decrement(parent_edge_index_of_right_node, len);
-                        parent_count_deq.increment(parent_edge_index_of_right_node - 1, len);
+                        parent->decrement_on_count_deque(parent_edge_index_of_right_node, len);
+                        parent->increment_on_count_deque(parent_edge_index_of_right_node - 1, len);
                     }
                     auto items = this->leaf_container_vec[right_leaf].pop_front(len);
                     this->leaf_container_vec[left_leaf].push_back(items);
@@ -2647,11 +2643,11 @@ namespace stool
                         {
                             nodes[i]->set_parent(root);
                         }
-                        uint64_t count = nodes[i]->get_value_count();
+                        uint64_t count = nodes[i]->psum_on_count_deque();
                         uint64_t sum = 0;
                         if constexpr (USE_PSUM)
                         {
-                            sum = nodes[i]->get_value_sum();
+                            sum = nodes[i]->psum_on_sum_deque();
                         }
                         root->append_child(nodes[i], count, sum);
                     }
@@ -2686,11 +2682,11 @@ namespace stool
                             {
                                 nodes[i]->set_parent(node);
                             }
-                            uint64_t count = nodes[i]->get_value_count();
+                            uint64_t count = nodes[i]->psum_on_count_deque();
                             uint64_t sum = 0;
                             if constexpr (USE_PSUM)
                             {
-                                sum = nodes[i]->get_value_sum();
+                                sum = nodes[i]->psum_on_sum_deque();
                             }
                             node->append_child(nodes[i], count, sum);
                             i++;

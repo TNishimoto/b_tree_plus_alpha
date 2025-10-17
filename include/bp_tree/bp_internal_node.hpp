@@ -74,11 +74,11 @@ namespace stool
                 {
                     for (InternalNode *child : this->children_)
                     {
-                        this->children_value_count_deque_.push_back(child->get_value_count());
+                        this->children_value_count_deque_.push_back(child->psum_on_count_deque());
 
                         if constexpr (USE_PSUM)
                         {
-                            this->children_value_sum_deque_.push_back(child->get_value_sum());
+                            this->children_value_sum_deque_.push_back(child->psum_on_sum_deque());
                         }
 
                     }
@@ -124,37 +124,129 @@ namespace stool
             {
                 return this->children_;
             }
-            const DEQUE_TYPE &get_value_count_deque() const
+            
+            int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
             {
-                return this->children_value_count_deque_;
+                return this->children_value_count_deque_.search(value, sum);
             }
-            DEQUE_TYPE &get_value_count_deque()
-            {
-                return this->children_value_count_deque_;
-            }
-            const DEQUE_TYPE &get_value_sum_deque() const
+            int64_t search_query_on_sum_deque(uint64_t value, uint64_t &sum) const
             {
                 if constexpr (USE_PSUM)
                 {
-                    return this->children_value_sum_deque_;
+                    return this->children_value_sum_deque_.search(value, sum);
                 }
                 else
                 {
-                    throw std::runtime_error("get_value_sum_deque() is not supported");
+                    throw std::runtime_error("search_query_on_sum_deque() is not supported");
                 }
             }
-            /*
-            stool::SimpleDeque16<uint64_t> &get_value_sum_deque()
+            void pop_back_on_count_deque()
             {
-                return this->children_value_sum_deque_;
+                this->children_value_count_deque_.pop_back();
             }
-            */
-           /*
-            bool use_psum() const
+            void pop_back_on_sum_deque()
             {
-                return USE_PSUM;
+                this->children_value_sum_deque_.pop_back();
             }
-            */
+
+            
+            void pop_front_on_count_deque() {
+                this->children_value_count_deque_.pop_front();
+            }
+            void pop_front_on_sum_deque() {
+                this->children_value_sum_deque_.pop_front();
+            }
+
+            
+            void push_front_on_count_deque(uint64_t value)
+            {
+                this->children_value_count_deque_.push_front(value);
+            }
+            void push_front_on_sum_deque(uint64_t value)
+            {
+                this->children_value_sum_deque_.push_front(value);
+            }
+
+            void push_back_on_count_deque(uint64_t value)
+            {
+                this->children_value_count_deque_.push_back(value);
+            }
+            void push_back_on_sum_deque(uint64_t value)
+            {
+                this->children_value_sum_deque_.push_back(value);
+            }
+
+            void increment_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.increment(pos, value);
+            }
+            void decrement_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.decrement(pos, value);
+            }
+            void increment_on_sum_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_sum_deque_.increment(pos, value);
+            }
+            void decrement_on_sum_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_sum_deque_.decrement(pos, value);
+            }
+
+            uint64_t psum_on_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_.psum(pos);
+            }
+            uint64_t access_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_[pos];
+            }
+
+            uint64_t access_last_item_on_sum_deque() const
+            {
+                if constexpr (USE_PSUM)
+                {
+                    return this->children_value_sum_deque_[this->children_value_sum_deque_.size() - 1];
+                }
+                else
+                {
+                    throw std::runtime_error("access_last_item_on_sum_deque() is not supported");
+                }
+            }
+            uint64_t psum_on_count_deque() const
+            {
+                return this->children_value_count_deque_.psum();
+            }
+
+            uint64_t psum_on_sum_deque() const
+            {
+                return this->children_value_sum_deque_.psum();
+            }
+
+            uint64_t access_sum_deque(uint64_t pos) const
+            {
+                if constexpr (USE_PSUM)
+                {
+                    return this->children_value_sum_deque_[pos];
+                }
+                else
+                {
+                    throw std::runtime_error("access_sum_deque() is not supported");
+                }
+            }
+
+            uint64_t psum_on_sum_deque(uint64_t pos) const
+            {
+                if constexpr (USE_PSUM)
+                {
+                    return this->children_value_sum_deque_.psum(pos);
+                }
+                else
+                {
+                    throw std::runtime_error("psum_on_sum_deque() is not supported");
+                }
+            }
+
             bool has_parent_pointer_field() const
             {
                 return false;
@@ -192,105 +284,7 @@ namespace stool
             {
                 return sizeof(BPInternalNode) + (this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true) + this->children_value_sum_deque_.size_in_bytes(true));
             }
-            uint64_t get_value_count() const
-            {
-                return this->children_value_count_deque_.psum();
-                /*
-                uint64_t sum = 0;
-                for (uint64_t p : this->children_value_count_deque_)
-                {
-                    sum += p;
-                }
-                return sum;
-                */
-            }
-            uint64_t get_value_sum() const
-            {
-                if constexpr (USE_PSUM)
-                {
-                    return this->children_value_sum_deque_.psum();
-                }
-                else
-                {
-                    throw std::runtime_error("get_value_sum() is not supported");
-                }
-            }
-            void __increment_a_value_of_sum_deque(uint64_t pos, int64_t value)
-            {
-                if constexpr (!USE_PSUM)
-                {
-                    throw std::runtime_error("__increment_a_value_of_sum_deque() is not supported");
-                }
-
-#if DEBUG
-                if (value < 0)
-                {
-                    if ((int64_t)this->children_value_sum_deque_.at(pos) < -value)
-                    {
-                        std::cout << "pos: " << pos << ", value: " << value << ", sum: " << this->children_value_sum_deque_.at(pos) << std::endl;
-                        throw std::runtime_error("Error: __increment_a_value_of_sum_deque");
-                    }
-                }
-#endif
-
-                this->children_value_sum_deque_.increment(pos, value);
-            }
             
-            void __push_back_on_sum_deque(uint64_t value)
-            {
-                if constexpr (USE_PSUM)
-                {
-                    this->children_value_sum_deque_.push_back(value);
-                }
-                else
-                {
-                    throw std::runtime_error("__push_back_on_sum_deque() is not supported");
-                }
-            }
-            void __push_front_on_sum_deque(uint64_t value)
-            {
-                if constexpr (USE_PSUM)
-                {
-                    this->children_value_sum_deque_.push_front(value);
-                }
-                else
-                {
-                    throw std::runtime_error("__push_front_on_sum_deque() is not supported");
-                }
-            }
-            void __pop_front_on_sum_deque()
-            {
-                if constexpr (USE_PSUM)
-                {
-                    this->children_value_sum_deque_.pop_front();
-                }
-                else
-                {
-                    throw std::runtime_error("__pop_front_on_sum_deque() is not supported");
-                }
-            }
-            void __pop_back_on_sum_deque()
-            {
-                if constexpr (USE_PSUM)
-                {
-                    this->children_value_sum_deque_.pop_back();
-                }
-                else
-                {
-                    throw std::runtime_error("__pop_back_on_sum_deque() is not supported");
-                }
-            }
-            uint64_t __last_item_on_sum_deque() const
-            {
-                if constexpr (USE_PSUM)
-                {
-                    return this->children_value_sum_deque_[this->children_value_sum_deque_.size() - 1];
-                }
-                else
-                {
-                    throw std::runtime_error("__last_item_on_sum_deque() is not supported");
-                }
-            }
             
 
             int64_t get_index(InternalNode *node) const
@@ -331,8 +325,8 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "InternalNode ID: " << (uint64_t)this;
 #endif
                 std::cout << ", is_parent_of_leaves: " << this->is_parent_of_leaves();
-                std::cout << ", count: " << this->get_value_count();
-                std::cout << ", sum: " << this->get_value_sum() << std::endl;
+                std::cout << ", count: " << this->psum_on_count_deque();
+                std::cout << ", sum: " << this->psum_on_sum_deque() << std::endl;
 
                 auto count_deq_str = this->children_value_count_deque_.to_string();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "count_deque: " << count_deq_str << std::endl;
@@ -431,8 +425,8 @@ namespace stool
                 s += "InternalNode ID: " + std::to_string((uint64_t)this);
 #endif
                 s += ", is_parent_of_leaves: " + std::to_string(this->is_parent_of_leaves());
-                s += ", count: " + std::to_string(this->get_value_count());
-                s += ", sum: " + std::to_string(this->get_value_sum());
+                s += ", count: " + std::to_string(this->psum_on_count_deque());
+                s += ", sum: " + std::to_string(this->psum_on_sum_deque());
                 return s;
             }
 

@@ -61,7 +61,7 @@ namespace stool
                 {
                     for (InternalNode *child : this->children_)
                     {
-                        this->children_value_count_deque_.push_back(child->get_value_count());
+                        this->children_value_count_deque_.push_back(child->psum_on_count_deque());
                     }
                 }
             }
@@ -104,39 +104,58 @@ namespace stool
             {
                 return this->children_;
             }
-            const stool::NaiveArray<MAX_DEGREE+2> &get_value_count_deque() const
+            void pop_back_on_count_deque()
             {
-                return this->children_value_count_deque_;
+                this->children_value_count_deque_.pop_back();
             }
-            stool::NaiveArray<MAX_DEGREE+2> &get_value_count_deque()
+            
+            void pop_front_on_count_deque() {
+                this->children_value_count_deque_.pop_front();
+            }
+            
+            void push_front_on_count_deque(uint64_t value)
             {
-                return this->children_value_count_deque_;
+                this->children_value_count_deque_.push_front(value);
             }
-            const stool::NaiveArray<MAX_DEGREE+2> &get_value_sum_deque() const
+            void push_back_on_count_deque(uint64_t value)
             {
-                return this->children_value_count_deque_;
+                this->children_value_count_deque_.push_back(value);
             }
-            stool::NaiveArray<MAX_DEGREE+2> &get_value_sum_deque()
+            void increment_on_count_deque(uint64_t pos, int64_t value)
             {
-                return this->children_value_count_deque_;
+                this->children_value_count_deque_.increment(pos, value);
             }
-            void __increment_a_value_of_sum_deque([[maybe_unused]] uint64_t pos, [[maybe_unused]]int64_t value){
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__increment_a_value_of_sum_deque(): No Implementation");
+            void decrement_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.decrement(pos, value);
             }
-            void __push_back_on_sum_deque([[maybe_unused]]uint64_t value){
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__push_back_on_sum_deque(): No Implementation");
+            uint64_t psum_on_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_.psum(pos);
             }
-            void __push_front_on_sum_deque([[maybe_unused]]uint64_t value){
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__push_front_on_sum_deque(): No Implementation");
+
+            uint64_t psum_on_count_deque() const
+            {
+                return this->children_value_count_deque_.psum();
             }
-            void __pop_front_on_sum_deque(){
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__pop_front_on_sum_deque: No Implementation");
+            uint64_t psum_on_sum_deque() const
+            {
+                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::psum_on_sum_deque(): No Implementation");
             }
-            void __pop_back_on_sum_deque(){
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__pop_back_on_sum_deque(): No Implementation");
+
+            uint64_t access_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_[pos];
             }
-            uint64_t __last_item_on_sum_deque() const {
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::__last_item_on_sum_deque(): No Implementation");
+
+            int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
+            {
+                return this->children_value_count_deque_.search(value, sum);
+            }
+
+            
+            uint64_t access_last_item_on_sum_deque() const {
+                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::access_last_item_on_sum_deque(): No Implementation");
             }
 
             bool use_psum() const
@@ -209,21 +228,6 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            uint64_t get_value_count() const
-            {
-                uint64_t sum = this->children_value_count_deque_.psum();
-                /*
-                for (uint64_t p : this->children_value_count_deque_)
-                {
-                    sum += p;
-                }
-                */
-                return sum;
-            }
-            uint64_t get_value_sum() const
-            {
-                return 0;
-            }
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -238,8 +242,8 @@ namespace stool
                 std::cout << "This: " << (uint64_t)this;
                 std::cout << ", parent: " << (uint64_t)this->parent_;
                 std::cout << ", is_parent_of_leaves: " << this->is_parent_of_leaves();
-                std::cout << ", count: " << this->get_value_count();
-                std::cout << ", sum: " << this->get_value_sum() << std::endl;
+                std::cout << ", count: " << this->psum_on_count_deque();
+                std::cout << ", sum: " << this->psum_on_sum_deque() << std::endl;
 
                 // std::cout << "Parent: " << (uint64_t)this->parent << std::endl;
 
@@ -302,7 +306,7 @@ namespace stool
                 s += "InternalNode ID: " + std::to_string((uint64_t)this);
                 #endif
                 s += ", is_parent_of_leaves: " + std::to_string(this->is_parent_of_leaves());
-                s += ", count: " + std::to_string(this->get_value_count());
+                s += ", count: " + std::to_string(this->psum_on_count_deque());
 
                 s += ", Count Array: "; 
                 s += this->children_value_count_deque_.to_string();
