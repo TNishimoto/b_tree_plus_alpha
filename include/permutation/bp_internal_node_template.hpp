@@ -23,7 +23,8 @@ namespace stool
             private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::NaiveArray<MAX_DEGREE+2> children_value_count_deque_;
+            stool::NaiveArrayForFasterPsum<MAX_DEGREE+2> children_value_count_deque_;
+
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
 
@@ -55,6 +56,7 @@ namespace stool
                     for (InternalNode *child : this->children_)
                     {
                         this->children_value_count_deque_.push_back(_leaf_container_vec[(uint64_t)child].size());
+
                     }
                 }
                 else
@@ -149,7 +151,7 @@ namespace stool
             }
 
             int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
-            {
+            {                
                 return this->children_value_count_deque_.search(value, sum);
             }
 
@@ -269,11 +271,13 @@ namespace stool
                 this->children_.clear();
                 this->children_value_count_deque_.clear();
                 this->parent_ = nullptr;
+
             }
 
             void increment(uint64_t child_index, int64_t count_delta, [[maybe_unused]] int64_t sum_delta)
             {
                 this->children_value_count_deque_.increment(child_index, count_delta);
+
             }
 
             void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<stool::bptree::PermutationContainer> &leaf_container_vec)
@@ -292,6 +296,7 @@ namespace stool
             {
                 this->children_.erase(this->children_.begin() + pos);
                 this->children_value_count_deque_.erase(pos);
+
             }
             void append_child(InternalNode *child, uint64_t child_count, [[maybe_unused]] uint64_t child_sum)
             {

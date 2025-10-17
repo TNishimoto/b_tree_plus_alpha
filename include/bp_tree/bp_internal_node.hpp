@@ -22,9 +22,7 @@ namespace stool
 #endif
 
             using DEQUE_TYPE = stool::NaiveArray<MAX_DEGREE + 2>;
-            // using DEQUE_TYPE = stool::StaticArrayDeque<(MAX_DEGREE+2)*2, false>;
-            // using DEQUE_TYPE = stool::StaticArrayDeque<MAX_DEGREE+2, true>;
-            // using DEQUE_TYPE = stool::FasterStaticArrayDeque<MAX_DEGREE+2>;
+            //using DEQUE_TYPE = stool::NaiveArrayForFasterPsum<MAX_DEGREE + 2>;
 
         private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
