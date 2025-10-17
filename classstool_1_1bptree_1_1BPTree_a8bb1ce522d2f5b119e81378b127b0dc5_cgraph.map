@@ -1,0 +1,10 @@
+<map id="stool::bptree::BPTree::build_from_leaf_containers_sub1" name="stool::bptree::BPTree::build_from_leaf_containers_sub1">
+<area shape="rect" id="Node000001" title="Creates the first layer of internal nodes from leaf containers." alt="" coords="5,29,251,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ae803a3a163af03e375eea08d8d2423db" title="Returns the prefix sum of the B+ tree." alt="" coords="299,29,455,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,47,285,47,285,52,251,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="338,30,336,20,342,11,356,5,377,3,400,6,413,13,411,18,399,11,377,8,357,10,346,15,341,21,344,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Checks if the B+ tree is empty." alt="" coords="503,29,659,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="455,47,489,47,489,52,455,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="707,29,863,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="659,47,693,47,693,52,659,52"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicPrefixSum::size_in_bytes" name="stool::bptree::DynamicPrefixSum::size_in_bytes">
+<area shape="rect" id="Node000001" title="Return the size of this data structure in bytes." alt="" coords="5,5,212,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a589141790c9a1825fd5d2824d833b6d5" title="Returns the total memory size of the B+ tree." alt="" coords="260,5,416,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,23,246,23,246,28,212,28"/>
+</map>

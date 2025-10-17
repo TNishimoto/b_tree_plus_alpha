@@ -1,0 +1,29 @@
+<map id="stool::bptree::BPTree::size_in_bytes" name="stool::bptree::BPTree::size_in_bytes">
+<area shape="rect" id="Node000001" title="Returns the total memory size of the B+ tree." alt="" coords="903,181,1059,221"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a77aa0f9176b7dd0781a385d714966b81" title="Returns a vector of strings containing memory usage information about the B+ tree." alt="" coords="635,245,825,285"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="890,227,810,248,808,243,889,222"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a397475fb21e1a8faa954efd049eba659" title="Prints statistical information about the B+ tree." alt="" coords="652,53,808,93"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="947,174,904,139,853,108,807,91,809,86,856,103,907,135,950,170"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9e5b3a9897c318cd6ae732b3b82d9c42" title="Return the size of this data structure in bytes." alt="" coords="627,181,833,221"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="889,204,834,204,834,199,889,199"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a144996f06913e676378a858a08079b48" title="Returns the size of the bit sequence in bytes." alt="" coords="636,117,824,157"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="889,181,808,160,810,155,890,176"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a6e7cfdcbb55c9756f9e4715801e857dc" title="Returns the size of the sequence in bytes." alt="" coords="605,309,855,349"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="950,233,907,268,856,300,826,312,824,307,853,295,904,263,947,229"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af14839ca8e0e7c5c4abf472e10801bd4" title="Returns memory usage information." alt="" coords="303,149,557,189"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="633,244,605,236,481,192,483,187,606,231,634,239"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#af4a414706ecec91476bdc3c92202f4bb" title="Returns information about the memory usage of the sequence." alt="" coords="305,309,555,349"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="623,291,525,312,524,307,622,286"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a26381f60a97ef17f748e5745665cab29" title="Prints the memory usage information of the B+ tree." alt="" coords="346,245,514,285"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="621,268,514,268,514,263,621,263"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a865cc94bab1a8f17a12a0298f50bf00b" title="Prints memory usage information." alt="" coords="15,149,245,189"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="289,172,245,172,245,167,289,167"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicSequence64.html#aa5de7444825add7154739644244d9466" title="Prints the memory usage of the sequence." alt="" coords="5,309,255,349"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="291,332,255,332,255,327,291,327"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa82f35bf37a65806bb7324ae6ac3876d" title="Prints statistics about the bit sequence." alt="" coords="335,69,525,109"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="638,81,525,87,525,82,638,76"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ac26f89753744f4ae620b0c1ecf280946" title="Prints statistics about the sequence." alt="" coords="305,5,555,45"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="638,61,555,48,556,43,639,56"/>
+<area shape="poly" id="edge12_Node000012_Node000003" title=" " alt="" coords="623,151,558,158,558,153,622,146"/>
+<area shape="poly" id="edge14_Node000013_Node000005" title=" " alt="" coords="591,332,555,332,555,327,591,327"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="stool::bptree::BPTree::swap" name="stool::bptree::BPTree::swap">
+<area shape="rect" id="Node000001" title="Swaps the contents of this B+ tree with another B+ tree." alt="" coords="303,69,459,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a3098683140d08811e28cc1b3ed22e190" title="Swaps the contents of this B+ tree with another B+ tree." alt="" coords="52,5,208,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,69,208,48,209,43,290,64"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a5e5fac994e158c91d8f4f3a951f22317" title="Swaps the contents of this sequence with another." alt="" coords="36,69,224,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,92,224,92,224,87,289,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a723e8666b5308d949a5dbde22c198464" title="Swaps the contents of this sequence with another." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="290,115,210,136,208,131,289,110"/>
+</map>

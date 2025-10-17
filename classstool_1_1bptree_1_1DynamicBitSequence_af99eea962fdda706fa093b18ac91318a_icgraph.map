@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicBitSequence::get_leaf_forward_iterator_end" name="stool::bptree::DynamicBitSequence::get_leaf_forward_iterator_end">
+<area shape="rect" id="Node000001" title="Returns an iterator to the end of the bit sequence." alt="" coords="241,5,444,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a1d02fc38e6a031610ab0ce321141781f" title="Converts the bit sequence to a vector of bool." alt="" coords="5,13,193,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,35,194,35,194,30,228,30"/>
+</map>
