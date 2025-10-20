@@ -446,6 +446,21 @@ namespace stool
 
                     uint64_t left_children_size = left_node.children_count();
 
+                    std::vector<uint64_t> tmp_count_array;
+                    tmp_count_array.resize(len);
+
+                    for (uint64_t i = 0; i < len; i++)
+                    {
+                        tmp_count_array[i] = left_node.access_count_deque(left_children_size - len + i);                         
+                    }
+                    count_delta += std::accumulate(tmp_count_array.begin(), tmp_count_array.end(), 0);
+                    left_node.pop_back_many_on_count_deque(len);
+                    right_node.push_front_many_on_count_deque(tmp_count_array);
+                    
+
+
+
+                    /*
                     for (uint64_t i = 0; i < len; i++)
                     {
                         assert(left_node.children_count() > 0);
@@ -455,6 +470,7 @@ namespace stool
                         right_node.push_front_on_count_deque(_count);
                         count_delta += _count;
                     }
+                    */
 
                     if (parent != nullptr)
                     {
@@ -515,6 +531,17 @@ namespace stool
                 {
 
                     int64_t count_delta = 0;
+                    std::vector<uint64_t> tmp_count_array;
+                    tmp_count_array.resize(len);
+                    for (uint64_t i = 0; i < len; i++)
+                    {
+                        tmp_count_array[i] = right_node.access_count_deque(i);
+                    }
+                    count_delta += std::accumulate(tmp_count_array.begin(), tmp_count_array.end(), 0);
+                    right_node.pop_front_many_on_count_deque(len);
+                    left_node.push_back_many_on_count_deque(tmp_count_array);
+                    
+                    /*
                     for (uint64_t i = 0; i < len; i++)
                     {
                         uint64_t _count = right_node.access_count_deque(0);
@@ -522,6 +549,7 @@ namespace stool
                         left_node.push_back_on_count_deque(_count);
                         count_delta += _count;
                     }
+                    */
                     if (parent != nullptr)
                     {
                         parent->decrement_on_count_deque(parent_edge_index, count_delta);

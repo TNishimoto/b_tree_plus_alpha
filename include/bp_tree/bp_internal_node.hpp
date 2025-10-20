@@ -8,7 +8,7 @@ namespace stool
 
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      BPInternalNode
-        /// @brief      The internal node of BPTree [Unchecked AI's Comment] 
+        /// @brief      The internal node of BPTree [Unchecked AI's Comment]
         ///
         ////////////////////////////////////////////////////////////////////////////////
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
@@ -21,8 +21,8 @@ namespace stool
             uint64_t id;
 #endif
 
-            //using DEQUE_TYPE = stool::NaiveArray<MAX_DEGREE + 2>;
-            using DEQUE_TYPE = stool::NaiveArrayForFasterPsum<MAX_DEGREE + 2>;
+            using DEQUE_TYPE = stool::NaiveIntegerArray<MAX_DEGREE + 2>;
+            //using DEQUE_TYPE = stool::NaiveIntegerArrayForFasterPsum<MAX_DEGREE + 2>;
 
         private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
@@ -78,7 +78,6 @@ namespace stool
                         {
                             this->children_value_sum_deque_.push_back(child->psum_on_sum_deque());
                         }
-
                     }
                 }
             }
@@ -109,24 +108,57 @@ namespace stool
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Properties
-            ///   Properties
+            ///   @name Operations on the count deque
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-
-            const stool::SimpleDeque16<InternalNode *> &get_children() const
-            {
-                return this->children_;
-            }
-            stool::SimpleDeque16<InternalNode *> &get_children()
-            {
-                return this->children_;
-            }
-            
             int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
             {
                 return this->children_value_count_deque_.search(value, sum);
             }
+            uint64_t psum_on_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_.psum(pos);
+            }
+            uint64_t access_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_[pos];
+            }
+            uint64_t psum_on_count_deque() const
+            {
+                return this->children_value_count_deque_.psum();
+            }
+
+            void pop_back_many_on_count_deque(uint64_t len)
+            {
+                this->children_value_count_deque_.pop_back_many(len);
+            }
+            void pop_front_many_on_count_deque(uint64_t len)
+            {
+                this->children_value_count_deque_.pop_front_many(len);
+            }
+            void push_front_many_on_count_deque(std::vector<uint64_t> values)
+            {
+                this->children_value_count_deque_.push_front_many(values);
+            }
+            void push_back_many_on_count_deque(std::vector<uint64_t> values)
+            {
+                this->children_value_count_deque_.push_back_many(values);
+            }
+            void increment_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.increment(pos, value);
+            }
+            void decrement_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.decrement(pos, value);
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operations on the sum deque
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             int64_t search_query_on_sum_deque(uint64_t value, uint64_t &sum) const
             {
                 if constexpr (USE_PSUM)
@@ -138,50 +170,26 @@ namespace stool
                     throw std::runtime_error("search_query_on_sum_deque() is not supported");
                 }
             }
-            void pop_back_on_count_deque()
-            {
-                this->children_value_count_deque_.pop_back();
-            }
             void pop_back_on_sum_deque()
             {
                 this->children_value_sum_deque_.pop_back();
             }
 
-            
-            void pop_front_on_count_deque() {
-                this->children_value_count_deque_.pop_front();
-            }
-            void pop_front_on_sum_deque() {
+            void pop_front_on_sum_deque()
+            {
                 this->children_value_sum_deque_.pop_front();
             }
 
-            
-            void push_front_on_count_deque(uint64_t value)
-            {
-                this->children_value_count_deque_.push_front(value);
-            }
             void push_front_on_sum_deque(uint64_t value)
             {
                 this->children_value_sum_deque_.push_front(value);
             }
 
-            void push_back_on_count_deque(uint64_t value)
-            {
-                this->children_value_count_deque_.push_back(value);
-            }
             void push_back_on_sum_deque(uint64_t value)
             {
                 this->children_value_sum_deque_.push_back(value);
             }
 
-            void increment_on_count_deque(uint64_t pos, int64_t value)
-            {
-                this->children_value_count_deque_.increment(pos, value);
-            }
-            void decrement_on_count_deque(uint64_t pos, int64_t value)
-            {
-                this->children_value_count_deque_.decrement(pos, value);
-            }
             void increment_on_sum_deque(uint64_t pos, int64_t value)
             {
                 this->children_value_sum_deque_.increment(pos, value);
@@ -189,15 +197,6 @@ namespace stool
             void decrement_on_sum_deque(uint64_t pos, int64_t value)
             {
                 this->children_value_sum_deque_.decrement(pos, value);
-            }
-
-            uint64_t psum_on_count_deque(uint64_t pos) const
-            {
-                return this->children_value_count_deque_.psum(pos);
-            }
-            uint64_t access_count_deque(uint64_t pos) const
-            {
-                return this->children_value_count_deque_[pos];
             }
 
             uint64_t access_last_item_on_sum_deque() const
@@ -210,10 +209,6 @@ namespace stool
                 {
                     throw std::runtime_error("access_last_item_on_sum_deque() is not supported");
                 }
-            }
-            uint64_t psum_on_count_deque() const
-            {
-                return this->children_value_count_deque_.psum();
             }
 
             uint64_t psum_on_sum_deque() const
@@ -243,6 +238,23 @@ namespace stool
                 {
                     throw std::runtime_error("psum_on_sum_deque() is not supported");
                 }
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Properties
+            ///   Properties
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            const stool::SimpleDeque16<InternalNode *> &get_children() const
+            {
+                return this->children_;
+            }
+            stool::SimpleDeque16<InternalNode *> &get_children()
+            {
+                return this->children_;
             }
 
             bool has_parent_pointer_field() const
@@ -282,8 +294,6 @@ namespace stool
             {
                 return sizeof(BPInternalNode) + (this->children_.size_in_bytes(true) + this->children_value_count_deque_.size_in_bytes(true) + this->children_value_sum_deque_.size_in_bytes(true));
             }
-            
-            
 
             int64_t get_index(InternalNode *node) const
             {
@@ -329,9 +339,10 @@ namespace stool
                 auto count_deq_str = this->children_value_count_deque_.to_string();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "count_deque: " << count_deq_str << std::endl;
 
-                if constexpr (USE_PSUM){
-                auto sum_deq_str = this->children_value_sum_deque_.to_string();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "sum_deque: " << sum_deq_str << std::endl;
+                if constexpr (USE_PSUM)
+                {
+                    auto sum_deq_str = this->children_value_sum_deque_.to_string();
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "sum_deque: " << sum_deq_str << std::endl;
                 }
 
                 // std::cout << "Parent: " << (uint64_t)this->parent << std::endl;
@@ -371,14 +382,14 @@ namespace stool
                     // this->children_value_count_deque_[child_index] += count_delta;
                 }
 
-                if constexpr (USE_PSUM){
+                if constexpr (USE_PSUM)
+                {
                     if (sum_delta != 0)
                     {
                         assert(child_index < this->children_value_sum_deque_.size());
                         this->children_value_sum_deque_.increment(child_index, sum_delta);
                     }
                 }
-
             }
 
             void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<LEAF_CONTAINER> &leaf_container_vec)
@@ -392,7 +403,8 @@ namespace stool
             {
                 this->children_.insert(this->children_.begin() + pos, child);
                 this->children_value_count_deque_.insert(pos, child_count);
-                if constexpr (USE_PSUM){
+                if constexpr (USE_PSUM)
+                {
                     this->children_value_sum_deque_.insert(pos, child_sum);
                 }
             }
@@ -400,7 +412,8 @@ namespace stool
             {
                 this->children_.push_back(child);
                 this->children_value_count_deque_.push_back(child_count);
-                if constexpr (USE_PSUM){
+                if constexpr (USE_PSUM)
+                {
                     this->children_value_sum_deque_.push_back(child_sum);
                 }
             }
@@ -409,7 +422,8 @@ namespace stool
             {
                 this->children_.erase(this->children_.begin() + pos);
                 this->children_value_count_deque_.erase(pos);
-                if constexpr (USE_PSUM){
+                if constexpr (USE_PSUM)
+                {
                     this->children_value_sum_deque_.erase(pos);
                 }
             }

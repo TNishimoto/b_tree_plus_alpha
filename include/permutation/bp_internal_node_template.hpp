@@ -14,16 +14,17 @@ namespace stool
         template <uint64_t MAX_DEGREE>
         class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>
         {
-            #if DEBUG
-            public:
+#if DEBUG
+        public:
             static inline int ID_COUNTER = 0;
             uint64_t id;
-            #endif
+#endif
 
-            private:
+        private:
             using InternalNode = BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>;
             stool::SimpleDeque16<InternalNode *> children_;
-            stool::NaiveArrayForFasterPsum<MAX_DEGREE+2> children_value_count_deque_;
+            stool::NaiveIntegerArray<MAX_DEGREE + 2> children_value_count_deque_;
+            // stool::NaiveIntegerArrayForFasterPsum<MAX_DEGREE+2> children_value_count_deque_;
 
             InternalNode *parent_ = nullptr;
             bool is_parent_of_leaves_ = false;
@@ -31,9 +32,9 @@ namespace stool
         public:
             BPInternalNode()
             {
-                #if DEBUG
+#if DEBUG
                 this->id = ID_COUNTER++;
-                #endif
+#endif
             }
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +57,6 @@ namespace stool
                     for (InternalNode *child : this->children_)
                     {
                         this->children_value_count_deque_.push_back(_leaf_container_vec[(uint64_t)child].size());
-
                     }
                 }
                 else
@@ -93,6 +93,69 @@ namespace stool
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operations on the count deque
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            uint64_t psum_on_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_.psum(pos);
+            }
+
+            uint64_t psum_on_count_deque() const
+            {
+                return this->children_value_count_deque_.psum();
+            }
+            int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
+            {
+                return this->children_value_count_deque_.search(value, sum);
+            }
+            uint64_t access_count_deque(uint64_t pos) const
+            {
+                return this->children_value_count_deque_[pos];
+            }
+            void pop_back_many_on_count_deque(uint64_t len)
+            {
+                this->children_value_count_deque_.pop_back_many(len);
+            }
+            void pop_front_many_on_count_deque(uint64_t len)
+            {
+                this->children_value_count_deque_.pop_front_many(len);
+            }
+            void push_front_many_on_count_deque(std::vector<uint64_t> values)
+            {
+                this->children_value_count_deque_.push_front_many(values);
+            }
+            void push_back_many_on_count_deque(std::vector<uint64_t> values)
+            {
+                this->children_value_count_deque_.push_back_many(values);
+            }
+            void increment_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.increment(pos, value);
+            }
+            void decrement_on_count_deque(uint64_t pos, int64_t value)
+            {
+                this->children_value_count_deque_.decrement(pos, value);
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operations on the sum deque
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            uint64_t psum_on_sum_deque() const
+            {
+                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::psum_on_sum_deque(): No Implementation");
+            }
+
+            uint64_t access_last_item_on_sum_deque() const
+            {
+                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::access_last_item_on_sum_deque(): No Implementation");
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
             ///   @name Properties
             ///   Properties
             ////////////////////////////////////////////////////////////////////////////////
@@ -105,59 +168,6 @@ namespace stool
             stool::SimpleDeque16<InternalNode *> &get_children()
             {
                 return this->children_;
-            }
-            void pop_back_on_count_deque()
-            {
-                this->children_value_count_deque_.pop_back();
-            }
-            
-            void pop_front_on_count_deque() {
-                this->children_value_count_deque_.pop_front();
-            }
-            
-            void push_front_on_count_deque(uint64_t value)
-            {
-                this->children_value_count_deque_.push_front(value);
-            }
-            void push_back_on_count_deque(uint64_t value)
-            {
-                this->children_value_count_deque_.push_back(value);
-            }
-            void increment_on_count_deque(uint64_t pos, int64_t value)
-            {
-                this->children_value_count_deque_.increment(pos, value);
-            }
-            void decrement_on_count_deque(uint64_t pos, int64_t value)
-            {
-                this->children_value_count_deque_.decrement(pos, value);
-            }
-            uint64_t psum_on_count_deque(uint64_t pos) const
-            {
-                return this->children_value_count_deque_.psum(pos);
-            }
-
-            uint64_t psum_on_count_deque() const
-            {
-                return this->children_value_count_deque_.psum();
-            }
-            uint64_t psum_on_sum_deque() const
-            {
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::psum_on_sum_deque(): No Implementation");
-            }
-
-            uint64_t access_count_deque(uint64_t pos) const
-            {
-                return this->children_value_count_deque_[pos];
-            }
-
-            int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
-            {                
-                return this->children_value_count_deque_.search(value, sum);
-            }
-
-            
-            uint64_t access_last_item_on_sum_deque() const {
-                throw std::runtime_error("BPInternalNode<PermutationContainer, PermutationItem>::access_last_item_on_sum_deque(): No Implementation");
             }
 
             bool use_psum() const
@@ -271,13 +281,11 @@ namespace stool
                 this->children_.clear();
                 this->children_value_count_deque_.clear();
                 this->parent_ = nullptr;
-
             }
 
             void increment(uint64_t child_index, int64_t count_delta, [[maybe_unused]] int64_t sum_delta)
             {
                 this->children_value_count_deque_.increment(child_index, count_delta);
-
             }
 
             void move_container_index(uint64_t child_index, uint64_t new_leaf_index, std::vector<stool::bptree::PermutationContainer> &leaf_container_vec)
@@ -296,24 +304,24 @@ namespace stool
             {
                 this->children_.erase(this->children_.begin() + pos);
                 this->children_value_count_deque_.erase(pos);
-
             }
             void append_child(InternalNode *child, uint64_t child_count, [[maybe_unused]] uint64_t child_sum)
             {
                 this->children_.push_back(child);
                 this->children_value_count_deque_.push_back(child_count);
             }
-            std::string to_string() const{
+            std::string to_string() const
+            {
                 std::string s;
-                #if DEBUG
+#if DEBUG
                 s += "InternalNode ID: " + std::to_string(this->id);
-                #else
+#else
                 s += "InternalNode ID: " + std::to_string((uint64_t)this);
-                #endif
+#endif
                 s += ", is_parent_of_leaves: " + std::to_string(this->is_parent_of_leaves());
                 s += ", count: " + std::to_string(this->psum_on_count_deque());
 
-                s += ", Count Array: "; 
+                s += ", Count Array: ";
                 s += this->children_value_count_deque_.to_string();
 
                 return s;
