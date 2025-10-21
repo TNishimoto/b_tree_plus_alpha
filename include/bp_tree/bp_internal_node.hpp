@@ -22,7 +22,9 @@ namespace stool
 #endif
 
             using DEQUE_TYPE = stool::NaiveIntegerArray<MAX_DEGREE + 2>;
-            //using DEQUE_TYPE = stool::NaiveIntegerArrayForFasterPsum<MAX_DEGREE + 2>;
+            //using DEQUE_TYPE = stool::NaiveIntegerArrayForFasterPsum<(MAX_DEGREE + 2)>;
+            //using DEQUE_TYPE = stool::EytzingerLayoutForPsum<MAX_DEGREE + 2>;
+            
 
         private:
             using InternalNode = BPInternalNode<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
@@ -30,6 +32,9 @@ namespace stool
             DEQUE_TYPE children_value_count_deque_;
             DEQUE_TYPE children_value_sum_deque_;
             bool is_parent_of_leaves_ = false;
+
+
+
 
         public:
             BPInternalNode()
@@ -59,8 +64,8 @@ namespace stool
                 {
                     for (InternalNode *child : this->children_)
                     {
-                        this->children_value_count_deque_.push_back(_leaf_container_vec[(uint64_t)child].size());
-
+                        uint64_t child_count = _leaf_container_vec[(uint64_t)child].size();
+                        this->children_value_count_deque_.push_back(child_count);
                         if constexpr (USE_PSUM)
                         {
                             uint64_t psum = _leaf_container_vec[(uint64_t)child].psum();
@@ -72,14 +77,16 @@ namespace stool
                 {
                     for (InternalNode *child : this->children_)
                     {
-                        this->children_value_count_deque_.push_back(child->psum_on_count_deque());
-
+                        uint64_t child_count_psum = child->psum_on_count_deque();
+                        this->children_value_count_deque_.push_back(child_count_psum);
                         if constexpr (USE_PSUM)
                         {
                             this->children_value_sum_deque_.push_back(child->psum_on_sum_deque());
                         }
                     }
                 }
+
+
             }
             void initialize(BPInternalNode *_left_node, BPInternalNode *_right_node, const std::vector<LEAF_CONTAINER> &_leaf_container_vec)
             {
@@ -113,6 +120,7 @@ namespace stool
             //@{
             int64_t search_query_on_count_deque(uint64_t value, uint64_t &sum) const
             {
+
                 return this->children_value_count_deque_.search(value, sum);
             }
             uint64_t psum_on_count_deque(uint64_t pos) const
@@ -370,6 +378,7 @@ namespace stool
                 this->children_.clear();
                 this->children_value_count_deque_.clear();
                 this->children_value_sum_deque_.clear();
+
             }
 
             void increment(uint64_t child_index, int64_t count_delta, int64_t sum_delta)
@@ -379,7 +388,6 @@ namespace stool
                 {
                     assert(child_index < this->children_value_count_deque_.size());
                     this->children_value_count_deque_.increment(child_index, count_delta);
-                    // this->children_value_count_deque_[child_index] += count_delta;
                 }
 
                 if constexpr (USE_PSUM)
@@ -407,6 +415,7 @@ namespace stool
                 {
                     this->children_value_sum_deque_.insert(pos, child_sum);
                 }
+
             }
             void append_child(InternalNode *child, uint64_t child_count, uint64_t child_sum)
             {
@@ -416,6 +425,7 @@ namespace stool
                 {
                     this->children_value_sum_deque_.push_back(child_sum);
                 }
+
             }
 
             void remove_child(uint64_t pos)
@@ -426,6 +436,7 @@ namespace stool
                 {
                     this->children_value_sum_deque_.erase(pos);
                 }
+
             }
 
             std::string to_string() const
