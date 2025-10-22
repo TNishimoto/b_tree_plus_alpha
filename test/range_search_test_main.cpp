@@ -7,6 +7,9 @@
 #include <cstdio>
 #include "../include/b_tree_plus_alpha.hpp"
 
+//using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeOnGrid;
+using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeForRangeSearch;
+
 
 std::vector<uint64_t> create_random_rank_array(uint64_t size, uint64_t seed)
 {
@@ -62,7 +65,7 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array;
     rank_array.clear();
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
 
     for(uint64_t i = 0; i < size; i++){
@@ -122,7 +125,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed++);
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
 
     
@@ -185,7 +188,7 @@ void remove_test(uint64_t size, uint64_t number_of_trials, bool detail_check, ui
 void build_test(uint64_t size, uint64_t seed)
 {
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
@@ -235,7 +238,7 @@ void range_search_test_sub(uint64_t size, uint64_t number_of_trials, uint64_t se
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
 
     for(uint64_t i = 0; i < number_of_trials; i++){
@@ -299,7 +302,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
 
     {
@@ -310,10 +313,10 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
             std::cerr << "Error: Could not open file for writing." << std::endl;
             throw std::runtime_error("File open error");
         }
-        stool::bptree::DynamicWaveletTreeForRangeSearch::store_to_file(ds, os);
+        RANGED_DYNAMIC_WAVELET_TREE::store_to_file(ds, os);
     }
 
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
+    RANGED_DYNAMIC_WAVELET_TREE ds2;
     {
         std::ifstream ifs;
         ifs.open(filepath, std::ios::binary);
@@ -321,7 +324,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
         {
             std::cerr << "Error: Could not open file for reading." << std::endl;
         }
-        ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::load_from_file(ifs);
+        ds2 = RANGED_DYNAMIC_WAVELET_TREE::load_from_file(ifs);
     }
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
@@ -356,15 +359,15 @@ void load_write_bits_test(uint64_t size, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds;
+    RANGED_DYNAMIC_WAVELET_TREE ds;
     ds.build(rank_array);
     std::vector<uint8_t> bytes;
     uint64_t pos = 0;
-    stool::bptree::DynamicWaveletTreeForRangeSearch::store_to_bytes(ds, bytes, pos);
+    RANGED_DYNAMIC_WAVELET_TREE::store_to_bytes(ds, bytes, pos);
     pos = 0;
 
-    stool::bptree::DynamicWaveletTreeForRangeSearch ds2;
-    ds2 = stool::bptree::DynamicWaveletTreeForRangeSearch::load_from_bytes(bytes, pos);
+    RANGED_DYNAMIC_WAVELET_TREE ds2;
+    ds2 = RANGED_DYNAMIC_WAVELET_TREE::load_from_bytes(bytes, pos);
 
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
@@ -424,13 +427,10 @@ int main(int argc, char *argv[])
 
     uint64_t text_size = 4000;
 
-    load_write_file_test(text_size, 10, "range_search_test.bits", seed);
-    load_write_bits_test(text_size, 10, seed);
-
-
-    remove_test(text_size, 10, false, seed);
-
-    insert_test(text_size, 10, true, seed);
+    //load_write_file_test(text_size, 10, "range_search_test.bits", seed);
+    //load_write_bits_test(text_size, 10, seed);
+    //remove_test(text_size, 10, false, seed);
+    //insert_test(text_size, 10, true, seed);
 
     build_test(text_size, 100, seed);
     range_search_test(text_size, 50, 100, seed);
