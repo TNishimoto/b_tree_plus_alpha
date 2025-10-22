@@ -1,0 +1,27 @@
+<map id="stool::bptree::DynamicSequence64::insert" name="stool::bptree::DynamicSequence64::insert">
+<area shape="rect" id="Node000001" title="Inserts a value at a specified position in the sequence." alt="" coords="5,203,255,243"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a6cc6ca77e68d19a2ed6b844116923858" title="Inserts a value at a specific position in the B+ tree." alt="" coords="349,159,505,199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,202,335,190,336,195,255,208"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a109a1ec3be51d34ee80964762bb8a1a6" title="Returns the number of elements in the sequence." alt="" coords="303,235,552,275"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="255,234,290,238,289,243,255,239"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Computes the path from the root to the leaf at position i." alt="" coords="600,29,795,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="472,157,623,87,625,92,474,162"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Checks if the B+ tree is empty." alt="" coords="1253,182,1409,222"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="505,159,600,145,770,129,904,124,1037,132,1206,159,1264,175,1263,180,1205,165,1037,137,904,129,771,135,600,150,506,165"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a6c1e7af4c516633316e0bfdb3948fa57" title="Pushes a single value to the B+ tree." alt="" coords="619,159,775,199"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="506,177,605,177,605,182,506,182"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree." alt="" coords="619,247,775,287"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="490,197,622,240,621,245,489,202"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="654,29,654,19,662,10,676,5,697,3,722,6,737,14,734,18,721,11,697,8,678,10,665,15,659,21,659,29"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1457,182,1613,222"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="1409,199,1444,199,1444,205,1409,205"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#ac904bcd778d74f19c772da8a999e4a3c" title="Pushes multiple leaf containers into the B+ tree." alt="" coords="843,183,999,223"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="776,185,829,191,829,196,776,190"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="882,184,880,174,886,165,900,159,921,157,945,160,958,167,955,172,943,165,921,162,901,164,889,169,885,175,887,182"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a04008874c06d7ffe88c81fc4991db963" title="Returns a vector of NodePointer objects representing the path from the root to the last leaf." alt="" coords="1047,175,1205,229"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="999,200,1033,200,1033,205,999,205"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="1206,199,1240,199,1240,205,1206,205"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="775,267,971,264,1088,255,1205,239,1265,224,1266,229,1206,245,1089,261,971,269,775,272"/>
+<area shape="poly" id="edge13_Node000009_Node000009" title=" " alt="" coords="656,248,653,238,660,228,675,223,697,221,723,224,737,231,735,236,722,229,697,226,676,228,663,233,659,239,661,246"/>
+<area shape="poly" id="edge15_Node000010_Node000009" title=" " alt="" coords="552,258,606,261,606,266,552,264"/>
+</map>

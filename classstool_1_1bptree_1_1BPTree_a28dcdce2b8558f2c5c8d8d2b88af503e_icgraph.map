@@ -1,0 +1,5 @@
+<map id="stool::bptree::BPTree::get_value_forward_iterator_end" name="stool::bptree::BPTree::get_value_forward_iterator_end">
+<area shape="rect" id="Node000001" title="Returns an iterator pointing to the end of forward value traversal." alt="" coords="335,5,572,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a09521192edb861568acd6793f233f430" title="Returns an iterator to the end of the sequence." alt="" coords="5,13,287,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="321,28,287,28,287,23,321,23"/>
+</map>

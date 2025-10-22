@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::load_from_file" name="stool::bptree::BPTree::load_from_file">
+<area shape="rect" id="Node000001" title="Builds a B+ tree from serialized data in a file stream." alt="" coords="303,37,459,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a81e3670c11c7c7ed8ca70b63b6d875d0" title="Builds a bit sequence from a file." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,48,224,40,225,35,289,43"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a033e1a02a5ea7758fd460639ceae733f" title="Builds a sequence from a file." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,72,255,76,254,71,289,66"/>
+</map>

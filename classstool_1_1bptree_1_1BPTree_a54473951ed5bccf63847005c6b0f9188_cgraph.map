@@ -1,0 +1,5 @@
+<map id="stool::bptree::BPTree::get_leaf_container" name="stool::bptree::BPTree::get_leaf_container">
+<area shape="rect" id="Node000001" title="Returns a reference to the leaf container at position leaf_index." alt="" coords="5,13,161,53"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ac32372279357e43f52d1f489885fd275" title="Return the size of the vector that stores leaf containers." alt="" coords="209,5,365,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,30,196,30,196,35,161,35"/>
+</map>

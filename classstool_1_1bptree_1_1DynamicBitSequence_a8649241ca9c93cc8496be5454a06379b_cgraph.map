@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicBitSequence::store_to_bytes" name="stool::bptree::DynamicBitSequence::store_to_bytes">
+<area shape="rect" id="Node000001" title="Saves the bit sequence to a vector." alt="" coords="5,27,195,67"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a77ddb8c4eacf057d01031495301d0182" title="Saves the B+ tree structure to a byte vector." alt="" coords="243,5,513,89"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,45,229,45,229,50,195,50"/>
+</map>
