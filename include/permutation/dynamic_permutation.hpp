@@ -303,7 +303,7 @@ namespace stool
             {
                 std::stringstream ss;
                 auto vec = this->get_pi_vector();
-                ss << stool::DebugPrinter::to_integer_string(vec);
+                ss << stool::ConverterToString::to_integer_string(vec);
                 return ss.str();
             }
 
@@ -403,9 +403,9 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicPermutation):" << std::endl;
                 auto pi_vector = this->get_pi_vector();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "PI: \t" << stool::DebugPrinter::to_integer_string(pi_vector) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "PI: \t" << stool::ConverterToString::to_integer_string(pi_vector) << std::endl;
                 auto inverse_pi_vector = this->get_inverse_pi_vector();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Inverse PI: \t" << stool::DebugPrinter::to_integer_string(inverse_pi_vector) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Inverse PI: \t" << stool::ConverterToString::to_integer_string(inverse_pi_vector) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 

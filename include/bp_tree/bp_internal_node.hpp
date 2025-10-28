@@ -360,7 +360,7 @@ namespace stool
                 {
                     vec.push_back((uint64_t)this->children_[i]);
                 }
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "children: " << stool::DebugPrinter::to_integer_string(vec) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "children: " << stool::ConverterToString::to_integer_string(vec) << std::endl;
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "==================================" << std::endl;
             }

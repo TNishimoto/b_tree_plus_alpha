@@ -195,16 +195,16 @@ int main(int argc, char *argv[])
 
         }
 
-        for (uint64_t type = 0; type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); type++)
+        for (uint64_t type = 0; type <= stool::Alphabet::get_max_alphabet_type(); type++)
         {
             uint64_t len = 2;
-            std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(type);
+            std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(type);
             stool::DebugPrinter::print_characters(chars, "Alphabet");
                 
 
             while (len < 10000)
             {
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(len, chars, seed);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence<uint8_t>(len, chars, seed);
                 stool::NaiveDynamicString dyn_text;
 
                 // stool::Printer::print_string(text);

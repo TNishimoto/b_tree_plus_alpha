@@ -351,7 +351,7 @@ namespace stool
             {
                 std::stringstream ss;
                 auto vec = this->to_vector();
-                ss << stool::DebugPrinter::to_integer_string(vec);
+                ss << stool::ConverterToString::to_integer_string(vec);
                 return ss.str();
             }
 
