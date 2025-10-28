@@ -1,0 +1,15 @@
+<map id="stool::bptree::BPTree::build_from_leaf_containers" name="stool::bptree::BPTree::build_from_leaf_containers">
+<area shape="rect" id="Node000001" title="Builds a B+ tree from a vector of leaf containers." alt="" coords="507,101,713,141"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ada5e04f8ea8516bc40bd479f9802511e" title="Builds a B+ tree from serialized data in a byte vector." alt="" coords="303,69,459,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="493,108,458,103,459,98,494,102"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#ad9db3d79d6dcfaa9d4eda37cebee0063" title="Builds a B+ tree from serialized data in a file stream." alt="" coords="303,133,459,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="494,140,459,145,458,140,493,135"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa82a2e04235a89898290d9e6d1262932" title="Builds a bit sequence from a vector of uint8_t." alt="" coords="29,5,231,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="289,69,208,48,210,43,290,64"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a24cd85881878c1f32e14709a67fa20b8" title="Builds a sequence from a vector of bytes." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="289,92,255,92,255,87,289,87"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a81e3670c11c7c7ed8ca70b63b6d875d0" title="Builds a bit sequence from a file." alt="" coords="36,133,224,173"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="289,156,224,156,224,151,289,151"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a033e1a02a5ea7758fd460639ceae733f" title="Builds a sequence from a file." alt="" coords="5,197,255,237"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="290,179,210,200,208,195,289,174"/>
+</map>

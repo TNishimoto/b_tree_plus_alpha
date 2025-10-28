@@ -1,0 +1,18 @@
+<map id="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted" name="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted">
+<area shape="rect" id="Node000001" title="Checks if the leaf containers in the B+ tree are sorted." alt="" coords="787,79,971,134"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aea260e6e55d1c70432df595bf0a5d7b6" title="Sorts the leaf containers in the B+ tree." alt="" coords="576,57,739,97"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="773,95,738,91,739,85,773,90"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af65004c40a06841710a56279fe5d5ffe" title="Sorts the leaf containers." alt="" coords="303,5,528,45"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="813,76,777,60,738,48,685,37,631,31,528,25,528,20,631,25,686,32,739,43,778,55,815,71"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a77ddb8c4eacf057d01031495301d0182" title="Saves the B+ tree structure to a byte vector." alt="" coords="337,73,493,113"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="773,112,739,112,657,114,576,112,493,105,494,100,576,107,657,108,739,107,773,106"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#af273417adf66ea05c97cc9a0863a5f63" title="Saves the B+ tree structure to a file stream." alt="" coords="337,147,493,187"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="773,123,494,159,493,154,773,118"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="562,60,508,48,509,43,563,54"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="562,86,494,91,493,86,562,81"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="591,105,529,128,472,149,470,144,527,123,589,100"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicSequence64.html#af7c4eea22c8d56e8384c4da6f625f5d1" title="Saves the sequence to a vector of bytes." alt="" coords="5,73,255,113"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="324,96,255,96,255,91,324,91"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicSequence64.html#aabaae5a8114a4c22f929bb58c4248b54" title="Saves the sequence to a file." alt="" coords="5,147,255,187"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="324,169,255,169,255,164,324,164"/>
+</map>

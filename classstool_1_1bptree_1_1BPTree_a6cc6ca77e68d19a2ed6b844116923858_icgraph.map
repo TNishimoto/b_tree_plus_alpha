@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::insert" name="stool::bptree::BPTree::insert">
+<area shape="rect" id="Node000001" title="Inserts a value at a specific position in the B+ tree." alt="" coords="303,37,459,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ae45ff735ffd6de4d845e8f10b6fda50e" title="Inserts a bit at the specified position." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,48,224,40,225,35,289,43"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a9ed02f76d453ab9b3e088a46323e1a3f" title="Inserts a value at a specified position in the sequence." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,72,255,76,254,71,289,66"/>
+</map>

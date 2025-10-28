@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::build" name="stool::bptree::BPTree::build">
+<area shape="rect" id="Node000001" title="Builds a complete B+ tree from a vector of values." alt="" coords="303,37,459,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a586a9b49cf9d3ed49ce6012504599e01" title="Builds a bit sequence from a vector of bool." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,48,224,40,225,35,289,43"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a2b51092c35fe87104f94d7620c424627" title="Builds a new sequence from a vector of items." alt="" coords="5,69,255,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,72,255,76,254,71,289,66"/>
+</map>
