@@ -1,7 +1,6 @@
 #pragma once
 #include "./plain_spsi_container.hpp"
 #include "stool/include/light_stool.hpp"
-#include "stool/include/develop/short_integer_vector.hpp"
 
 namespace stool
 {

@@ -558,7 +558,6 @@ namespace stool
                     for (auto &it2 : it)
                     {
                         BIT_SEQUENCE::store_to_file(it2, os);
-                        // it2->save(os);
                     }
                 }
             }
