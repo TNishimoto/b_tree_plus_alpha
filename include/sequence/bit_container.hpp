@@ -535,7 +535,7 @@ namespace stool
                 os.write(reinterpret_cast<const char *>(items.data()), items.size() * sizeof(BitContainer));
             }
 
-            static std::vector<BitContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
+            static std::vector<BitContainer> load_vector_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 uint64_t size = 0;
                 std::memcpy(&size, data.data() + pos, sizeof(uint64_t));
@@ -547,7 +547,7 @@ namespace stool
                 pos += size * sizeof(BitContainer);
                 return output;
             }
-            static std::vector<BitContainer> load_vector(std::ifstream &ifs)
+            static std::vector<BitContainer> load_vector_from_file(std::ifstream &ifs)
             {
                 uint64_t size = 0;
                 ifs.read(reinterpret_cast<char *>(&size), sizeof(uint64_t));

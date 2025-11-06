@@ -362,7 +362,7 @@ namespace stool
                 r.bits = BitArrayDeque::load_from_file(ifs);
                 return r;
             }
-            static std::vector<BitVectorContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
+            static std::vector<BitVectorContainer> load_vector_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 uint64_t size = 0;
                 std::memcpy(&size, data.data() + pos, sizeof(uint64_t));
@@ -376,7 +376,7 @@ namespace stool
                 }
                 return output;
             }
-            static std::vector<BitVectorContainer> load_vector(std::ifstream &ifs)
+            static std::vector<BitVectorContainer> load_vector_from_file(std::ifstream &ifs)
             {
                 uint64_t size = 0;
                 ifs.read(reinterpret_cast<char *>(&size), sizeof(uint64_t));

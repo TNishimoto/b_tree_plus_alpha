@@ -2976,7 +2976,7 @@ namespace stool
                 std::memcpy(&_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
 
-                auto tmp = LEAF_CONTAINER::load_vector(data, pos);
+                auto tmp = LEAF_CONTAINER::load_vector_from_bytes(data, pos);
 
                 this->build_from_leaf_containers(tmp);
             }
@@ -2998,7 +2998,7 @@ namespace stool
                 ifs.read((char *)(&_max_degree), sizeof(uint64_t));
                 ifs.read((char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
 
-                auto tmp = LEAF_CONTAINER::load_vector(ifs);
+                auto tmp = LEAF_CONTAINER::load_vector_from_file(ifs);
 
                 this->build_from_leaf_containers(tmp);
             }

@@ -484,7 +484,7 @@ namespace stool
                 return r;
             }
 
-            static std::vector<PermutationContainer> load_vector(const std::vector<uint8_t> &data, uint64_t &pos)
+            static std::vector<PermutationContainer> load_vector_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 uint64_t size;
                 std::memcpy(&size, data.data() + pos, sizeof(size));
@@ -497,7 +497,7 @@ namespace stool
                 }
                 return r;
             }
-            static std::vector<PermutationContainer> load_vector(std::ifstream &ifs)
+            static std::vector<PermutationContainer> load_vector_from_file(std::ifstream &ifs)
             {
                 uint64_t size = 0;
                 ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
