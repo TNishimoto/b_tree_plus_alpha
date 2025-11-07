@@ -14,11 +14,10 @@ namespace stool
 
         inline static uint64_t time_count2 = 0;
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      BPTree
-        /// @brief      An implementation of B+-tree [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief An implementation of B+-tree [Unchecked AI's Comment]
+         * \ingroup BPTreeClasses
+         */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE, bool USE_PARENT_FIELD, bool USE_PSUM>
         class BPTree
         {

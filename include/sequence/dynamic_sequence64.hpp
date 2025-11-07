@@ -10,9 +10,13 @@ namespace stool
 {
     namespace bptree
     {
+        /// \defgroup SequenceClasses Classes for dynamic sequences
+        /// @{
+        /// @}
+
         /**
-         * @class DynamicSequence64
          * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers. [Unchecked AI's Comment]
+         * \ingroup SequenceClasses
          *
          * This class provides a dynamic sequence of 64-bit non-negative integers with operations for insertion, deletion, and modification.
          */

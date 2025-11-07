@@ -5,9 +5,14 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief  A container that stores a short sequence of bits. [Unchecked AI's Comment]
-        ////////////////////////////////////////////////////////////////////////////////
+        /// \defgroup BitClasses Classes for dynamic bits
+        /// @{
+        /// @}
+
+        /**
+         * @brief A container that stores a short sequence of bits. [Unchecked AI's Comment]
+         * \ingroup BitClasses
+         */
         class BitContainer
         {
             uint64_t bits = 1;

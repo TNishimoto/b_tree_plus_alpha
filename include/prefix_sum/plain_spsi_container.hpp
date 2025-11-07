@@ -5,11 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      PlainSPSIContainer
-        /// @brief      A container stored in the BPTree of SPSI. The values of this container are stored in a vector. [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A container stored in the BPTree of SPSI. The values of this container are stored in a vector. [Unchecked AI's Comment]
+         * \ingroup PrefixSumClasses
+         */
         class PlainSPSIContainer
         {
             std::vector<uint64_t> items;

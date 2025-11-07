@@ -6,11 +6,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      PermutationItem
-        /// @brief      The value stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief The value stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
+         * \ingroup PermutationClasses
+         */
         struct PermutationItem
         {
             uint64_t pointer;

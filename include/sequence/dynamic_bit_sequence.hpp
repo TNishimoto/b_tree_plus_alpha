@@ -14,11 +14,11 @@ namespace stool
 {
     namespace bptree
     {
-
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      A dynamic data structure supporting rank and select queries on a bit sequence [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        
+        /**
+         * @brief A dynamic data structure supporting rank and select queries on a bit sequence [Unchecked AI's Comment]
+         * \ingroup BitClasses
+         */
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class DynamicBitSequence
         {

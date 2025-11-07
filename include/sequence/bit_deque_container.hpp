@@ -5,9 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief  A container that stores a short sequence of bits. [Unchecked AI's Comment]
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A container that stores a short sequence of bits. [Unchecked AI's Comment]
+         * \ingroup BitClasses
+         */
         template <uint64_t MAX_BIT_SIZE = 8192ULL>
         class BitVectorContainer
         {

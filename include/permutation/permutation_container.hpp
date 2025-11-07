@@ -5,11 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      PermutationContainer
-        /// @brief      The container stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief The container stored in the BPTree of DynamicPermutation [Unchecked AI's Comment]
+         * \ingroup PermutationClasses
+         */
         class PermutationContainer
         {
 

@@ -5,11 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicPermutationBuilder
-        /// @brief      A builder of DynamicPermutation [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A builder of DynamicPermutation [Unchecked AI's Comment]
+         * \ingroup PermutationClasses
+         */
         class DynamicPermutationBuilder
         {
             using PostorderIterator = DynamicPermutation::Tree::PostorderIterator;

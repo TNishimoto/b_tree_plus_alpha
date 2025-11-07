@@ -5,11 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicPermutation
-        /// @brief      A dynamic data structure storing a permutation [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A dynamic data structure storing a permutation [Unchecked AI's Comment]
+         * \ingroup PermutationClasses
+         */
         class DynamicPermutation
         {
         public:

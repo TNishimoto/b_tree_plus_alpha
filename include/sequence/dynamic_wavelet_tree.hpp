@@ -5,11 +5,15 @@ namespace stool
 {
     namespace bptree
     {
+        /// \defgroup WaveletTreeClasses Classes for dynamic wavelet tree
+        /// @{
+        /// @}
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      A dynamic data structure supporting rank and select queries on a string. [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * @brief A dynamic data structure supporting rank and select queries on a string [Unchecked AI's Comment]
+         * \ingroup WaveletTreeClasses
+         */
         class DynamicWaveletTree
         {
             using BIT_SEQUENCE = SimpleDynamicBitSequence;

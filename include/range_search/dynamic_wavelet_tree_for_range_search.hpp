@@ -6,11 +6,15 @@ namespace stool
 {
     namespace bptree
     {
+        /// \defgroup RangeSearchClasses Classes for dynamic wavelet tree for range search
+        /// @{
+        /// @}
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      DynamicWaveletTreeForRangeSearch. [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * @brief A dynamic data structure supporting range search [Unchecked AI's Comment]
+         * \ingroup RangeSearchClasses
+         */
         class DynamicWaveletTreeForRangeSearch
         {
             using BIT_SEQUENCE = SimpleDynamicBitSequence;

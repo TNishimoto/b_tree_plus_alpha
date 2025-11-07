@@ -4,11 +4,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      StackNode
-        /// @brief      The item of the stack for traversing BPTree  [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief The item of the stack for traversing BPTree  [Unchecked AI's Comment]
+         * \ingroup BPTreeClasses
+         */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
         struct StackNode
         {

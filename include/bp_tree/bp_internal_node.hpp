@@ -6,11 +6,10 @@ namespace stool
     namespace bptree
     {
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      BPInternalNode
-        /// @brief      The internal node of BPTree [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief The internal node of BPTree [Unchecked AI's Comment]
+         * \ingroup BPTreeClasses
+         */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
         class BPInternalNode
         {

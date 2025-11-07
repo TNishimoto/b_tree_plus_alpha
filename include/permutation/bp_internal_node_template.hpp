@@ -4,13 +4,17 @@
 
 namespace stool
 {
+    /// \defgroup PermutationClasses Classes for dynamic permutations
+    /// @{
+    /// @}
+
     namespace bptree
     {
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief      BPInternalNode for dynamic permutations [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief BPInternalNode for dynamic permutations [Unchecked AI's Comment]
+         * \ingroup PermutationClasses
+         */
         template <uint64_t MAX_DEGREE>
         class BPInternalNode<stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false>
         {

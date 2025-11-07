@@ -4,11 +4,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      BPPostorderIterator
-        /// @brief      The iterator of a post-order traversal on BPTree [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief The iterator of a post-order traversal on BPTree [Unchecked AI's Comment]
+         * \ingroup BPTreeClasses
+         */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
         class BPPostorderIterator
         {

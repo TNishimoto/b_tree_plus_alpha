@@ -7,10 +7,10 @@ namespace stool
     namespace bptree
     {
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @brief A forward iterator for traversing the bits stored in a BP-tree. [Unchecked AI's Comment]
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A forward iterator for traversing the bits stored in a BP-tree. [Unchecked AI's Comment]
+         * \ingroup BitClasses
+         */
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class BitForwardIterator
         {

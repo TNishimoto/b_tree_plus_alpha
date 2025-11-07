@@ -5,11 +5,10 @@ namespace stool
 {
     namespace bptree
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      BPNodePointer
-        /// @brief      A pointer to a node of BPTree [Unchecked AI's Comment] 
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A pointer to a node of BPTree [Unchecked AI's Comment] 
+         * \ingroup BPTreeClasses
+         */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, bool USE_PSUM>
         class BPNodePointer
         {
