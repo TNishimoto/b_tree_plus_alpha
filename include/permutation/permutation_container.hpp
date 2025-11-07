@@ -255,8 +255,8 @@ namespace stool
                     tmp_keys[i] = new_items[i].key;
                     tmp_pointers[i] = new_items[i].pointer;
                 }
-                this->keys.push_front(tmp_keys);
-                this->pointers.push_front(tmp_pointers);
+                this->keys.push_front_many(tmp_keys);
+                this->pointers.push_front_many(tmp_pointers);
 
                 /*
                 for (int64_t i = new_items.size() - 1; i >= 0; i--)
@@ -315,8 +315,8 @@ namespace stool
                     uint64_t pointer = this->pointers[i];
                     r[i] = PermutationItem(pointer, key);
                 }
-                this->keys.pop_front(len);
-                this->pointers.pop_front(len);
+                this->keys.pop_front_many(len);
+                this->pointers.pop_front_many(len);
 
                 assert(this->keys.size() == this->pointers.size());
                 return r;

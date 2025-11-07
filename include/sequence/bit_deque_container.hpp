@@ -155,7 +155,7 @@ namespace stool
                 }
                 return added_block_size;
             }
-            void push_front(const std::vector<uint64_t> &new_items)
+            void push_front_many(const std::vector<uint64_t> &new_items)
             {
                 if(new_items.size() > 0){
                     std::array<uint64_t, MAX_BIT_SIZE / 64> tmp_buffer;
@@ -189,7 +189,7 @@ namespace stool
                 this->bits.push_back64(new_item >= 1);
             }
 
-            void push_back(const std::vector<uint64_t> &new_items)
+            void push_back_many(const std::vector<uint64_t> &new_items)
             {
 
                 if(new_items.size() > 0){
@@ -209,7 +209,7 @@ namespace stool
                 assert(this->size() > 0);
                 this->bits.pop_front();
             }
-            std::vector<uint64_t> pop_front(uint64_t len)
+            std::vector<uint64_t> pop_front_many(uint64_t len)
             {
 
                 assert(len <= this->size());
@@ -240,7 +240,7 @@ namespace stool
                 this->bits.pop_back();
             }
 
-            std::vector<uint64_t> pop_back(uint64_t len)
+            std::vector<uint64_t> pop_back_many(uint64_t len)
             {
 
                 assert(len <= this->size());
