@@ -11,7 +11,7 @@ namespace stool
         /// @}
 
         /**
-         * @brief A dynamic data structure supporting prefix-sum query [Unchecked AI's Comment]
+         * @brief A dynamic data structure supporting prefix-sum query on a unsigned 64-bit integer sequence S[0..n-1]
          * \ingroup PrefixSumClasses
          */
         template <typename LEAF_CONTAINER = VLCDeque, uint64_t TREE_DEGREE = bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, uint64_t LEAF_CONTAINER_MAX_SIZE = bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>
@@ -29,6 +29,11 @@ namespace stool
             Tree tree;
 
         public:
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Constructors and Destructor
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             DynamicPrefixSum()
             {
                 this->tree.initialize();
@@ -39,20 +44,26 @@ namespace stool
                 this->tree.build(items);
                 assert(this->size() == items.size());
             }
-            DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
             DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
-            DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
 
-        public:
+            //}@
+
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Iterators
-            ///   The iterators supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+
+            /**
+             * @brief Returns an iterator to the beginning of the sequence \p S.
+             */
             typename Tree::ValueForwardIterator begin() const
             {
                 return this->tree.get_value_forward_iterator_begin();
             }
+
+            /**
+             * @brief Returns an iterator to the end of the sequence \p S.
+             */
             typename Tree::ValueForwardIterator end() const
             {
                 return this->tree.get_value_forward_iterator_end();
@@ -61,14 +72,28 @@ namespace stool
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Properties
-            ///   The properties of this class.
+            ///   @name Operators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
+            DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
+
+            /**
+             * @brief The alias for at query
+             */
+            uint64_t operator[](uint64_t i) const
+            {
+                return this->tree.at(i);
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Lightweight functions for accessing to properties of this class
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
             /**
-             * @brief Get the internal tree of this data structure.
-             * @return The internal tree of this data structure.
+             * @brief Get the internal tree storing the sequence \p S.
              */
             Tree &__get_tree()
             {
@@ -76,8 +101,7 @@ namespace stool
             }
 
             /**
-             * @brief Get the maximum degree of internal nodes of the internal tree of this data structure.
-             * @return The maximum degree of internal nodes of the internal tree of this data structure.
+             * @brief Return the maximum degree of internal nodes of the internal tree storing the sequence \p S.
              */
             uint64_t get_degree() const
             {
@@ -85,8 +109,7 @@ namespace stool
             }
 
             /**
-             * @brief Return the number of elements stored in this data structure.
-             * @return The number of elements stored in this data structure.
+             * @brief Return |S|
              */
             uint64_t size() const
             {
@@ -94,22 +117,20 @@ namespace stool
             }
 
             /**
-             * @brief Return the element at the given position.
-             * @param pos The position of the element to return.
-             * @return The element at the given position.
+             * @brief Returns the total memory usage in bytes
+             * @param only_dynamic_memory If true, only the size of the dynamic memory is returned
              */
-            uint64_t at(uint64_t pos) const
+            uint64_t size_in_bytes(bool only_dynamic_memory = false) const
             {
-                return this->tree.at(pos);
+                return this->tree.size_in_bytes(only_dynamic_memory);
             }
 
             /**
-             * @brief Return the size of this data structure in bytes.
-             * @return The size of this data structure in bytes.
+             * @brief Return the density of the internal tree
              */
-            uint64_t size_in_bytes(bool only_extra_bytes = false) const
+            double density() const
             {
-                return this->tree.size_in_bytes(only_extra_bytes);
+                return this->tree.get_value_density();
             }
 
             //@}
@@ -120,8 +141,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Return the elements stored in this data structure as a vector.
-             * @return The elements stored in this data structure as a vector.
+             * @brief Return \p S as a vector.
              */
             std::vector<uint64_t> to_vector() const
             {
@@ -129,8 +149,7 @@ namespace stool
             }
 
             /**
-             * @brief Return the elements stored in this data structure as a vector of uint8_t.
-             * @return The elements stored in this data structure as a vector of uint8_t.
+             * @brief Return \p S as a vector of uint8_t.
              */
             std::vector<uint8_t> to_u8_vector() const
             {
@@ -144,6 +163,9 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Return \p S as a string.
+             */
             std::string to_string() const
             {
                 std::stringstream ss;
@@ -154,26 +176,22 @@ namespace stool
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Queries
-            ///   The queries supported this data structure.
+            ///   @name Main queries (Access, search, and psum operations)
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            uint64_t reverse_psum([[maybe_unused]] uint64_t i) const
-            {
-                throw std::runtime_error("No implementation");
-            }
-
             /**
-             * @brief Return the sum of the first (i+1) values stored in this data structure.
+             * @brief Return the (i+1)-th element of \p S[i]
+             * @note O(log n) time
              */
-            uint64_t psum(uint64_t i) const
+            uint64_t at(uint64_t i) const
             {
-                return this->tree.psum(i);
+                return this->tree.at(i);
             }
 
             /**
-             * @brief Return the sum of the stored values.
+             * @brief Return the sum of \p S[0..n-1].
+             * @note O(1) time
              */
             uint64_t psum() const
             {
@@ -181,29 +199,72 @@ namespace stool
             }
 
             /**
-             * @brief Return the smallest i such that psum(i) >= x
+             * @brief Return the sum of the first (i+1) values of \p S[0..n-1].
+             * @note O(log n) time
+             */
+            uint64_t psum(uint64_t i) const
+            {
+                return this->tree.psum(i);
+            }
+
+            /**
+             * @brief Return the sum of \p S[i..j].
+             * @note O(log n) time
+             */
+            uint64_t psum(uint64_t i, uint64_t j) const
+            {
+                return this->tree.psum(i);
+            }
+
+            /**
+             * @brief Returns the sum of integers in \p S[(n-1)-i..n-1]
+             * @note \p O(\log n) time
+             */
+            uint64_t reverse_psum([[maybe_unused]] uint64_t i) const
+            {
+                uint64_t size = this->size();
+                if (size == 0)
+                {
+                    return 0;
+                }
+                else if (i + 1 == size)
+                {
+                    return this->psum(size - i - 1, size - 1);
+                }
+                else
+                {
+                    return this->psum(size - i - 1, size - 1);
+                }
+            }
+
+            /**
+             * @brief Return the smallest i such that psum(i) >= x if such a position exists, otherwise returns -1
              */
             int64_t search(uint64_t x) const
             {
                 return this->tree.search(x);
             }
 
-            int64_t predecessor_index(uint64_t value) const
+            /**
+             * @brief Return the largest i such that psum(i) <= x if such a position exists, otherwise returns -1
+             * @note O(log n) time
+             */
+            int64_t predecessor_index(uint64_t x) const
             {
                 int64_t size = this->size();
 
                 if (size > 0)
                 {
                     uint64_t fst_value = this->at(0);
-                    if (value >= fst_value)
+                    if (x >= fst_value)
                     {
-                        if (value > this->psum())
+                        if (x > this->psum())
                         {
                             return size - 1;
                         }
                         else
                         {
-                            int64_t idx = this->search(value);
+                            int64_t idx = this->search(x);
                             if (idx >= size)
                             {
                                 return size - 1;
@@ -212,8 +273,8 @@ namespace stool
                             {
                                 uint64_t v = this->psum(idx);
 
-                                assert(v >= value);
-                                if (v > value)
+                                assert(v >= x);
+                                if (v > x)
                                 {
                                     assert(idx - 1 < size);
                                     return idx - 1;
@@ -236,23 +297,27 @@ namespace stool
                     return -1;
                 }
             }
-            int64_t successor_index(uint64_t value) const
+
+            /**
+             * @brief Return the smallest i such that psum(i) >= x if such a position exists, otherwise returns -1
+             * @note O(log n) time
+             */
+            int64_t successor_index(uint64_t x) const
             {
                 int64_t size = this->size();
                 if (size > 0)
                 {
                     uint64_t lst_value = this->psum();
-                    if (value <= lst_value)
+                    if (x <= lst_value)
                     {
-                        int64_t idx = this->search(value);
+                        int64_t idx = this->search(x);
                         if (idx >= size)
                         {
                             return -1;
                         }
                         else
                         {
-                            [[maybe_unused]] uint64_t v = this->psum(idx);
-                            assert(v >= value);
+                            assert(this->psum(idx) >= x);
                             return idx;
                         }
                     }
@@ -266,77 +331,17 @@ namespace stool
                     return -1;
                 }
             }
-            uint64_t operator[](uint64_t n) const
-            {
-                return this->tree.at(n);
-            }
 
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Update operations
-            ///   The update operations supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-
-            void swap(DynamicPrefixSum &item)
-            {
-                this->tree.swap(item.tree);
-            }
-
             /**
-             * @brief Clear the elements stored in this data structure.
+             * @brief Set a given value \p v at a given position \p i in \p S
+             * @note \p O(1) time
              */
-            void clear()
-            {
-                this->tree.clear();
-            }
-
-            /**
-             * @brief Verify the internal consistency of this data structure.
-             */
-            void verify() const
-            {
-                this->tree.verify();
-            }
-            void push_back(uint64_t value)
-            {
-                this->tree.push_back(value);
-            }
-            void push_front(uint64_t value)
-            {
-                this->tree.push_front(value);
-            }
-            void pop_back()
-            {
-                this->tree.remove(this->size() - 1);
-            }
-            void pop_front()
-            {
-                this->tree.remove(0);
-            }
-
-            void insert(uint64_t pos, uint64_t value)
-            {
-                this->tree.insert(pos, value, value);
-            }
-            void remove(uint64_t pos)
-            {
-                this->tree.remove(pos);
-            }
-
-            void increment(uint64_t i, int64_t delta)
-            {
-                this->tree.increment(i, delta);
-            }
-            void decrement(uint64_t i, int64_t delta)
-            {
-                this->tree.increment(i, -delta);
-            }
-            void push_many(const std::vector<uint64_t> &items)
-            {
-                this->tree.push_many(items);
-            }
             void set_value(uint64_t i, uint64_t value)
             {
                 uint64_t old_value = this->at(i);
@@ -349,36 +354,137 @@ namespace stool
                     this->increment(i, value - old_value);
                 }
             }
-            void set_values(uint64_t i, const std::vector<uint64_t> &values)
+
+            /**
+             * @brief Replaces the |Q| values \p S[i..i+|Q|-1] with the given values Q[0..|Q|-1]
+             * @note O(|Q| log n) time
+             */
+            void set_values(uint64_t i, const std::vector<uint64_t> &values_Q)
             {
                 assert(i < this->size());
-                assert(i + values.size() <= this->size());
+                assert(i + values_Q.size() <= this->size());
 
-                for (uint64_t j = 0; j < values.size(); j++)
+                for (uint64_t j = 0; j < values_Q.size(); j++)
                 {
-                    this->set_value(i + j, values[j]);
+                    this->set_value(i + j, values_Q[j]);
                 }
             }
 
-            /*
-            void set_degree(uint64_t degree)
+            /**
+             * @brief Set the value \p S[i+delta] at a given position \p i in \p S
+             * @note \p O(1) time
+             */
+            void increment(uint64_t i, int64_t delta)
             {
-                this->tree.initialize(degree);
+                this->tree.increment(i, delta);
             }
-            */
-            double density() const
+
+            /**
+             * @brief Set the value \p S[i-delta] at a given position \p i in \p S
+             * @note \p O(1) time
+             */
+            void decrement(uint64_t i, int64_t delta)
             {
-                return this->tree.get_value_density();
+                this->tree.increment(i, -delta);
+            }
+
+            /**
+             * @brief Swap operation
+             */
+            void swap(DynamicPrefixSum &item)
+            {
+                this->tree.swap(item.tree);
+            }
+
+            /**
+             * @brief Clear the elements in \p S.
+             */
+            void clear()
+            {
+                this->tree.clear();
+            }
+
+            /**
+             * @brief Add a given integer to the end of \p S
+             * @note O(log n) time
+             */
+            void push_back(uint64_t value)
+            {
+                this->tree.push_back(value);
+            }
+
+            /**
+             * @brief Add a given sequence \p Q[0..k-1] to the end of \p S[0..n-1] (i.e., \p S = S[0..n-1]Q[0..k-1])
+             * @note O(|Q| log n) time
+             */
+            void push_back_many(const std::vector<uint64_t> &items_Q)
+            {
+                this->tree.push_many(items_Q);
+            }
+
+            /**
+             * @brief Alias for push_back_many
+             */
+            void push_many(const std::vector<uint64_t> &items)
+            {
+                this->tree.push_many(items);
+            }
+
+            /**
+             * @brief Add a given value to the beginning of \p S
+             * @note \p O(log n) time
+             */
+            void push_front(uint64_t value)
+            {
+                this->tree.push_front(value);
+            }
+
+            /**
+             * @brief Remove the last element from \p S
+             * @note \p O(log n) time
+             */
+            void pop_back()
+            {
+                this->tree.remove(this->size() - 1);
+            }
+
+            /**
+             * @brief Remove the first element from \p S
+             * @note \p O(log n) time
+             */
+            void pop_front()
+            {
+                this->tree.remove(0);
+            }
+
+            /**
+             * @brief Insert a given integer \p value into \p S as the \p (pos+1)-th element
+             * @note \p O(log n) time
+             */
+            void insert(uint64_t pos, uint64_t value)
+            {
+                this->tree.insert(pos, value, value);
+            }
+
+            /**
+             * @brief Remove the element at the position \p pos from \p S and return it
+             * @note \p O(log n) time
+             */
+            void remove(uint64_t pos)
+            {
+                this->tree.remove(pos);
             }
 
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Print functions
-            ///   The functions for printing messages.
+            ///   @name Print and verification functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Return the memory usage information of this data structure as a vector of strings
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log1 = this->tree.get_memory_usage_info(message_paragraph + 1);
@@ -411,6 +517,11 @@ namespace stool
 
                 return r;
             }
+
+            /**
+             * @brief Print the memory usage information of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
@@ -419,12 +530,22 @@ namespace stool
                     std::cout << s << std::endl;
                 }
             }
+
+            /**
+             * @brief Print the statistics of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicPrefixSum):" << std::endl;
                 this->tree.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+            /**
+             * @brief Print the performance information of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             */
             void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicPrefixSum)[" << std::endl;
@@ -432,6 +553,10 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
             }
 
+            /**
+             * @brief Print the form of the internal tree of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             */
             void print_tree(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
 
@@ -439,18 +564,33 @@ namespace stool
                 this->tree.print_tree();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
             }
+
+            /**
+             * @brief Print the statistics of this data structure
+             */
             void print_info() const
             {
                 this->print_statistics();
             }
 
+            /**
+             * @brief Verify the internal consistency of this data structure.
+             */
+            void verify() const
+            {
+                this->tree.verify();
+            }
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Builder and Writer functions
-            ///   The functions for building and writing this data structure.
+            ///   @name Load, save, and builder functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+
+            /**
+             * @brief Build a new DynamicPrefixSum from a given sequence \p items
+             */
             static DynamicPrefixSum build(const std::vector<uint64_t> &items)
             {
                 DynamicPrefixSum r;
@@ -459,20 +599,19 @@ namespace stool
                 assert(r.size() == items.size());
                 return r;
             }
-            /*
+
+            /**
+             * @brief Returns the DynamicPrefixSum instance loaded from a byte vector \p data at the position \p pos
+             */
             static DynamicPrefixSum load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicPrefixSum r;
                 r.tree.load_from_bytes(data, pos);
                 return r;
             }
-            */
-            static DynamicPrefixSum load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
-            {
-                DynamicPrefixSum r;
-                r.tree.load_from_bytes(data, pos);
-                return r;
-            }
+            /**
+             * @brief Returns the DynamicPrefixSum instance loaded from a file stream \p ifs
+             */
 
             static DynamicPrefixSum load_from_file(std::ifstream &ifs)
             {
@@ -480,15 +619,18 @@ namespace stool
                 r.tree.load_from_file(ifs);
                 return r;
             }
-            static DynamicPrefixSum load(std::ifstream &ifs)
-            {
-                return DynamicPrefixSum::load_from_file(ifs);
-            }
 
+            /**
+             * @brief Save the given instance \p item to a byte vector \p output at the position \p pos
+             */
             static void store_to_bytes(DynamicPrefixSum &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
                 Tree::store_to_bytes(item.tree, output, pos);
             }
+
+            /**
+             * @brief Save the given instance \p item to a file stream \p os
+             */
             static void store_to_file(DynamicPrefixSum &item, std::ofstream &os)
             {
                 Tree::store_to_file(item.tree, os);
@@ -497,9 +639,11 @@ namespace stool
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Other static functions
-            ///   The other static functions supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Return the name of the DynamicPrefixSum for debugging
+             */
             static std::string name()
             {
                 std::string s;
