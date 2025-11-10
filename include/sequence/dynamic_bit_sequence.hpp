@@ -613,7 +613,7 @@ namespace stool
              * @param name The name to print.
              * @param message_paragraph The paragraph depth of message logs
              */
-            void print(std::string name = "DynamicBitSequence", int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            void print_content(std::string name = "DynamicBitSequence", int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << name << ": " << this->to_string() << std::endl;
             }
