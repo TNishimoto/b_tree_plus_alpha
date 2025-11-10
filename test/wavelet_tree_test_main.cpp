@@ -18,7 +18,7 @@ void build_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicString
     {
         dyn_text.push_back(c);
     }
-    std::vector<uint8_t> test_str = ds.to_uint8_str();
+    std::vector<uint8_t> test_str = ds.to_u8_vector();
     stool::EqualChecker::equal_check(test_str, dyn_text.text);
 
 }
@@ -29,8 +29,8 @@ void rank_test(const stool::bptree::DynamicWaveletTree &ds, const stool::NaiveDy
     {
         for (int64_t i = 0; i <= text.size(); i++)
         {
-            uint64_t rank1 = ds.rank(i, c);
-            uint64_t rank2 = stool::StringFunctions::rank_query(text.text, i, c);
+            uint64_t rank1 = ds.one_based_rank(i, c);
+            uint64_t rank2 = stool::StringFunctions::one_based_rank_query(text.text, i, c);
             if (rank1 != rank2)
             {
                 std::cout << "rank1: " << rank1 << ", rank2: " << rank2 << std::endl;
@@ -46,7 +46,7 @@ void select_test(const stool::bptree::DynamicWaveletTree &ds, const stool::Naive
     for (int64_t i = 0; i < text.size(); i++)
     {
         uint8_t c = text.text[i];
-        int64_t rank = stool::StringFunctions::rank_query(text.text, i + 1, c);
+        int64_t rank = stool::StringFunctions::one_based_rank_query(text.text, i + 1, c);
         assert(rank > 0);
         int64_t nth = ds.select(rank - 1, c);
         if (nth != i)
@@ -71,7 +71,7 @@ void insert_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
         ds.insert(nth, c);
     }
 
-    std::vector<uint8_t> test_str = ds.to_uint8_str();
+    std::vector<uint8_t> test_str = ds.to_u8_vector();
     stool::EqualChecker::equal_check(test_str, text.text);
 
 }
@@ -87,7 +87,7 @@ void remove_test(stool::bptree::DynamicWaveletTree &ds, stool::NaiveDynamicStrin
 
         if (text.size() % 100 == 0)
         {
-            std::vector<uint8_t> test_str = ds.to_uint8_str();
+            std::vector<uint8_t> test_str = ds.to_u8_vector();
             stool::EqualChecker::equal_check(test_str, text.text);
         }
     }

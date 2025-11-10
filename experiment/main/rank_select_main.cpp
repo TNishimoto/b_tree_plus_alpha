@@ -73,7 +73,11 @@ void dynamic_operation_test(T &dynamic_sequence, std::string name, uint64_t item
     std::vector<uint64_t> count_c_array;
     for (uint64_t c = 0; c <= alphabet_size; c++)
     {
-        count_c_array.push_back(dynamic_sequence.rank(dynamic_sequence.size()-1, c));
+        if constexpr (std::is_same<T, stool::bptree::DynamicWaveletTree>::value){
+            count_c_array.push_back(dynamic_sequence.one_based_rank(dynamic_sequence.size()-1, c));
+        }else{
+            count_c_array.push_back(dynamic_sequence.rank(dynamic_sequence.size()-1, c));
+        }
     }
 
     std::cout << "Checksum: " << hash << std::endl;
@@ -101,8 +105,13 @@ void dynamic_operation_test(T &dynamic_sequence, std::string name, uint64_t item
         {
             uint64_t c = get_rand_char(mt64)+1;
             uint64_t i = get_rand_item_num(mt64);
-            uint64_t value = dynamic_sequence.rank(i, c);
-            hash += value;
+            if constexpr (std::is_same<T, stool::bptree::DynamicWaveletTree>::value){
+                uint64_t value = dynamic_sequence.one_based_rank(i, c);
+                hash += value;
+            }else{
+                uint64_t value = dynamic_sequence.rank(i, c);
+                hash += value;
+            }
         }
     }
     st2 = std::chrono::system_clock::now();

@@ -255,7 +255,7 @@ namespace stool
             }
 
             int64_t one_based_rank(uint64_t i, uint64_t c) const {
-                return stool::StringFunctions::rank_query(this->items, i, c);
+                return stool::StringFunctions::one_based_rank_query(this->items, i, c);
             }
             int64_t one_based_rank0(uint64_t i) const {
                 return this->one_based_rank(0, i);

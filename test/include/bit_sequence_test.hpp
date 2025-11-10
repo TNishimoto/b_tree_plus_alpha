@@ -73,7 +73,7 @@ namespace stool
             for (uint64_t i = 0; i <= items.size(); i++)
             {
                 uint64_t rank1 = spsi_container.one_based_rank(i, value);
-                uint64_t rank2 = stool::StringFunctions::rank_query<uint64_t>(items, i, value);
+                uint64_t rank2 = stool::StringFunctions::one_based_rank_query<uint64_t>(items, i, value);
 
                 if (rank1 != rank2)
                 {
@@ -96,7 +96,7 @@ namespace stool
             {
                 if (items[i] == bit_value)
                 {
-                    uint64_t rank = stool::StringFunctions::rank_query<uint64_t>(items, i + 1, bit_value);
+                    uint64_t rank = stool::StringFunctions::one_based_rank_query<uint64_t>(items, i + 1, bit_value);
                     uint64_t nth2 = i;
                     uint64_t nth1 = spsi_container.select(rank - 1, bit_value);
 
