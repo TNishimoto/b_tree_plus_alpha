@@ -18,6 +18,7 @@ namespace stool
         /**
          * @brief A dynamic data structure supporting rank and select queries on a bit sequence B[0..n-1]
          * \ingroup BitClasses
+         * \ingroup MainClasses
          */
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class DynamicBitSequence

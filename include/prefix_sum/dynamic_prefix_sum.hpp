@@ -10,9 +10,15 @@ namespace stool
         /// @{
         /// @}
 
+        /// \defgroup MainClasses Main dynamic data structures
+        /// @{
+        /// @}
+
+
         /**
          * @brief A dynamic data structure supporting prefix-sum query on a unsigned 64-bit integer sequence S[0..n-1]
          * \ingroup PrefixSumClasses
+         * \ingroup MainClasses
          */
         template <typename LEAF_CONTAINER = VLCDeque, uint64_t TREE_DEGREE = bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, uint64_t LEAF_CONTAINER_MAX_SIZE = bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF>
         class DynamicPrefixSum

@@ -17,6 +17,7 @@ namespace stool
         /**
          * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers S[0..n-1].
          * \ingroup SequenceClasses
+         * \ingroup MainClasses
          */
         template <typename LEAF_CONTAINER = stool::NaiveFLCVector<>, uint64_t TREE_DEGREE = 62, uint64_t LEAF_CONTAINER_MAX_SIZE = 256>
         class DynamicSequence64

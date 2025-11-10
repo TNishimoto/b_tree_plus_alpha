@@ -8,6 +8,7 @@ namespace stool
         /**
          * @brief A dynamic data structure storing a permutation [Unchecked AI's Comment]
          * \ingroup PermutationClasses
+         * \ingroup MainClasses
          */
         class DynamicPermutation
         {
