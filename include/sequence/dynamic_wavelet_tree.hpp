@@ -23,7 +23,68 @@ namespace stool
             uint64_t rank_bit_size = 0;
 
         public:
-            DynamicWaveletTree()
+////////////////////////////////////////////////////////////////////////////////
+            ///   @name Constructors and Destructor
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            //@}
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Iterators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Lightweight functions for accessing to properties of this class
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Conversion functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Update operations
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print and verification functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Load, save, and builder functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Other static functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            //@}
+        DynamicWaveletTree()
             {
                 this->alphabet.clear();
             };
@@ -229,7 +290,7 @@ namespace stool
             int64_t rank_sub(uint64_t i, uint64_t c_rank) const
             {
                 bool b1 = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - 1);
-                uint64_t _rank = this->bits_seq[0][0].rank(i + 1, b1);
+                uint64_t _rank = this->bits_seq[0][0].one_based_rank(i + 1, b1);
                 if (_rank == 0)
                 {
                     return 0;
@@ -249,7 +310,7 @@ namespace stool
                             throw std::range_error("Error: DynamicSequence::rank_sub()");
                         }
 
-                        uint64_t _rankx = this->bits_seq[i][next].rank(nth + 1, bx);
+                        uint64_t _rankx = this->bits_seq[i][next].one_based_rank(nth + 1, bx);
                         if (_rankx == 0)
                         {
                             return 0;
@@ -313,7 +374,7 @@ namespace stool
                         bool hbit = stool::LSBByte::get_bit(c_rank, this->rank_bit_size - h - 1);
                         assert(next_nth <= this->bits_seq[h][j].size());
                         this->bits_seq[h][j].insert(next_nth, hbit);
-                        next_nth = this->bits_seq[h][j].rank(next_nth, hbit);
+                        next_nth = this->bits_seq[h][j].one_based_rank(next_nth, hbit);
                         j = (j * 2) + (hbit ? 1 : 0);
                     }
                 }
@@ -413,7 +474,7 @@ namespace stool
                         for (int64_t h = 0; h < (int64_t)this->height(); h++)
                         {
                             bool b = this->bits_seq[h][j].at(next_nth);
-                            next_nth = this->bits_seq[h][j].rank(next_nth, b);
+                            next_nth = this->bits_seq[h][j].one_based_rank(next_nth, b);
                             j = (j * 2) + (b ? 1 : 0);
                         }
                         return j;
@@ -451,7 +512,7 @@ namespace stool
                     {
                         uint64_t current_nth = next_nth;
                         bool b = this->bits_seq[h][j].at(current_nth);
-                        next_nth = this->bits_seq[h][j].rank(current_nth, b);
+                        next_nth = this->bits_seq[h][j].one_based_rank(current_nth, b);
                         this->bits_seq[h][j].remove(current_nth);
                         j = (j * 2) + (b ? 1 : 0);
                     }

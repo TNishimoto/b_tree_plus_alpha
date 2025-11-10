@@ -310,7 +310,7 @@ namespace stool
 
                 return s;
             }
-            std::vector<uint64_t> to_value_vector() const
+            std::vector<uint64_t> to_packed_vector() const
             {
                 std::vector<uint64_t> r;
                 for (uint64_t i = 0; i < this->size(); i++)
@@ -469,7 +469,7 @@ namespace stool
                 return BitContainerIterator(this->bits, UINT16_MAX);
             }
 
-            int64_t rank1(uint64_t i) const
+            int64_t one_based_rank1(uint64_t i) const
             {
                 if (i == 0)
                 {
@@ -481,13 +481,13 @@ namespace stool
                 }
             }
 
-            int64_t rank0(uint64_t i) const
+            int64_t one_based_rank0(uint64_t i) const
             {
-                return i - this->rank1(i);
+                return i - this->one_based_rank1(i);
             }
-            int64_t rank(uint64_t i, bool b) const
+            int64_t one_based_rank(uint64_t i, bool b) const
             {
-                return b ? this->rank1(i) : this->rank0(i);
+                return b ? this->one_based_rank1(i) : this->one_based_rank0(i);
             }
 
             int64_t select(uint64_t i, bool b) const

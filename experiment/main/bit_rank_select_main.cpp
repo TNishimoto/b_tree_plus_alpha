@@ -161,8 +161,15 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
         for (uint64_t i = 0; i < query_num; i++)
         {
             uint64_t m = get_rand_item_num(mt64);
-            uint64_t value = dynamic_bit_sequence.rank1(m);
-            hash += value;
+            if constexpr (std::is_same<T, stool::bptree::SimpleDynamicBitSequence>::value)
+            {
+                uint64_t value = dynamic_bit_sequence.one_based_rank1(m);
+                hash += value;
+            }else{
+                uint64_t value = dynamic_bit_sequence.rank1(m);
+                hash += value;
+            }
+        
         }
     }
     st2 = std::chrono::system_clock::now();

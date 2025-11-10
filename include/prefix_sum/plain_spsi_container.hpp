@@ -124,6 +124,11 @@ namespace stool
                 }
                 return r;
             }
+            std::vector<uint64_t> to_packed_vector() const
+            {
+                return this->to_value_vector();
+            }
+
             template<typename VEC>
             void to_values(VEC &output_vec) const{
                 output_vec.clear();
@@ -249,14 +254,14 @@ namespace stool
                 return this->items.end();
             }
 
-            int64_t rank(uint64_t i, uint64_t c) const {
+            int64_t one_based_rank(uint64_t i, uint64_t c) const {
                 return stool::StringFunctions::rank_query(this->items, i, c);
             }
-            int64_t rank0(uint64_t i) const {
-                return this->rank(0, i);
+            int64_t one_based_rank0(uint64_t i) const {
+                return this->one_based_rank(0, i);
             }
-            int64_t rank1(uint64_t i) const {
-                return this->rank(1, i);
+            int64_t one_based_rank1(uint64_t i) const {
+                return this->one_based_rank(1, i);
             }
 
             int64_t select(uint64_t i, uint64_t c) const {

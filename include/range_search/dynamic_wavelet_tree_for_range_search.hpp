@@ -260,7 +260,7 @@ namespace stool
             uint64_t rank0_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
-                return this->bits_seq[h].rank0(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].rank0(node_x_pos_in_bit_sequence);
+                return this->bits_seq[h].one_based_rank0(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].one_based_rank0(node_x_pos_in_bit_sequence);
 
             }
             /*
@@ -269,7 +269,7 @@ namespace stool
             uint64_t rank1_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
-                return this->bits_seq[h].rank1(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].rank1(node_x_pos_in_bit_sequence);
+                return this->bits_seq[h].one_based_rank1(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].one_based_rank1(node_x_pos_in_bit_sequence);
 
             }
 
@@ -971,7 +971,7 @@ namespace stool
 
                     if (prev_node_id % 2 == 0)
                     {
-                        uint64_t count_zero_offset = this->bits_seq[h].rank0(next_x_pos);                        
+                        uint64_t count_zero_offset = this->bits_seq[h].one_based_rank0(next_x_pos);                        
                         uint64_t next_y_rank = this->bits_seq[h].select0(current_y_rank + count_zero_offset) - next_x_pos;
                         current_y_rank = next_y_rank;
                         prev_node_id = next_node_id;
@@ -980,7 +980,7 @@ namespace stool
                     else
                     {
                         
-                        uint64_t count_one_offset = this->bits_seq[h].rank1(next_x_pos);                        
+                        uint64_t count_one_offset = this->bits_seq[h].one_based_rank1(next_x_pos);                        
                         int64_t select_result = this->bits_seq[h].select1(current_y_rank + count_one_offset);
                         assert(select_result >= 0);
                         uint64_t next_y_rank = select_result - next_x_pos;

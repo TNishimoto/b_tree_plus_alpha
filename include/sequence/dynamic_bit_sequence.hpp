@@ -14,89 +14,99 @@ namespace stool
 {
     namespace bptree
     {
-        
+
         /**
-         * @brief A dynamic data structure supporting rank and select queries on a bit sequence [Unchecked AI's Comment]
+         * @brief A dynamic data structure supporting rank and select queries on a bit sequence B[0..n-1]
          * \ingroup BitClasses
          */
         template <typename CONTAINER, typename CONTAINER_ITERATOR, uint64_t MAX_TREE_DEGREE, uint64_t MAX_BIT_CONTAINER_SIZE>
         class DynamicBitSequence
         {
-            
+
             using NodePointer = bptree::BPNodePointer<CONTAINER, bool, MAX_TREE_DEGREE, true>;
             using T = uint64_t;
-            using Tree = bptree::BPTree<CONTAINER, bool, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE,false, true>;
-            
-            static inline constexpr int DEFAULT_CONTAINER_DEGREE = 62;
-            //static inline constexpr int DEFAULT_CONTAINER_DEGREE = 124;
+            using Tree = bptree::BPTree<CONTAINER, bool, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE, false, true>;
 
-        public:
+            static inline constexpr int DEFAULT_CONTAINER_DEGREE = 62;
+            // static inline constexpr int DEFAULT_CONTAINER_DEGREE = 124;
             Tree tree;
 
-            /**
-             * @brief Deleted copy constructor.
-             */
-            DynamicBitSequence(const DynamicBitSequence &) = delete;
+        public:
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Constructors and Destructor
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
 
             /**
-             * @brief Default constructor initializes the tree with default degree.
+             * @brief Default constructor with |B| = 0
              */
             DynamicBitSequence()
             {
             }
 
             /**
-             * @brief Deleted copy assignment operator.
+             * @brief Deleted copy constructor.
              */
-            DynamicBitSequence &operator=(const DynamicBitSequence &) = delete;
-
+            DynamicBitSequence(const DynamicBitSequence &) = delete;
             /**
              * @brief Default move constructor.
              */
             DynamicBitSequence(DynamicBitSequence &&) noexcept = default;
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Iterators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Returns an iterator to the beginning of the bit sequence \p B.
+             */
+            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_bit_forward_iterator_begin() const
+            {
+                auto leaf_it = this->tree.get_leaf_forward_iterator_begin();
+                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(&leaf_it, &this->tree);
+            }
+
+            /**
+             * @brief Returns an iterator to the end of the bit sequence \p B.
+             */
+            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_leaf_forward_iterator_end() const
+            {
+                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(nullptr, &this->tree);
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Deleted copy assignment operator.
+             */
+            DynamicBitSequence &operator=(const DynamicBitSequence &) = delete;
 
             /**
              * @brief Default move assignment operator.
              */
             DynamicBitSequence &operator=(DynamicBitSequence &&) noexcept = default;
 
-        public:
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Properties
-            ///   The properties of this class.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
             /**
-             * @brief Returns the size of the bit sequence.
-             * @return uint64_t The number of bits in the sequence.
+             * @brief The alias for at query
              */
-            uint64_t size() const
+            bool operator[](uint64_t i) const
             {
-                return this->tree.size();
-            }
-
-            uint64_t height() const {
-                return this->tree.height();
-            }
-
-            /**
-             * @brief Returns the size of the bit sequence in bytes.
-             * @return uint64_t The number of bytes used by the sequence.
-             */
-            uint64_t size_in_bytes([[maybe_unused]] bool only_extra_bytes = false) const
-            {
-                return this->tree.size_in_bytes(only_extra_bytes);
+                return this->at(i);
             }
 
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Queries
-            ///   The queries supported this data structure.
+            ///   @name Lightweight functions for accessing to properties of this class
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Checks if the bit sequence is empty.
+             * @brief Checks if \p B is empty.
              * @return bool True if the sequence is empty, false otherwise.
              */
             bool empty() const
@@ -105,21 +115,127 @@ namespace stool
             }
 
             /**
-             * @brief Returns the bit at the specified position.
-             * @param pos The position to query.
-             * @return bool The bit value at the specified position.
+             * @brief Return \p |B|
              */
-            bool at(uint64_t pos) const
+            uint64_t size() const
             {
-                return this->tree.at(pos) & 1;
+                return this->tree.size();
             }
 
             /**
-             * @brief Returns the number of 1 in S[0..i-1].
-             * @param i The position to query.
-             * @return int64_t The number of 1s.
+             * @brief Return the height of the internal tree storing the bit sequence \p B.
              */
-            int64_t rank1(uint64_t i) const
+            uint64_t height() const
+            {
+                return this->tree.height();
+            }
+            /**
+             * @brief Return the total memory usage in bytes
+             * @param only_dynamic_memory If true, only the size of the dynamic memory is returned
+             */
+            uint64_t size_in_bytes(bool only_dynamic_memory = false) const
+            {
+                return this->tree.size_in_bytes(only_dynamic_memory);
+            }
+            /**
+             * @brief Return the density of the internal tree
+             */
+            double density() const
+            {
+                return this->tree.get_value_density();
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Conversion functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Return \p B as a packed vector of uint64_t (i.e., the length of the vector is |B| / 64).
+             */
+            std::vector<uint64_t> to_packed_vector() const
+            {
+                auto vec = this->tree.to_value_vector();
+                std::vector<uint64_t> r;
+                r.resize(vec.size());
+                for (uint64_t i = 0; i < vec.size(); i++)
+                {
+                    r[i] = vec[i];
+                }
+                return r;
+            }
+
+            /**
+             * @brief Return \p B as a binary string
+             */
+            std::string to_string() const
+            {
+                std::string s;
+                std::vector<uint64_t> bits = this->to_packed_vector();
+                s.push_back('[');
+                for (uint64_t i = 0; i < bits.size(); i++)
+                {
+                    s.push_back(bits[i] >= 1 ? '1' : '0');
+                    // assert(bits[i] == this->at(i));
+                }
+                s.push_back(']');
+                return s;
+            }
+
+            /**
+             * @brief Return \p B as a vector of bool.
+             */
+            std::vector<bool> to_vector() const
+            {
+                uint64_t _size = this->size();
+                std::vector<bool> r;
+                r.resize(_size, false);
+                uint64_t counter = 0;
+
+                auto _end = this->get_leaf_forward_iterator_end();
+
+                BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin();
+                while (!it.is_end())
+                {
+                    uint64_t bits = *it;
+                    uint64_t i = 0;
+
+                    while (i < 64 && counter < _size)
+                    {
+                        bool b = stool::MSBByte::get_bit(bits, i);
+                        r[counter] = b;
+
+                        counter++;
+                        i++;
+                    }
+                    ++it;
+                }
+
+                assert(counter == _size);
+                return r;
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Return \p B[i]
+             * @note O(log n) time
+             */
+            bool at(uint64_t i) const
+            {
+                return this->tree.at(i) & 1;
+            }
+
+            /**
+             * @brief Returns the number of 1 in \p B[0..i-1].
+             * @note O(log n) time
+             */
+            int64_t one_based_rank1(uint64_t i) const
             {
                 if (i == 0)
                 {
@@ -128,7 +244,6 @@ namespace stool
                 else if (i <= this->size())
                 {
                     uint64_t p = this->tree.psum(i - 1);
-
 
                     return p;
                 }
@@ -140,30 +255,26 @@ namespace stool
             }
 
             /**
-             * @brief Returns the number of 0 in S[0..i-1].
-             * @param i The position to query.
-             * @return int64_t The number of 0s.
+             * @brief Returns the number of 0 in \p B[0..i-1].
+             * @note O(log n) time
              */
-            int64_t rank0(uint64_t i) const
+            int64_t one_based_rank0(uint64_t i) const
             {
-                return i - this->rank1(i);
+                return i - this->one_based_rank1(i);
             }
 
             /**
-             * @brief Returns the number of bits with value c up to position i.
-             * @param i The position to query.
-             * @param c The bit value to count.
-             * @return int64_t The number of bits with value c.
+             * @brief Returns the number of \p c in \p B[0..i-1].
+             * @note O(log n) time
              */
-            int64_t rank(uint64_t i, bool c) const
+            int64_t one_based_rank(uint64_t i, bool c) const
             {
-                return c ? this->rank1(i) : this->rank0(i);
+                return c ? this->one_based_rank1(i) : this->one_based_rank0(i);
             }
 
             /**
-             * @brief Returns the position of the i-th 1.
-             * @param i The index of the 1 to find.
-             * @return int64_t The position of the i-th 1, or -1 if not found.
+             * @brief Returns the position \p p of the (i+1)-th 1 in \p B if such a position exists, otherwise returns -1
+             * @note O(log n) time
              */
             int64_t select1(uint64_t i) const
             {
@@ -186,9 +297,8 @@ namespace stool
             }
 
             /**
-             * @brief Returns the position of the i-th 0.
-             * @param i The index of the 0 to find.
-             * @return int64_t The position of the i-th 0, or -1 if not found.
+             * @brief Returns the position \p p of the (i+1)-th 0 in \p B if such a position exists, otherwise returns -1
+             * @note O(log n) time
              */
             int64_t select0(uint64_t i) const
             {
@@ -211,10 +321,8 @@ namespace stool
             }
 
             /**
-             * @brief Returns the position of the i-th bit with value c.
-             * @param i The index of the bit to find.
-             * @param c The bit value to find.
-             * @return int64_t The position of the i-th bit with value c, or -1 if not found.
+             * @brief Returns the position \p p of the (i+1)-th \p c in \p B if such a position exists, otherwise returns -1
+             * @note O(log n) time
              */
             int64_t select(uint64_t i, bool c) const
             {
@@ -222,16 +330,15 @@ namespace stool
             }
 
             /**
-             * @brief Returns the number of bits with value c in the sequence.
-             * @param c The bit value to count.
-             * @return int64_t The number of bits with value c.
+             * @brief Return the number of 1 in \p B[0..n-1]
+             * @note O(1) time
              */
-            int64_t count_c(bool c) const
+            int64_t count1() const
             {
                 uint64_t _size = this->size();
                 if (_size > 0)
                 {
-                    return this->rank(_size, c);
+                    return this->one_based_rank1(_size);
                 }
                 else
                 {
@@ -239,46 +346,52 @@ namespace stool
                 }
             }
 
-            int64_t count0() const {
+            /**
+             * @brief Return the number of 0 in \p B[0..n-1]
+             * @note O(1) time
+             */
+            int64_t count0() const
+            {
                 uint64_t _size = this->size();
-                if(_size > 0){
-                    return this->rank0(_size);
-                }else{
+                if (_size > 0)
+                {
+                    return this->one_based_rank0(_size);
+                }
+                else
+                {
                     return 0;
                 }
             }
-            int64_t count1() const{
+
+            /**
+             * @brief Return the number of \p c in \p B[0..n-1]
+             * @note O(1) time
+             */
+            int64_t count_c(bool c) const
+            {
                 uint64_t _size = this->size();
-                if(_size > 0){
-                    return this->rank1(_size);
-                }else{
+                if (_size > 0)
+                {
+                    return this->one_based_rank(_size, c);
+                }
+                else
+                {
                     return 0;
                 }
             }
 
             /**
-             * @brief Returns the bit at the specified position.
-             * @param n The position to query.
-             * @return bool The bit value at the specified position.
+             * @brief Returns the number of 1s in the bit sequence \p B[0..i]
+             * @note O(log n) time
              */
-            bool operator[](uint64_t n) const
+            uint64_t psum(uint64_t i) const
             {
-                return this->at(n);
+                return this->tree.psum(i);
             }
 
             /**
-             * @brief Returns the prefix sum up to position x.
-             * @param x The position to query.
-             * @return uint64_t The prefix sum.
-             */
-            uint64_t psum(uint64_t x) const
-            {
-                return this->tree.psum(x);
-            }
-
-            /**
-             * @brief Returns the total prefix sum.
-             * @return uint64_t The total prefix sum.
+             * @brief Returns the number of 1s in the bit sequence \p B[0..n-1]
+             * @note \p O(1) time
              */
             uint64_t psum() const
             {
@@ -286,34 +399,23 @@ namespace stool
             }
 
             /**
-             * @brief Searches for the position where the prefix sum equals sum.
-             * @param sum The sum to search for.
-             * @return int64_t The position where the prefix sum equals sum, or -1 if not found.
+             * @brief Returns the first position \p p such that psum(p) >= x if such a position exists, otherwise returns -1
+             * @note O(log n) time
              */
-            int64_t search(uint64_t sum) const
+            int64_t search(uint64_t x) const
             {
-                return this->tree.search(sum);
+                return this->tree.search(x);
             }
 
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Update operations
-            ///   The update operations supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            /**
-             * @brief Sets the degree of the tree.
-             * @param degree The degree to set.
-             */
-            void set_degree(uint64_t degree)
-            {
-                this->tree.initialize(degree, DynamicBitSequence::DEFAULT_CONTAINER_DEGREE);
-            }
 
             /**
-             * @brief Swaps the contents of this sequence with another.
-             * @param item The sequence to swap with.
+             * @brief Swap operation
              */
             void swap(DynamicBitSequence &item)
             {
@@ -321,7 +423,7 @@ namespace stool
             }
 
             /**
-             * @brief Clears the bit sequence.
+             * @brief Clear the elements in \p B.
              */
             void clear()
             {
@@ -329,8 +431,8 @@ namespace stool
             }
 
             /**
-             * @brief Adds a bit to the end of the sequence.
-             * @param value The bit value to add.
+             * @brief Adds a bit to the end of the sequence \p B.
+             * @note O(log n) time
              */
             void push_back(bool value)
             {
@@ -344,8 +446,17 @@ namespace stool
             }
 
             /**
-             * @brief Adds a bit to the beginning of the sequence.
-             * @param value The bit value to add.
+             * @brief Add a given sequence \p Q[0..k-1] to the end of \p S[0..n-1] (i.e., \p S = S[0..n-1]Q[0..k-1])
+             * @note O(|Q| log n) time
+             */
+            void push_many(const std::vector<bool> &items_Q)
+            {
+                this->tree.push_many(items_Q);
+            }
+
+            /**
+             * @brief Adds a bit to the beginning of the sequence \p B.
+             * @note O(log n) time
              */
             void push_front(bool value)
             {
@@ -353,29 +464,33 @@ namespace stool
             }
 
             /**
-             * @brief Inserts a bit at the specified position.
-             * @param pos The position to insert at.
-             * @param value The bit value to insert.
+             * @brief Insert a bit \p v at the position \p p in the bits \p B
+             * @note O(log n) time
              */
-            void insert(uint64_t pos, bool value)
+            void insert(uint64_t p, bool v)
             {
-                this->tree.insert(pos, value, value);
+                this->tree.insert(p, v, v);
             }
 
             /**
-             * @brief Removes the bit at the specified position.
-             * @param pos The position to remove from.
+             * @brief Removes the bit at the position \p p in the bits \p B.
+             * @note O(log n) time
              */
-            void remove(uint64_t pos)
+            void remove(uint64_t p)
             {
-                assert(pos < this->size());
-                this->tree.remove(pos);
+                if (p < this->size())
+                {
+                    this->tree.remove(p);
+                }
+                else
+                {
+                    throw std::range_error("Error: DynamicBitSequence::remove(p)");
+                }
             }
 
             /**
-             * @brief Sets the bit at the specified position.
-             * @param i The position to set.
-             * @param b The bit value to set.
+             * @brief Replace the bit \p B[i] with the bit \p b
+             * @note O(log n) time
              */
             void set_bit(uint64_t i, bool b)
             {
@@ -393,14 +508,21 @@ namespace stool
                 }
             }
 
-            void set_bits(uint64_t i, std::vector<bool> &bits){
-                for(uint64_t j = 0; j < bits.size(); j++){
+            /**
+             * @brief Replace the bits \p B[i..i+m-1] with the bits \p bits[0..m-1]
+             * @note O(m log n) time
+             */
+            void set_bits(uint64_t i, std::vector<bool> &bits)
+            {
+                for (uint64_t j = 0; j < bits.size(); j++)
+                {
                     this->set_bit(i + j, bits[j]);
                 }
             }
 
             /**
-             * @brief Sorts the leaf containers.
+             * @brief Sorts the leaf containers of the internal tree
+             * @note O(n) time
              */
             void sort_leaf_containers()
             {
@@ -412,31 +534,25 @@ namespace stool
                 }
             }
 
-            /**
-             * @brief Adds multiple bits to the end of the sequence.
-             * @param items The bits to add.
-             */
-            void push_many(const std::vector<bool> &items)
-            {
-                this->tree.push_many(items);
-            }
+            //@}
 
-            void print_debug_info() const{
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print and verification functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Print debug information about this instance
+             */
+            void print_debug_info() const
+            {
                 std::cout << "DynamicBitSequence::print_debug_info()" << std::endl;
                 this->tree.print_debug_info();
             }
 
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Print functions
-            ///   The functions for printing messages.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
             /**
-             * @brief Returns memory usage information.
-             * @param message_paragraph The paragraph level for messages.
-             * @return std::vector<std::string> The memory usage information.
+             * @brief Return the memory usage information of this data structure as a vector of strings
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -447,8 +563,7 @@ namespace stool
                 uint64_t size = this->size();
                 double bits_per_element = size > 0 ? ((double)size_in_bytes / (double)size) : 0;
 
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicBitSequence: " + std::to_string(this->size_in_bytes()) 
-                + " bytes, " + std::to_string(size) + " elements, " + std::to_string(bits_per_element)  + " bytes per element =");
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicBitSequence: " + std::to_string(this->size_in_bytes()) + " bytes, " + std::to_string(size) + " elements, " + std::to_string(bits_per_element) + " bytes per element =");
                 for (std::string &s : log1)
                 {
                     r.push_back(s);
@@ -458,8 +573,8 @@ namespace stool
             }
 
             /**
-             * @brief Prints memory usage information.
-             * @param message_paragraph The paragraph level for messages.
+             * @brief Print the memory usage information of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -471,8 +586,8 @@ namespace stool
             }
 
             /**
-             * @brief Prints statistics about the bit sequence.
-             * @param message_paragraph The paragraph level for messages.
+             * @brief Print the statistics of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -482,155 +597,44 @@ namespace stool
             }
 
             /**
-             * @brief Prints the content of the bit sequence.
-             * @param message_paragraph The paragraph level for messages.
+             * @brief Print the performance information of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
-            void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicBitSequence):" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Bits: " << this->to_string() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicSequence)[" << std::endl;
+                this->tree.print_information_about_performance(message_paragraph + 1);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
             }
 
             /**
-             * @brief Prints the bit sequence.
+             * @brief Print the bit sequence \p B.
              * @param name The name to print.
-             * @param message_paragraph The paragraph level for messages.
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print(std::string name = "DynamicBitSequence", int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << name << ": " << this->to_string() << std::endl;
             }
+
+            /**
+             * @brief Verify the internal consistency of this data structure.
+             */
+            void verify() const
+            {
+                this->tree.verify();
+            }
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Conversion functions
-            ///   The conversion functions supported this data structure.
+            ///   @name Load, save, and builder functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            /**
-             * @brief Converts the bit sequence to a vector of uint64_t.
-             * @return std::vector<uint64_t> The vector representation.
-             */
-            std::vector<uint64_t> to_value_vector() const
-            {
-                auto vec = this->tree.to_value_vector();
-                std::vector<uint64_t> r;
-                r.resize(vec.size());
-                for (uint64_t i = 0; i < vec.size(); i++)
-                {
-                    r[i] = vec[i];
-                }
-                return r;
-            }
+
 
             /**
-             * @brief Converts the bit sequence to a string.
-             * @return std::string The string representation.
-             */
-            std::string to_string() const
-            {
-                std::string s;
-                std::vector<uint64_t> bits = this->to_value_vector();
-                s.push_back('[');
-                for (uint64_t i = 0; i < bits.size(); i++)
-                {
-                    s.push_back(bits[i] >= 1 ? '1' : '0');
-                    //assert(bits[i] == this->at(i));
-                }
-                s.push_back(']');
-                return s;
-            }
-
-            /**
-             * @brief Converts the bit sequence to a vector of bool.
-             * @return std::vector<bool> The vector representation.
-             */
-            std::vector<bool> to_vector() const
-            {
-                uint64_t _size = this->size();
-                std::vector<bool> r;
-                r.resize(_size, false);
-                uint64_t counter = 0;
-
-
-
-
-                auto _end = this->get_leaf_forward_iterator_end();
-
-                BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin();
-                while(!it.is_end()){
-                    uint64_t bits = *it;
-                    uint64_t i = 0;
-
-                    while (i < 64 && counter < _size)
-                    {
-                        bool b = stool::MSBByte::get_bit(bits, i);
-                        r[counter] = b;
-
-                        
-                        counter++;
-                        i++;
-                    }
-                    ++it;
-
-                }
-
-                /*
-                for (BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> it = this->get_bit_forward_iterator_begin(); it != _end; ++it)
-                {
-                    
-                    uint64_t bits = *it;
-                    uint64_t i = 0;
-
-
-                    while (i < 64 && counter < _size)
-                    {
-                        bool b = stool::MSBByte::get_bit(bits, i);
-                        r[counter] = b;
-
-                        
-                        counter++;
-                        i++;
-                    }
-                }
-                */
-                assert(counter == _size);
-                return r;
-            }
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Builder and Writer functions
-            ///   The functions for building and writing this data structure.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            /**
-             * @brief Saves the bit sequence to a vector.
-             * @param item The bit sequence to save.
-             * @param output The output vector.
-             * @param pos The position in the output vector.
-             */
-            static void store_to_bytes(DynamicBitSequence &item, std::vector<uint8_t> &output, uint64_t &pos)
-            {
-                Tree::store_to_bytes(item.tree, output, pos);
-            }
-
-            /**
-             * @brief Saves the bit sequence to a file.
-             * @param item The bit sequence to save.
-             * @param os The output file stream.
-             */
-            static void store_to_file(DynamicBitSequence &item, std::ofstream &os)
-            {
-                Tree::store_to_file(item.tree, os);
-            }
-
-            /**
-             * @brief Builds a bit sequence from a vector of bool.
-             * @param items The vector of bool to build from.
-             * @param tree_degree The degree of the tree.
-             * @return DynamicBitSequence The built bit sequence.
+             * @brief Build a new DynamicBitSequence from a given sequence \p items
              */
             static DynamicBitSequence build(const std::vector<bool> &items)
             {
@@ -640,12 +644,8 @@ namespace stool
                 return r;
             }
 
-
             /**
-             * @brief Builds a bit sequence from a vector of uint8_t.
-             * @param data The vector of uint8_t to build from.
-             * @param pos The position in the input vector.
-             * @return DynamicBitSequence The built bit sequence.
+             * @brief Returns the DynamicBitSequence instance loaded from a byte vector \p data at the position \p pos
              */
             static DynamicBitSequence load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
@@ -655,9 +655,7 @@ namespace stool
             }
 
             /**
-             * @brief Builds a bit sequence from a file.
-             * @param ifs The input file stream.
-             * @return DynamicBitSequence The built bit sequence.
+             * @brief Returns the DynamicBitSequence instance loaded from a file stream \p ifs
              */
             static DynamicBitSequence load_from_file(std::ifstream &ifs)
             {
@@ -665,41 +663,33 @@ namespace stool
                 r.tree.load_from_file(ifs);
                 return r;
             }
-            //@}
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Iterators
-            ///   The iterators supported this data structure.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
+
             /**
-             * @brief Returns an iterator to the beginning of the bit sequence.
-             * @return BitForwardIterator The iterator.
+             * @brief Save the given instance \p item to a byte vector \p output at the position \p pos
              */
-            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_bit_forward_iterator_begin() const
+            static void store_to_bytes(DynamicBitSequence &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                auto leaf_it = this->tree.get_leaf_forward_iterator_begin();
-                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(&leaf_it, &this->tree);
+                Tree::store_to_bytes(item.tree, output, pos);
             }
 
             /**
-             * @brief Returns an iterator to the end of the bit sequence.
-             * @return BitForwardIterator The iterator.
+             * @brief Save the given instance \p item to a file stream \p os
              */
-            BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE> get_leaf_forward_iterator_end() const
+            static void store_to_file(DynamicBitSequence &item, std::ofstream &os)
             {
-                return BitForwardIterator<CONTAINER, CONTAINER_ITERATOR, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE>(nullptr, &this->tree);
+                Tree::store_to_file(item.tree, os);
             }
+
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Other static functions
-            ///   The other static functions supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Returns the name of the bit sequence.
-             * @return std::string The name.
+             * @brief Return the name of the DynamicBitSequence for debugging
              */
             static std::string name()
             {
@@ -709,33 +699,13 @@ namespace stool
                 s += ")";
                 return s;
             }
-
-            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (DynamicSequence)[" << std::endl;                
-                this->tree.print_information_about_performance(message_paragraph + 1);
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
-            }
-
-            double density() const{
-                return this->tree.get_value_density();
-            }
-
-            void verify() const{
-                this->tree.verify();
-            }
-
-
             //@}
-
-
-
-            
         };
 
         using BDC = typename stool::bptree::BitVectorContainer<10000ULL>;
 
         using DynamicBitDequeSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, 1024>;
-        //using SimpleDynamicBitSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 62, 8192>;
+        // using SimpleDynamicBitSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 62, 8192>;
         using SimpleDynamicBitSequence = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 62, 8192>;
 
         /*
@@ -750,7 +720,7 @@ namespace stool
         using DynamicBitDequeSequence4 = DynamicBitSequence<BDC, BDC::BitVectorContainerIterator, 126, 8192>;
         */
 
-        //using DynamicBitDequeSequenceE = DynamicBitSequence<stool::bptree::BitVectorContainer, stool::bptree::BitVectorContainer::BitVectorContainerIterator, 8190, 2048>;
+        // using DynamicBitDequeSequenceE = DynamicBitSequence<stool::bptree::BitVectorContainer, stool::bptree::BitVectorContainer::BitVectorContainerIterator, 8190, 2048>;
 
         // template <typename T>
         // using VLCDequeSeq = DynamicSequence<VLCDeque, T>;

@@ -69,10 +69,10 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_rank" << value << std::endl;
             }
-            std::vector<uint64_t> items = spsi_container.to_value_vector();
+            std::vector<uint64_t> items = spsi_container.to_packed_vector();
             for (uint64_t i = 0; i <= items.size(); i++)
             {
-                uint64_t rank1 = spsi_container.rank(i, value);
+                uint64_t rank1 = spsi_container.one_based_rank(i, value);
                 uint64_t rank2 = stool::StringFunctions::rank_query<uint64_t>(items, i, value);
 
                 if (rank1 != rank2)
@@ -83,28 +83,6 @@ namespace stool
                 }
             }
         }
-        /*
-        template <typename T>
-        static void test_rank1(T &spsi_container)
-        {
-            std::cout << "test_rank1" << std::endl;
-            std::vector<uint64_t> items = spsi_container.to_value_vector();
-            uint64_t counter = 0;
-            for (uint64_t i = 0; i < items.size(); i++)
-            {
-                if (items[i] == 1)
-                {
-                    counter++;
-                }
-                uint64_t rank = spsi_container.rank1(i);
-                if (rank != counter)
-                {
-                    assert(false);
-                    throw std::logic_error("Error");
-                }
-            }
-        }
-        */
 
         template <typename BIT_SEQUENCE>
         static void test_select(BIT_SEQUENCE &spsi_container, bool bit_value, int message_paragraph = stool::Message::SHOW_MESSAGE)
@@ -113,7 +91,7 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_select" << bit_value << std::endl;
             }
-            std::vector<uint64_t> items = spsi_container.to_value_vector();
+            std::vector<uint64_t> items = spsi_container.to_packed_vector();
             for (uint64_t i = 0; i < items.size(); i++)
             {
                 if (items[i] == bit_value)
@@ -138,7 +116,7 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_select0" << std::endl;
             }
-            std::vector<uint64_t> items = spsi_container.to_value_vector();
+            std::vector<uint64_t> items = spsi_container.to_packed_vector();
             uint64_t counter = 0;
             for (uint64_t i = 0; i < items.size(); i++)
             {
@@ -163,7 +141,7 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "test_psum" << std::endl;
             }
-            std::vector<uint64_t> items = spsi_container.to_value_vector();
+            std::vector<uint64_t> items = spsi_container.to_packed_vector();
             uint64_t sum = 0;
             for (uint64_t i = 0; i < items.size(); i++)
             {
@@ -188,7 +166,7 @@ namespace stool
             // uint64_t psum = spsi.psum();
             uint64_t xsum = 1;
 
-            std::vector<uint64_t> items = spsi.to_value_vector();
+            std::vector<uint64_t> items = spsi.to_packed_vector();
 
             for (uint64_t i = 0; i < items.size(); i++)
             {

@@ -34,16 +34,27 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+
+            /**
+             * @brief Default constructor with |S| = 0
+             */
             DynamicPrefixSum()
             {
                 this->tree.initialize();
             }
-            DynamicPrefixSum(const std::vector<uint64_t> &items)
+
+            /**
+             * @brief Default constructor with S = S_
+             */
+            DynamicPrefixSum(const std::vector<uint64_t> &S_)
             {
                 this->tree.initialize();
-                this->tree.build(items);
-                assert(this->size() == items.size());
+                this->tree.build(S_);
+                assert(this->size() == S_.size());
             }
+            /**
+             * @brief Default move constructor.
+             */
             DynamicPrefixSum(DynamicPrefixSum &&) noexcept = default;
 
             //}@
@@ -75,9 +86,14 @@ namespace stool
             ///   @name Operators
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Deleted copy assignment operator.
+             */
             DynamicPrefixSum &operator=(const DynamicPrefixSum &) = delete;
+            /**
+             * @brief Default move assignment operator.
+             */
             DynamicPrefixSum &operator=(DynamicPrefixSum &&) noexcept = default;
-
             /**
              * @brief The alias for at query
              */
@@ -137,7 +153,6 @@ namespace stool
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Conversion functions
-            ///   The conversion functions supported this data structure.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
@@ -213,7 +228,11 @@ namespace stool
              */
             uint64_t psum(uint64_t i, uint64_t j) const
             {
-                return this->tree.psum(i);
+                if(i > 0){
+                    return this->tree.psum(j) - this->tree.psum(i-1);
+                }else{
+                    return this->tree.psum(j);
+                }
             }
 
             /**
@@ -484,6 +503,7 @@ namespace stool
 
             /**
              * @brief Return the memory usage information of this data structure as a vector of strings
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -609,10 +629,10 @@ namespace stool
                 r.tree.load_from_bytes(data, pos);
                 return r;
             }
+
             /**
              * @brief Returns the DynamicPrefixSum instance loaded from a file stream \p ifs
              */
-
             static DynamicPrefixSum load_from_file(std::ifstream &ifs)
             {
                 DynamicPrefixSum r;
