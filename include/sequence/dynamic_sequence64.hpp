@@ -15,147 +15,99 @@ namespace stool
         /// @}
 
         /**
-         * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers. [Unchecked AI's Comment]
+         * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers S[0..n-1].
          * \ingroup SequenceClasses
-         *
-         * This class provides a dynamic sequence of 64-bit non-negative integers with operations for insertion, deletion, and modification.
          */
         template <typename LEAF_CONTAINER = stool::NaiveFLCVector<>, uint64_t TREE_DEGREE = 62, uint64_t LEAF_CONTAINER_MAX_SIZE = 256>
         class DynamicSequence64
         {
         public:
             using NodePointer = bptree::BPNodePointer<LEAF_CONTAINER, uint64_t, TREE_DEGREE, false>;
-            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE,false, false>;
+            using Tree = bptree::BPTree<LEAF_CONTAINER, uint64_t, TREE_DEGREE, LEAF_CONTAINER_MAX_SIZE, false, false>;
 
         private:
             Tree tree;
 
         public:
-////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////
             ///   @name Constructors and Destructor
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Default constructor with |S| = 0
+             */
+            DynamicSequence64()
+            {
+                this->tree.initialize();
+            }
+
+            /**
+             * @brief Default move constructor.
+             */
+            DynamicSequence64(DynamicSequence64 &&) noexcept = default;
 
             //@}
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Iterators
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            //@}
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Operators
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Lightweight functions for accessing to properties of this class
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Main queries
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Conversion functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Update operations
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Print and verification functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Load, save, and builder functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Other static functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-            //@}
-
-        /**
-             * @brief Returns an iterator to the beginning of the sequence.
-             * @return An iterator to the first element of the sequence.
+            /**
+             * @brief Returns an iterator to the beginning of the sequence \p S.
              */
             typename Tree::ValueForwardIterator begin() const
             {
                 return this->tree.get_value_forward_iterator_begin();
             }
             /**
-             * @brief Returns an iterator to the end of the sequence.
-             * @return An iterator to the element following the last element of the sequence.
+             * @brief Returns an iterator to the end of the sequence \p S.
              */
             typename Tree::ValueForwardIterator end() const
             {
                 return this->tree.get_value_forward_iterator_end();
             }
 
-            /**
-             * @brief Default constructor initializes the tree with a default degree.
-             */
-            DynamicSequence64()
-            {
-                this->tree.initialize();
-            }
-            /**
-             * @brief Swaps the contents of this sequence with another.
-             * @param item The sequence to swap with.
-             */
-            void swap(DynamicSequence64 &item)
-            {
-                this->tree.swap(item.tree);
-            }
+            //@}
 
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Deleted copy assignment operator.
+             */
             DynamicSequence64 &operator=(const DynamicSequence64 &) = delete;
-            DynamicSequence64(DynamicSequence64 &&) noexcept = default;
+            /**
+             * @brief Default move assignment operator.
+             */
             DynamicSequence64 &operator=(DynamicSequence64 &&) noexcept = default;
 
-        public:
             /**
-             * @brief Clears all elements from the sequence.
+             * @brief The alias for at query
              */
-            void clear()
+            uint64_t operator[](uint64_t n) const
             {
-                this->tree.clear();
+                return this->tree.at(n);
             }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Lightweight functions for accessing to properties of this class
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             /**
-             * @brief Verifies the integrity of the sequence.
+             * @brief Get the internal tree storing the sequence \p S.
              */
-            void verify() const
-            {
-                this->tree.verify();
-            }
-            /**
-             * @brief Returns a reference to the underlying tree.
-             * @return A reference to the tree.
-             */
-            Tree &get_tree()
+            Tree &__get_tree()
             {
                 return this->tree;
             }
+
             /**
-             * @brief Returns the degree of the tree.
-             * @return The degree of the tree.
+             * @brief Return the maximum degree of internal nodes of the internal tree storing the sequence \p S.
              */
             uint64_t get_degree() const
             {
@@ -163,58 +115,29 @@ namespace stool
             }
 
             /**
-             * @brief Builds a new sequence from a vector of items.
-             * @param items The vector of items to build the sequence from.
-             * @param tree_degree The degree of the tree.
-             * @return A new DynamicSequence64 instance.
-             */
-            static DynamicSequence64 build(const std::vector<uint64_t> &items)
-            {
-                DynamicSequence64 r;
-                r.tree.initialize();
-                r.tree.build(items);
-                return r;
-            }
-
-            /**
-             * @brief Returns the number of elements in the sequence.
-             * @return The size of the sequence.
+             * @brief Return |S|
              */
             uint64_t size() const
             {
                 return this->tree.size();
             }
             /**
-             * @brief Adds an element to the end of the sequence.
-             * @param value The value to add.
+             * @brief Returns the total memory usage in bytes
+             * @param only_dynamic_memory If true, only the size of the dynamic memory is returned
              */
-            void push_back(uint64_t value)
+            uint64_t size_in_bytes(bool only_dynamic_memory = false) const
             {
-                this->tree.push_back(value);
+                return this->tree.size_in_bytes(only_dynamic_memory);
             }
-            
 
+            //@}
+
+////////////////////////////////////////////////////////////////////////////////
+            ///   @name Conversion functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
             /**
-             * @brief Inserts a value at a specified position in the sequence.
-             * @param pos The position to insert the value at.
-             * @param value The value to insert.
-             */
-            void insert(uint64_t pos, uint64_t value)
-            {
-                assert(pos <= this->size());
-                this->tree.insert(pos, value, value);
-            }
-            /**
-             * @brief Removes the element at a specified position from the sequence.
-             * @param pos The position of the element to remove.
-             */
-            void remove(uint64_t pos)
-            {
-                this->tree.remove(pos);
-            }
-            /**
-             * @brief Converts the sequence to a vector.
-             * @return A vector containing the elements of the sequence.
+             * @brief Return \p S as a vector.
              */
             std::vector<uint64_t> to_vector() const
             {
@@ -222,44 +145,67 @@ namespace stool
             }
 
             /**
-             * @brief Returns the value at a specified position in the sequence.
-             * @param pos The position to get the value from.
-             * @return The value at the specified position.
+             * @brief Return \p S as a string.
+             */
+            std::string to_string() const
+            {
+                std::stringstream ss;
+                auto vec = this->to_vector();
+                ss << stool::ConverterToString::to_integer_string(vec);
+                return ss.str();
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Return the (i+1)-th element of \p S[i]
+             * @note O(log n) time
              */
             uint64_t at(uint64_t pos) const
             {
                 return this->tree.at(pos);
             }
+
+            //@}
+
+            
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Update operations
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             /**
-             * @brief Sets the value at a specified position in the sequence.
-             * @param pos The position to set the value at.
-             * @param value The new value to set.
+             * @brief Set a given value \p v at a given position \p i in \p S
+             * @note \p O(log n) time
              */
-            void set_value(uint64_t pos, uint64_t value)
+            void set_value(uint64_t i, uint64_t v)
             {
-                uint64_t v = this->at(pos);
-                if (v < value)
+                uint64_t old_v = this->at(i);
+                if (old_v < v)
                 {
-                    this->increment(pos, value - v);
+                    this->increment(i, v - old_v);
                 }
-                else if (v > value)
+                else if (old_v > v)
                 {
-                    this->decrement(pos, v - value);
+                    this->decrement(i, old_v - v);
                 }
             }
             /**
-             * @brief Increments the value at a specified position by a given delta.
-             * @param i The position to increment.
-             * @param delta The amount to increment by.
+             * @brief Set the value \p S[i+delta] at a given position \p i in \p S
+             * @note \p O(log n) time
              */
             void increment(uint64_t i, int64_t delta)
             {
                 this->tree.increment(i, delta);
             }
             /**
-             * @brief Decrements the value at a specified position by a given delta.
-             * @param i The position to decrement.
-             * @param delta The amount to decrement by.
+             * @brief Set the value \p S[i-delta] at a given position \p i in \p S
+             * @note \p O(log n) time
              */
             void decrement(uint64_t i, int64_t delta)
             {
@@ -267,51 +213,89 @@ namespace stool
             }
 
             /**
-             * @brief Returns the name of the sequence.
-             * @return A string representing the name of the sequence.
+             * @brief Swap operation
              */
-            static std::string name()
+            void swap(DynamicSequence64 &item)
             {
-                std::string s;
-                s += "SPSI(";
-                s += VLCDeque::name();
-                s += ")";
-                return s;
+                this->tree.swap(item.tree);
             }
-            void push_front(uint64_t value)
+            /**
+             * @brief Clear the elements in \p S.
+             */
+            void clear()
             {
-                this->tree.push_front(value);
+                this->tree.clear();
             }
-            void pop_back()
-            {
-                this->tree.remove(this->size() - 1);
-            }
-            void pop_front()
-            {
-                this->tree.remove(0);
-            }
-
 
             /**
-             * @brief Adds multiple elements to the end of the sequence.
-             * @param items The vector of items to add.
+             * @brief Add a given integer to the end of \p S
+             * @note O(log n) time
+             */
+            void push_back(uint64_t value)
+            {
+                this->tree.push_back(value);
+            }
+            /**
+             * @brief Add a given sequence \p Q[0..k-1] to the end of \p S[0..n-1] (i.e., \p S = S[0..n-1]Q[0..k-1])
+             * @note O(|Q| log n) time
              */
             void push_many(const std::vector<uint64_t> &items)
             {
                 this->tree.push_many(items);
             }
             /**
-             * @brief Returns the size of the sequence in bytes.
-             * @return The size of the sequence in bytes.
+             * @brief Add a given value to the beginning of \p S
+             * @note \p O(log n) time
              */
-            uint64_t size_in_bytes([[maybe_unused]] bool only_extra_bytes = false) const
+            void push_front(uint64_t value)
             {
-                return this->tree.size_in_bytes(only_extra_bytes);
+                this->tree.push_front(value);
             }
             /**
-             * @brief Returns information about the memory usage of the sequence.
-             * @param message_paragraph The paragraph level for the message.
-             * @return A vector of strings containing memory usage information.
+             * @brief Remove the last element from \p S
+             * @note \p O(log n) time
+             */
+            void pop_back()
+            {
+                this->tree.remove(this->size() - 1);
+            }
+            /**
+             * @brief Remove the first element from \p S
+             * @note \p O(log n) time
+             */
+            void pop_front()
+            {
+                this->tree.remove(0);
+            }
+
+            /**
+             * @brief Insert a given integer \p value into \p S as the \p (pos+1)-th element
+             * @note \p O(log n) time
+             */
+            void insert(uint64_t pos, uint64_t value)
+            {
+                assert(pos <= this->size());
+                this->tree.insert(pos, value, value);
+            }
+
+            /**
+             * @brief Remove the element at the position \p pos from \p S and return it
+             * @note \p O(log n) time
+             */
+            void remove(uint64_t pos)
+            {
+                this->tree.remove(pos);
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print and verification functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Return the memory usage information of this data structure as a vector of strings
+             * @param message_paragraph The paragraph depth of message logs
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -326,12 +310,22 @@ namespace stool
                 r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return r;
             }
-            void print_info() const {
-                this->print_statistics();
-            }
             /**
-             * @brief Prints the memory usage of the sequence.
-             * @param message_paragraph The paragraph level for the message.
+             * @brief Print the statistics of this data structure
+             */
+            void print_info() const
+            {
+                auto vec = this->to_vector();
+                std::cout << "================== SPSI ==================" << std::endl;
+                stool::DebugPrinter::print_integers(vec, "values");
+
+                std::cout << "================== SPSI[END] =============" << std::endl;
+
+            }
+
+            /**
+             * @brief Print the memory usage information of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
              */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -342,8 +336,8 @@ namespace stool
                 }
             }
             /**
-             * @brief Prints statistics about the sequence.
-             * @param message_paragraph The paragraph level for the message.
+             * @brief Print the statistics of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -352,31 +346,33 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
-            /**
-             * @brief Saves the sequence to a vector of bytes.
-             * @param item The sequence to save.
-             * @param output The vector to save the sequence to.
-             * @param pos The position in the vector to start saving at.
-             */
-            static void store_to_bytes(DynamicSequence64 &item, std::vector<uint8_t> &output, uint64_t &pos)
-            {
-                Tree::store_to_bytes(item.tree, output, pos);
-            }
-            /**
-             * @brief Saves the sequence to a file.
-             * @param item The sequence to save.
-             * @param os The output stream to save the sequence to.
-             */
-            static void store_to_file(DynamicSequence64 &item, std::ofstream &os)
-            {
-                Tree::store_to_file(item.tree, os);
-            }
 
             /**
-             * @brief Builds a sequence from a vector of bytes.
-             * @param data The vector of bytes to build the sequence from.
-             * @param pos The position in the vector to start building from.
-             * @return A new DynamicSequence64 instance.
+             * @brief Verify the internal consistency of this data structure.
+             */
+            void verify() const
+            {
+                this->tree.verify();
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Load, save, and builder functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Build a new DynamicSequence64 from a given sequence \p items
+             */
+            static DynamicSequence64 build(const std::vector<uint64_t> &items)
+            {
+                DynamicSequence64 r;
+                r.tree.initialize();
+                r.tree.build(items);
+                return r;
+            }
+            /**
+             * @brief Returns the DynamicSequence64 instance loaded from a byte vector \p data at the position \p pos
              */
             static DynamicSequence64 load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
@@ -386,9 +382,7 @@ namespace stool
             }
 
             /**
-             * @brief Builds a sequence from a file.
-             * @param ifs The input stream to build the sequence from.
-             * @return A new DynamicSequence64 instance.
+             * @brief Returns the DynamicPrefixSum instance loaded from a file stream \p ifs
              */
             static DynamicSequence64 load_from_file(std::ifstream &ifs)
             {
@@ -396,44 +390,42 @@ namespace stool
                 r.tree.load_from_file(ifs);
                 return r;
             }
-            static DynamicSequence64 load(std::ifstream &ifs)
-            {
-                return DynamicSequence64::load_from_file(ifs);
-            }
+
             /**
-             * @brief Returns the value at a specified position in the sequence.
-             * @param n The position to get the value from.
-             * @return The value at the specified position.
+             * @brief Save the given instance \p item to a byte vector \p output at the position \p pos
              */
-            uint64_t operator[](uint64_t n) const
+            static void store_to_bytes(DynamicSequence64 &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                return this->tree.at(n);
-            }
-            /**
-             * @brief Converts the sequence to a string.
-             * @return A string representation of the sequence.
-             */
-            std::string to_string() const
-            {
-                std::stringstream ss;
-                auto vec = this->to_vector();
-                ss << stool::ConverterToString::to_integer_string(vec);
-                return ss.str();
+                Tree::store_to_bytes(item.tree, output, pos);
             }
 
             /**
-             * @brief Prints the sequence to the console.
+             * @brief Save the given instance \p item to a file stream \p os
              */
-            void print() const
+            static void store_to_file(DynamicSequence64 &item, std::ofstream &os)
             {
-                auto vec = this->to_vector();
-                std::cout << "================== SPSI ==================" << std::endl;
-                stool::DebugPrinter::print_integers(vec, "values");
-
-                std::cout << "================== SPSI[END] =============" << std::endl;
+                Tree::store_to_file(item.tree, os);
             }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Other static functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Return the name of the DynamicPrefixSum for debugging
+             */
+            static std::string name()
+            {
+                std::string s;
+                s += "SPSI(";
+                s += VLCDeque::name();
+                s += ")";
+                return s;
+            }
+            //@}
         };
-
 
         using SimpleDynamicSequence64 = DynamicSequence64<stool::NaiveFLCVector<>, 62, 256>;
     }

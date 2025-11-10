@@ -359,7 +359,7 @@ namespace stool
             //@{
             /**
              * @brief Set a given value \p v at a given position \p i in \p S
-             * @note \p O(1) time
+             * @note \p O(log n) time
              */
             void set_value(uint64_t i, uint64_t value)
             {
@@ -391,7 +391,7 @@ namespace stool
 
             /**
              * @brief Set the value \p S[i+delta] at a given position \p i in \p S
-             * @note \p O(1) time
+             * @note \p O(log n) time
              */
             void increment(uint64_t i, int64_t delta)
             {
@@ -400,7 +400,7 @@ namespace stool
 
             /**
              * @brief Set the value \p S[i-delta] at a given position \p i in \p S
-             * @note \p O(1) time
+             * @note \p O(log n) time
              */
             void decrement(uint64_t i, int64_t delta)
             {
@@ -503,7 +503,7 @@ namespace stool
 
             /**
              * @brief Return the memory usage information of this data structure as a vector of strings
-             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             * @param message_paragraph The paragraph depth of message logs
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -553,7 +553,7 @@ namespace stool
 
             /**
              * @brief Print the statistics of this data structure
-             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
