@@ -32,8 +32,8 @@ bool equal_check(stool::NaivePermutation &npom, stool::bptree::DynamicPermutatio
     pom.get_pi_tree().verify();
     pom.get_inverse_pi_tree().verify();
 
-    std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
-    std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
+    std::vector<uint64_t> pom_pi_vector = pom.to_pi_vector();
+    std::vector<uint64_t> pom_inv_pi_vector = pom.to_inverse_pi_vector();
 
     stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list, "Check1");
     stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list, "Check2");
@@ -77,7 +77,7 @@ void permutation_test_random_insert(stool::NaivePermutation &npom, stool::bptree
         }
         catch (std::logic_error &e)
         {
-            pom.print();
+            pom.print_trees();
             throw e;
         }
     }
@@ -116,7 +116,7 @@ void permutation_builder_test(uint64_t max_element_count, uint64_t trial_count, 
             }
             dpb.finish();
 
-            std::vector<uint64_t> result = dp.get_pi_vector();
+            std::vector<uint64_t> result = dp.to_pi_vector();
 
             stool::EqualChecker::equal_check(permutation, result, "PermutationBuilderTest");
         }
@@ -181,7 +181,7 @@ void random_insert_and_remove_test1(uint64_t max_element_count, uint64_t trial_c
             }
             catch (std::logic_error &e)
             {
-                dp.print();
+                dp.print_trees();
                 throw e;
             }
             while (npom.pi_list.size() > 0)
@@ -208,7 +208,7 @@ void random_build_test(uint64_t max_element_count, uint64_t trial_count, uint64_
             stool::bptree::DynamicPermutation dp;
             std::vector<uint64_t> permutation = create_random_permutation(num, mt64);
             dp.build(permutation.begin(), permutation.end(), permutation.size(), stool::Message::NO_MESSAGE);
-            std::vector<uint64_t> result = dp.get_pi_vector();
+            std::vector<uint64_t> result = dp.to_pi_vector();
 
             try
             {
@@ -219,7 +219,7 @@ void random_build_test(uint64_t max_element_count, uint64_t trial_count, uint64_
                 std::cout << std::endl;
                 stool::DebugPrinter::print_integers(permutation, "permutation");
                 stool::DebugPrinter::print_integers(result, "test_permutation");
-                dp.print();
+                dp.print_trees();
 
                 std::cout << "Error: " << e.what() << std::endl;
                 throw e;

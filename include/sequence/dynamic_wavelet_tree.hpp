@@ -10,7 +10,7 @@ namespace stool
         /// @}
 
         /**
-         * @brief A dynamic data structure supporting rank and select queries on a string \p T[0..n-1] over alphabet \p U[0..σ-1] [in progress]
+         * @brief A dynamic data structure supporting rank and select queries on a string \p T[0..n-1] over alphabet \p U[0..σ-1]
          * \ingroup WaveletTreeClasses
          * \ingroup MainClasses
          */
