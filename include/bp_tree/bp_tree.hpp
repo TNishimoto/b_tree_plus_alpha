@@ -2965,11 +2965,13 @@ namespace stool
              *          3. Loading leaf containers
              *          4. Rebuilding the tree structure
              */
-            void load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
+            static BPTree load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
+                BPTree r;
+                r.initialize();
                 uint64_t _max_degree;
                 uint64_t _max_count_of_values_in_leaf;
-                this->clear();
+                r.clear();
                 std::memcpy(&_max_degree, data.data() + pos, sizeof(uint64_t));
                 pos += sizeof(uint64_t);
                 std::memcpy(&_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
@@ -2977,7 +2979,8 @@ namespace stool
 
                 auto tmp = LEAF_CONTAINER::load_vector_from_bytes(data, pos);
 
-                this->build_from_leaf_containers(tmp);
+                r.build_from_leaf_containers(tmp);
+                return r;
             }
 
             /**
@@ -2989,9 +2992,11 @@ namespace stool
              *          3. Loading leaf containers from the file
              *          4. Rebuilding the tree structure
              */
-            void load_from_file(std::ifstream &ifs)
+            static BPTree load_from_file(std::ifstream &ifs)
             {
-                this->clear();
+                BPTree r;
+                r.initialize();
+                r.clear();
                 uint64_t _max_degree;
                 uint64_t _max_count_of_values_in_leaf;
                 ifs.read((char *)(&_max_degree), sizeof(uint64_t));
@@ -2999,7 +3004,8 @@ namespace stool
 
                 auto tmp = LEAF_CONTAINER::load_vector_from_file(ifs);
 
-                this->build_from_leaf_containers(tmp);
+                r.build_from_leaf_containers(tmp);
+                return r;
             }
 
             void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{

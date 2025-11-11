@@ -34,10 +34,7 @@ namespace stool
              */
             DynamicPermutation()
             {
-                this->pi_tree.set_linked_tree(&this->inverse_pi_tree);
-                this->inverse_pi_tree.set_linked_tree(&this->pi_tree);
-
-                // this->set_degree(Tree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE);
+                this->set_linked_tree();
             }
 
             /**
@@ -47,8 +44,7 @@ namespace stool
             {
                 this->pi_tree = std::move(other.pi_tree);
                 this->inverse_pi_tree = std::move(other.inverse_pi_tree);
-                this->pi_tree.set_linked_tree(&this->inverse_pi_tree);
-                this->inverse_pi_tree.set_linked_tree(&this->pi_tree);
+                this->set_linked_tree();
             };
             /**
              * @brief Default destructor.
@@ -525,8 +521,11 @@ namespace stool
             static DynamicPermutation load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicPermutation r;
-                r.pi_tree.load_from_bytes(data, pos);
-                r.inverse_pi_tree.load_from_bytes(data, pos);
+                Tree pi_tree = Tree::load_from_bytes(data, pos);
+                Tree inverse_pi_tree = Tree::load_from_bytes(data, pos);
+                r.pi_tree.swap(pi_tree, false);
+                r.inverse_pi_tree.swap(inverse_pi_tree, false);
+                r.set_linked_tree();
                 return r;
             }
             /**
@@ -535,8 +534,11 @@ namespace stool
             static DynamicPermutation load_from_file(std::ifstream &ifs)
             {
                 DynamicPermutation r;
-                r.pi_tree.load_from_file(ifs);
-                r.inverse_pi_tree.load_from_file(ifs);
+                Tree pi_tree = Tree::load_from_file(ifs);
+                Tree inverse_pi_tree = Tree::load_from_file(ifs);
+                r.pi_tree.swap(pi_tree, false);
+                r.inverse_pi_tree.swap(inverse_pi_tree, false);
+                r.set_linked_tree();
                 return r;
             }
             /**
@@ -575,6 +577,10 @@ namespace stool
                 uint64_t result = this->inverse_pi_tree.get_value_index(item.pointer, idx2);
 
                 return result;
+            }
+            void set_linked_tree(){
+                this->pi_tree.set_linked_tree(&this->inverse_pi_tree);
+                this->inverse_pi_tree.set_linked_tree(&this->pi_tree);
             }
         };
     }

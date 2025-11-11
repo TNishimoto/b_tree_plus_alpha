@@ -651,7 +651,8 @@ namespace stool
             static DynamicBitSequence load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicBitSequence r;
-                r.tree.load_from_bytes(data, pos);
+                Tree tree = Tree::load_from_bytes(data, pos);
+                r.tree.swap(tree, false);
                 return r;
             }
 
@@ -661,7 +662,8 @@ namespace stool
             static DynamicBitSequence load_from_file(std::ifstream &ifs)
             {
                 DynamicBitSequence r;
-                r.tree.load_from_file(ifs);
+                Tree tree = Tree::load_from_file(ifs);
+                r.tree.swap(tree, false);
                 return r;
             }
 
