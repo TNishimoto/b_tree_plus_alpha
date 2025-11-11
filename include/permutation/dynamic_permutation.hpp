@@ -175,6 +175,9 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Return the permutation \p Π as a string
+             */
             std::string to_string() const
             {
                 std::stringstream ss;
@@ -183,6 +186,9 @@ namespace stool
                 return ss.str();
             }
 
+            /**
+             * @brief Return the permutation \p Π as a vector of uint64_t
+             */
             std::vector<uint64_t> to_pi_vector() const
             {
                 std::vector<uint64_t> r;
@@ -194,6 +200,9 @@ namespace stool
 
                 return r;
             }
+            /**
+             * @brief Return the inverse permutation \p Π^{-1} as a vector of uint64_t
+             */
             std::vector<uint64_t> to_inverse_pi_vector() const
             {
                 std::vector<uint64_t> r;
