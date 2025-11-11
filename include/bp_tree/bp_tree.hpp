@@ -11,7 +11,6 @@ namespace stool
         inline constexpr int DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE = 126;
         inline constexpr int DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF = 126;
 
-
         inline static uint64_t time_count2 = 0;
 
         /**
@@ -29,7 +28,6 @@ namespace stool
             using LeafForwardIterator = BPLeafForwardIterator<LEAF_CONTAINER, VALUE, MAX_DEGREE, USE_PSUM>;
 
             using BPFunctions = BPInternalNodeFunctions<LEAF_CONTAINER, VALUE, USE_PARENT_FIELD, MAX_DEGREE, USE_PSUM>;
-
 
         private:
             std::vector<LEAF_CONTAINER> leaf_container_vec;
@@ -54,8 +52,12 @@ namespace stool
             uint64_t merge_process_counter = 0;
             uint64_t remove_operation_counter = 0;
 
-
         public:
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Constructors and Destructor
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             ~BPTree()
             {
                 this->clear();
@@ -72,8 +74,8 @@ namespace stool
                 this->unused_node_pointers = std::move(other.unused_node_pointers);
                 this->tmp_path = std::move(other.tmp_path);
 
-                //this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
-                //this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
+                // this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
+                // this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
                 this->root = other.root;
                 this->linked_tree_ = other.linked_tree_;
                 this->density_threshold = other.density_threshold;
@@ -95,7 +97,14 @@ namespace stool
                 other.height_ = 0;
                 other.root_is_leaf_ = false;
             }
-
+            //@}
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Operators
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Default move assignment operator.
+             */
             BPTree &operator=(BPTree &&other) noexcept
             {
                 if (this != &other)
@@ -107,8 +116,8 @@ namespace stool
                     this->unused_node_pointers = std::move(other.unused_node_pointers);
                     this->tmp_path = std::move(other.tmp_path);
 
-                    //this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
-                    //this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
+                    // this->_max_degree_of_internal_node = other._max_degree_of_internal_node;
+                    // this->_max_count_of_values_in_leaf = other._max_count_of_values_in_leaf;
                     this->root = other.root;
                     this->linked_tree_ = other.linked_tree_;
                     this->density_threshold = other.density_threshold;
@@ -134,225 +143,12 @@ namespace stool
                 }
                 return *this;
             }
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Initializers
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
-
-            /**
-             * @brief Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes
-             * @throws std::runtime_error if either parameter is less than 4
-             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4
-             * to maintain B+ tree properties. The function clears any existing data before initialization.
-             */
-            void initialize()
-            {
-                uint64_t __max_degree_of_internal_node = MAX_DEGREE;
-                uint64_t __max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
-                if (__max_degree_of_internal_node < 4)
-                {
-                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_degree_of_internal_node must be larger than 3.");
-                }
-                if (__max_count_of_values_in_leaf < 4)
-                {
-                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_count_of_values_in_leaf must be larger than 3.");
-                }
-
-                this->clear();
-                //this->_max_degree_of_internal_node = __max_degree_of_internal_node;
-                //this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
-                this->root = nullptr;
-                this->root_is_leaf_ = false;
-            }
-
-            /**
-             * @brief Swaps the contents of this B+ tree with another B+ tree
-             * @param _tree The B+ tree to swap contents with
-             * @param swap_linked_tree Whether to also swap the linked tree pointer
-             * @details This function swaps all internal data structures between this tree and the given tree,
-             * including leaf containers, parent vectors, unused node pointers, tree parameters, and tree properties.
-             * The swap_linked_tree parameter controls whether the linked tree pointer should also be swapped.
-             */
-            void swap(BPTree &_tree, bool swap_linked_tree)
-            {
-                this->leaf_container_vec.swap(_tree.leaf_container_vec);
-                this->parent_vec.swap(_tree.parent_vec);
-                this->unused_node_pointers.swap(_tree.unused_node_pointers);
-                this->unused_leaf_container_indexes.swap(_tree.unused_leaf_container_indexes);
-                this->tmp_path.swap(_tree.tmp_path);
-                //std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
-                //std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
-                std::swap(this->root, _tree.root);
-                if (swap_linked_tree)
-                {
-                    std::swap(this->linked_tree_, _tree.linked_tree_);
-                }
-                std::swap(this->density_threshold, _tree.density_threshold);
-                std::swap(this->density1, _tree.density1);
-                std::swap(this->height_, _tree.height_);
-                std::swap(this->root_is_leaf_, _tree.root_is_leaf_);
-            }
-
-            /**
-             * @brief Swaps the contents of this B+ tree with another B+ tree
-             * @param _tree The B+ tree to swap contents with
-             * @details This is a convenience overload that calls swap() with swap_linked_tree set to true
-             */
-            void swap(BPTree &_tree)
-            {
-                this->swap(_tree, true);
-            }
-
-            /**
-             * @brief Clears all contents of the B+ tree and resets it to an empty state
-             * @details This function:
-             * - Deletes all nodes in the tree using a stack-based traversal
-             * - Clears the root pointer and resets root state flags
-             * - Deletes any unused node pointers that were cached
-             * - Clears the leaf container and parent vectors
-             * - Empties the unused leaf container index queue
-             * - Resets the tree height to 0
-             * After calling clear(), the tree will be in an empty state ready for new insertions.
-             */
-            void clear()
-            {
-                std::stack<Node *> nodes;
-                if (!this->empty() && !this->root_is_leaf_)
-                {
-                    nodes.push(this->root);
-                }
-                while (nodes.size() > 0)
-                {
-                    Node *top = nodes.top();
-                    nodes.pop();
-                    if (!top->is_parent_of_leaves())
-                    {
-                        const stool::SimpleDeque16<Node *> &children = top->get_children();
-                        for (Node *child : children)
-                        {
-                            nodes.push(child);
-                        }
-                    }
-                    delete top;
-                }
-                this->root = nullptr;
-                this->root_is_leaf_ = false;
-                this->height_ = 0;
-
-                while (unused_node_pointers.size() > 0)
-                {
-                    Node *top = unused_node_pointers[unused_node_pointers.size() - 1];
-                    delete top;
-                    unused_node_pointers.pop_back();
-                }
-
-                this->leaf_container_vec.resize(0);
-                this->parent_vec.resize(0);
-
-                while (this->unused_leaf_container_indexes.size() > 0)
-                {
-                    this->unused_leaf_container_indexes.pop();
-                }
-            }
-            //}@
+            //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Properties
-            ///   The properties of this class.
+            ///   @name Iterators
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            /**
-             * @brief Returns the temporary path used during tree operations
-             * @return A reference to the vector containing temporary path nodes
-             */
-            const std::vector<NodePointer> &get_temporary_path() const
-            {
-                return this->tmp_path;
-            }
-
-            /**
-             * @brief Return the max degree of this tree. The number of children of every internal node does not exceed the max degree.
-             */
-            uint64_t get_max_degree_of_internal_node() const
-            {
-                return MAX_DEGREE;
-            }
-
-            uint64_t get_split_process_counter() const
-            {
-                return this->split_process_counter;
-            }
-
-            uint64_t capacity() const{
-                return (this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size()) * this->get_max_count_of_values_in_leaf();
-            }
-
-            double get_value_density() const{
-                return (double) this->size() / (double) this->capacity();
-            }
-
-            /**
-             * @brief Returns the maximum number of values that can be stored in a leaf node
-             * @return The maximum number of values that can be stored in a leaf node
-             */
-            uint64_t get_max_count_of_values_in_leaf() const
-            {
-                return LEAF_CONTAINER_MAX_SIZE;
-            }
-
-            /**
-             * @brief Return the height of this tree
-             */
-            uint64_t height() const
-            {
-                return this->height_;
-            }
-
-            /**
-             * @brief Return the number of values stored in this tree
-             */
-            uint64_t size() const
-            {
-                if (this->empty())
-                {
-                    return 0;
-                }
-                else
-                {
-                    if (this->root_is_leaf_)
-                    {
-                        return this->leaf_container_vec[(uint64_t)this->root].size();
-                    }
-                    else
-                    {
-                        return this->root->psum_on_count_deque();
-                    }
-                }
-            }
-            /**
-             * @brief Return the number of leaves in this tree
-             */
-            uint64_t get_leaf_count() const
-            {
-                return this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size();
-            }
-
-            /**
-             * @brief Return the size of the vector that stores leaf containers
-             */
-            uint64_t get_leaf_container_vector_size() const
-            {
-                return this->leaf_container_vec.size();
-            }
-            //}@
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Public standard functions
-            ///   Public standard functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
             /**
              * @brief Returns an iterator pointing to the first node in postorder traversal
              * @details This function returns a PostorderIterator that points to the first node
@@ -454,6 +250,98 @@ namespace stool
             {
                 return LeafForwardIterator(nullptr);
             }
+            //@}
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Lightweight functions for accessing to properties of this class
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Returns the temporary path used during tree operations
+             * @return A reference to the vector containing temporary path nodes
+             */
+            const std::vector<NodePointer> &get_temporary_path() const
+            {
+                return this->tmp_path;
+            }
+
+            /**
+             * @brief Return the max degree of this tree. The number of children of every internal node does not exceed the max degree.
+             */
+            uint64_t get_max_degree_of_internal_node() const
+            {
+                return MAX_DEGREE;
+            }
+
+            uint64_t get_split_process_counter() const
+            {
+                return this->split_process_counter;
+            }
+
+            uint64_t capacity() const
+            {
+                return (this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size()) * this->get_max_count_of_values_in_leaf();
+            }
+
+            double get_value_density() const
+            {
+                return (double)this->size() / (double)this->capacity();
+            }
+
+            /**
+             * @brief Returns the maximum number of values that can be stored in a leaf node
+             * @return The maximum number of values that can be stored in a leaf node
+             */
+            uint64_t get_max_count_of_values_in_leaf() const
+            {
+                return LEAF_CONTAINER_MAX_SIZE;
+            }
+
+            /**
+             * @brief Return the height of this tree
+             */
+            uint64_t height() const
+            {
+                return this->height_;
+            }
+
+            /**
+             * @brief Return the number of values stored in this tree
+             */
+            uint64_t size() const
+            {
+                if (this->empty())
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (this->root_is_leaf_)
+                    {
+                        return this->leaf_container_vec[(uint64_t)this->root].size();
+                    }
+                    else
+                    {
+                        return this->root->psum_on_count_deque();
+                    }
+                }
+            }
+            /**
+             * @brief Return the number of leaves in this tree
+             */
+            uint64_t get_leaf_count() const
+            {
+                return this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size();
+            }
+
+            /**
+             * @brief Return the size of the vector that stores leaf containers
+             */
+            uint64_t get_leaf_container_vector_size() const
+            {
+                return this->leaf_container_vec.size();
+            }
 
             /**
              * @brief Checks if the B+ tree is empty
@@ -463,6 +351,172 @@ namespace stool
             {
                 return this->height() == 0;
             }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Initializers
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes
+             * @throws std::runtime_error if either parameter is less than 4
+             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4
+             * to maintain B+ tree properties. The function clears any existing data before initialization.
+             */
+            void initialize()
+            {
+                uint64_t __max_degree_of_internal_node = MAX_DEGREE;
+                uint64_t __max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+                if (__max_degree_of_internal_node < 4)
+                {
+                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_degree_of_internal_node must be larger than 3.");
+                }
+                if (__max_count_of_values_in_leaf < 4)
+                {
+                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_count_of_values_in_leaf must be larger than 3.");
+                }
+
+                this->clear();
+                // this->_max_degree_of_internal_node = __max_degree_of_internal_node;
+                // this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
+                this->root = nullptr;
+                this->root_is_leaf_ = false;
+            }
+
+            /**
+             * @brief Swaps the contents of this B+ tree with another B+ tree
+             * @param _tree The B+ tree to swap contents with
+             * @param swap_linked_tree Whether to also swap the linked tree pointer
+             * @details This function swaps all internal data structures between this tree and the given tree,
+             * including leaf containers, parent vectors, unused node pointers, tree parameters, and tree properties.
+             * The swap_linked_tree parameter controls whether the linked tree pointer should also be swapped.
+             */
+            void swap(BPTree &_tree, bool swap_linked_tree)
+            {
+                this->leaf_container_vec.swap(_tree.leaf_container_vec);
+                this->parent_vec.swap(_tree.parent_vec);
+                this->unused_node_pointers.swap(_tree.unused_node_pointers);
+                this->unused_leaf_container_indexes.swap(_tree.unused_leaf_container_indexes);
+                this->tmp_path.swap(_tree.tmp_path);
+                // std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
+                // std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
+                std::swap(this->root, _tree.root);
+                if (swap_linked_tree)
+                {
+                    std::swap(this->linked_tree_, _tree.linked_tree_);
+                }
+                std::swap(this->density_threshold, _tree.density_threshold);
+                std::swap(this->density1, _tree.density1);
+                std::swap(this->height_, _tree.height_);
+                std::swap(this->root_is_leaf_, _tree.root_is_leaf_);
+            }
+
+            /**
+             * @brief Swaps the contents of this B+ tree with another B+ tree
+             * @param _tree The B+ tree to swap contents with
+             * @details This is a convenience overload that calls swap() with swap_linked_tree set to true
+             */
+            void swap(BPTree &_tree)
+            {
+                this->swap(_tree, true);
+            }
+
+            /**
+             * @brief Clears all contents of the B+ tree and resets it to an empty state
+             * @details This function:
+             * - Deletes all nodes in the tree using a stack-based traversal
+             * - Clears the root pointer and resets root state flags
+             * - Deletes any unused node pointers that were cached
+             * - Clears the leaf container and parent vectors
+             * - Empties the unused leaf container index queue
+             * - Resets the tree height to 0
+             * After calling clear(), the tree will be in an empty state ready for new insertions.
+             */
+            void clear()
+            {
+                std::stack<Node *> nodes;
+                if (!this->empty() && !this->root_is_leaf_)
+                {
+                    nodes.push(this->root);
+                }
+                while (nodes.size() > 0)
+                {
+                    Node *top = nodes.top();
+                    nodes.pop();
+                    if (!top->is_parent_of_leaves())
+                    {
+                        const stool::SimpleDeque16<Node *> &children = top->get_children();
+                        for (Node *child : children)
+                        {
+                            nodes.push(child);
+                        }
+                    }
+                    delete top;
+                }
+                this->root = nullptr;
+                this->root_is_leaf_ = false;
+                this->height_ = 0;
+
+                while (unused_node_pointers.size() > 0)
+                {
+                    Node *top = unused_node_pointers[unused_node_pointers.size() - 1];
+                    delete top;
+                    unused_node_pointers.pop_back();
+                }
+
+                this->leaf_container_vec.resize(0);
+                this->parent_vec.resize(0);
+
+                while (this->unused_leaf_container_indexes.size() > 0)
+                {
+                    this->unused_leaf_container_indexes.pop();
+                }
+            }
+            //}@
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Convertion functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Converts the B+ tree to a vector of values
+             * @return A vector of values representing the B+ tree
+             */
+            std::vector<VALUE> to_value_vector() const
+            {
+
+                if (!this->empty())
+                {
+                    if (this->root_is_leaf_)
+                    {
+                        std::vector<VALUE> r;
+                        this->leaf_container_vec[(uint64_t)this->root].to_values(r);
+                        return r;
+                    }
+                    else
+                    {
+
+                        std::vector<VALUE> r;
+                        BPFunctions::to_value_vector(*this->root, r, this->leaf_container_vec);
+                        return r;
+                    }
+                }
+                else
+                {
+                    std::vector<VALUE> r;
+                    return r;
+                }
+            }
+
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main queries (Access, search, and psum operations)
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
 
             /**
              * @brief Returns the prefix sum of the B+ tree
@@ -583,15 +637,15 @@ namespace stool
 
                     uint64_t leaf = this->tmp_path[this->tmp_path.size() - 1].get_leaf_container_index();
 
-                    #ifdef TIME_DEBUG
+#ifdef TIME_DEBUG
                     auto st3 = std::chrono::system_clock::now();
-                    #endif
+#endif
                     uint64_t result = this->leaf_container_vec[leaf].at(idx);
-                    
-                    #ifdef TIME_DEBUG
+
+#ifdef TIME_DEBUG
                     auto st4 = std::chrono::system_clock::now();
                     time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st4 - st3).count();
-                    #endif
+#endif
 
                     return result;
                 }
@@ -628,11 +682,12 @@ namespace stool
                             int64_t idx = parent->get_index(node);
                             assert(idx != -1);
 
-                            if(idx > 0){
-                                uint64_t sum = parent->psum_on_count_deque(idx-1);
+                            if (idx > 0)
+                            {
+                                uint64_t sum = parent->psum_on_count_deque(idx - 1);
                                 dist += sum;
                             }
-                            //uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
+                            // uint64_t sum = std::reduce(std::begin(deq), std::next(deq.begin(), idx));
 
                             node = parent;
                             parent = node->get_parent();
@@ -670,43 +725,6 @@ namespace stool
 
             //@}
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Convertion functions
-            ///   Convertion functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
-            /**
-             * @brief Converts the B+ tree to a vector of values
-             * @return A vector of values representing the B+ tree
-             */
-            std::vector<VALUE> to_value_vector() const
-            {
-
-                if (!this->empty())
-                {
-                    if (this->root_is_leaf_)
-                    {
-                        std::vector<VALUE> r;
-                        this->leaf_container_vec[(uint64_t)this->root].to_values(r);
-                        return r;
-                    }
-                    else
-                    {
-
-                        std::vector<VALUE> r;
-                        BPFunctions::to_value_vector(*this->root, r, this->leaf_container_vec);
-                        return r;
-                    }
-                }
-                else
-                {
-                    std::vector<VALUE> r;
-                    return r;
-                }
-            }
-
-            //@}
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Const print and verification functions
@@ -714,214 +732,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-
-            bool verify_sub() const {
-                bool b = true;
-                uint64_t p = 0;
-                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                {
-                    NodePointer pt = *it;
-                    if (pt.is_leaf())
-                    {
-                        assert(pt.get_leaf_container_index() < this->leaf_container_vec.size());
-                        uint64_t size = this->leaf_container_vec[pt.get_leaf_container_index()].size();
-                        if (this->root_is_leaf_ && pt.get_leaf_container_index() == (uint64_t)this->root)
-                        {
-                            b = b && (size > 0);
-                            assert(b);
-                        }
-                        else
-                        {
-
-                            b = b && (size > 0) && ((this->get_max_count_of_values_in_leaf() / 2) <= size);
-                            assert(b);
-                        }
-                        p += size;
-                    }
-                    else
-                    {
-                        Node *_node = pt.get_node();
-                        b = b && BPFunctions::verify(*_node, this->leaf_container_vec, MAX_DEGREE, this->root == pt.get_node());
-                        assert(b);
-                    }
-                    // std::cout << it.idx << "//" << it._st.size() << "/" << std::flush;
-                }
-                if (p != this->size())
-                {
-                    throw std::logic_error("Error(BPTree::verify)");
-                }
-                return b;
-            }
-            void verify_sum_deque(Node *node) const {
-                 if(node->is_parent_of_leaves()){
-                    uint64_t true_sum = 0;
-                    auto &children = node->get_children();
-                    for(uint64_t i = 0; i < children.size(); i++){
-                        uint64_t id = (uint64_t)children[i];
-                        true_sum += this->leaf_container_vec[id].psum();
-                    }
-                    if(true_sum != node->psum_on_sum_deque()){
-                        throw std::runtime_error("Error: verify_sum_deque");
-                    }
-                 }else{
-                    uint64_t true_sum = 0;
-                    auto &children = node->get_children();
-                    for(uint64_t i = 0; i < children.size(); i++){
-                        Node *child = children[i];
-                        this->verify_sum_deque(child);
-                        true_sum += child->psum_on_sum_deque();
-                    }
-
-                    if(true_sum != node->psum_on_sum_deque()){
-                        throw std::runtime_error("Error: verify_sum_deque");
-                    }
-
-                }
-
-            }
-            /**
-             * @brief Verifies the integrity of the B+ tree
-             * @return true if the tree is valid, false otherwise
-             */
-            bool verify() const
-            {
-                bool b1 = this->verify_sub();
-                if(USE_PSUM){
-                    if(!this->root_is_leaf_ && this->size() > 0){
-                        this->verify_sum_deque(this->root);
-                    }
-    
-                }
-                return b1;
-            }
-
-            /**
-             * @brief Prints the B+ tree in a tree-like format
-             * @details This function prints the B+ tree in a tree-like format, where each internal node
-             *          is represented by its value and its children are printed on the next line.
-             *          If the tree is empty, it prints an empty string.
-             */
-            void print_tree() const
-            {
-                std::vector<std::string> tree;
-                if (!this->empty())
-                {
-                    if (this->root_is_leaf_)
-                    {
-                        tree.push_back(this->leaf_container_vec[(uint64_t)this->root].to_string());
-                    }
-                    else
-                    {
-                        BPFunctions::get_tree_string(*this->root, tree, this->leaf_container_vec);
-                    }
-                }
-                else
-                {
-                    tree.push_back("[]");
-                }
-
-                for (int64_t i = tree.size() - 1; i >= 0; i--)
-                {
-                    std::cout << tree[i] << std::endl;
-                }
-
-                /*
-                if constexpr (USE_PSUM) {
-                    if(!this->root_is_leaf_){
-                        this->root->print_info();
-                    }
-                }
-                */
-            }
-
-            /**
-             * @brief Prints detailed information about the B+ tree
-             * @details This function prints the height of the tree, the number of internal nodes,
-             *          and the number of leaf containers. It also prints the contents of each leaf
-             *          container and the parent vector if USE_PARENT_FIELD is true.
-             */
-            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
-            {
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "========= BPTREE =========" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Height: " << this->height_ << std::endl;
-
-                // uint64_t id = 0;
-                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                {
-                    NodePointer pt = *it;
-                    
-                    if (pt.is_leaf())
-                    {
-                        std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Leaf: id = " << pt.get_leaf_container_index() << ", content = " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
-
-                    }
-                    else
-                    {
-                        pt.get_node()->print_info(message_paragraph+1);
-                    }
-                    // id++;
-                }
-
-                if (USE_PARENT_FIELD)
-                {
-                    std::vector<uint64_t> r;
-                    for (Node *x : this->parent_vec)
-                    {
-                        r.push_back((uint64_t)x);
-                    }
-                    stool::DebugPrinter::print_integers(r);
-                }
-                std::cout << "==========================" << std::endl;
-            }
-
-            /**
-             * @brief Prints the leaves of the B+ tree
-             * @details This function prints the leaves of the B+ tree, where each leaf is represented
-             *          by its index and its contents. If the tree is empty, it prints an empty string.
-             */
-            void print_leaves() const
-            {
-                // uint64_t id = 0;
-                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                {
-                    NodePointer pt = *it;
-                    if (pt.is_leaf())
-                    {
-                        std::cout << "leaf_index: " << pt.get_leaf_container_index() << ", " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
-                    }
-                    // id++;
-                }
-            }
-            void print_internal_nodes() const{
-                std::cout << "INTERNAL NODES: " << std::endl;
-                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                {
-                    NodePointer pt = *it;
-                    if (!pt.is_leaf())
-                    {
-                        Node *node = (Node *)pt.get_node();
-                        std::cout << " " << node->to_string() << std::endl;
-                    }
-                    // id++;
-                }
-
-            }
-
-            /**
-             * @brief Prints the leaf containers of the B+ tree
-             * @details This function prints the leaf containers of the B+ tree, where each leaf container
-             *          is represented by its index and its contents. If the tree is empty, it prints an empty string.
-             */
-            void print_leaf_containers() const
-            {
-                std::cout << "============ LEAVES ============" << std::endl;
-                for (uint64_t i = 0; i < this->leaf_container_vec.size(); i++)
-                {
-                    std::cout << "leaf_container_vec[" << i << "] = " << this->leaf_container_vec[i].to_string() << std::endl;
-                }
-                std::cout << "============ LEAVES[END] ============" << std::endl;
-            }
-
+            
             /**
              * @brief Returns the total memory size of the B+ tree
              * @return The total memory size of the B+ tree
@@ -1035,7 +846,6 @@ namespace stool
                 return sum2;
             }
 
-
             /**
              * @brief Returns the memory size of the unused node pointers in the B+ tree
              * @return The memory size of the unused node pointers in the B+ tree
@@ -1073,10 +883,10 @@ namespace stool
                 uint64_t size = this->size();
                 double bytes_per_value = size > 0 ? ((double)size_in_bytes / (double)size) : 0;
 
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(size_in_bytes) + " bytes, " + std::to_string(size) + " values, " + std::to_string(bytes_per_value)  + " bytes per value =");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=BP Tree: " + std::to_string(size_in_bytes) + " bytes, " + std::to_string(size) + " values, " + std::to_string(bytes_per_value) + " bytes per value =");
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Degree of Internal Node: " + std::to_string(MAX_DEGREE));
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Max Count of Values in Leaf: " + std::to_string(LEAF_CONTAINER_MAX_SIZE));
-                //log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
+                // log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " The number of values: " + std::to_string(this->size()));
 
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Internal Nodes: " + std::to_string(this->get_internal_node_memory()) + " bytes");
                 log.push_back(stool::Message::get_paragraph_string(message_paragraph) + " Ununsed Leaf Pointers: " + std::to_string(this->get_unused_leaf_container_vector_memory()) + " bytes");
@@ -1211,7 +1021,6 @@ namespace stool
                 return this->compute_path_from_root_to_leaf(i, path);
             }
 
-
             /**
              * @brief Computes the path from root to leaf containing position i and returns leaf position
              * @param i The position in the B+ tree to find the path to
@@ -1238,21 +1047,19 @@ namespace stool
                     uint64_t current_i = i;
                     bool is_leaf = this->root_is_leaf_;
 
-                    //auto st1 = std::chrono::system_clock::now();
+                    // auto st1 = std::chrono::system_clock::now();
 
                     output_path[y++] = is_leaf ? NodePointer::build_leaf_pointer((uint64_t)this->root, -1) : NodePointer::build_internal_node_pointer(this->root, -1);
-
 
                     while (!is_leaf)
                     {
 
                         assert(current_i <= current_node->psum_on_count_deque());
 
-                        //auto st1 = std::chrono::system_clock::now();
+                        // auto st1 = std::chrono::system_clock::now();
                         std::pair<int64_t, uint64_t> result = BPFunctions::access_child_index_by_value_index(*current_node, current_i);
-                        //auto st2 = std::chrono::system_clock::now();
-                        //time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
-
+                        // auto st2 = std::chrono::system_clock::now();
+                        // time_count += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
                         if (result.first != -1)
                         {
@@ -1265,10 +1072,9 @@ namespace stool
                         {
                             throw std::runtime_error("Error: get_path_from_root_to_leaf2(1)");
                         }
-
                     }
-                    //auto st2 = std::chrono::system_clock::now();
-                    //time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
+                    // auto st2 = std::chrono::system_clock::now();
+                    // time_count2 += std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
                     assert(output_path.size() == y);
                     return current_i;
@@ -1573,12 +1379,9 @@ namespace stool
                     }
                     parent_edge_index = 0;
 
-
                     this->root = _parent;
                     this->root_is_leaf_ = false;
                     this->height_++;
-
-
 
                     if (USE_PARENT_FIELD)
                     {
@@ -1626,7 +1429,8 @@ namespace stool
                     uint64_t degree = top.get_degree(this->leaf_container_vec);
                     uint64_t threshold = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
                     uint64_t LR_threshold = threshold;
-                    if(superLeftPushMode){
+                    if (superLeftPushMode)
+                    {
                         LR_threshold = (threshold * 3) / 4;
                     }
 
@@ -1644,15 +1448,15 @@ namespace stool
                             if (parent_edge_index > 0)
                             {
                                 leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
-                                
-                                //assert(leftSiblingDegree <= threshold);
+
+                                // assert(leftSiblingDegree <= threshold);
                             }
 
                             uint64_t rightSiblingDegree = UINT64_MAX;
                             if (parent_edge_index + 1 < parent->children_count())
                             {
                                 rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
-                                //assert(rightSiblingDegree <= threshold);
+                                // assert(rightSiblingDegree <= threshold);
                             }
 
                             if (leftSiblingDegree < LR_threshold || rightSiblingDegree < LR_threshold)
@@ -1807,7 +1611,6 @@ namespace stool
                                     this->remove_empty_node(this->root, nullptr, -1);
                                     this->root = new_root;
                                     this->root_is_leaf_ = b;
-
 
                                     if (USE_PARENT_FIELD)
                                     {
@@ -1988,7 +1791,6 @@ namespace stool
                         this->leaf_container_vec[p].swap(containers[i]);
                         path.pop_back();
                         this->push_back_to_internal_node(p, path);
-
                     }
                     else
                     {
@@ -1996,7 +1798,6 @@ namespace stool
                         std::vector<VALUE> tmp_values;
                         containers[i].to_values(tmp_values);
                         this->push_many(tmp_values);
-
                     }
                     i++;
                 }
@@ -2015,7 +1816,6 @@ namespace stool
             {
                 uint64_t i = 0;
                 std::vector<NodePointer> path;
-
 
                 while (i < values.size())
                 {
@@ -2132,8 +1932,6 @@ namespace stool
                         {
                             uint64_t x = this->tmp_path[this->tmp_path.size() - 1].get_leaf_container_index();
 
-
-
                             this->leaf_container_vec[x].insert(position_to_insert, value);
 
                             for (int64_t i = this->tmp_path.size() - 2; i >= 0; i--)
@@ -2142,7 +1940,6 @@ namespace stool
                                 uint64_t child_index = this->tmp_path[i + 1].get_parent_edge_index();
 
                                 assert(child_index < node->children_count());
-
 
                                 node->increment(child_index, 1, sum_delta);
                             }
@@ -2287,7 +2084,8 @@ namespace stool
                     assert(left_leaf < this->leaf_container_vec.size());
                     assert(right_leaf < this->leaf_container_vec.size());
 
-                    if constexpr (USE_PSUM){
+                    if constexpr (USE_PSUM)
+                    {
                         if (parent != nullptr)
                         {
                             assert(this->leaf_container_vec[left_leaf].psum() == parent->access_sum_deque(parent_edge_index_of_left_node));
@@ -2295,16 +2093,10 @@ namespace stool
 
                             assert(sum <= (int64_t)this->leaf_container_vec[left_leaf].psum());
 
-    
-                            
-    
-    
                             parent->decrement_on_sum_deque(parent_edge_index_of_left_node, sum);
                             parent->increment_on_sum_deque(parent_edge_index_of_left_node + 1, sum);
                         }
-    
                     }
-
 
                     if (parent != nullptr)
                     {
@@ -2376,7 +2168,7 @@ namespace stool
              *          maintains tree invariants.
              */
             void split_node(Node *left_node, Node *right_node, bool is_leaf, Node *parent, int64_t parent_edge_index_of_left_node, [[maybe_unused]] std::vector<Node *> &parent_vec)
-            {                
+            {
 
                 uint64_t degree = 0;
                 if (is_leaf)
@@ -2450,18 +2242,6 @@ namespace stool
                 return b;
             }
 
-            void print_debug_info() const{
-                std::cout << "BPTree::print_debug_info()" << std::endl;
-                /*
-                std::cout << "BPInternalNodeFunctions::time_count: " << (double)stool::__time_count / 1000000.0 << " ms" << std::endl;
-                std::cout << "BPInternalNodeFunctions::time_count_counter: " << stool::__time_count_counter << std::endl;
-                std::cout << "BPInternalNodeFunctions::size_count: " << stool::__size_count << std::endl;
-                std::cout << "average: " << (double)stool::__time_count / stool::__time_count_counter << " ns" << std::endl;
-                std::cout << "average size: " << (double)stool::__size_count / stool::__time_count_counter << " elements" << std::endl;
-                */
-                std::cout << "BPTree::time_count: " << (double)BPTree::time_count / 1000000.0 << " ms" << std::endl;
-                std::cout << "BPTree::time_count2: " << (double)bptree::time_count2 / 1000000.0 << " ms" << std::endl;
-            }
 
         private:
             /**
@@ -2899,133 +2679,243 @@ namespace stool
                 }
             }
 
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print and verification functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
             /**
-             * @brief Saves the B+ tree structure to a byte vector
-             * @param output Vector to store the serialized tree data
-             * @param pos Starting position in the output vector
-             * @details This function serializes the tree by:
-             *          1. Sorting leaf containers if needed
-             *          2. Writing tree parameters (max degrees)
-             *          3. Saving leaf container data
-             *          The output vector is resized if needed to accommodate the data
+             * @brief Verifies the integrity of the B+ tree
+             * @return true if the tree is valid, false otherwise
              */
-            static void store_to_bytes(BPTree &bp, std::vector<uint8_t> &output, uint64_t &pos)
+            bool verify() const
             {
-                if (!bp.check_if_leaf_container_vec_is_sorted())
+                bool b1 = this->verify_sub();
+                if (USE_PSUM)
                 {
-                    bp.sort_leaf_containers();
+                    if (!this->root_is_leaf_ && this->size() > 0)
+                    {
+                        this->verify_sum_deque(this->root);
+                    }
+                }
+                return b1;
+            }
+            bool verify_sub() const
+            {
+                bool b = true;
+                uint64_t p = 0;
+                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                {
+                    NodePointer pt = *it;
+                    if (pt.is_leaf())
+                    {
+                        assert(pt.get_leaf_container_index() < this->leaf_container_vec.size());
+                        uint64_t size = this->leaf_container_vec[pt.get_leaf_container_index()].size();
+                        if (this->root_is_leaf_ && pt.get_leaf_container_index() == (uint64_t)this->root)
+                        {
+                            b = b && (size > 0);
+                            assert(b);
+                        }
+                        else
+                        {
+
+                            b = b && (size > 0) && ((this->get_max_count_of_values_in_leaf() / 2) <= size);
+                            assert(b);
+                        }
+                        p += size;
+                    }
+                    else
+                    {
+                        Node *_node = pt.get_node();
+                        b = b && BPFunctions::verify(*_node, this->leaf_container_vec, MAX_DEGREE, this->root == pt.get_node());
+                        assert(b);
+                    }
+                    // std::cout << it.idx << "//" << it._st.size() << "/" << std::flush;
+                }
+                if (p != this->size())
+                {
+                    throw std::logic_error("Error(BPTree::verify)");
+                }
+                return b;
+            }
+            void verify_sum_deque(Node *node) const
+            {
+                if (node->is_parent_of_leaves())
+                {
+                    uint64_t true_sum = 0;
+                    auto &children = node->get_children();
+                    for (uint64_t i = 0; i < children.size(); i++)
+                    {
+                        uint64_t id = (uint64_t)children[i];
+                        true_sum += this->leaf_container_vec[id].psum();
+                    }
+                    if (true_sum != node->psum_on_sum_deque())
+                    {
+                        throw std::runtime_error("Error: verify_sum_deque");
+                    }
+                }
+                else
+                {
+                    uint64_t true_sum = 0;
+                    auto &children = node->get_children();
+                    for (uint64_t i = 0; i < children.size(); i++)
+                    {
+                        Node *child = children[i];
+                        this->verify_sum_deque(child);
+                        true_sum += child->psum_on_sum_deque();
+                    }
+
+                    if (true_sum != node->psum_on_sum_deque())
+                    {
+                        throw std::runtime_error("Error: verify_sum_deque");
+                    }
+                }
+            }
+
+            /**
+             * @brief Prints the B+ tree in a tree-like format
+             * @details This function prints the B+ tree in a tree-like format, where each internal node
+             *          is represented by its value and its children are printed on the next line.
+             *          If the tree is empty, it prints an empty string.
+             */
+            void print_tree() const
+            {
+                std::vector<std::string> tree;
+                if (!this->empty())
+                {
+                    if (this->root_is_leaf_)
+                    {
+                        tree.push_back(this->leaf_container_vec[(uint64_t)this->root].to_string());
+                    }
+                    else
+                    {
+                        BPFunctions::get_tree_string(*this->root, tree, this->leaf_container_vec);
+                    }
+                }
+                else
+                {
+                    tree.push_back("[]");
                 }
 
-                uint64_t _max_degree = MAX_DEGREE;
-                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
-
-                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(bp.leaf_container_vec);
-                if (pos + _size > output.size())
+                for (int64_t i = tree.size() - 1; i >= 0; i--)
                 {
-                    output.resize(pos + _size);
+                    std::cout << tree[i] << std::endl;
                 }
 
-                std::memcpy(output.data() + pos, &_max_degree, sizeof(uint64_t));
-                pos += sizeof(uint64_t);
-                std::memcpy(output.data() + pos, &_max_count_of_values_in_leaf, sizeof(uint64_t));
-                pos += sizeof(uint64_t);
-
-                LEAF_CONTAINER::store_to_bytes(bp.leaf_container_vec, output, pos);
-            }
-
-            /**
-             * @brief Saves the B+ tree structure to a file stream
-             * @param os Output file stream to write to
-             * @details This function serializes the tree by:
-             *          1. Sorting leaf containers if needed
-             *          2. Writing tree parameters (max degrees)
-             *          3. Saving leaf container data to the file
-             */
-            static void store_to_file(BPTree &bp, std::ofstream &os)
-            {
-                if (!bp.check_if_leaf_container_vec_is_sorted())
-                {
-                    bp.sort_leaf_containers();
+                /*
+                if constexpr (USE_PSUM) {
+                    if(!this->root_is_leaf_){
+                        this->root->print_info();
+                    }
                 }
-                uint64_t _max_degree = MAX_DEGREE;
-                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
-
-                os.write((const char *)(&_max_degree), sizeof(uint64_t));
-                os.write((const char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
-                LEAF_CONTAINER::store_to_file(bp.leaf_container_vec, os);
+                */
             }
 
             /**
-             * @brief Builds a B+ tree from serialized data in a byte vector
-             * @param data Vector containing the serialized tree data
-             * @param pos Starting position in the data vector
-             * @details This function reconstructs the tree by:
-             *          1. Clearing any existing tree structure
-             *          2. Reading tree parameters
-             *          3. Loading leaf containers
-             *          4. Rebuilding the tree structure
+             * @brief Prints detailed information about the B+ tree
+             * @details This function prints the height of the tree, the number of internal nodes,
+             *          and the number of leaf containers. It also prints the contents of each leaf
+             *          container and the parent vector if USE_PARENT_FIELD is true.
              */
-            static BPTree load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
+            void print_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                BPTree r;
-                r.initialize();
-                uint64_t _max_degree;
-                uint64_t _max_count_of_values_in_leaf;
-                r.clear();
-                std::memcpy(&_max_degree, data.data() + pos, sizeof(uint64_t));
-                pos += sizeof(uint64_t);
-                std::memcpy(&_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
-                pos += sizeof(uint64_t);
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "========= BPTREE =========" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Height: " << this->height_ << std::endl;
 
-                auto tmp = LEAF_CONTAINER::load_vector_from_bytes(data, pos);
+                // uint64_t id = 0;
+                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                {
+                    NodePointer pt = *it;
 
-                r.build_from_leaf_containers(tmp);
-                return r;
+                    if (pt.is_leaf())
+                    {
+                        std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Leaf: id = " << pt.get_leaf_container_index() << ", content = " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
+                    }
+                    else
+                    {
+                        pt.get_node()->print_info(message_paragraph + 1);
+                    }
+                    // id++;
+                }
+
+                if (USE_PARENT_FIELD)
+                {
+                    std::vector<uint64_t> r;
+                    for (Node *x : this->parent_vec)
+                    {
+                        r.push_back((uint64_t)x);
+                    }
+                    stool::DebugPrinter::print_integers(r);
+                }
+                std::cout << "==========================" << std::endl;
             }
 
             /**
-             * @brief Builds a B+ tree from serialized data in a file stream
-             * @param ifs Input file stream to read from
-             * @details This function reconstructs the tree by:
-             *          1. Clearing any existing tree structure
-             *          2. Reading tree parameters
-             *          3. Loading leaf containers from the file
-             *          4. Rebuilding the tree structure
+             * @brief Prints the leaves of the B+ tree
+             * @details This function prints the leaves of the B+ tree, where each leaf is represented
+             *          by its index and its contents. If the tree is empty, it prints an empty string.
              */
-            static BPTree load_from_file(std::ifstream &ifs)
+            void print_leaves() const
             {
-                BPTree r;
-                r.initialize();
-                r.clear();
-                uint64_t _max_degree;
-                uint64_t _max_count_of_values_in_leaf;
-                ifs.read((char *)(&_max_degree), sizeof(uint64_t));
-                ifs.read((char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
-
-                auto tmp = LEAF_CONTAINER::load_vector_from_file(ifs);
-
-                r.build_from_leaf_containers(tmp);
-                return r;
+                // uint64_t id = 0;
+                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                {
+                    NodePointer pt = *it;
+                    if (pt.is_leaf())
+                    {
+                        std::cout << "leaf_index: " << pt.get_leaf_container_index() << ", " << this->leaf_container_vec[pt.get_leaf_container_index()].to_string() << std::endl;
+                    }
+                    // id++;
+                }
+            }
+            void print_internal_nodes() const
+            {
+                std::cout << "INTERNAL NODES: " << std::endl;
+                for (PostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                {
+                    NodePointer pt = *it;
+                    if (!pt.is_leaf())
+                    {
+                        Node *node = (Node *)pt.get_node();
+                        std::cout << " " << node->to_string() << std::endl;
+                    }
+                    // id++;
+                }
             }
 
-            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const{
+            /**
+             * @brief Prints the leaf containers of the B+ tree
+             * @details This function prints the leaf containers of the B+ tree, where each leaf container
+             *          is represented by its index and its contents. If the tree is empty, it prints an empty string.
+             */
+            void print_leaf_containers() const
+            {
+                std::cout << "============ LEAVES ============" << std::endl;
+                for (uint64_t i = 0; i < this->leaf_container_vec.size(); i++)
+                {
+                    std::cout << "leaf_container_vec[" << i << "] = " << this->leaf_container_vec[i].to_string() << std::endl;
+                }
+                std::cout << "============ LEAVES[END] ============" << std::endl;
+            }
+
+            void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Information (BPTree)[" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of insertion operations: " << this->insert_operation_counter << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of split process in insertion operations: " << this->split_process_counter << std::endl;
-                if(this->insert_operation_counter > 0){
+                if (this->insert_operation_counter > 0)
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of split process per insertion: " << (double)this->split_process_counter / (double)this->insert_operation_counter << std::endl;
                 }
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of removal operations: " << this->remove_operation_counter << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of merge process in removal operations: " << this->merge_process_counter << std::endl;
-                if(this->remove_operation_counter > 0){
+                if (this->remove_operation_counter > 0)
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "The number of merge process per removal: " << (double)this->merge_process_counter / (double)this->remove_operation_counter << std::endl;
                 }
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "]" << std::endl;
-
             }
-
 
             /**
              * @brief Prints statistical information about the B+ tree
@@ -3083,12 +2973,117 @@ namespace stool
 
                 uint64_t total_memory_usage = this->size_in_bytes();
                 uint64_t num = this->size();
-                if(USE_PARENT_FIELD){
+                if (USE_PARENT_FIELD)
+                {
                     total_memory_usage += this->parent_vec.size() * sizeof(Node *);
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Estimated memory usage: " << total_memory_usage << " bytes (Avg: " << (total_memory_usage / num) << " bytes)" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+            void print_debug_info() const
+            {
+                std::cout << "BPTree::print_debug_info()" << std::endl;
+                /*
+                std::cout << "BPInternalNodeFunctions::time_count: " << (double)stool::__time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPInternalNodeFunctions::time_count_counter: " << stool::__time_count_counter << std::endl;
+                std::cout << "BPInternalNodeFunctions::size_count: " << stool::__size_count << std::endl;
+                std::cout << "average: " << (double)stool::__time_count / stool::__time_count_counter << " ns" << std::endl;
+                std::cout << "average size: " << (double)stool::__size_count / stool::__time_count_counter << " elements" << std::endl;
+                */
+                std::cout << "BPTree::time_count: " << (double)BPTree::time_count / 1000000.0 << " ms" << std::endl;
+                std::cout << "BPTree::time_count2: " << (double)bptree::time_count2 / 1000000.0 << " ms" << std::endl;
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Load, save, and builder functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Returns the BPTree instance loaded from a byte vector \p data at the position \p pos
+             */
+            static BPTree load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
+            {
+                BPTree r;
+                r.initialize();
+                uint64_t _max_degree;
+                uint64_t _max_count_of_values_in_leaf;
+                r.clear();
+                std::memcpy(&_max_degree, data.data() + pos, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+                std::memcpy(&_max_count_of_values_in_leaf, data.data() + pos, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+
+                auto tmp = LEAF_CONTAINER::load_vector_from_bytes(data, pos);
+
+                r.build_from_leaf_containers(tmp);
+                return r;
+            }
+
+            /**
+             * @brief Returns the BPTree instance loaded from a file stream \p ifs
+             */
+            static BPTree load_from_file(std::ifstream &ifs)
+            {
+                BPTree r;
+                r.initialize();
+                r.clear();
+                uint64_t _max_degree;
+                uint64_t _max_count_of_values_in_leaf;
+                ifs.read((char *)(&_max_degree), sizeof(uint64_t));
+                ifs.read((char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
+
+                auto tmp = LEAF_CONTAINER::load_vector_from_file(ifs);
+
+                r.build_from_leaf_containers(tmp);
+                return r;
+            }
+            /**
+             * @brief Save the given instance \p item to a byte vector \p output at the position \p pos
+             */
+            static void store_to_bytes(BPTree &item, std::vector<uint8_t> &output, uint64_t &pos)
+            {
+                if (!item.check_if_leaf_container_vec_is_sorted())
+                {
+                    item.sort_leaf_containers();
+                }
+
+                uint64_t _max_degree = MAX_DEGREE;
+                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+
+                uint64_t _size = sizeof(_max_degree) + sizeof(_max_count_of_values_in_leaf) + LEAF_CONTAINER::get_byte_size(item.leaf_container_vec);
+                if (pos + _size > output.size())
+                {
+                    output.resize(pos + _size);
+                }
+
+                std::memcpy(output.data() + pos, &_max_degree, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+                std::memcpy(output.data() + pos, &_max_count_of_values_in_leaf, sizeof(uint64_t));
+                pos += sizeof(uint64_t);
+
+                LEAF_CONTAINER::store_to_bytes(item.leaf_container_vec, output, pos);
+            }
+
+            /**
+             * @brief Save the given instance \p item to a file stream \p os
+             */
+            static void store_to_file(BPTree &item, std::ofstream &os)
+            {
+                if (!item.check_if_leaf_container_vec_is_sorted())
+                {
+                    item.sort_leaf_containers();
+                }
+                uint64_t _max_degree = MAX_DEGREE;
+                uint64_t _max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+
+                os.write((const char *)(&_max_degree), sizeof(uint64_t));
+                os.write((const char *)(&_max_count_of_values_in_leaf), sizeof(uint64_t));
+                LEAF_CONTAINER::store_to_file(item.leaf_container_vec, os);
+            }
+
+            //@}
         };
     }
 }

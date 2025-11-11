@@ -544,20 +544,20 @@ namespace stool
             /**
              * @brief Save the given instance \p item to a byte vector \p output at the position \p pos
              */
-            static void store_to_bytes(DynamicPermutation &dp, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicPermutation &item, std::vector<uint8_t> &output, uint64_t &pos)
             {
-                dp.pi_tree.sort_leaf_containers();
-                dp.inverse_pi_tree.sort_leaf_containers();
-                Tree::store_to_bytes(dp.pi_tree, output, pos);
-                Tree::store_to_bytes(dp.inverse_pi_tree, output, pos);
+                item.pi_tree.sort_leaf_containers();
+                item.inverse_pi_tree.sort_leaf_containers();
+                Tree::store_to_bytes(item.pi_tree, output, pos);
+                Tree::store_to_bytes(item.inverse_pi_tree, output, pos);
             }
             /**
              * @brief Save the given instance \p item to a file stream \p os
              */
-            static void store_to_file(DynamicPermutation &dp, std::ofstream &os)
+            static void store_to_file(DynamicPermutation &item, std::ofstream &os)
             {
-                Tree::store_to_file(dp.pi_tree, os);
-                Tree::store_to_file(dp.inverse_pi_tree, os);
+                Tree::store_to_file(item.pi_tree, os);
+                Tree::store_to_file(item.inverse_pi_tree, os);
             }
 
             //@}
