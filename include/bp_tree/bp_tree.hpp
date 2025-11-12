@@ -19,6 +19,7 @@ namespace stool
          * @li This B+-tree consists of \p x internal nodes and \p y leaves.
          * @li Every internal node has at most \p MAX_DEGREE children. The number of the children is at least \p MAX_DEGREE / 2 if \p n is sufficiently large.
          * @li Every leaf has an \p LEAF_CONTAINER instance that stores at most \p LEAF_CONTAINER_MAX_SIZE values. The number of these values is at least \p LEAF_CONTAINER_MAX_SIZE / 2 if \p n is sufficiently large.
+         * @li \p y LEAF_CONTAINER instances are stored in a vector \p W[0..z-1], where z = Ω(y)
          * \ingroup BPTreeClasses
          */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE, bool USE_PARENT_FIELD, bool USE_PSUM>
@@ -351,6 +352,23 @@ namespace stool
             {
                 return this->height() == 0;
             }
+            /**
+             * @brief Returns a reference to the LEAF CONTAINER at position \p i in the vector \p leaf_container_vec.
+             */
+            LEAF_CONTAINER &get_leaf_container(uint64_t i)
+            {
+                assert(i < this->get_leaf_container_vector_size());
+
+                return this->leaf_container_vec[i];
+            }
+            /**
+             * @brief Returns a const reference to the LEAF CONTAINER at position \p i in the vector \p leaf_container_vec.
+             */
+            const LEAF_CONTAINER &get_leaf_container(uint64_t i) const
+            {
+                return this->leaf_container_vec[i];
+            }
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -456,8 +474,7 @@ namespace stool
             //@{
 
             /**
-             * @brief Converts the B+ tree to a vector of values
-             * @return A vector of values representing the B+ tree
+             * @brief Return the values \p S[0..n-1] as a vector of \p VALUE.
              */
             std::vector<VALUE> to_value_vector() const
             {
@@ -493,8 +510,8 @@ namespace stool
             //@{
 
             /**
-             * @brief Returns the prefix sum of the B+ tree
-             * @return The prefix sum of the B+ tree
+             * @brief Return the sum of \p S[0..n-1].
+             * @note O(1) time 
              */
             uint64_t psum() const
             {
@@ -516,9 +533,8 @@ namespace stool
             }
 
             /**
-             * @brief Returns the prefix sum of the first (i+1) eleemnts in the B+ tree at position i
-             * @param i The position in the B+ tree
-             * @return The prefix sum of the B+ tree at position i
+             * @brief Return the sum of \p S[0..i].
+             * @note O(\log n) time
              */
             uint64_t psum(uint64_t i) const
             {
@@ -545,9 +561,9 @@ namespace stool
             }
 
             /**
-             * @brief Returns the position of the i-th 0 in the B+ tree
-             * @param i The position of the 0 in the B+ tree
-             * @return The position of the i-th 0 in the B+ tree
+             * @brief Returns the position of the (i+1)-th 0 in \p S[0..n-1] if it exists, otherwise return -1.
+             * @note The result of this function is undefined if S is not a bit sequence. 
+             * @note O(\log n) time
              */
             int64_t select0(uint64_t i) const
             {
@@ -569,21 +585,20 @@ namespace stool
             }
 
             /**
-             * @brief Returns the position of the sum in the B+ tree
-             * @param sum The sum in the B+ tree
-             * @return The position of the sum in the B+ tree
+             * @brief Return the smallest index \p i such that \p psum(i) >= u if it exists, otherwise return -1.
+             * @note O(\log n) time
              */
-            int64_t search(uint64_t sum) const
+            int64_t search(uint64_t u) const
             {
                 if (!this->empty())
                 {
                     if (this->root_is_leaf_)
                     {
-                        return this->leaf_container_vec[(uint64_t)this->root].search(sum);
+                        return this->leaf_container_vec[(uint64_t)this->root].search(u);
                     }
                     else
                     {
-                        return BPFunctions::search(*this->root, sum, this->leaf_container_vec);
+                        return BPFunctions::search(*this->root, u, this->leaf_container_vec);
                     }
                 }
                 else
@@ -594,18 +609,17 @@ namespace stool
             inline static uint64_t time_count = 0;
 
             /**
-             * @brief Returns the value at position pos in the B+ tree
-             * @param pos The position in the B+ tree
-             * @return The value at position pos in the B+ tree
+             * @brief Return B[i]
+             * @note O(\log n) time
              */
-            VALUE at(uint64_t pos) const
+            VALUE at(uint64_t i) const
             {
                 if (!this->empty())
                 {
-                    assert(pos < this->size());
+                    assert(i < this->size());
                     std::vector<NodePointer> path;
 
-                    uint64_t idx = this->compute_path_from_root_to_leaf(pos);
+                    uint64_t idx = this->compute_path_from_root_to_leaf(i);
 
                     assert(this->tmp_path.size() > 0);
 
@@ -630,17 +644,17 @@ namespace stool
             }
 
             /**
-             * @brief Returns the value index at position pos in the B+ tree
-             * @param pos The position in the B+ tree
-             * @return The value index at position pos in the B+ tree
+             * @brief Returns the index i of the value \p S[i] stored in the LEAF CONTAINER \p W[j] as the \p (p+1)-th value.
+             * @warning This function is not supported if \p USE_PARENT_FIELD is false.
+             * @note O(\log n) time
              */
-            uint64_t get_value_index(uint64_t leaf_index, uint64_t position_in_leaf_container) const
+            uint64_t get_value_index(uint64_t leaf_index_j, uint64_t position_in_leaf_container_p) const
             {
                 if (USE_PARENT_FIELD)
                 {
                     assert(leaf_index < this->parent_vec.size());
-                    Node *parent = this->parent_vec[leaf_index];
-                    uint64_t dist = position_in_leaf_container;
+                    Node *parent = this->parent_vec[leaf_index_j];
+                    uint64_t dist = position_in_leaf_container_p;
 
                     if (parent == nullptr)
                     {
@@ -649,7 +663,7 @@ namespace stool
                     else
                     {
 
-                        Node *node = (Node *)leaf_index;
+                        Node *node = (Node *)leaf_index_j;
                         while (parent != nullptr)
                         {
 
@@ -675,27 +689,7 @@ namespace stool
                 }
             }
 
-            /**
-             * @brief Returns the leaf container at position leaf_index
-             * @param leaf_index The position of the leaf container
-             * @return The leaf container at position leaf_index
-             */
-            const LEAF_CONTAINER &get_leaf_container(uint64_t leaf_index) const
-            {
-                return this->leaf_container_vec[leaf_index];
-            }
 
-            /**
-             * @brief Returns a reference to the leaf container at position leaf_index
-             * @param leaf_index The position of the leaf container
-             * @return A reference to the leaf container at position leaf_index
-             */
-            LEAF_CONTAINER &get_leaf_container(uint64_t leaf_index)
-            {
-                assert(leaf_index < this->get_leaf_container_vector_size());
-
-                return this->leaf_container_vec[leaf_index];
-            }
 
             //@}
 
