@@ -14,7 +14,11 @@ namespace stool
         inline static uint64_t time_count2 = 0;
 
         /**
-         * @brief An implementation of B+-tree [Unchecked AI's Comment]
+         * @brief An implementation of a B+-tree for storing \p n values \p S[0..n-1] of type \p VALUE in leaves. [in progress]
+         * @details The details of this B+-tree is as follows:
+         * @li This B+-tree consists of \p x internal nodes and \p y leaves.
+         * @li Every internal node has at most \p MAX_DEGREE children. The number of the children is at least \p MAX_DEGREE / 2 if \p n is sufficiently large.
+         * @li Every leaf has an \p LEAF_CONTAINER instance that stores at most \p LEAF_CONTAINER_MAX_SIZE values. The number of these values is at least \p LEAF_CONTAINER_MAX_SIZE / 2 if \p n is sufficiently large.
          * \ingroup BPTreeClasses
          */
         template <typename LEAF_CONTAINER, typename VALUE, uint64_t MAX_DEGREE, uint64_t LEAF_CONTAINER_MAX_SIZE, bool USE_PARENT_FIELD, bool USE_PSUM>
@@ -58,14 +62,16 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-            ~BPTree()
-            {
-                this->clear();
-            }
+            /**
+             * @brief Default constructor.
+             */
             BPTree()
             {
             }
-            BPTree(const BPTree &) = delete;
+
+            /**
+             * @brief Default move constructor.
+             */
             BPTree(BPTree &&other) noexcept
             {
                 this->leaf_container_vec = std::move(other.leaf_container_vec);
@@ -96,6 +102,19 @@ namespace stool
                 other.linked_tree_ = nullptr;
                 other.height_ = 0;
                 other.root_is_leaf_ = false;
+            }
+
+            /**
+             * @brief Deleted copy constructor.
+             */
+            BPTree(const BPTree &) = delete;
+
+            /**
+             * @brief Default destructor.
+             */
+            ~BPTree()
+            {
+                this->clear();
             }
             //@}
             ////////////////////////////////////////////////////////////////////////////////
@@ -150,13 +169,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Returns an iterator pointing to the first node in postorder traversal
-             * @details This function returns a PostorderIterator that points to the first node
-             *          when traversing the tree in postorder (left-right-root). If the tree is empty,
-             *          returns an iterator pointing to nullptr. If the root is a leaf, returns an
-             *          iterator pointing to the root leaf container index. Otherwise returns an
-             *          iterator pointing to the root node.
-             * @return PostorderIterator pointing to the first node in postorder traversal
+             * @brief Return an iterator pointing to the first node in postorder traversal
              */
             PostorderIterator get_postorder_iterator_begin() const
             {
@@ -178,10 +191,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns an iterator pointing to the end of postorder traversal
-             * @details This function returns a PostorderIterator that represents the end of
-             *          the postorder traversal sequence (nullptr)
-             * @return PostorderIterator pointing to nullptr
+             * @brief Return an iterator pointing to the end of postorder traversal
              */
             PostorderIterator get_postorder_iterator_end() const
             {
@@ -189,12 +199,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns an iterator pointing to the first value in forward traversal
-             * @details This function returns a ValueForwardIterator that points to the first value
-             *          when traversing the tree in forward order. If the tree is empty, returns
-             *          an iterator pointing to nullptr. Otherwise returns an iterator initialized
-             *          with the first node in postorder and the leaf container vector.
-             * @return ValueForwardIterator pointing to the first value
+             * @brief Return an iterator pointing to the first value in the values \p S[0..n-1]
              */
             ValueForwardIterator get_value_forward_iterator_begin() const
             {
@@ -210,10 +215,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns an iterator pointing to the end of forward value traversal
-             * @details This function returns a ValueForwardIterator that represents the end of
-             *          the forward value traversal sequence (nullptr)
-             * @return ValueForwardIterator pointing to nullptr
+             * @brief Return an iterator pointing to the end of the values \p S[0..n-1]
              */
             ValueForwardIterator get_value_forward_iterator_end() const
             {
@@ -221,12 +223,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns an iterator pointing to the first leaf in forward traversal
-             * @details This function returns a LeafForwardIterator that points to the first leaf
-             *          when traversing the tree in forward order. If the tree is empty, returns
-             *          an iterator pointing to nullptr. Otherwise returns an iterator pointing to
-             *          the root.
-             * @return LeafForwardIterator pointing to the first leaf
+             * @brief Return an iterator pointing to the first leaf in forward traversal
              */
             LeafForwardIterator get_leaf_forward_iterator_begin() const
             {
@@ -241,10 +238,7 @@ namespace stool
             }
 
             /**
-             * @brief Returns an iterator pointing to the end of forward leaf traversal
-             * @details This function returns a LeafForwardIterator that represents the end of
-             *          the forward leaf traversal sequence (nullptr)
-             * @return LeafForwardIterator pointing to nullptr
+             * @brief Return an iterator pointing to the end of forward leaf traversal
              */
             LeafForwardIterator get_leaf_forward_iterator_end() const
             {
@@ -252,14 +246,12 @@ namespace stool
             }
             //@}
 
-
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Lightweight functions for accessing to properties of this class
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Returns the temporary path used during tree operations
-             * @return A reference to the vector containing temporary path nodes
+             * @brief Returns the path computed by the last search operation. 
              */
             const std::vector<NodePointer> &get_temporary_path() const
             {
@@ -267,47 +259,22 @@ namespace stool
             }
 
             /**
-             * @brief Return the max degree of this tree. The number of children of every internal node does not exceed the max degree.
+             * @brief Return \p MAX_DEGREE
              */
             uint64_t get_max_degree_of_internal_node() const
             {
                 return MAX_DEGREE;
             }
 
+            /**
+             * @brief Return the number of split operations performed internally
+             */
             uint64_t get_split_process_counter() const
             {
                 return this->split_process_counter;
             }
-
-            uint64_t capacity() const
-            {
-                return (this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size()) * this->get_max_count_of_values_in_leaf();
-            }
-
-            double get_value_density() const
-            {
-                return (double)this->size() / (double)this->capacity();
-            }
-
             /**
-             * @brief Returns the maximum number of values that can be stored in a leaf node
-             * @return The maximum number of values that can be stored in a leaf node
-             */
-            uint64_t get_max_count_of_values_in_leaf() const
-            {
-                return LEAF_CONTAINER_MAX_SIZE;
-            }
-
-            /**
-             * @brief Return the height of this tree
-             */
-            uint64_t height() const
-            {
-                return this->height_;
-            }
-
-            /**
-             * @brief Return the number of values stored in this tree
+             * @brief Return the number of values stored in this tree (i.e., \p n).
              */
             uint64_t size() const
             {
@@ -327,8 +294,42 @@ namespace stool
                     }
                 }
             }
+
             /**
-             * @brief Return the number of leaves in this tree
+             * @brief Return the number of values that can be stored in this tree without resizing the vector that stores LEAF_CONTAINER instances
+             */
+            uint64_t capacity() const
+            {
+                return (this->leaf_container_vec.size() - this->unused_leaf_container_indexes.size()) * this->get_max_count_of_values_in_leaf();
+            }
+
+            /**
+             * @brief Return the density of this tree (i.e., \p n / \p capacity()).
+             */
+
+            double get_value_density() const
+            {
+                return (double)this->size() / (double)this->capacity();
+            }
+
+            /**
+             * @brief Return \p LEAF_CONTAINER_MAX_SIZE
+             */
+            uint64_t get_max_count_of_values_in_leaf() const
+            {
+                return LEAF_CONTAINER_MAX_SIZE;
+            }
+
+            /**
+             * @brief Return the height of this tree
+             */
+            uint64_t height() const
+            {
+                return this->height_;
+            }
+
+            /**
+             * @brief Return the number of leaves in this tree (i.e., \p y).
              */
             uint64_t get_leaf_count() const
             {
@@ -336,7 +337,7 @@ namespace stool
             }
 
             /**
-             * @brief Return the size of the vector that stores leaf containers
+             * @brief Return the size of the vector that stores LEAF_CONTAINER instances.
              */
             uint64_t get_leaf_container_vector_size() const
             {
@@ -344,8 +345,7 @@ namespace stool
             }
 
             /**
-             * @brief Checks if the B+ tree is empty
-             * @return true if the tree is empty, false otherwise
+             * @brief Return true if n = 0, false otherwise.
              */
             bool empty() const
             {
@@ -359,10 +359,7 @@ namespace stool
             //@{
 
             /**
-             * @brief Initializes the B+ tree with specified maximum degrees for internal nodes and leaf nodes
-             * @throws std::runtime_error if either parameter is less than 4
-             * @details This function initializes a new empty B+ tree with the given parameters. Both parameters must be at least 4
-             * to maintain B+ tree properties. The function clears any existing data before initialization.
+             * @brief Initializes this instance
              */
             void initialize()
             {
@@ -385,14 +382,10 @@ namespace stool
             }
 
             /**
-             * @brief Swaps the contents of this B+ tree with another B+ tree
-             * @param _tree The B+ tree to swap contents with
-             * @param swap_linked_tree Whether to also swap the linked tree pointer
-             * @details This function swaps all internal data structures between this tree and the given tree,
-             * including leaf containers, parent vectors, unused node pointers, tree parameters, and tree properties.
-             * The swap_linked_tree parameter controls whether the linked tree pointer should also be swapped.
+             * @brief Swap operation
+             * @param swap_linked_tree If true, swap the linked tree pointer.
              */
-            void swap(BPTree &_tree, bool swap_linked_tree)
+            void swap(BPTree &_tree, bool swap_linked_tree = true)
             {
                 this->leaf_container_vec.swap(_tree.leaf_container_vec);
                 this->parent_vec.swap(_tree.parent_vec);
@@ -413,25 +406,7 @@ namespace stool
             }
 
             /**
-             * @brief Swaps the contents of this B+ tree with another B+ tree
-             * @param _tree The B+ tree to swap contents with
-             * @details This is a convenience overload that calls swap() with swap_linked_tree set to true
-             */
-            void swap(BPTree &_tree)
-            {
-                this->swap(_tree, true);
-            }
-
-            /**
-             * @brief Clears all contents of the B+ tree and resets it to an empty state
-             * @details This function:
-             * - Deletes all nodes in the tree using a stack-based traversal
-             * - Clears the root pointer and resets root state flags
-             * - Deletes any unused node pointers that were cached
-             * - Clears the leaf container and parent vectors
-             * - Empties the unused leaf container index queue
-             * - Resets the tree height to 0
-             * After calling clear(), the tree will be in an empty state ready for new insertions.
+             * @brief Clear the B+-tree and reset it to an empty state (i.e., n = 0, x = 0, y = 0).
              */
             void clear()
             {
@@ -474,7 +449,6 @@ namespace stool
                 }
             }
             //}@
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Convertion functions
@@ -725,14 +699,12 @@ namespace stool
 
             //@}
 
-
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Const print and verification functions
             ///   Const print functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-            
             /**
              * @brief Returns the total memory size of the B+ tree
              * @return The total memory size of the B+ tree
@@ -1085,557 +1057,6 @@ namespace stool
                 }
             }
 
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Non-const private functions
-            ///   Non-const private functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-        private:
-            /**
-             * @brief Performs defragmentation of the B+ tree
-             * @details This function performs defragmentation of the B+ tree by moving all unused
-             *          leaf containers to the end of the leaf container vector and removing them.
-             *          It also updates the density threshold and the leaf container vector size.
-             */
-            void defragmentation()
-            {
-                std::vector<uint64_t> tmp;
-                while (this->unused_leaf_container_indexes.size() > 0)
-                {
-                    tmp.push_back(this->unused_leaf_container_indexes.top());
-                    this->unused_leaf_container_indexes.pop();
-                }
-
-                std::sort(tmp.begin(), tmp.end(), [](const uint64_t &lhs, const uint64_t &rhs)
-                          { return lhs > rhs; });
-
-                std::vector<std::pair<Node *, uint64_t>> tmp_nodes;
-                {
-                    std::unordered_set<uint64_t> checker2;
-                    {
-                        std::unordered_set<uint64_t> checker1;
-                        for (uint64_t p : tmp)
-                        {
-                            checker1.insert(p);
-                        }
-
-                        for (int64_t i = this->leaf_container_vec.size() - 1; i >= 0; --i)
-                        {
-                            auto xs = checker1.find(i);
-                            if (xs == checker1.end())
-                            {
-                                checker2.insert(i);
-                            }
-                            if (checker2.size() > tmp.size())
-                            {
-                                break;
-                            }
-                        }
-                    }
-
-                    for (BPPostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
-                    {
-                        NodePointer pt = *it;
-                        if (!pt.is_leaf() && pt.get_node()->is_parent_of_leaves())
-                        {
-                            Node *node = pt.get_node();
-                            for (int64_t i = 0; i < node->children_count(); i++)
-                            {
-                                uint64_t x = (uint64_t)node->get_child(i);
-                                auto xs = checker2.find(x);
-                                if (xs != checker2.end())
-                                {
-                                    tmp_nodes.push_back(std::pair<Node *, uint64_t>(node, i));
-                                }
-                            }
-                        }
-                    }
-                    assert(tmp_nodes.size() == checker2.size());
-                }
-
-                std::sort(tmp_nodes.begin(), tmp_nodes.end(), [](const std::pair<Node *, uint64_t> &lhs, const std::pair<Node *, uint64_t> &rhs)
-                          { 
-                        uint64_t x = (uint64_t)lhs.first->get_child(lhs.second);
-                        uint64_t y = (uint64_t)rhs.first->get_child(rhs.second);
-                        return x < y; });
-
-                uint64_t k = 0;
-                while (tmp.size() > 0 && tmp_nodes.size() > 0)
-                {
-                    std::pair<Node *, uint64_t> top = tmp_nodes[tmp_nodes.size() - 1];
-                    uint64_t idx = (uint64_t)top.first->get_child(top.second);
-                    uint64_t x = tmp[tmp.size() - 1];
-                    if (x < idx)
-                    {
-                        top.first->move_container_index(top.second, x, this->leaf_container_vec);
-                        tmp_nodes.pop_back();
-                        tmp.pop_back();
-                        k++;
-                    }
-                    else
-                    {
-                        tmp.pop_back();
-                        k++;
-                    }
-                }
-                this->leaf_container_vec.resize(this->leaf_container_vec.size() - k);
-                /*
-                //this->leaf_container_vec.shrink_to_fit();
-                uint64_t gap = this->leaf_container_vec.size() * this->density_threshold;
-                //this->leaf_container_vec.reserve(this->leaf_container_vec.size() + gap);
-                this->density1 = gap;
-                */
-            }
-            /**
-             * @brief Clears all unused node pointers
-             * @details This function deletes all unused node pointers and clears the unused node pointers vector.
-             *          It also shrinks the vector to fit its current size.
-             */
-            void clear_unused_node_pointers()
-            {
-                for (uint64_t i = 0; i < this->unused_node_pointers.size(); i++)
-                {
-                    delete this->unused_node_pointers[i];
-                }
-                this->unused_node_pointers.clear();
-                this->unused_node_pointers.shrink_to_fit();
-            }
-            /**
-             * @brief Creates a root leaf node with the given value
-             * @param value The value to be stored in the root leaf node
-             * @details This function creates a new root leaf node with the given value and sets it as the root of the B+ tree.
-             *          It also updates the root state flags and the height of the tree.
-             */
-            void create_root_leaf(VALUE value)
-            {
-                uint64_t p = this->get_new_container_index();
-                this->leaf_container_vec[p].push_back(value);
-                this->root = (Node *)p;
-                this->root_is_leaf_ = true;
-                this->height_++;
-                if (USE_PARENT_FIELD)
-                {
-                    this->parent_vec[p] = nullptr;
-                }
-            }
-
-            /**
-             * @brief Removes an empty leaf node from the B+ tree
-             * @param idx The index of the leaf container to remove
-             * @param parent The parent node of the leaf being removed
-             * @param child_index The index of the child pointer in the parent node
-             * @details This function removes an empty leaf node from the B+ tree by:
-             *          1. Removing the child pointer from the parent node if it exists
-             *          2. Clearing the parent pointer if parent tracking is enabled
-             *          3. Adding the leaf container index to the unused indexes list
-             *          4. Clearing the leaf container's contents
-             */
-            void remove_empty_leaf(uint64_t idx, Node *parent, int64_t child_index)
-            {
-                if (parent != nullptr)
-                {
-                    parent->remove_child(child_index);
-                }
-                if (USE_PARENT_FIELD)
-                {
-                    this->parent_vec[idx] = nullptr;
-                }
-                // this->height_ = 0;
-                this->unused_leaf_container_indexes.push(idx);
-                this->leaf_container_vec[idx].clear();
-            }
-
-            /**
-             * @brief Removes an empty internal node from the B+ tree
-             * @param node The node to remove
-             * @param parent The parent node of the node being removed
-             * @param child_index The index of the child pointer in the parent node
-             * @details This function removes an empty internal node from the B+ tree by:
-             *          1. Removing the child pointer from the parent node if it exists
-             *          2. Setting root to nullptr if the node being removed is the root
-             *          3. Clearing the node's contents
-             *          4. Either recycling the node pointer or deleting it based on the
-             *             number of unused node pointers currently stored
-             */
-            void remove_empty_node(Node *node, Node *parent, int64_t child_index)
-            {
-                // Node *parent = node->get_parent();
-                if (parent != nullptr)
-                {
-                    parent->remove_child(child_index);
-
-                    // uint64_t edge = parent->find_child_index_by_child_pointer(node);
-                    // parent->remove_child(edge);
-                }
-                if (this->root == node)
-                {
-                    this->root = nullptr;
-                }
-
-                node->clear();
-                if (this->unused_node_pointers.size() <= 4096)
-                {
-                    this->unused_node_pointers.push_back(node);
-                }
-                else
-                {
-                    delete node;
-                }
-            }
-
-            /**
-             * @brief Gets a new container index from the unused container pool
-             * @return A new container index
-             * @details If there are no unused container indexes available, creates a new leaf container
-             *          and returns its index. Otherwise, pops and returns an index from the unused pool.
-             */
-            uint64_t get_new_container_index()
-            {
-                if (this->unused_leaf_container_indexes.size() == 0)
-                {
-                    this->leaf_container_vec.push_back(LEAF_CONTAINER());
-                    if (USE_PARENT_FIELD)
-                    {
-                        this->parent_vec.push_back(nullptr);
-                    }
-                    this->unused_leaf_container_indexes.push(this->leaf_container_vec.size() - 1);
-                }
-                assert(this->unused_leaf_container_indexes.size() > 0);
-                uint64_t idx = this->unused_leaf_container_indexes.top();
-                this->unused_leaf_container_indexes.pop();
-
-                return idx;
-            }
-
-            /**
-             * @brief Gets a new node pointer either from the unused pool or by allocation
-             * @return A pointer to a new node
-             * @details If there are unused node pointers available in the pool, returns one of those.
-             *          Otherwise allocates and returns a new node.
-             */
-            Node *get_new_node_pointer()
-            {
-                Node *new_node = nullptr;
-                if (this->unused_node_pointers.size() > 0)
-                {
-                    new_node = this->unused_node_pointers[this->unused_node_pointers.size() - 1];
-                    this->unused_node_pointers.pop_back();
-                }
-                else
-                {
-                    new_node = new Node();
-                }
-
-                return new_node;
-            }
-
-            /**
-             * @brief Handles the node splitting process during tree operations
-             * @param path Vector of NodePointers representing path from root to target node
-             * @param t Index in the path where splitting should occur
-             * @details This function splits a node at the given position in the path by:
-             *          1. Creating a new right node
-             *          2. Handling parent relationships
-             *          3. Redistributing values between the original and new nodes
-             *          4. Updating tree properties like height and root if needed
-             *          The exact splitting behavior depends on whether the node is a leaf or internal node.
-             */
-            void split_process(const std::vector<NodePointer> &path, uint64_t t)
-            {
-                const NodePointer &top = path[t];
-
-                Node *node = top.get_node();
-                Node *_new_right_node = nullptr;
-                uint64_t parent_edge_index = 0;
-                if (!top.is_leaf())
-                {
-                    _new_right_node = this->get_new_node_pointer();
-                    _new_right_node->initialize(top.get_node()->is_parent_of_leaves(), this->leaf_container_vec);
-                }
-                else
-                {
-                    _new_right_node = (Node *)this->get_new_container_index();
-                }
-
-                Node *_parent = nullptr;
-                if (t > 0)
-                {
-                    _parent = path[t - 1].get_node();
-                    _parent->insert_child(top.get_parent_edge_index() + 1, _new_right_node, 0, 0);
-                    parent_edge_index = top.get_parent_edge_index();
-                }
-                else
-                {
-                    _parent = this->get_new_node_pointer();
-                    if (top.is_leaf())
-                    {
-                        _parent->initialize((uint64_t)node, (uint64_t)_new_right_node, this->leaf_container_vec);
-                    }
-                    else
-                    {
-                        _parent->initialize(node, _new_right_node, this->leaf_container_vec);
-                    }
-                    parent_edge_index = 0;
-
-                    this->root = _parent;
-                    this->root_is_leaf_ = false;
-                    this->height_++;
-
-                    if (USE_PARENT_FIELD)
-                    {
-                        if (top.is_leaf())
-                        {
-                            this->parent_vec[(uint64_t)node] = _parent;
-                        }
-                        else
-                        {
-                            node->set_parent(_parent);
-                        }
-                    }
-                }
-                if (USE_PARENT_FIELD)
-                {
-                    if (top.is_leaf())
-                    {
-                        this->parent_vec[(uint64_t)_new_right_node] = _parent;
-                    }
-                    else
-                    {
-                        _new_right_node->set_parent(_parent);
-                    }
-                }
-
-                this->split_node(node, _new_right_node, top.is_leaf(), _parent, parent_edge_index, this->parent_vec);
-            }
-
-            /**
-             * @brief Balances the B+ tree after an insertion operation
-             * @param path Vector of NodePointers representing the path from root to the modified node
-             * @param superLeftPushMode If true, pushes maximum possible values to left sibling
-             * @details This function rebalances the tree after an insertion by:
-             *          1. Checking if any node exceeds the maximum degree/size threshold
-             *          2. Attempting to redistribute values to siblings if possible
-             *          3. Splitting nodes if redistribution is not possible
-             *          The process continues up the tree path until balance is restored.
-             */
-            uint64_t balance_for_insertion(const std::vector<NodePointer> &path, bool superLeftPushMode = false)
-            {
-                uint64_t split_counter = 0;
-                for (int64_t t = path.size() - 1; t >= 0; --t)
-                {
-                    const NodePointer &top = path[t];
-                    uint64_t degree = top.get_degree(this->leaf_container_vec);
-                    uint64_t threshold = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
-                    uint64_t LR_threshold = threshold;
-                    if (superLeftPushMode)
-                    {
-                        LR_threshold = (threshold * 3) / 4;
-                    }
-
-                    if (degree > threshold)
-                    {
-                        // this->split_process(path, t);
-
-                        if (t > 0)
-                        {
-                            Node *parent = path[t - 1].get_node();
-                            uint64_t parent_edge_index = top.get_parent_edge_index();
-                            Node *leftSibling = parent_edge_index > 0 ? parent->get_child(parent_edge_index - 1) : nullptr;
-                            Node *rightSibling = parent_edge_index + 1 < parent->children_count() ? parent->get_child(parent_edge_index + 1) : nullptr;
-                            uint64_t leftSiblingDegree = UINT64_MAX;
-                            if (parent_edge_index > 0)
-                            {
-                                leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
-
-                                // assert(leftSiblingDegree <= threshold);
-                            }
-
-                            uint64_t rightSiblingDegree = UINT64_MAX;
-                            if (parent_edge_index + 1 < parent->children_count())
-                            {
-                                rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
-                                // assert(rightSiblingDegree <= threshold);
-                            }
-
-                            if (leftSiblingDegree < LR_threshold || rightSiblingDegree < LR_threshold)
-                            {
-                                if (leftSiblingDegree < LR_threshold)
-                                {
-                                    if (superLeftPushMode)
-                                    {
-                                        uint64_t diff = LR_threshold - leftSiblingDegree;
-                                        this->move_values_left(leftSibling, top.get_node(), diff, top.is_leaf(), parent, parent_edge_index);
-                                    }
-                                    else
-                                    {
-                                        this->move_values_left(leftSibling, top.get_node(), 1, top.is_leaf(), parent, parent_edge_index);
-                                    }
-                                }
-                                else
-                                {
-                                    this->move_values_right(top.get_node(), rightSibling, 1, top.is_leaf(), parent, parent_edge_index);
-                                }
-                                break;
-                            }
-                            else
-                            {
-                                this->split_process(path, t);
-                                split_counter++;
-                            }
-                        }
-                        else
-                        {
-                            this->split_process(path, t);
-                            split_counter++;
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                return split_counter;
-            }
-
-            /**
-             * @brief Balances the B+ tree after a removal operation
-             * @param path Vector of NodePointers representing the path from root to the modified node
-             * @details This function rebalances the tree after a removal by:
-             *          1. Checking if any node falls below the minimum degree/size threshold
-             *          2. Attempting to borrow values from siblings if possible
-             *          3. Merging nodes if borrowing is not possible
-             *          4. Potentially adjusting the root if it has only one child
-             *          The process continues up the tree path until balance is restored.
-             */
-            uint64_t balance_for_removal(const std::vector<NodePointer> &path)
-            {
-                // Node *current_node = &node;
-
-                uint64_t merge_counter = 0;
-
-                for (int64_t t = path.size() - 1; t >= 0; --t)
-                {
-                    const NodePointer &top = path[t];
-                    uint64_t max_size = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
-                    uint64_t threshold = max_size / 2;
-
-                    uint64_t degree = top.get_degree(this->leaf_container_vec);
-                    if (degree >= threshold)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        if (t > 0)
-                        {
-                            Node *parent = path[t - 1].get_node();
-                            uint64_t parent_edge_index = top.get_parent_edge_index();
-                            Node *leftSibling = parent_edge_index > 0 ? parent->get_child(parent_edge_index - 1) : nullptr;
-                            Node *rightSibling = parent_edge_index + 1 < parent->children_count() ? parent->get_child(parent_edge_index + 1) : nullptr;
-                            uint64_t leftSiblingDegree = 0;
-                            if (parent_edge_index > 0)
-                            {
-                                leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
-                            }
-
-                            uint64_t rightSiblingDegree = 0;
-                            if (parent_edge_index + 1 < parent->children_count())
-                            {
-                                rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
-                            }
-
-                            if (leftSiblingDegree != 0 || rightSiblingDegree != 0)
-                            {
-                                if (leftSiblingDegree > threshold)
-                                {
-                                    this->move_values_right(leftSibling, top.get_node(), 1, top.is_leaf(), parent, parent_edge_index - 1);
-                                    break;
-                                }
-                                else if (rightSiblingDegree > threshold)
-                                {
-                                    this->move_values_left(top.get_node(), rightSibling, 1, top.is_leaf(), parent, parent_edge_index + 1);
-                                    break;
-                                }
-                                else
-                                {
-                                    assert(leftSiblingDegree == threshold || rightSiblingDegree == threshold);
-                                    if (leftSiblingDegree == threshold)
-                                    {
-                                        this->move_values_left(leftSibling, top.get_node(), degree, top.is_leaf(), parent, parent_edge_index);
-                                        if (top.is_leaf())
-                                        {
-                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
-                                        }
-                                        else
-                                        {
-                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        this->move_values_right(top.get_node(), rightSibling, degree, top.is_leaf(), parent, parent_edge_index);
-                                        if (top.is_leaf())
-                                        {
-                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
-                                        }
-                                        else
-                                        {
-                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
-                                        }
-                                    }
-                                    merge_counter++;
-                                }
-                            }
-                            else
-                            {
-                                throw std::logic_error("Error(BPTree::balance_for_removal(1))");
-                            }
-                        }
-                        else
-                        {
-                            assert(t == 0);
-                            if (degree == 0)
-                            {
-                                throw std::logic_error("Error(BPTree::balance_for_removal(2))");
-                            }
-                            else if (degree == 1)
-                            {
-                                if (!this->root_is_leaf_)
-                                {
-
-                                    bool b = this->root->is_parent_of_leaves();
-                                    Node *new_root = this->root->get_child(0);
-                                    this->root->remove_child(0);
-                                    this->remove_empty_node(this->root, nullptr, -1);
-                                    this->root = new_root;
-                                    this->root_is_leaf_ = b;
-
-                                    if (USE_PARENT_FIELD)
-                                    {
-                                        if (b)
-                                        {
-                                            this->parent_vec[(uint64_t)new_root] = nullptr;
-                                        }
-                                        else
-                                        {
-                                            new_root->set_parent(nullptr);
-                                        }
-                                    }
-                                    this->height_--;
-                                }
-                                break;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-                return merge_counter;
-            }
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -2241,7 +1662,6 @@ namespace stool
                 }
                 return b;
             }
-
 
         private:
             /**
@@ -3083,6 +2503,557 @@ namespace stool
                 LEAF_CONTAINER::store_to_file(item.leaf_container_vec, os);
             }
 
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Non-const private functions
+            ///   Non-const private functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+        private:
+            /**
+             * @brief Performs defragmentation of the B+ tree
+             * @details This function performs defragmentation of the B+ tree by moving all unused
+             *          leaf containers to the end of the leaf container vector and removing them.
+             *          It also updates the density threshold and the leaf container vector size.
+             */
+            void defragmentation()
+            {
+                std::vector<uint64_t> tmp;
+                while (this->unused_leaf_container_indexes.size() > 0)
+                {
+                    tmp.push_back(this->unused_leaf_container_indexes.top());
+                    this->unused_leaf_container_indexes.pop();
+                }
+
+                std::sort(tmp.begin(), tmp.end(), [](const uint64_t &lhs, const uint64_t &rhs)
+                          { return lhs > rhs; });
+
+                std::vector<std::pair<Node *, uint64_t>> tmp_nodes;
+                {
+                    std::unordered_set<uint64_t> checker2;
+                    {
+                        std::unordered_set<uint64_t> checker1;
+                        for (uint64_t p : tmp)
+                        {
+                            checker1.insert(p);
+                        }
+
+                        for (int64_t i = this->leaf_container_vec.size() - 1; i >= 0; --i)
+                        {
+                            auto xs = checker1.find(i);
+                            if (xs == checker1.end())
+                            {
+                                checker2.insert(i);
+                            }
+                            if (checker2.size() > tmp.size())
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    for (BPPostorderIterator it = this->get_postorder_iterator_begin(); it != this->get_postorder_iterator_end(); ++it)
+                    {
+                        NodePointer pt = *it;
+                        if (!pt.is_leaf() && pt.get_node()->is_parent_of_leaves())
+                        {
+                            Node *node = pt.get_node();
+                            for (int64_t i = 0; i < node->children_count(); i++)
+                            {
+                                uint64_t x = (uint64_t)node->get_child(i);
+                                auto xs = checker2.find(x);
+                                if (xs != checker2.end())
+                                {
+                                    tmp_nodes.push_back(std::pair<Node *, uint64_t>(node, i));
+                                }
+                            }
+                        }
+                    }
+                    assert(tmp_nodes.size() == checker2.size());
+                }
+
+                std::sort(tmp_nodes.begin(), tmp_nodes.end(), [](const std::pair<Node *, uint64_t> &lhs, const std::pair<Node *, uint64_t> &rhs)
+                          { 
+                    uint64_t x = (uint64_t)lhs.first->get_child(lhs.second);
+                    uint64_t y = (uint64_t)rhs.first->get_child(rhs.second);
+                    return x < y; });
+
+                uint64_t k = 0;
+                while (tmp.size() > 0 && tmp_nodes.size() > 0)
+                {
+                    std::pair<Node *, uint64_t> top = tmp_nodes[tmp_nodes.size() - 1];
+                    uint64_t idx = (uint64_t)top.first->get_child(top.second);
+                    uint64_t x = tmp[tmp.size() - 1];
+                    if (x < idx)
+                    {
+                        top.first->move_container_index(top.second, x, this->leaf_container_vec);
+                        tmp_nodes.pop_back();
+                        tmp.pop_back();
+                        k++;
+                    }
+                    else
+                    {
+                        tmp.pop_back();
+                        k++;
+                    }
+                }
+                this->leaf_container_vec.resize(this->leaf_container_vec.size() - k);
+                /*
+                //this->leaf_container_vec.shrink_to_fit();
+                uint64_t gap = this->leaf_container_vec.size() * this->density_threshold;
+                //this->leaf_container_vec.reserve(this->leaf_container_vec.size() + gap);
+                this->density1 = gap;
+                */
+            }
+            /**
+             * @brief Clears all unused node pointers
+             * @details This function deletes all unused node pointers and clears the unused node pointers vector.
+             *          It also shrinks the vector to fit its current size.
+             */
+            void clear_unused_node_pointers()
+            {
+                for (uint64_t i = 0; i < this->unused_node_pointers.size(); i++)
+                {
+                    delete this->unused_node_pointers[i];
+                }
+                this->unused_node_pointers.clear();
+                this->unused_node_pointers.shrink_to_fit();
+            }
+            /**
+             * @brief Creates a root leaf node with the given value
+             * @param value The value to be stored in the root leaf node
+             * @details This function creates a new root leaf node with the given value and sets it as the root of the B+ tree.
+             *          It also updates the root state flags and the height of the tree.
+             */
+            void create_root_leaf(VALUE value)
+            {
+                uint64_t p = this->get_new_container_index();
+                this->leaf_container_vec[p].push_back(value);
+                this->root = (Node *)p;
+                this->root_is_leaf_ = true;
+                this->height_++;
+                if (USE_PARENT_FIELD)
+                {
+                    this->parent_vec[p] = nullptr;
+                }
+            }
+
+            /**
+             * @brief Removes an empty leaf node from the B+ tree
+             * @param idx The index of the leaf container to remove
+             * @param parent The parent node of the leaf being removed
+             * @param child_index The index of the child pointer in the parent node
+             * @details This function removes an empty leaf node from the B+ tree by:
+             *          1. Removing the child pointer from the parent node if it exists
+             *          2. Clearing the parent pointer if parent tracking is enabled
+             *          3. Adding the leaf container index to the unused indexes list
+             *          4. Clearing the leaf container's contents
+             */
+            void remove_empty_leaf(uint64_t idx, Node *parent, int64_t child_index)
+            {
+                if (parent != nullptr)
+                {
+                    parent->remove_child(child_index);
+                }
+                if (USE_PARENT_FIELD)
+                {
+                    this->parent_vec[idx] = nullptr;
+                }
+                // this->height_ = 0;
+                this->unused_leaf_container_indexes.push(idx);
+                this->leaf_container_vec[idx].clear();
+            }
+
+            /**
+             * @brief Removes an empty internal node from the B+ tree
+             * @param node The node to remove
+             * @param parent The parent node of the node being removed
+             * @param child_index The index of the child pointer in the parent node
+             * @details This function removes an empty internal node from the B+ tree by:
+             *          1. Removing the child pointer from the parent node if it exists
+             *          2. Setting root to nullptr if the node being removed is the root
+             *          3. Clearing the node's contents
+             *          4. Either recycling the node pointer or deleting it based on the
+             *             number of unused node pointers currently stored
+             */
+            void remove_empty_node(Node *node, Node *parent, int64_t child_index)
+            {
+                // Node *parent = node->get_parent();
+                if (parent != nullptr)
+                {
+                    parent->remove_child(child_index);
+
+                    // uint64_t edge = parent->find_child_index_by_child_pointer(node);
+                    // parent->remove_child(edge);
+                }
+                if (this->root == node)
+                {
+                    this->root = nullptr;
+                }
+
+                node->clear();
+                if (this->unused_node_pointers.size() <= 4096)
+                {
+                    this->unused_node_pointers.push_back(node);
+                }
+                else
+                {
+                    delete node;
+                }
+            }
+
+            /**
+             * @brief Gets a new container index from the unused container pool
+             * @return A new container index
+             * @details If there are no unused container indexes available, creates a new leaf container
+             *          and returns its index. Otherwise, pops and returns an index from the unused pool.
+             */
+            uint64_t get_new_container_index()
+            {
+                if (this->unused_leaf_container_indexes.size() == 0)
+                {
+                    this->leaf_container_vec.push_back(LEAF_CONTAINER());
+                    if (USE_PARENT_FIELD)
+                    {
+                        this->parent_vec.push_back(nullptr);
+                    }
+                    this->unused_leaf_container_indexes.push(this->leaf_container_vec.size() - 1);
+                }
+                assert(this->unused_leaf_container_indexes.size() > 0);
+                uint64_t idx = this->unused_leaf_container_indexes.top();
+                this->unused_leaf_container_indexes.pop();
+
+                return idx;
+            }
+
+            /**
+             * @brief Gets a new node pointer either from the unused pool or by allocation
+             * @return A pointer to a new node
+             * @details If there are unused node pointers available in the pool, returns one of those.
+             *          Otherwise allocates and returns a new node.
+             */
+            Node *get_new_node_pointer()
+            {
+                Node *new_node = nullptr;
+                if (this->unused_node_pointers.size() > 0)
+                {
+                    new_node = this->unused_node_pointers[this->unused_node_pointers.size() - 1];
+                    this->unused_node_pointers.pop_back();
+                }
+                else
+                {
+                    new_node = new Node();
+                }
+
+                return new_node;
+            }
+
+            /**
+             * @brief Handles the node splitting process during tree operations
+             * @param path Vector of NodePointers representing path from root to target node
+             * @param t Index in the path where splitting should occur
+             * @details This function splits a node at the given position in the path by:
+             *          1. Creating a new right node
+             *          2. Handling parent relationships
+             *          3. Redistributing values between the original and new nodes
+             *          4. Updating tree properties like height and root if needed
+             *          The exact splitting behavior depends on whether the node is a leaf or internal node.
+             */
+            void split_process(const std::vector<NodePointer> &path, uint64_t t)
+            {
+                const NodePointer &top = path[t];
+
+                Node *node = top.get_node();
+                Node *_new_right_node = nullptr;
+                uint64_t parent_edge_index = 0;
+                if (!top.is_leaf())
+                {
+                    _new_right_node = this->get_new_node_pointer();
+                    _new_right_node->initialize(top.get_node()->is_parent_of_leaves(), this->leaf_container_vec);
+                }
+                else
+                {
+                    _new_right_node = (Node *)this->get_new_container_index();
+                }
+
+                Node *_parent = nullptr;
+                if (t > 0)
+                {
+                    _parent = path[t - 1].get_node();
+                    _parent->insert_child(top.get_parent_edge_index() + 1, _new_right_node, 0, 0);
+                    parent_edge_index = top.get_parent_edge_index();
+                }
+                else
+                {
+                    _parent = this->get_new_node_pointer();
+                    if (top.is_leaf())
+                    {
+                        _parent->initialize((uint64_t)node, (uint64_t)_new_right_node, this->leaf_container_vec);
+                    }
+                    else
+                    {
+                        _parent->initialize(node, _new_right_node, this->leaf_container_vec);
+                    }
+                    parent_edge_index = 0;
+
+                    this->root = _parent;
+                    this->root_is_leaf_ = false;
+                    this->height_++;
+
+                    if (USE_PARENT_FIELD)
+                    {
+                        if (top.is_leaf())
+                        {
+                            this->parent_vec[(uint64_t)node] = _parent;
+                        }
+                        else
+                        {
+                            node->set_parent(_parent);
+                        }
+                    }
+                }
+                if (USE_PARENT_FIELD)
+                {
+                    if (top.is_leaf())
+                    {
+                        this->parent_vec[(uint64_t)_new_right_node] = _parent;
+                    }
+                    else
+                    {
+                        _new_right_node->set_parent(_parent);
+                    }
+                }
+
+                this->split_node(node, _new_right_node, top.is_leaf(), _parent, parent_edge_index, this->parent_vec);
+            }
+
+            /**
+             * @brief Balances the B+ tree after an insertion operation
+             * @param path Vector of NodePointers representing the path from root to the modified node
+             * @param superLeftPushMode If true, pushes maximum possible values to left sibling
+             * @details This function rebalances the tree after an insertion by:
+             *          1. Checking if any node exceeds the maximum degree/size threshold
+             *          2. Attempting to redistribute values to siblings if possible
+             *          3. Splitting nodes if redistribution is not possible
+             *          The process continues up the tree path until balance is restored.
+             */
+            uint64_t balance_for_insertion(const std::vector<NodePointer> &path, bool superLeftPushMode = false)
+            {
+                uint64_t split_counter = 0;
+                for (int64_t t = path.size() - 1; t >= 0; --t)
+                {
+                    const NodePointer &top = path[t];
+                    uint64_t degree = top.get_degree(this->leaf_container_vec);
+                    uint64_t threshold = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
+                    uint64_t LR_threshold = threshold;
+                    if (superLeftPushMode)
+                    {
+                        LR_threshold = (threshold * 3) / 4;
+                    }
+
+                    if (degree > threshold)
+                    {
+                        // this->split_process(path, t);
+
+                        if (t > 0)
+                        {
+                            Node *parent = path[t - 1].get_node();
+                            uint64_t parent_edge_index = top.get_parent_edge_index();
+                            Node *leftSibling = parent_edge_index > 0 ? parent->get_child(parent_edge_index - 1) : nullptr;
+                            Node *rightSibling = parent_edge_index + 1 < parent->children_count() ? parent->get_child(parent_edge_index + 1) : nullptr;
+                            uint64_t leftSiblingDegree = UINT64_MAX;
+                            if (parent_edge_index > 0)
+                            {
+                                leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
+
+                                // assert(leftSiblingDegree <= threshold);
+                            }
+
+                            uint64_t rightSiblingDegree = UINT64_MAX;
+                            if (parent_edge_index + 1 < parent->children_count())
+                            {
+                                rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
+                                // assert(rightSiblingDegree <= threshold);
+                            }
+
+                            if (leftSiblingDegree < LR_threshold || rightSiblingDegree < LR_threshold)
+                            {
+                                if (leftSiblingDegree < LR_threshold)
+                                {
+                                    if (superLeftPushMode)
+                                    {
+                                        uint64_t diff = LR_threshold - leftSiblingDegree;
+                                        this->move_values_left(leftSibling, top.get_node(), diff, top.is_leaf(), parent, parent_edge_index);
+                                    }
+                                    else
+                                    {
+                                        this->move_values_left(leftSibling, top.get_node(), 1, top.is_leaf(), parent, parent_edge_index);
+                                    }
+                                }
+                                else
+                                {
+                                    this->move_values_right(top.get_node(), rightSibling, 1, top.is_leaf(), parent, parent_edge_index);
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                this->split_process(path, t);
+                                split_counter++;
+                            }
+                        }
+                        else
+                        {
+                            this->split_process(path, t);
+                            split_counter++;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                return split_counter;
+            }
+
+            /**
+             * @brief Balances the B+ tree after a removal operation
+             * @param path Vector of NodePointers representing the path from root to the modified node
+             * @details This function rebalances the tree after a removal by:
+             *          1. Checking if any node falls below the minimum degree/size threshold
+             *          2. Attempting to borrow values from siblings if possible
+             *          3. Merging nodes if borrowing is not possible
+             *          4. Potentially adjusting the root if it has only one child
+             *          The process continues up the tree path until balance is restored.
+             */
+            uint64_t balance_for_removal(const std::vector<NodePointer> &path)
+            {
+                // Node *current_node = &node;
+
+                uint64_t merge_counter = 0;
+
+                for (int64_t t = path.size() - 1; t >= 0; --t)
+                {
+                    const NodePointer &top = path[t];
+                    uint64_t max_size = top.is_leaf() ? LEAF_CONTAINER_MAX_SIZE : MAX_DEGREE;
+                    uint64_t threshold = max_size / 2;
+
+                    uint64_t degree = top.get_degree(this->leaf_container_vec);
+                    if (degree >= threshold)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (t > 0)
+                        {
+                            Node *parent = path[t - 1].get_node();
+                            uint64_t parent_edge_index = top.get_parent_edge_index();
+                            Node *leftSibling = parent_edge_index > 0 ? parent->get_child(parent_edge_index - 1) : nullptr;
+                            Node *rightSibling = parent_edge_index + 1 < parent->children_count() ? parent->get_child(parent_edge_index + 1) : nullptr;
+                            uint64_t leftSiblingDegree = 0;
+                            if (parent_edge_index > 0)
+                            {
+                                leftSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)leftSibling].size() : leftSibling->get_degree();
+                            }
+
+                            uint64_t rightSiblingDegree = 0;
+                            if (parent_edge_index + 1 < parent->children_count())
+                            {
+                                rightSiblingDegree = top.is_leaf() ? this->leaf_container_vec[(uint64_t)rightSibling].size() : rightSibling->get_degree();
+                            }
+
+                            if (leftSiblingDegree != 0 || rightSiblingDegree != 0)
+                            {
+                                if (leftSiblingDegree > threshold)
+                                {
+                                    this->move_values_right(leftSibling, top.get_node(), 1, top.is_leaf(), parent, parent_edge_index - 1);
+                                    break;
+                                }
+                                else if (rightSiblingDegree > threshold)
+                                {
+                                    this->move_values_left(top.get_node(), rightSibling, 1, top.is_leaf(), parent, parent_edge_index + 1);
+                                    break;
+                                }
+                                else
+                                {
+                                    assert(leftSiblingDegree == threshold || rightSiblingDegree == threshold);
+                                    if (leftSiblingDegree == threshold)
+                                    {
+                                        this->move_values_left(leftSibling, top.get_node(), degree, top.is_leaf(), parent, parent_edge_index);
+                                        if (top.is_leaf())
+                                        {
+                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
+                                        }
+                                        else
+                                        {
+                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        this->move_values_right(top.get_node(), rightSibling, degree, top.is_leaf(), parent, parent_edge_index);
+                                        if (top.is_leaf())
+                                        {
+                                            this->remove_empty_leaf(top.get_leaf_container_index(), parent, parent_edge_index);
+                                        }
+                                        else
+                                        {
+                                            this->remove_empty_node(top.get_node(), parent, parent_edge_index);
+                                        }
+                                    }
+                                    merge_counter++;
+                                }
+                            }
+                            else
+                            {
+                                throw std::logic_error("Error(BPTree::balance_for_removal(1))");
+                            }
+                        }
+                        else
+                        {
+                            assert(t == 0);
+                            if (degree == 0)
+                            {
+                                throw std::logic_error("Error(BPTree::balance_for_removal(2))");
+                            }
+                            else if (degree == 1)
+                            {
+                                if (!this->root_is_leaf_)
+                                {
+
+                                    bool b = this->root->is_parent_of_leaves();
+                                    Node *new_root = this->root->get_child(0);
+                                    this->root->remove_child(0);
+                                    this->remove_empty_node(this->root, nullptr, -1);
+                                    this->root = new_root;
+                                    this->root_is_leaf_ = b;
+
+                                    if (USE_PARENT_FIELD)
+                                    {
+                                        if (b)
+                                        {
+                                            this->parent_vec[(uint64_t)new_root] = nullptr;
+                                        }
+                                        else
+                                        {
+                                            new_root->set_parent(nullptr);
+                                        }
+                                    }
+                                    this->height_--;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+                return merge_counter;
+            }
             //@}
         };
     }
