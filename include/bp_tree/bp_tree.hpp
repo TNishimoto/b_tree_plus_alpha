@@ -1352,13 +1352,8 @@ namespace stool
                 }
             }
             /**
-             * @brief Resizes the B+ tree to contain a specified number of elements
-             * @param _size The new size of the B+ tree
-             * @param default_value The value to initialize new elements with if expanding
-             * @details If the new size is larger than the current size, this function:
-             *          1. Adds new elements initialized with default_value until reaching target size
-             *          2. Maintains B+ tree properties by balancing nodes and updating paths
-             *          If the new size is smaller, removes elements from the end until reaching target size
+             * @brief Change the size of the sequence \p S to a given integer \p _size. If we need push a new value to \p S, then the value is initialized with \p default_value.
+             * @note O(n) time
              */
             void resize(uint64_t _size, VALUE default_value)
             {
@@ -1409,9 +1404,8 @@ namespace stool
             }
 
             /**
-             * @brief Sets the linked B+ tree
-             * @param _tree Pointer to the B+ tree to be linked
-             * @details Associates another B+ tree with this one by storing a pointer to it
+             * @brief Sets a given BPTree instance to be linked to this instance
+             * @note O(1) time
              */
             void set_linked_tree(BPTree *_tree)
             {
@@ -1419,20 +1413,8 @@ namespace stool
             }
 
             /**
-             * @brief Sorts the leaf containers in the B+ tree
-             * @details This function sorts and reorganizes the leaf containers in the B+ tree by:
-             *          1. Initializing parent pointers if not using parent field tracking
-             *          2. Traversing the tree in postorder and exchanging leaf containers to sort them
-             *          3. Removing any excess leaf containers and unused indexes
-             *          4. Cleaning up temporary parent vector if not using parent field tracking
-             *          5. Updating root pointer if tree is a single leaf
-             *
-             * The function does nothing if:
-             * - The tree is empty
-             * - The root is a leaf node
-             *
-             * After sorting, the leaf containers will be arranged in sequential order matching
-             * their positions in the tree traversal.
+             * @brief Sorts the leaf containers so that each W[i] is the LEAF CONTAINER of the i-th leaf
+             * @note O(n) time
              */
             void sort_leaf_containers()
             {
@@ -1511,249 +1493,10 @@ namespace stool
                 assert(this->check_if_leaf_container_vec_is_sorted());
             }
 
-            /**
-             * @brief Builds a layer of internal nodes from a vector of child nodes
-             * @param nodes Vector of child nodes to build from
-             * @param current_height Current height of the tree being built
-             * @return Vector of newly created parent nodes
-             * @details This function creates a new layer of internal nodes by:
-             *          1. If only one child node, sets it as root
-             *          2. If children fit in one node, creates single parent node
-             *          3. Otherwise distributes children across multiple parent nodes
-             *          Updates parent pointers and node counts/sums as needed.
-             */
-            std::vector<Node *> build_from_leaf_containers_sub2(std::vector<Node *> &nodes, uint64_t current_height)
-            {
-                assert(nodes.size() > 0);
-                std::vector<Node *> r;
-                if (nodes.size() == 1)
-                {
-                    this->root = nodes[0];
-                    this->root_is_leaf_ = false;
-                    this->height_ = current_height;
-                }
-                else if (nodes.size() <= MAX_DEGREE)
-                {
-
-                    Node *root = this->get_new_node_pointer();
-                    root->initialize(false, this->leaf_container_vec);
-                    for (uint64_t i = 0; i < nodes.size(); i++)
-                    {
-                        if (USE_PARENT_FIELD)
-                        {
-                            nodes[i]->set_parent(root);
-                        }
-                        uint64_t count = nodes[i]->psum_on_count_deque();
-                        uint64_t sum = 0;
-                        if constexpr (USE_PSUM)
-                        {
-                            sum = nodes[i]->psum_on_sum_deque();
-                        }
-                        root->append_child(nodes[i], count, sum);
-                    }
-                    r.push_back(root);
-                }
-                else
-                {
-                    uint64_t i = 0;
-                    uint64_t counter = nodes.size();
-                    uint64_t threshold = MAX_DEGREE * 2;
-                    while (counter > 0)
-                    {
-                        uint64_t d = 0;
-                        if (counter >= threshold)
-                        {
-                            d = MAX_DEGREE;
-                        }
-                        else if (counter > MAX_DEGREE)
-                        {
-                            d = MAX_DEGREE / 2;
-                        }
-                        else
-                        {
-                            d = counter;
-                        }
-                        Node *node = this->get_new_node_pointer();
-                        node->initialize(false, this->leaf_container_vec);
-
-                        for (uint64_t j = 0; j < d; j++)
-                        {
-                            if (USE_PARENT_FIELD)
-                            {
-                                nodes[i]->set_parent(node);
-                            }
-                            uint64_t count = nodes[i]->psum_on_count_deque();
-                            uint64_t sum = 0;
-                            if constexpr (USE_PSUM)
-                            {
-                                sum = nodes[i]->psum_on_sum_deque();
-                            }
-                            node->append_child(nodes[i], count, sum);
-                            i++;
-                            counter--;
-                        }
-                        r.push_back(node);
-                    }
-                }
-                return r;
-            }
 
             /**
-             * @brief Creates the first layer of internal nodes from leaf containers
-             * @return Vector of newly created internal nodes
-             * @details This function builds the first layer of internal nodes by:
-             *          1. Handling empty tree case
-             *          2. Handling single leaf case
-             *          3. Creating parent nodes for multiple leaves
-             *          Updates parent pointers and node counts/sums as needed.
-             */
-            std::vector<Node *> build_from_leaf_containers_sub1()
-            {
-                std::vector<Node *> r;
-
-                if (this->leaf_container_vec.size() == 0)
-                {
-                    this->root = nullptr;
-                    this->root_is_leaf_ = false;
-                    this->height_ = 0;
-                }
-                else if (this->leaf_container_vec.size() == 1)
-                {
-                    this->root = (Node *)0;
-                    this->root_is_leaf_ = true;
-                    this->height_ = 1;
-                }
-                else if (this->leaf_container_vec.size() <= MAX_DEGREE)
-                {
-                    Node *root = this->get_new_node_pointer();
-                    root->initialize(true, this->leaf_container_vec);
-                    for (uint64_t i = 0; i < this->leaf_container_vec.size(); i++)
-                    {
-                        uint64_t psum = 0;
-                        if constexpr (USE_PSUM)
-                        {
-                            psum += this->leaf_container_vec[i].psum();
-                        }
-                        if (USE_PARENT_FIELD)
-                        {
-                            this->parent_vec[i] = root;
-                        }
-
-                        root->append_child((Node *)i, this->leaf_container_vec[i].size(), psum);
-                    }
-                    r.push_back(root);
-                }
-                else
-                {
-
-                    uint64_t i = 0;
-                    uint64_t counter = this->leaf_container_vec.size();
-                    uint64_t threshold = MAX_DEGREE * 2;
-                    while (counter > 0)
-                    {
-                        uint64_t d = 0;
-                        if (counter >= threshold)
-                        {
-                            d = MAX_DEGREE;
-                        }
-                        else if (counter > MAX_DEGREE)
-                        {
-                            d = MAX_DEGREE / 2;
-                        }
-                        else
-                        {
-                            d = counter;
-                        }
-                        Node *node = this->get_new_node_pointer();
-                        node->initialize(true, this->leaf_container_vec);
-
-                        for (uint64_t j = 0; j < d; j++)
-                        {
-                            uint64_t psum = 0;
-                            if constexpr (USE_PSUM)
-                            {
-                                psum += this->leaf_container_vec[i].psum();
-                            }
-                            if (USE_PARENT_FIELD)
-                            {
-                                this->parent_vec[i] = node;
-                            }
-                            node->append_child((Node *)i, this->leaf_container_vec[i].size(), psum);
-                            i++;
-                            counter--;
-                        }
-                        r.push_back(node);
-                    }
-                }
-                return r;
-            }
-
-            /**
-             * @brief Creates leaf containers from a vector of values
-             * @param _values Vector of values to build leaf containers from
-             * @details This function distributes values across leaf containers by:
-             *          1. Handling empty input case
-             *          2. Creating single leaf for small number of values
-             *          3. Distributing values across multiple leaves for larger inputs
-             *          Maintains balanced leaf sizes according to tree parameters.
-             */
-            void build_sub(const std::vector<VALUE> &_values)
-            {
-                uint64_t i = 0;
-                if (_values.size() == 0)
-                {
-                }
-                else if (_values.size() <= LEAF_CONTAINER_MAX_SIZE)
-                {
-                    uint64_t leaf_index = this->get_new_container_index();
-
-                    while (i < _values.size())
-                    {
-                        this->leaf_container_vec[leaf_index].push_back(_values[i]);
-                        i++;
-                    }
-                }
-                else
-                {
-                    uint64_t threshold = LEAF_CONTAINER_MAX_SIZE * 2;
-                    uint64_t counter = _values.size();
-
-                    while (i < _values.size())
-                    {
-                        uint64_t d = 0;
-                        if (counter >= threshold)
-                        {
-                            d = LEAF_CONTAINER_MAX_SIZE;
-                        }
-                        else if (counter > LEAF_CONTAINER_MAX_SIZE)
-                        {
-                            d = LEAF_CONTAINER_MAX_SIZE / 2;
-                        }
-                        else
-                        {
-                            d = counter;
-                        }
-                        assert(counter >= (LEAF_CONTAINER_MAX_SIZE / 2));
-
-                        uint64_t leaf_index = this->get_new_container_index();
-                        for (uint64_t j = 0; j < d; j++)
-                        {
-                            this->leaf_container_vec[leaf_index].push_back(_values[i]);
-                            i++;
-                            counter--;
-                        }
-                    }
-                }
-            }
-
-            /**
-             * @brief Builds a complete B+ tree from a vector of values
-             * @param _values Vector of values to build the tree from
-             * @details This function constructs a complete B+ tree by:
-             *          1. Clearing any existing tree structure
-             *          2. Creating leaf containers from input values
-             *          3. Building internal node layers bottom-up
-             *          4. Setting root and updating tree properties
+             * @brief Builds the B+ tree so that \p S[0..n-1] = \p _values[0..n-1]
+             * @note O(n log n) time?
              */
             void build(const std::vector<VALUE> &_values)
             {
@@ -1771,34 +1514,6 @@ namespace stool
                 }
             }
 
-            /**
-             * @brief Builds a B+ tree from a vector of leaf containers
-             * @param _leaf_containers Vector of leaf containers to build the tree from
-             * @details This function constructs a B+ tree by:
-             *          1. Clearing any existing tree structure
-             *          2. Swapping the input leaf containers into the tree
-             *          3. Building internal node layers bottom-up
-             *          4. Setting root and updating tree properties
-             */
-            void build_from_leaf_containers(std::vector<LEAF_CONTAINER> &_leaf_containers)
-            {
-                this->clear();
-
-                this->leaf_container_vec.swap(_leaf_containers);
-                if (USE_PARENT_FIELD)
-                {
-                    this->parent_vec.resize(this->leaf_container_vec.size(), nullptr);
-                }
-
-                std::vector<Node *> layer = this->build_from_leaf_containers_sub1();
-                uint64_t current_height = 2;
-                while (layer.size() > 0)
-                {
-                    std::vector<Node *> next_layer = this->build_from_leaf_containers_sub2(layer, current_height);
-                    layer.swap(next_layer);
-                    current_height++;
-                }
-            }
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Load, save, and builder functions
@@ -1891,8 +1606,7 @@ namespace stool
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Non-const private functions
-            ///   Non-const private functions
+            ///   @name Private functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         private:
@@ -2852,6 +2566,270 @@ namespace stool
                     {
                         throw std::runtime_error("Error: verify_sum_deque");
                     }
+                }
+            }
+
+            /**
+             * @brief Builds a layer of internal nodes from a vector of child nodes
+             * @param nodes Vector of child nodes to build from
+             * @param current_height Current height of the tree being built
+             * @return Vector of newly created parent nodes
+             * @details This function creates a new layer of internal nodes by:
+             *          1. If only one child node, sets it as root
+             *          2. If children fit in one node, creates single parent node
+             *          3. Otherwise distributes children across multiple parent nodes
+             *          Updates parent pointers and node counts/sums as needed.
+             */
+            std::vector<Node *> build_from_leaf_containers_sub2(std::vector<Node *> &nodes, uint64_t current_height)
+            {
+                assert(nodes.size() > 0);
+                std::vector<Node *> r;
+                if (nodes.size() == 1)
+                {
+                    this->root = nodes[0];
+                    this->root_is_leaf_ = false;
+                    this->height_ = current_height;
+                }
+                else if (nodes.size() <= MAX_DEGREE)
+                {
+
+                    Node *root = this->get_new_node_pointer();
+                    root->initialize(false, this->leaf_container_vec);
+                    for (uint64_t i = 0; i < nodes.size(); i++)
+                    {
+                        if (USE_PARENT_FIELD)
+                        {
+                            nodes[i]->set_parent(root);
+                        }
+                        uint64_t count = nodes[i]->psum_on_count_deque();
+                        uint64_t sum = 0;
+                        if constexpr (USE_PSUM)
+                        {
+                            sum = nodes[i]->psum_on_sum_deque();
+                        }
+                        root->append_child(nodes[i], count, sum);
+                    }
+                    r.push_back(root);
+                }
+                else
+                {
+                    uint64_t i = 0;
+                    uint64_t counter = nodes.size();
+                    uint64_t threshold = MAX_DEGREE * 2;
+                    while (counter > 0)
+                    {
+                        uint64_t d = 0;
+                        if (counter >= threshold)
+                        {
+                            d = MAX_DEGREE;
+                        }
+                        else if (counter > MAX_DEGREE)
+                        {
+                            d = MAX_DEGREE / 2;
+                        }
+                        else
+                        {
+                            d = counter;
+                        }
+                        Node *node = this->get_new_node_pointer();
+                        node->initialize(false, this->leaf_container_vec);
+
+                        for (uint64_t j = 0; j < d; j++)
+                        {
+                            if (USE_PARENT_FIELD)
+                            {
+                                nodes[i]->set_parent(node);
+                            }
+                            uint64_t count = nodes[i]->psum_on_count_deque();
+                            uint64_t sum = 0;
+                            if constexpr (USE_PSUM)
+                            {
+                                sum = nodes[i]->psum_on_sum_deque();
+                            }
+                            node->append_child(nodes[i], count, sum);
+                            i++;
+                            counter--;
+                        }
+                        r.push_back(node);
+                    }
+                }
+                return r;
+            }
+
+            /**
+             * @brief Creates the first layer of internal nodes from leaf containers
+             * @return Vector of newly created internal nodes
+             * @details This function builds the first layer of internal nodes by:
+             *          1. Handling empty tree case
+             *          2. Handling single leaf case
+             *          3. Creating parent nodes for multiple leaves
+             *          Updates parent pointers and node counts/sums as needed.
+             */
+            std::vector<Node *> build_from_leaf_containers_sub1()
+            {
+                std::vector<Node *> r;
+
+                if (this->leaf_container_vec.size() == 0)
+                {
+                    this->root = nullptr;
+                    this->root_is_leaf_ = false;
+                    this->height_ = 0;
+                }
+                else if (this->leaf_container_vec.size() == 1)
+                {
+                    this->root = (Node *)0;
+                    this->root_is_leaf_ = true;
+                    this->height_ = 1;
+                }
+                else if (this->leaf_container_vec.size() <= MAX_DEGREE)
+                {
+                    Node *root = this->get_new_node_pointer();
+                    root->initialize(true, this->leaf_container_vec);
+                    for (uint64_t i = 0; i < this->leaf_container_vec.size(); i++)
+                    {
+                        uint64_t psum = 0;
+                        if constexpr (USE_PSUM)
+                        {
+                            psum += this->leaf_container_vec[i].psum();
+                        }
+                        if (USE_PARENT_FIELD)
+                        {
+                            this->parent_vec[i] = root;
+                        }
+
+                        root->append_child((Node *)i, this->leaf_container_vec[i].size(), psum);
+                    }
+                    r.push_back(root);
+                }
+                else
+                {
+
+                    uint64_t i = 0;
+                    uint64_t counter = this->leaf_container_vec.size();
+                    uint64_t threshold = MAX_DEGREE * 2;
+                    while (counter > 0)
+                    {
+                        uint64_t d = 0;
+                        if (counter >= threshold)
+                        {
+                            d = MAX_DEGREE;
+                        }
+                        else if (counter > MAX_DEGREE)
+                        {
+                            d = MAX_DEGREE / 2;
+                        }
+                        else
+                        {
+                            d = counter;
+                        }
+                        Node *node = this->get_new_node_pointer();
+                        node->initialize(true, this->leaf_container_vec);
+
+                        for (uint64_t j = 0; j < d; j++)
+                        {
+                            uint64_t psum = 0;
+                            if constexpr (USE_PSUM)
+                            {
+                                psum += this->leaf_container_vec[i].psum();
+                            }
+                            if (USE_PARENT_FIELD)
+                            {
+                                this->parent_vec[i] = node;
+                            }
+                            node->append_child((Node *)i, this->leaf_container_vec[i].size(), psum);
+                            i++;
+                            counter--;
+                        }
+                        r.push_back(node);
+                    }
+                }
+                return r;
+            }
+
+            /**
+             * @brief Creates leaf containers from a vector of values
+             * @param _values Vector of values to build leaf containers from
+             * @details This function distributes values across leaf containers by:
+             *          1. Handling empty input case
+             *          2. Creating single leaf for small number of values
+             *          3. Distributing values across multiple leaves for larger inputs
+             *          Maintains balanced leaf sizes according to tree parameters.
+             */
+            void build_sub(const std::vector<VALUE> &_values)
+            {
+                uint64_t i = 0;
+                if (_values.size() == 0)
+                {
+                }
+                else if (_values.size() <= LEAF_CONTAINER_MAX_SIZE)
+                {
+                    uint64_t leaf_index = this->get_new_container_index();
+
+                    while (i < _values.size())
+                    {
+                        this->leaf_container_vec[leaf_index].push_back(_values[i]);
+                        i++;
+                    }
+                }
+                else
+                {
+                    uint64_t threshold = LEAF_CONTAINER_MAX_SIZE * 2;
+                    uint64_t counter = _values.size();
+
+                    while (i < _values.size())
+                    {
+                        uint64_t d = 0;
+                        if (counter >= threshold)
+                        {
+                            d = LEAF_CONTAINER_MAX_SIZE;
+                        }
+                        else if (counter > LEAF_CONTAINER_MAX_SIZE)
+                        {
+                            d = LEAF_CONTAINER_MAX_SIZE / 2;
+                        }
+                        else
+                        {
+                            d = counter;
+                        }
+                        assert(counter >= (LEAF_CONTAINER_MAX_SIZE / 2));
+
+                        uint64_t leaf_index = this->get_new_container_index();
+                        for (uint64_t j = 0; j < d; j++)
+                        {
+                            this->leaf_container_vec[leaf_index].push_back(_values[i]);
+                            i++;
+                            counter--;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * @brief Builds a B+ tree from a vector of leaf containers
+             * @param _leaf_containers Vector of leaf containers to build the tree from
+             * @details This function constructs a B+ tree by:
+             *          1. Clearing any existing tree structure
+             *          2. Swapping the input leaf containers into the tree
+             *          3. Building internal node layers bottom-up
+             *          4. Setting root and updating tree properties
+             */
+            void build_from_leaf_containers(std::vector<LEAF_CONTAINER> &_leaf_containers)
+            {
+                this->clear();
+
+                this->leaf_container_vec.swap(_leaf_containers);
+                if (USE_PARENT_FIELD)
+                {
+                    this->parent_vec.resize(this->leaf_container_vec.size(), nullptr);
+                }
+
+                std::vector<Node *> layer = this->build_from_leaf_containers_sub1();
+                uint64_t current_height = 2;
+                while (layer.size() > 0)
+                {
+                    std::vector<Node *> next_layer = this->build_from_leaf_containers_sub2(layer, current_height);
+                    layer.swap(next_layer);
+                    current_height++;
                 }
             }
             /*
