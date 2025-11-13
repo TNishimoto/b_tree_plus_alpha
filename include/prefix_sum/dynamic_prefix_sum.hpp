@@ -570,7 +570,7 @@ namespace stool
 
             /**
              * @brief Print the performance information of this data structure
-             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_information_about_performance(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -581,7 +581,7 @@ namespace stool
 
             /**
              * @brief Print the form of the internal tree of this data structure
-             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_tree(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
