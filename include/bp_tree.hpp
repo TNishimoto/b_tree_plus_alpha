@@ -477,7 +477,7 @@ namespace stool
             {
                 if (USE_PARENT_FIELD)
                 {
-                    assert(leaf_index < this->parent_vec.size());
+                    assert(leaf_index_j < this->parent_vec.size());
                     Node *parent = this->parent_vec[leaf_index_j];
                     uint64_t dist = position_in_leaf_container_p;
 
