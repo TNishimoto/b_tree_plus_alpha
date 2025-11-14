@@ -1,5 +1,5 @@
 #pragma once
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 
 namespace stool
 {

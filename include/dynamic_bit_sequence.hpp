@@ -4,12 +4,11 @@
  */
 
 #pragma once
-#include "../bp_tree/bp_tree.hpp"
-#include "./bit_container.hpp"
-
-#include "./bit_forward_iterator.hpp"
-#include "./bit_deque_container.hpp"
-#include "stool/include/light_stool.hpp"
+#include "./bp_tree.hpp"
+#include "./sequence/bit_container.hpp"
+#include "./sequence/bit_forward_iterator.hpp"
+#include "./sequence/bit_deque_container.hpp"
+#include "stool/include/all.hpp"
 namespace stool
 {
     namespace bptree

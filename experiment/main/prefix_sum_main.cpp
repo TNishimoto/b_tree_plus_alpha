@@ -4,8 +4,8 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/light_stool.hpp"
-#include "../../include/b_tree_plus_alpha.hpp"
+#include "stool/include/all.hpp"
+#include "../../include/all.hpp"
 // #include "../../test/permutation_test.hpp"
 #include "../include/dyn_packed_spsi_wrapper.hpp"
 

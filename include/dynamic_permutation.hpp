@@ -1,5 +1,5 @@
 #pragma once
-#include "./bp_tree_template.hpp"
+#include "./permutation/bp_tree_template.hpp"
 
 namespace stool
 {

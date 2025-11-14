@@ -1,15 +1,11 @@
 #pragma once
-#include "../sequence/dynamic_bit_sequence.hpp"
-#include "../prefix_sum/dynamic_prefix_sum.hpp"
+#include "../dynamic_bit_sequence.hpp"
+#include "..//dynamic_prefix_sum.hpp"
 
 namespace stool
 {
     namespace bptree
     {
-        /// \defgroup RangeSearchClasses Classes for dynamic wavelet tree for range search
-        /// @{
-        /// @}
-
 
         /**
          * @brief A dynamic data structure supporting range search [Unchecked AI's Comment]

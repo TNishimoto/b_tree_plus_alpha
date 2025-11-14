@@ -1,6 +1,6 @@
 #pragma once
-#include "../sequence/dynamic_bit_sequence.hpp"
-#include "../prefix_sum/dynamic_prefix_sum.hpp"
+#include "../dynamic_bit_sequence.hpp"
+#include "..//dynamic_prefix_sum.hpp"
 
 namespace stool
 {

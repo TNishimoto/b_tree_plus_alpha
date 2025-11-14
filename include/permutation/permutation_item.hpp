@@ -1,6 +1,6 @@
 #pragma once
-#include "../bp_tree/bp_tree.hpp"
-#include "stool/include/light_stool.hpp"
+#include "../bp_tree.hpp"
+#include "stool/include/all.hpp"
 
 namespace stool
 {

@@ -4,9 +4,6 @@
 
 namespace stool
 {
-    /// \defgroup PermutationClasses Classes for dynamic permutations
-    /// @{
-    /// @}
 
     namespace bptree
     {

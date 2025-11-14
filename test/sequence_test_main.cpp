@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <cstdio>
-#include "../include/b_tree_plus_alpha.hpp"
+#include "../include/all.hpp"
 #include "stool/test/sources/template/dynamic_integer_test.hpp"
 
 using SEQ = stool::bptree::DynamicSequence64<stool::NaiveFLCVector<>, 62, 256>;

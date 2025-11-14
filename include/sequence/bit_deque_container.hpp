@@ -1,5 +1,5 @@
 #pragma once
-#include "../bp_tree/bp_tree.hpp"
+#include "../bp_tree.hpp"
 
 namespace stool
 {

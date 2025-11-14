@@ -1,18 +1,11 @@
 #pragma once
-#include "./plain_spsi_container.hpp"
-#include "stool/include/light_stool.hpp"
+#include "./prefix_sum/plain_spsi_container.hpp"
+#include "stool/include/all.hpp"
 
 namespace stool
 {
     namespace bptree
     {
-        /// \defgroup PrefixSumClasses Classes for dynamic prefix sums
-        /// @{
-        /// @}
-
-        /// \defgroup MainClasses Main dynamic data structures
-        /// @{
-        /// @}
 
 
         /**

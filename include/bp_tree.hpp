@@ -1,8 +1,8 @@
 #pragma once
-#include "./bp_internal_node_functions.hpp"
-#include "./bp_postorder_iterator.hpp"
-#include "./bp_value_forward_iterator.hpp"
-#include "./bp_leaf_forward_iterator.hpp"
+#include "./bp_tree/bp_internal_node_functions.hpp"
+#include "./bp_tree/bp_postorder_iterator.hpp"
+#include "./bp_tree/bp_value_forward_iterator.hpp"
+#include "./bp_tree/bp_leaf_forward_iterator.hpp"
 
 namespace stool
 {
@@ -15,7 +15,7 @@ namespace stool
         inline static uint64_t time_count = 0;
 
         /**
-         * @brief An implementation of a B+-tree for storing \p n values \p S[0..n-1] of type \p VALUE in leaves. [in progress]
+         * @brief An implementation of a B+-tree for storing \p n values \p S[0..n-1] of type \p VALUE in leaves
          * @details The details of this B+-tree is as follows:
          * @li This B+-tree consists of \p x internal nodes and \p y leaves.
          * @li Every internal node has at most \p MAX_DEGREE children. The number of the children is at least \p MAX_DEGREE / 2 if \p n is sufficiently large.
@@ -391,103 +391,6 @@ namespace stool
             }
 
             //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Initializers
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
-            /**
-             * @brief Initializes this instance
-             */
-            void initialize()
-            {
-                uint64_t __max_degree_of_internal_node = MAX_DEGREE;
-                uint64_t __max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
-                if (__max_degree_of_internal_node < 4)
-                {
-                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_degree_of_internal_node must be larger than 3.");
-                }
-                if (__max_count_of_values_in_leaf < 4)
-                {
-                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_count_of_values_in_leaf must be larger than 3.");
-                }
-
-                this->clear();
-                // this->_max_degree_of_internal_node = __max_degree_of_internal_node;
-                // this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
-                this->root = nullptr;
-                this->root_is_leaf_ = false;
-            }
-
-            /**
-             * @brief Swap operation
-             * @param swap_linked_tree If true, swap the linked tree pointer.
-             */
-            void swap(BPTree &_tree, bool swap_linked_tree = true)
-            {
-                this->leaf_container_vec.swap(_tree.leaf_container_vec);
-                this->parent_vec.swap(_tree.parent_vec);
-                this->unused_node_pointers.swap(_tree.unused_node_pointers);
-                this->unused_leaf_container_indexes.swap(_tree.unused_leaf_container_indexes);
-                this->tmp_path.swap(_tree.tmp_path);
-                // std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
-                // std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
-                std::swap(this->root, _tree.root);
-                if (swap_linked_tree)
-                {
-                    std::swap(this->linked_tree_, _tree.linked_tree_);
-                }
-                std::swap(this->density_threshold, _tree.density_threshold);
-                std::swap(this->density1, _tree.density1);
-                std::swap(this->height_, _tree.height_);
-                std::swap(this->root_is_leaf_, _tree.root_is_leaf_);
-            }
-
-            /**
-             * @brief Clear the B+-tree and reset it to an empty state (i.e., n = 0, x = 0, y = 0).
-             */
-            void clear()
-            {
-                std::stack<Node *> nodes;
-                if (!this->empty() && !this->root_is_leaf_)
-                {
-                    nodes.push(this->root);
-                }
-                while (nodes.size() > 0)
-                {
-                    Node *top = nodes.top();
-                    nodes.pop();
-                    if (!top->is_parent_of_leaves())
-                    {
-                        const stool::SimpleDeque16<Node *> &children = top->get_children();
-                        for (Node *child : children)
-                        {
-                            nodes.push(child);
-                        }
-                    }
-                    delete top;
-                }
-                this->root = nullptr;
-                this->root_is_leaf_ = false;
-                this->height_ = 0;
-
-                while (unused_node_pointers.size() > 0)
-                {
-                    Node *top = unused_node_pointers[unused_node_pointers.size() - 1];
-                    delete top;
-                    unused_node_pointers.pop_back();
-                }
-
-                this->leaf_container_vec.resize(0);
-                this->parent_vec.resize(0);
-
-                while (this->unused_leaf_container_indexes.size() > 0)
-                {
-                    this->unused_leaf_container_indexes.pop();
-                }
-            }
-            //}@
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Convertion functions
@@ -1155,6 +1058,96 @@ namespace stool
             //@{
         public:
             /**
+             * @brief Initializes this instance
+             */
+            void initialize()
+            {
+                uint64_t __max_degree_of_internal_node = MAX_DEGREE;
+                uint64_t __max_count_of_values_in_leaf = LEAF_CONTAINER_MAX_SIZE;
+                if (__max_degree_of_internal_node < 4)
+                {
+                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_degree_of_internal_node must be larger than 3.");
+                }
+                if (__max_count_of_values_in_leaf < 4)
+                {
+                    throw std::runtime_error("Error: BPTree::initialize(__max_degree_of_internal_node, __max_count_of_values_in_leaf). The __max_count_of_values_in_leaf must be larger than 3.");
+                }
+
+                this->clear();
+                // this->_max_degree_of_internal_node = __max_degree_of_internal_node;
+                // this->_max_count_of_values_in_leaf = __max_count_of_values_in_leaf;
+                this->root = nullptr;
+                this->root_is_leaf_ = false;
+            }
+
+            /**
+             * @brief Swap operation
+             * @param swap_linked_tree If true, swap the linked tree pointer.
+             */
+            void swap(BPTree &_tree, bool swap_linked_tree = true)
+            {
+                this->leaf_container_vec.swap(_tree.leaf_container_vec);
+                this->parent_vec.swap(_tree.parent_vec);
+                this->unused_node_pointers.swap(_tree.unused_node_pointers);
+                this->unused_leaf_container_indexes.swap(_tree.unused_leaf_container_indexes);
+                this->tmp_path.swap(_tree.tmp_path);
+                // std::swap(this->_max_degree_of_internal_node, _tree._max_degree_of_internal_node);
+                // std::swap(this->_max_count_of_values_in_leaf, _tree._max_count_of_values_in_leaf);
+                std::swap(this->root, _tree.root);
+                if (swap_linked_tree)
+                {
+                    std::swap(this->linked_tree_, _tree.linked_tree_);
+                }
+                std::swap(this->density_threshold, _tree.density_threshold);
+                std::swap(this->density1, _tree.density1);
+                std::swap(this->height_, _tree.height_);
+                std::swap(this->root_is_leaf_, _tree.root_is_leaf_);
+            }
+
+            /**
+             * @brief Clear the B+-tree and reset it to an empty state (i.e., n = 0, x = 0, y = 0).
+             */
+            void clear()
+            {
+                std::stack<Node *> nodes;
+                if (!this->empty() && !this->root_is_leaf_)
+                {
+                    nodes.push(this->root);
+                }
+                while (nodes.size() > 0)
+                {
+                    Node *top = nodes.top();
+                    nodes.pop();
+                    if (!top->is_parent_of_leaves())
+                    {
+                        const stool::SimpleDeque16<Node *> &children = top->get_children();
+                        for (Node *child : children)
+                        {
+                            nodes.push(child);
+                        }
+                    }
+                    delete top;
+                }
+                this->root = nullptr;
+                this->root_is_leaf_ = false;
+                this->height_ = 0;
+
+                while (unused_node_pointers.size() > 0)
+                {
+                    Node *top = unused_node_pointers[unused_node_pointers.size() - 1];
+                    delete top;
+                    unused_node_pointers.pop_back();
+                }
+
+                this->leaf_container_vec.resize(0);
+                this->parent_vec.resize(0);
+
+                while (this->unused_leaf_container_indexes.size() > 0)
+                {
+                    this->unused_leaf_container_indexes.pop();
+                }
+            }
+            /**
              * @brief Push a given value to the end of the sequence \p S
              * @note O(\log n) time
              */
@@ -1189,7 +1182,6 @@ namespace stool
                 }
             }
 
-
             /**
              * @brief Push a given value to the beginning of the sequence \p S
              * @note O(\log n) time
@@ -1218,7 +1210,6 @@ namespace stool
                     this->create_root_leaf(value);
                 }
             }
-
 
             /**
              * @brief Remove \p S[i] from the sequence \p S using (i) the path from the root to the leaf containing \p S[i] and (ii) the position \p q of \p S[i] in the LEAF CONTAINER of the leaf
@@ -1493,7 +1484,6 @@ namespace stool
                 assert(this->check_if_leaf_container_vec_is_sorted());
             }
 
-
             /**
              * @brief Builds the B+ tree so that \p S[0..n-1] = \p _values[0..n-1]
              * @note O(n log n) time?
@@ -1513,7 +1503,6 @@ namespace stool
                     current_height++;
                 }
             }
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Load, save, and builder functions

@@ -4,8 +4,8 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/light_stool.hpp"
-#include "../../include/b_tree_plus_alpha.hpp"
+#include "stool/include/all.hpp"
+#include "../../include/all.hpp"
 #if defined(__x86_64__)
 #include "../include/bv_bv_wrapper.hpp"
 #endif

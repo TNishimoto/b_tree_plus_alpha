@@ -5,9 +5,6 @@ namespace stool
 {
     namespace bptree
     {
-        /// \defgroup BPTreeClasses Classes for B+-tree
-        /// @{
-        /// @}
 
         /**
          * @brief Helper functions of BPInternalNode [Unchecked AI's Comment]

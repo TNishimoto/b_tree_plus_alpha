@@ -1,5 +1,5 @@
 #pragma once
-#include "./dynamic_permutation.hpp"
+#include "../dynamic_permutation.hpp"
 
 namespace stool
 {

@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <cstdio>
-#include "../include/b_tree_plus_alpha.hpp"
+#include "../include/all.hpp"
 
 //using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeOnGrid;
 using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeForRangeSearch;

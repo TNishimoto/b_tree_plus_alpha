@@ -1,4 +1,4 @@
-#include "../include/b_tree_plus_alpha.hpp"
+#include "../include/all.hpp"
 
 int main(int argc, char *argv[])
 {

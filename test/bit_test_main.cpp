@@ -6,7 +6,7 @@
 #include <chrono>
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 #include "include/bit_sequence_test.hpp"
 
 template <typename DBV>

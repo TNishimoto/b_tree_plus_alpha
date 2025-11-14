@@ -1,13 +1,10 @@
 #pragma once
-#include "../bp_tree/bp_tree.hpp"
+#include "../bp_tree.hpp"
 
 namespace stool
 {
     namespace bptree
     {
-        /// \defgroup BitClasses Classes for dynamic bits
-        /// @{
-        /// @}
 
         /**
          * @brief A container that stores a short sequence of bits. [Unchecked AI's Comment]

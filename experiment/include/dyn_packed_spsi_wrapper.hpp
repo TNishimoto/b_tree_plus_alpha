@@ -1,5 +1,5 @@
 #pragma once
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 #pragma GCC diagnostic ignored "-Wunused-variable"

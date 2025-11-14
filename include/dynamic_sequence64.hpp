@@ -4,15 +4,12 @@
  */
 
 #pragma once
-#include "../bp_tree/bp_tree.hpp"
+#include "./bp_tree.hpp"
 
 namespace stool
 {
     namespace bptree
     {
-        /// \defgroup SequenceClasses Classes for dynamic sequences
-        /// @{
-        /// @}
 
         /**
          * @brief A dynamic data structure that maintains a sequence of 64-bit non-negative integers S[0..n-1].

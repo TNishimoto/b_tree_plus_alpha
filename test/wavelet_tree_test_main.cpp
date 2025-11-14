@@ -4,7 +4,7 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "../include/b_tree_plus_alpha.hpp"
+#include "../include/all.hpp"
 #include "../modules/stool/test/sources/template/dynamic_string_test.hpp"
 #include "../modules/stool/test/sources/template/string_test.hpp"
 

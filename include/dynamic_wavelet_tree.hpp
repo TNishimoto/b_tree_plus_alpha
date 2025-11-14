@@ -5,10 +5,6 @@ namespace stool
 {
     namespace bptree
     {
-        /// \defgroup WaveletTreeClasses Classes for dynamic wavelet tree
-        /// @{
-        /// @}
-
         /**
          * @brief A dynamic data structure supporting rank and select queries on a string \p T[0..n-1] over alphabet \p U[0..σ-1]
          * \ingroup WaveletTreeClasses

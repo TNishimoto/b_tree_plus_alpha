@@ -4,8 +4,8 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/light_stool.hpp"
-#include "../../include/b_tree_plus_alpha.hpp"
+#include "stool/include/all.hpp"
+#include "../../include/all.hpp"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"

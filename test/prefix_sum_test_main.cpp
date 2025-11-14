@@ -4,7 +4,7 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 #include "include/spsi_test.hpp"
 #include "stool/test/sources/template/dynamic_integer_test.hpp"
 

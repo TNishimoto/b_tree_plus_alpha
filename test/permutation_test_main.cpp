@@ -4,10 +4,10 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 
 #include "include/spsi_test.hpp"
-#include "../include/b_tree_plus_alpha.hpp"
+#include "../include/all.hpp"
 #include "include/naive_permutation.hpp"
 
 std::vector<uint64_t> create_random_permutation(uint64_t num, std::mt19937_64 &mt64)

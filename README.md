@@ -22,14 +22,14 @@ To download all the required source code, follow the steps below:
 ## Compile
 
 B-tree_plus_alpha is a header-only library.
-To use this library, (i) include the **include/b_tree_plus_alpha.hpp** file, and (ii) add the **modules** directory to the include path.
+To use this library, (i) include the **include/all.hpp** file, and (ii) add the **modules** directory to the include path.
 The examples directory contains a **CMakeLists.txt** file for compiling example programs.
 
 ## Dynamic Data Structures
 
 ### DynamicPrefixSum class
 
-[DynamicPrefixSum](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/prefix_sum/dynamic_prefix_sum.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a sequence of non-negative integers. 
+[DynamicPrefixSum](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include//dynamic_prefix_sum.hpp) is a dynamic [prefix-sum](https://en.wikipedia.org/wiki/Prefix_sum "prefix-sum") data structure built on a sequence of non-negative integers. 
 This class is implemented based on the technique described in Section 2.2 of [this paper](https://doi.org/10.1016/j.jda.2018.11.002).
 
 #### Table for update operations and queries
@@ -88,7 +88,7 @@ When this example is executed, the following message is displayed:
 
 ### DynamicBitSequence class 
 
-[DynamicBitSequence](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_bit_sequence.hpp) is a dynamic data structure supporting rank and select queries on a bit sequence.
+[DynamicBitSequence](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_bit_sequence.hpp) is a dynamic data structure supporting rank and select queries on a bit sequence.
 
 #### Table for update operations and queries  
 
