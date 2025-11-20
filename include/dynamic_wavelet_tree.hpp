@@ -532,7 +532,7 @@ namespace stool
                 }
             }
             /**
-             * @brief Print the bit sequence \p T.
+             * @brief Print the string \p T.
              * @param message_paragraph The paragraph depth of message logs
              */
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
