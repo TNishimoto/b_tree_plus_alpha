@@ -1,0 +1,35 @@
+<map id="stool::bptree::BPTree::psum" name="stool::bptree::BPTree::psum">
+<area shape="rect" id="Node000001" title="Return the sum of the weights of S[0..n&#45;1]." alt="" coords="997,297,1153,337"/>
+<area shape="poly" id="edge8_Node000001_Node000001" title=" " alt="" coords="1114,286,1101,279,1075,276,1053,278,1040,283,1035,289,1038,296,1032,298,1030,288,1037,278,1052,273,1075,271,1102,274,1117,281"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a952414d9a1ec981f9cc9164fd3b10bfe" title="Returns the number of 1 in B[0..i&#45;1]." alt="" coords="743,91,949,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1054,287,1010,224,980,190,948,159,903,133,905,129,951,155,984,186,1014,220,1058,284"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a15810182711da7e2d7922127972d301b" title="Returns the number of 1s in the bit sequence B[0..n&#45;1]." alt="" coords="752,169,940,209"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="1041,290,998,256,948,224,921,212,923,207,951,219,1001,251,1044,286"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a0f02d3054d0d44e8dcffd92ece754203" title="Return the sum of S[0..n&#45;1]." alt="" coords="743,233,949,273"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="989,296,917,276,919,271,991,291"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1BPTree.html#ad14d17d2408a2b470f10c8d11c601676" title="Return the sum of the weights of S[0..i]." alt="" coords="768,297,924,337"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="984,320,924,320,924,315,984,315"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a21ec8a19d9fdf37b232f01d7df26d74a" title="Returns the number of 1s in the bit sequence B[0..i]." alt="" coords="752,361,940,401"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="991,344,919,364,917,359,989,338"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ac57145c10f43c43e10453109019b20fc" title="Return the sum of the first (i+1) values of S[0..n&#45;1]." alt="" coords="743,425,949,465"/>
+<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="1044,349,1001,383,951,416,923,428,921,423,948,411,998,379,1041,345"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9878e8786b02602c95b18ce6b368a18d" title="Return the sum of S[i..j]." alt="" coords="743,489,949,529"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="1059,351,1016,416,986,450,951,480,929,492,927,487,948,475,982,446,1011,413,1055,348"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a9c76dab16a1c2dc556f8bb7021da86d2" title="Return the number of 1 in B[0..n&#45;1]." alt="" coords="497,5,685,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="772,89,651,48,653,43,774,84"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#adf6d4d716f6fa4665bdb95f2a4f57820" title="Returns the number of c in B[0..i&#45;1]." alt="" coords="241,63,440,103"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="728,107,440,91,440,85,729,102"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a26bdbf2a00cc2452b94713d699648808" title="Returns the number of 0 in B[0..i&#45;1]." alt="" coords="488,120,695,160"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="730,127,695,131,695,125,729,121"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a693052b825f19b323ecb9842f92778eb" title="Return the number of c in B[0..n&#45;1]." alt="" coords="5,63,193,103"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="228,85,193,85,193,80,228,80"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="489,119,428,105,429,100,491,114"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af54a38431cb6cd41f587743f6c790a3d" title="Return the number of 0 in B[0..n&#45;1]." alt="" coords="247,127,435,167"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="474,146,435,147,435,142,474,140"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab86c6a3024235b5978f1f1a141f89042" title="Return the largest i such that psum(i) &lt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="488,184,695,224"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="729,233,694,227,695,221,730,228"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a904e782cec8817e6a7b1fa1bdeae51a7" title="Returns the sum of integers in S[(n&#45;1)&#45;i..n&#45;1]." alt="" coords="488,248,695,288"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="729,263,695,265,695,259,729,257"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a1a684400cf158b0a5eedc4bfbdb36bd5" title="Return the smallest i such that psum(i) &gt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="488,312,695,352"/>
+<area shape="poly" id="edge13_Node000009_Node000012" title=" " alt="" coords="768,280,658,315,656,309,767,275"/>
+</map>

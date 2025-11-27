@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::get_path_from_root_to_first_leaf" name="stool::bptree::BPTree::get_path_from_root_to_first_leaf">
+<area shape="rect" id="Node000001" title="Compute the path from the root to the first leaf, and store it in the output_path." alt="" coords="5,5,164,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="212,13,368,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,30,198,30,198,35,164,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="416,13,572,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,30,402,30,402,35,368,35"/>
+</map>

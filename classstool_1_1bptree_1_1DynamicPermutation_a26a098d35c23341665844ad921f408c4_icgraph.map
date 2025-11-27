@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicPermutation::inverse" name="stool::bptree::DynamicPermutation::inverse">
+<area shape="rect" id="Node000001" title="Return Π^{&#45;1}[i]." alt="" coords="603,37,853,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a0704507f4c9a7ebe3918194aecf2a733" title="Return the inverse permutation Π^{&#45;1} as a vector of uint64_t." alt="" coords="304,37,555,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="589,60,555,60,555,55,589,55"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a2f466b8031907ad7472dc2dbe2537e5f" title="Print the permutation and inverse permutation stored in this data structure." alt="" coords="5,5,256,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="290,45,256,41,257,36,291,40"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a5bd3bebd1b37afa94a9976de24a21f39" title="Print the internal trees in this data structure." alt="" coords="5,69,256,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="291,75,257,79,256,73,290,70"/>
+</map>

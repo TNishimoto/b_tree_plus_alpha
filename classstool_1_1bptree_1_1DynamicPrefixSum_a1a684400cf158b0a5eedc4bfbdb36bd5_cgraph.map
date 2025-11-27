@@ -1,0 +1,24 @@
+<map id="stool::bptree::DynamicPrefixSum::successor_index" name="stool::bptree::DynamicPrefixSum::successor_index">
+<area shape="rect" id="Node000001" title="Return the smallest i such that psum(i) &gt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="5,117,212,157"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a0f02d3054d0d44e8dcffd92ece754203" title="Return the sum of S[0..n&#45;1]." alt="" coords="260,41,467,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,115,281,83,283,88,178,120"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a7ebbc9ecc81941037d5bcd7d017a1b38" title="Return the smallest i such that psum(i) &gt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="260,117,467,157"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="212,135,246,135,246,140,212,140"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aa68a440c4af76449da3c0f92372b6c06" title="Return |S|." alt="" coords="260,193,467,233"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="178,155,283,187,281,192,176,160"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ae803a3a163af03e375eea08d8d2423db" title="Return the sum of the weights of S[0..n&#45;1]." alt="" coords="515,29,671,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="467,53,501,51,501,57,467,59"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="554,30,552,20,558,11,572,5,593,3,616,6,629,13,627,18,615,11,593,8,573,10,562,15,557,21,560,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="719,117,875,157"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="644,67,672,79,739,109,737,114,670,84,642,72"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="923,117,1079,157"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="875,135,909,135,909,140,875,140"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a78c96ab5a3d756b55705f4b9c6b81ff3" title="Return the smallest index i such that psum(i) &gt;= u if it exists, otherwise return &#45;1." alt="" coords="515,117,671,157"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="467,135,501,135,501,140,467,140"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="671,135,705,135,705,140,671,140"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="554,118,552,108,558,99,572,93,593,91,616,94,629,101,627,106,615,99,593,96,573,98,562,103,557,109,560,116"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="515,205,671,245"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="467,216,501,218,501,223,467,221"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="639,203,736,160,738,165,641,208"/>
+<area shape="poly" id="edge13_Node000009_Node000009" title=" " alt="" coords="554,206,552,196,558,187,572,181,593,179,616,182,629,189,627,194,615,187,593,184,573,186,562,191,557,197,560,204"/>
+</map>

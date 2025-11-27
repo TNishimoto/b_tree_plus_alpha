@@ -1,0 +1,11 @@
+<map id="stool::bptree::DynamicPrefixSum::push_front" name="stool::bptree::DynamicPrefixSum::push_front">
+<area shape="rect" id="Node000001" title="Add a given value to the beginning of S." alt="" coords="5,13,212,53"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aa56d2e7c69158211a22bd8d7d14450de" title="Push a given value to the beginning of the sequence S." alt="" coords="260,13,416,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,30,246,30,246,35,212,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ae1eea9c825cdd01d07a0f3f4de6dc73e" title="Compute the path from the root to the first leaf, and store it in the output_path." alt="" coords="464,5,623,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,30,450,30,450,35,417,35"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="671,13,827,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="623,30,657,30,657,35,623,35"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="875,13,1031,53"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="827,30,861,30,861,35,827,35"/>
+</map>

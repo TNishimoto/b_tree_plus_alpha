@@ -1,0 +1,11 @@
+<map id="stool::bptree::DynamicPermutation::move_pi_index" name="stool::bptree::DynamicPermutation::move_pi_index">
+<area shape="rect" id="Node000001" title="Move the element Π[p] in Π to the position x in Π" alt="" coords="5,57,256,97"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a4f35ff45a2784577214d7fa00a8e40e6" title="Return Π[i]." alt="" coords="603,29,853,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,55,304,43,451,36,589,38,589,44,451,41,304,48,223,60"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPermutation.html#ad25143f388c443818c0d1940827442ed" title="Remove the element Π[p] from Π and appropriately modify the elements of Π (i.e., each element x in Π ..." alt="" coords="304,57,555,97"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="256,75,290,75,290,80,256,80"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a4137bf9e5b0acea059973cdfd05aaf37" title="Insert a given element q at the position p in Π and appropriately modify the elements of Π (i...." alt="" coords="304,121,555,161"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="225,95,323,116,321,121,224,100"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="673,30,670,20,679,10,698,5,728,3,762,5,781,13,779,18,761,11,728,8,699,10,681,15,675,21,678,28"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="555,63,589,60,589,65,555,68"/>
+</map>

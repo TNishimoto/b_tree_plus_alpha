@@ -1,0 +1,9 @@
+<map id="stool::bptree::BPTree::push_front" name="stool::bptree::BPTree::push_front">
+<area shape="rect" id="Node000001" title="Push a given value to the beginning of the sequence S." alt="" coords="303,69,459,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ad4cef65eaaab90f1301f2dad9644ea7b" title="Adds a bit to the beginning of the sequence B." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,69,208,48,210,43,290,64"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a15728ace6166089c9da87945541293be" title="Add a given value to the beginning of S." alt="" coords="27,69,233,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,92,234,92,234,87,289,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a365bd9afded00a79d723df6d3f2b5265" title="Add a given value to the beginning of S." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="290,115,210,136,208,131,289,110"/>
+</map>

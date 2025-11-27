@@ -1,0 +1,17 @@
+<map id="stool::bptree::BPTree::remove" name="stool::bptree::BPTree::remove">
+<area shape="rect" id="Node000001" title="Remove S[i] from the sequence S." alt="" coords="5,131,161,171"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="209,29,404,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,129,228,87,230,92,133,134"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="656,143,812,183"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="161,145,364,139,486,140,608,145,642,148,642,153,608,150,486,145,364,144,162,150"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#af4568547ee896d2f79ccb4773c9fee9c" title="Remove S[i] from the sequence S using (i) the path from the root to the leaf containing S[i] and (ii)..." alt="" coords="227,159,386,199"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="162,158,214,165,213,170,162,164"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="452,183,608,223"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="118,169,161,192,210,209,268,218,328,221,438,215,438,220,328,226,268,223,209,214,158,196,115,174"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="263,29,264,19,271,10,286,5,307,3,332,6,346,14,343,18,330,11,307,8,287,10,274,15,269,21,269,29"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="860,143,1016,183"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="812,161,846,161,846,166,812,166"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="387,185,439,191,438,196,386,191"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="608,185,642,179,643,184,609,191"/>
+<area shape="poly" id="edge8_Node000006_Node000006" title=" " alt="" coords="492,184,490,174,496,165,509,159,530,157,554,160,567,167,564,172,552,165,530,162,511,164,499,169,495,175,497,182"/>
+</map>

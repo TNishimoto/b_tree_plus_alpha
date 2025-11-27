@@ -1,0 +1,19 @@
+<map id="stool::bptree::DynamicBitSequence::print_statistics" name="stool::bptree::DynamicBitSequence::print_statistics">
+<area shape="rect" id="Node000001" title="Print the statistics of this data structure." alt="" coords="5,113,195,153"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a397475fb21e1a8faa954efd049eba659" title="Print the statistics of this data structure." alt="" coords="243,113,399,153"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,131,229,131,229,136,195,136"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a11b95f5303e7d413ca2ab4e851a0cdc6" title="Return an iterator pointing to the first node in postorder traversal." alt="" coords="447,5,665,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="349,111,393,83,446,55,464,48,466,52,448,60,396,87,351,116"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#af60e1d15360c728851d3397eb0cd437c" title="Return an iterator pointing to the end of postorder traversal." alt="" coords="453,69,659,109"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="398,116,439,109,440,114,399,121"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="478,157,634,197"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="399,145,465,158,464,163,398,150"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a6d33220f4d8c5cf7c4d4743061c6a855" title="Returns the total memory size of this B+&#45;tree." alt="" coords="478,221,634,261"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="351,151,396,180,448,207,466,214,464,219,446,212,393,184,349,156"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="713,81,869,121"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="628,43,666,55,723,74,721,79,665,60,626,48"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="917,81,1073,121"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="869,99,904,99,904,104,869,104"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="618,155,715,123,716,128,620,160"/>
+<area shape="poly" id="edge8_Node000007_Node000007" title=" " alt="" coords="512,158,510,148,517,138,532,133,556,131,583,134,598,141,596,146,582,139,556,136,533,138,520,143,515,149,517,156"/>
+</map>

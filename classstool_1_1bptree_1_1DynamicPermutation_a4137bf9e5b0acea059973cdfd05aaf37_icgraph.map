@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicPermutation::insert" name="stool::bptree::DynamicPermutation::insert">
+<area shape="rect" id="Node000001" title="Insert a given element q at the position p in Π and appropriately modify the elements of Π (i...." alt="" coords="304,5,555,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPermutation.html#ae15e8cdc9d996a2c7d1a2e5926f57b78" title="Move the element Π[p] in Π to the position x in Π" alt="" coords="5,5,256,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,28,256,28,256,23,290,23"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="stool::bptree::DynamicPrefixSum::at" name="stool::bptree::DynamicPrefixSum::at">
+<area shape="rect" id="Node000001" title="Return the (i+1)&#45;th element of S[i]." alt="" coords="528,69,735,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a911534c25fd6e6bc4ec7b4128417c153" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="260,5,480,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="535,69,452,48,453,43,536,63"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab86c6a3024235b5978f1f1a141f89042" title="Return the largest i such that psum(i) &lt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="267,69,473,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="514,92,474,92,474,87,514,87"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aadffe681f9ac8e9a6d868924f5ca23f2" title="Set a given value v at a given position i in S." alt="" coords="267,133,473,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="536,115,453,136,452,131,535,110"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a938d953f6558563dd6cc3b938223fcba" title="Print the memory usage information of this data structure." alt="" coords="5,5,212,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,28,212,28,212,23,246,23"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab94fa76ec50bf81f4506af648a4e68be" title="Replaces the |Q| values S[i..i+|Q|&#45;1] with the given values Q[0..|Q|&#45;1]." alt="" coords="5,133,212,173"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="253,156,212,156,212,151,253,151"/>
+</map>

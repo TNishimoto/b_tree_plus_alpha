@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicBitSequence::one_based_rank" name="stool::bptree::DynamicBitSequence::one_based_rank">
+<area shape="rect" id="Node000001" title="Returns the number of c in B[0..i&#45;1]." alt="" coords="241,5,440,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a693052b825f19b323ecb9842f92778eb" title="Return the number of c in B[0..n&#45;1]." alt="" coords="5,5,193,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,28,193,28,193,23,228,23"/>
+</map>

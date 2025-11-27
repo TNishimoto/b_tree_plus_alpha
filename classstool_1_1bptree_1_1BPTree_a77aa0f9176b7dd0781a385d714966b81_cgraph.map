@@ -1,0 +1,12 @@
+<map id="stool::bptree::BPTree::get_memory_usage_info" name="stool::bptree::BPTree::get_memory_usage_info">
+<area shape="rect" id="Node000001" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="5,61,196,101"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="244,29,400,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,65,230,60,231,65,196,70"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a6d33220f4d8c5cf7c4d4743061c6a855" title="Returns the total memory size of this B+&#45;tree." alt="" coords="244,93,400,133"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="196,92,231,98,230,103,196,98"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="284,30,282,20,288,11,301,5,322,3,346,6,359,13,356,18,344,11,322,8,303,10,291,15,287,21,289,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="448,29,604,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="400,47,434,47,434,52,400,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="652,29,808,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="604,47,638,47,638,52,604,52"/>
+</map>

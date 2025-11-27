@@ -1,0 +1,25 @@
+<map id="stool::bptree::BPTree::resize" name="stool::bptree::BPTree::resize">
+<area shape="rect" id="Node000001" title="Change the size of the sequence S to a given integer _size. If we need push a new value to S,..." alt="" coords="5,149,161,189"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a7cec3a64da536933fc0b16fbfb7d0331" title="Return LEAF_CONTAINER_MAX_SIZE." alt="" coords="209,5,409,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,146,154,112,208,77,232,64,235,68,211,82,157,117,112,151"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a04008874c06d7ffe88c81fc4991db963" title="Compute the path from the root to the last leaf, and store it in the output_path." alt="" coords="700,56,859,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,157,686,92,687,97,162,162"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ac580af318ce0e8aabefbcaef15674b4f" title="Remove S[i] from the sequence S." alt="" coords="231,218,387,258"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="150,186,232,211,230,217,148,191"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="701,318,857,358"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="107,187,153,227,211,268,276,304,329,329,385,347,458,362,512,370,554,371,652,362,687,357,688,362,652,367,554,377,511,375,457,367,383,352,327,334,274,309,208,272,149,231,103,191"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="907,129,1063,169"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="860,106,909,122,907,127,858,111"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1111,129,1267,169"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1063,146,1097,146,1097,151,1063,151"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="346,215,397,191,457,171,573,151,691,141,801,139,893,141,892,146,801,144,691,147,574,156,458,177,399,196,348,220"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="457,211,652,265"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="387,235,443,235,443,241,387,241"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#af4568547ee896d2f79ccb4773c9fee9c" title="Remove S[i] from the sequence S using (i) the path from the root to the leaf containing S[i] and (ii)..." alt="" coords="475,290,634,330"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="379,255,474,284,472,289,378,261"/>
+<area shape="poly" id="edge13_Node000006_Node000009" title=" " alt="" coords="332,256,386,301,421,323,458,339,516,352,576,357,634,356,687,351,687,357,634,362,576,363,515,358,457,345,418,328,383,306,329,260"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="511,211,511,200,519,192,534,186,555,184,580,187,595,195,592,200,578,192,555,189,535,191,522,196,516,202,516,211"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="635,317,688,324,687,329,634,323"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="801,316,950,176,954,180,804,320"/>
+<area shape="poly" id="edge12_Node000009_Node000009" title=" " alt="" coords="741,318,738,308,745,299,758,293,779,291,803,294,817,302,814,306,802,299,779,297,760,299,748,303,744,309,746,317"/>
+</map>

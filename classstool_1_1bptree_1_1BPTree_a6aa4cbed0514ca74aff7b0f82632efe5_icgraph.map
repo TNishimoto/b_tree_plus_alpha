@@ -1,0 +1,31 @@
+<map id="stool::bptree::BPTree::at" name="stool::bptree::BPTree::at">
+<area shape="rect" id="Node000001" title="Return B[i]." alt="" coords="876,262,1053,287"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a5faff8a76288b31613c4dc4d5c355929" title="Return B[i]." alt="" coords="599,69,787,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="932,256,722,112,725,107,935,252"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a33cefd9fabcd36a34947593d08d2e542" title="Return the (i+1)&#45;th element of S[i]." alt="" coords="589,197,796,237"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="890,262,787,240,789,235,891,257"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a9ab59b9d99469299a0061b2ac1bad457" title="Return the (i+1)&#45;th element of S[i]." alt="" coords="557,262,828,287"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="862,277,828,277,828,272,862,272"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a847e266285bdbbdfa2197231156c28ab" title="The alias for at query." alt="" coords="589,312,796,352"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="891,293,789,315,787,309,890,288"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a1f37c7fc2421e00bc99c3b170f654d68" title="The alias for at query." alt="" coords="568,376,817,416"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="939,298,890,333,829,366,796,379,794,373,827,362,887,329,936,294"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ad281d4e869ff662b938a902afb2b6181" title="The alias for at query." alt="" coords="291,5,479,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="585,70,478,47,479,42,586,65"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a4ca784c00aa4aa4a53b62695fb25cea6" title="Replace the bit B[i] with the bit b." alt="" coords="291,69,479,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="585,92,479,92,479,87,585,87"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a38e76ed56ca3608c0e065ef75589cb91" title="Replace the bits B[i..i+m&#45;1] with the bits bits[0..m&#45;1]." alt="" coords="15,69,203,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="277,92,203,92,203,87,277,87"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a911534c25fd6e6bc4ec7b4128417c153" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="275,133,495,173"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="582,197,481,176,482,171,583,192"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab86c6a3024235b5978f1f1a141f89042" title="Return the largest i such that psum(i) &lt;= x if such a position exists, otherwise returns &#45;1." alt="" coords="281,197,488,237"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="576,220,489,220,489,215,576,215"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aadffe681f9ac8e9a6d868924f5ca23f2" title="Set a given value v at a given position i in S." alt="" coords="281,261,488,301"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="583,243,482,264,481,259,582,238"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a938d953f6558563dd6cc3b938223fcba" title="Print the memory usage information of this data structure." alt="" coords="5,133,212,173"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="261,156,212,156,212,151,261,151"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab94fa76ec50bf81f4506af648a4e68be" title="Replaces the |Q| values S[i..i+|Q|&#45;1] with the given values Q[0..|Q|&#45;1]." alt="" coords="5,261,212,301"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="268,284,212,284,212,279,268,279"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a5111e697aadcc28084f5085c594a0724" title="Set a given value v at a given position i in S." alt="" coords="260,325,509,365"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="605,293,558,303,510,316,465,328,464,323,509,311,557,297,604,287"/>
+</map>

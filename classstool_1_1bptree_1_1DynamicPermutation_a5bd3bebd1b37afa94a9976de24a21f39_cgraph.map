@@ -1,0 +1,15 @@
+<map id="stool::bptree::DynamicPermutation::print_trees" name="stool::bptree::DynamicPermutation::print_trees">
+<area shape="rect" id="Node000001" title="Print the internal trees in this data structure." alt="" coords="5,69,256,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a0704507f4c9a7ebe3918194aecf2a733" title="Return the inverse permutation Π^{&#45;1} as a vector of uint64_t." alt="" coords="304,37,555,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,73,290,70,291,75,257,79"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a35e55c37c27d9a25e3a2888ed7d157da" title="Return the permutation Π as a vector of uint64_t." alt="" coords="304,101,555,141"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="257,100,291,104,290,109,256,105"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a26a098d35c23341665844ad921f408c4" title="Return Π^{&#45;1}[i]." alt="" coords="603,5,853,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="555,41,589,38,589,43,555,47"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a2bb5b598c5d3bd4761e9683277c5a67b" title="Return |Π|." alt="" coords="603,69,853,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="555,68,589,72,589,77,555,73"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="555,105,589,102,589,107,555,111"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicPermutation.html#a4f35ff45a2784577214d7fa00a8e40e6" title="Return Π[i]." alt="" coords="603,157,853,197"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="537,139,608,152,607,157,536,144"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="673,158,670,148,679,138,698,133,728,131,762,133,781,141,779,146,761,139,728,136,699,138,681,143,675,149,678,156"/>
+</map>

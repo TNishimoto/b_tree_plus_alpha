@@ -1,0 +1,38 @@
+<map id="stool::bptree::BPTree::size_in_bytes" name="stool::bptree::BPTree::size_in_bytes">
+<area shape="rect" id="Node000001" title="Returns the total memory size of this B+&#45;tree." alt="" coords="903,133,1059,173"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a77aa0f9176b7dd0781a385d714966b81" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="635,69,825,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="889,133,808,112,810,107,890,128"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#a397475fb21e1a8faa954efd049eba659" title="Print the statistics of this data structure." alt="" coords="652,293,808,333"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="947,184,905,218,856,252,776,296,773,291,853,247,901,213,944,180"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a034b1ba502317a0e377210a4533628ae" title="Return the total memory usage in bytes." alt="" coords="636,5,824,45"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="947,126,904,91,853,60,823,48,825,43,856,55,907,87,950,122"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9c949ad97b82be120dac15f2b38101df" title="Returns the total memory usage in bytes." alt="" coords="627,133,833,173"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="889,156,834,156,834,151,889,151"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ada243575892af55ebafd5687d8fa0232" title="Returns the total memory usage in bytes." alt="" coords="605,197,855,237"/>
+<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="890,179,810,200,808,195,889,174"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af14839ca8e0e7c5c4abf472e10801bd4" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="303,5,557,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="622,69,524,48,525,43,623,64"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a911534c25fd6e6bc4ec7b4128417c153" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="320,133,540,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="623,115,525,136,524,131,622,110"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicSequence64.html#af4a414706ecec91476bdc3c92202f4bb" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="305,197,555,237"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="623,114,607,123,592,138,584,155,575,171,559,187,536,200,534,195,556,183,571,168,579,152,587,135,604,119,620,110"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a26381f60a97ef17f748e5745665cab29" title="Print the memory usage information of this data structure." alt="" coords="346,69,514,109"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="621,92,514,92,514,87,621,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a865cc94bab1a8f17a12a0298f50bf00b" title="Print the memory usage information of this data structure." alt="" coords="15,5,245,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="289,28,245,28,245,23,289,23"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a938d953f6558563dd6cc3b938223fcba" title="Print the memory usage information of this data structure." alt="" coords="27,133,233,173"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="306,156,233,156,233,151,306,151"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicSequence64.html#aa5de7444825add7154739644244d9466" title="Print the memory usage information of this data structure." alt="" coords="5,197,255,237"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="291,220,255,220,255,215,291,215"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa82f35bf37a65806bb7324ae6ac3876d" title="Print the statistics of this data structure." alt="" coords="335,261,525,301"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="638,306,525,294,525,289,639,301"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aa114eba94ab6b16a134984a4a2efddde" title="Print the statistics of this data structure." alt="" coords="327,325,533,365"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="639,326,534,337,533,332,638,320"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1bptree_1_1DynamicSequence64.html#ac26f89753744f4ae620b0c1ecf280946" title="Print the statistics of this data structure." alt="" coords="305,389,555,429"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="668,341,558,380,516,392,515,387,557,375,666,336"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aee7c9c4a5255dfe2a69495682066d5d3" title="Print the statistics of this data structure." alt="" coords="27,325,233,365"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="313,348,233,348,233,343,313,343"/>
+<area shape="poly" id="edge15_Node000015_Node000003" title=" " alt="" coords="622,28,558,28,558,23,622,23"/>
+<area shape="poly" id="edge17_Node000016_Node000005" title=" " alt="" coords="613,156,540,156,540,151,613,151"/>
+<area shape="poly" id="edge19_Node000017_Node000007" title=" " alt="" coords="591,220,555,220,555,215,591,215"/>
+</map>

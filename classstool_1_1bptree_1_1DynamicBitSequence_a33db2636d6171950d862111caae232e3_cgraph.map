@@ -1,0 +1,7 @@
+<map id="stool::bptree::DynamicBitSequence::empty" name="stool::bptree::DynamicBitSequence::empty">
+<area shape="rect" id="Node000001" title="Checks if B is empty." alt="" coords="5,5,193,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="241,5,397,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,23,228,23,228,28,193,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="445,5,601,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,23,432,23,432,28,397,28"/>
+</map>

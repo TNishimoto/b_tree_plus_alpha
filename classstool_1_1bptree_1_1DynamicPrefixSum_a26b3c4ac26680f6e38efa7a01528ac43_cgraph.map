@@ -1,0 +1,8 @@
+<map id="stool::bptree::DynamicPrefixSum::decrement" name="stool::bptree::DynamicPrefixSum::decrement">
+<area shape="rect" id="Node000001" title="Set the value S[i&#45;delta] at a given position i in S." alt="" coords="5,37,212,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a3b576736303172ac2e165b2a1439cd41" title="Update S[i] and its weight using a given value delta and the increment function supported by the LEAF..." alt="" coords="260,37,416,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,54,246,54,246,59,212,59"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="464,29,659,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,54,450,54,450,59,417,59"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="518,29,518,19,526,10,540,5,561,3,586,6,601,14,598,18,585,11,561,8,542,10,529,15,523,21,523,29"/>
+</map>

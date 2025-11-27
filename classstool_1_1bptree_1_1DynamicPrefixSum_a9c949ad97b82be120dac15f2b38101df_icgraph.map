@@ -1,0 +1,7 @@
+<map id="stool::bptree::DynamicPrefixSum::size_in_bytes" name="stool::bptree::DynamicPrefixSum::size_in_bytes">
+<area shape="rect" id="Node000001" title="Returns the total memory usage in bytes." alt="" coords="528,5,735,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a911534c25fd6e6bc4ec7b4128417c153" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="260,5,480,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="514,28,480,28,480,23,514,23"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a938d953f6558563dd6cc3b938223fcba" title="Print the memory usage information of this data structure." alt="" coords="5,5,212,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,28,212,28,212,23,246,23"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="stool::bptree::DynamicSequence64::decrement" name="stool::bptree::DynamicSequence64::decrement">
+<area shape="rect" id="Node000001" title="Set the value S[i&#45;delta] at a given position i in S." alt="" coords="5,37,255,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a3b576736303172ac2e165b2a1439cd41" title="Update S[i] and its weight using a given value delta and the increment function supported by the LEAF..." alt="" coords="303,37,459,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,54,289,54,289,59,255,59"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="507,29,701,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="459,54,493,54,493,59,459,59"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="561,29,561,19,569,10,583,5,604,3,629,6,643,14,641,18,627,11,604,8,584,10,572,15,566,21,566,29"/>
+</map>

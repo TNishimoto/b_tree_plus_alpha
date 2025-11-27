@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['b_20tree_0',['Classes for B+-tree',['../group__BPTreeClasses.html',1,'']]],
+  ['begin_1',['begin',['../classstool_1_1bptree_1_1DynamicSequence64.html#a021ab595e693aa9c46e958539194d2b9',1,'stool::bptree::DynamicSequence64::begin()'],['../classstool_1_1bptree_1_1DynamicPrefixSum.html#ae606a8d086f811117e4b9ba6529addb0',1,'stool::bptree::DynamicPrefixSum::begin()']]],
+  ['bitcontainer_2',['BitContainer',['../classstool_1_1bptree_1_1BitContainer.html',1,'stool::bptree']]],
+  ['bitcontaineriterator_3',['BitContainerIterator',['../classstool_1_1bptree_1_1BitContainer_1_1BitContainerIterator.html',1,'stool::bptree::BitContainer']]],
+  ['bitforwarditerator_4',['BitForwardIterator',['../classstool_1_1bptree_1_1BitForwardIterator.html',1,'stool::bptree']]],
+  ['bits_5',['Classes for dynamic bits',['../group__BitClasses.html',1,'']]],
+  ['bitvectorcontainer_6',['BitVectorContainer',['../classstool_1_1bptree_1_1BitVectorContainer.html',1,'stool::bptree']]],
+  ['bpinternalnode_7',['BPInternalNode',['../classstool_1_1bptree_1_1BPInternalNode.html',1,'stool::bptree']]],
+  ['bpinternalnode_3c_20stool_3a_3abptree_3a_3apermutationcontainer_2c_20stool_3a_3abptree_3a_3apermutationitem_2c_20max_5fdegree_2c_20false_20_3e_8',['BPInternalNode&lt; stool::bptree::PermutationContainer, stool::bptree::PermutationItem, MAX_DEGREE, false &gt;',['../classstool_1_1bptree_1_1BPInternalNode_3_01stool_1_1bptree_1_1PermutationContainer_00_01stool_1_89092bd5dc4e7689bae5db2273dbb4ea.html',1,'stool::bptree']]],
+  ['bpinternalnodefunctions_9',['BPInternalNodeFunctions',['../classstool_1_1bptree_1_1BPInternalNodeFunctions.html',1,'stool::bptree']]],
+  ['bpleafforwarditerator_10',['BPLeafForwardIterator',['../classstool_1_1bptree_1_1BPLeafForwardIterator.html',1,'stool::bptree']]],
+  ['bpnodepointer_11',['BPNodePointer',['../classstool_1_1bptree_1_1BPNodePointer.html',1,'stool::bptree']]],
+  ['bppostorderiterator_12',['BPPostorderIterator',['../classstool_1_1bptree_1_1BPPostorderIterator.html',1,'stool::bptree']]],
+  ['bptree_13',['bptree',['../classstool_1_1bptree_1_1BPTree.html#aa829a44e410ab1a9b60ad7b80740b5ae',1,'stool::bptree::BPTree::BPTree()'],['../classstool_1_1bptree_1_1BPTree.html#ab99ec67b08f5bbdc4fd9340e7a7d4e60',1,'stool::bptree::BPTree::BPTree(BPTree &amp;&amp;other) noexcept'],['../classstool_1_1bptree_1_1BPTree.html#a3048382b0c1ab56f8f54622000a443c5',1,'stool::bptree::BPTree::BPTree(const BPTree &amp;)=delete'],['../classstool_1_1bptree_1_1BPTree.html',1,'stool::bptree::BPTree&lt; LEAF_CONTAINER, VALUE, MAX_DEGREE, LEAF_CONTAINER_MAX_SIZE, USE_PARENT_FIELD, USE_PSUM &gt;']]],
+  ['bptree_3c_20container_2c_20bool_2c_20max_5ftree_5fdegree_2c_20max_5fbit_5fcontainer_5fsize_2c_20false_2c_20true_20_3e_14',['BPTree&lt; CONTAINER, bool, MAX_TREE_DEGREE, MAX_BIT_CONTAINER_SIZE, false, true &gt;',['../classstool_1_1bptree_1_1BPTree.html',1,'stool::bptree']]],
+  ['bptree_3c_20stool_3a_3anaiveflcvector_3c_3e_2c_20uint64_5ft_2c_2062_2c_20256_2c_20false_2c_20false_20_3e_15',['BPTree&lt; stool::NaiveFLCVector&lt;&gt;, uint64_t, 62, 256, false, false &gt;',['../classstool_1_1bptree_1_1BPTree.html',1,'stool::bptree']]],
+  ['bptree_3c_20vlcdeque_2c_20uint64_5ft_2c_20bptree_3a_3adefault_5fmax_5fdegree_5fof_5finternal_5fnode_2c_20bptree_3a_3adefault_5fmax_5fcount_5fof_5fvalues_5fin_5fleaf_2c_20false_2c_20true_20_3e_16',['BPTree&lt; VLCDeque, uint64_t, bptree::DEFAULT_MAX_DEGREE_OF_INTERNAL_NODE, bptree::DEFAULT_MAX_COUNT_OF_VALUES_IN_LEAF, false, true &gt;',['../classstool_1_1bptree_1_1BPTree.html',1,'stool::bptree']]],
+  ['bpvalueforwarditerator_17',['BPValueForwardIterator',['../classstool_1_1bptree_1_1BPValueForwardIterator.html',1,'stool::bptree']]],
+  ['build_18',['build',['../classstool_1_1bptree_1_1BPTree.html#a19696f2dc77db14987d751117078efff',1,'stool::bptree::BPTree::build()'],['../classstool_1_1bptree_1_1DynamicBitSequence.html#a586a9b49cf9d3ed49ce6012504599e01',1,'stool::bptree::DynamicBitSequence::build()'],['../classstool_1_1bptree_1_1DynamicPermutation.html#aaeefc5b8676ce10e19d210bdd92681d3',1,'stool::bptree::DynamicPermutation::build()'],['../classstool_1_1bptree_1_1DynamicPrefixSum.html#a480cb957637a3f57e51ac9df9c0b7398',1,'stool::bptree::DynamicPrefixSum::build()'],['../classstool_1_1bptree_1_1DynamicSequence64.html#a2b51092c35fe87104f94d7620c424627',1,'stool::bptree::DynamicSequence64::build()'],['../classstool_1_1bptree_1_1DynamicWaveletTree.html#a4a77feb8831c14dac088a2b4f8b10176',1,'stool::bptree::DynamicWaveletTree::build()']]]
+];

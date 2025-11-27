@@ -1,0 +1,14 @@
+<map id="stool::bptree::DynamicBitSequence::one_based_rank1" name="stool::bptree::DynamicBitSequence::one_based_rank1">
+<area shape="rect" id="Node000001" title="Returns the number of 1 in B[0..i&#45;1]." alt="" coords="743,63,949,103"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a9c76dab16a1c2dc556f8bb7021da86d2" title="Return the number of 1 in B[0..n&#45;1]." alt="" coords="497,5,685,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="743,62,680,48,681,43,744,57"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#adf6d4d716f6fa4665bdb95f2a4f57820" title="Returns the number of c in B[0..i&#45;1]." alt="" coords="241,63,440,103"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="729,85,440,85,440,80,729,80"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a26bdbf2a00cc2452b94713d699648808" title="Returns the number of 0 in B[0..i&#45;1]." alt="" coords="488,120,695,160"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="744,108,681,123,680,117,743,103"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a693052b825f19b323ecb9842f92778eb" title="Return the number of c in B[0..n&#45;1]." alt="" coords="5,63,193,103"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="228,85,193,85,193,80,228,80"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="489,119,428,105,429,100,491,114"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af54a38431cb6cd41f587743f6c790a3d" title="Return the number of 0 in B[0..n&#45;1]." alt="" coords="247,127,435,167"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="474,146,435,147,435,142,474,140"/>
+</map>

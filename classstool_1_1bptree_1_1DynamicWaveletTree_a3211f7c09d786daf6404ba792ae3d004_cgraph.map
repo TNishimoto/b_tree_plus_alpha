@@ -1,0 +1,18 @@
+<map id="stool::bptree::DynamicWaveletTree::print_content" name="stool::bptree::DynamicWaveletTree::print_content">
+<area shape="rect" id="Node000001" title="Print the string T." alt="" coords="5,120,228,160"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#abd787f7b76f5b932c67b9e7a5a6be485" title="Return T as a string." alt="" coords="276,120,499,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,137,262,137,262,143,228,143"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a36fd42760ebab1babb141672256e10f5" title="Return T[i]." alt="" coords="547,87,769,127"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="499,124,533,119,533,125,499,129"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#ab9eb1408c0fd96fc3a1aee9604553e6f" title="Return |T|." alt="" coords="1088,152,1311,192"/>
+<area shape="poly" id="edge9_Node000002_Node000007" title=" " alt="" coords="499,142,1074,165,1074,170,499,147"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#ac6088491bb81f4d944e64b1463b8b3c6" title="Return the lexicographic order of T[i] in the alphabet U." alt="" coords="817,79,1040,134"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="769,104,804,104,804,109,769,109"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0ec7f62aea663c339d32e798f79314f1" title="Check if the alphabet U is empty." alt="" coords="1359,95,1581,135"/>
+<area shape="poly" id="edge8_Node000003_Node000005" title=" " alt="" coords="712,84,822,50,893,32,972,17,1055,7,1141,3,1228,7,1311,23,1345,35,1378,50,1434,85,1431,89,1376,55,1343,39,1310,28,1227,13,1141,8,1056,12,973,22,894,38,824,55,713,89"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1040,106,1345,110,1345,116,1040,111"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#abdb6c82801aa44df22ef6034a409ef79" title="Return the height of the wavelet tree." alt="" coords="1088,37,1311,77"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1040,84,1075,77,1076,83,1041,89"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1041,131,1103,146,1102,151,1040,136"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="1294,149,1361,135,1362,140,1295,155"/>
+</map>

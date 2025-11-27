@@ -1,0 +1,16 @@
+<map id="stool::bptree::DynamicBitSequence::select0" name="stool::bptree::DynamicBitSequence::select0">
+<area shape="rect" id="Node000001" title="Returns the position p of the (i+1)&#45;th 0 in B if such a position exists, otherwise returns &#45;1." alt="" coords="5,75,193,115"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ab9fa989b55138886e7420062080254b1" title="Returns the position of the (i+1)&#45;th 0 in S[0..n&#45;1] if it exists, otherwise return &#45;1." alt="" coords="477,29,633,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,83,463,56,464,61,194,88"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a92c8f601605dcfddcd61e484705e8a57" title="Return |B|." alt="" coords="241,103,429,143"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="194,103,228,107,227,113,193,108"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="517,30,515,20,521,11,535,5,555,3,579,6,592,13,589,18,577,11,555,8,536,10,524,15,520,21,522,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="681,73,837,113"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="634,63,668,71,667,76,633,69"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="885,73,1041,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="837,91,872,91,872,96,837,96"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="477,117,633,157"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="430,126,464,129,463,134,429,132"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="633,118,667,110,668,116,634,123"/>
+<area shape="poly" id="edge8_Node000006_Node000006" title=" " alt="" coords="517,118,515,108,521,99,535,93,555,91,579,94,592,101,589,106,577,99,555,96,536,98,524,103,520,109,522,116"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicWaveletTree::push_back" name="stool::bptree::DynamicWaveletTree::push_back">
+<area shape="rect" id="Node000001" title="Adds a character c to the end of T." alt="" coords="276,5,499,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a10f3079580e910318a5875ac25956807" title="Add a given sequence Q[0..k&#45;1] to the end of T[0..n&#45;1] (i.e., T = T[0..n&#45;1]Q[0..k&#45;1])" alt="" coords="5,5,228,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="262,28,228,28,228,23,262,23"/>
+</map>

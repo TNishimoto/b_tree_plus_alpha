@@ -1,0 +1,25 @@
+<map id="stool::bptree::DynamicBitSequence::sort_leaf_containers" name="stool::bptree::DynamicBitSequence::sort_leaf_containers">
+<area shape="rect" id="Node000001" title="Sorts the leaf containers of the internal tree." alt="" coords="5,73,231,113"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a48ae11c84406892413010a95b524b868" title="Checks if the leaf containers are sorted in the vector W, i.e., W[i] is the leaf container of the i&#45;t..." alt="" coords="501,29,685,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,82,487,62,487,67,231,87"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#aea260e6e55d1c70432df595bf0a5d7b6" title="Sorts the leaf containers so that each W[i] is the LEAF CONTAINER of the i&#45;th leaf." alt="" coords="279,101,441,141"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="231,104,265,108,265,113,231,109"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a7a0df73ea26bbab12b66a4d027d4d318" title="Return an iterator pointing to the first leaf in forward traversal." alt="" coords="744,5,983,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="684,43,730,38,731,43,685,48"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a69bdb27e1e2877e4228787148ceec432" title="Return an iterator pointing to the end of forward leaf traversal." alt="" coords="750,69,977,109"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="685,65,737,71,736,76,684,70"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="1031,133,1187,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="955,43,984,55,1035,87,1078,122,1075,126,1032,91,981,60,953,48"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1235,133,1391,173"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1187,151,1221,151,1221,156,1187,156"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="431,99,487,83,488,88,433,104"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a11b95f5303e7d413ca2ab4e851a0cdc6" title="Return an iterator pointing to the first node in postorder traversal." alt="" coords="754,133,973,173"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="442,124,740,143,740,148,442,129"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#af60e1d15360c728851d3397eb0cd437c" title="Return an iterator pointing to the end of postorder traversal." alt="" coords="489,159,696,199"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="442,139,498,153,497,158,441,144"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="515,247,671,287"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="390,139,491,208,542,238,539,242,488,213,387,144"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="973,151,1017,151,1017,156,973,156"/>
+<area shape="poly" id="edge12_Node000010_Node000004" title=" " alt="" coords="670,249,982,183,1018,174,1019,179,983,188,671,254"/>
+<area shape="poly" id="edge13_Node000010_Node000010" title=" " alt="" coords="549,247,547,237,554,228,569,222,593,220,620,223,634,230,632,235,618,228,593,225,570,227,557,232,552,238,554,246"/>
+</map>

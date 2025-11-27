@@ -1,0 +1,19 @@
+<map id="stool::bptree::DynamicBitSequence::count1" name="stool::bptree::DynamicBitSequence::count1">
+<area shape="rect" id="Node000001" title="Return the number of 1 in B[0..n&#45;1]." alt="" coords="5,81,193,121"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a952414d9a1ec981f9cc9164fd3b10bfe" title="Returns the number of 1 in B[0..i&#45;1]." alt="" coords="241,52,448,92"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,87,228,83,228,89,194,93"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a92c8f601605dcfddcd61e484705e8a57" title="Return |B|." alt="" coords="496,109,684,149"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="194,104,482,121,482,126,193,109"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#ae803a3a163af03e375eea08d8d2423db" title="Return the sum of the weights of S[0..n&#45;1]." alt="" coords="732,29,888,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="448,64,718,51,718,56,448,70"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="431,89,491,104,490,109,430,95"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="772,30,770,20,776,11,789,5,810,3,834,6,847,13,844,18,832,11,810,8,791,10,779,15,775,21,777,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="936,73,1092,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="889,63,923,71,922,76,887,69"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1140,73,1296,113"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1092,91,1126,91,1126,96,1092,96"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="732,117,888,157"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="684,130,718,131,718,137,684,135"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="887,118,922,110,923,116,889,123"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="772,118,770,108,776,99,789,93,810,91,834,94,847,101,844,106,832,99,810,96,791,98,779,103,775,109,777,116"/>
+</map>

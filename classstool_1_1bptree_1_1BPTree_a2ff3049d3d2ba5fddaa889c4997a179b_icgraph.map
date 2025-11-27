@@ -1,0 +1,9 @@
+<map id="stool::bptree::BPTree::insert" name="stool::bptree::BPTree::insert">
+<area shape="rect" id="Node000001" title="Insert a given value v with weight w at position i in the sequence S." alt="" coords="303,69,459,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a4ba38e902cd97367f3f75773f5b41f5f" title="Insert a bit v at the position p in the bits B." alt="" coords="36,5,224,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,69,208,48,210,43,290,64"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a31632bc1cc560e7a758e4a6306c51a6e" title="Insert a given integer value into S as the (pos+1)&#45;th element." alt="" coords="27,69,233,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,92,234,92,234,87,289,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a9ed02f76d453ab9b3e088a46323e1a3f" title="Insert a given integer value into S as the (pos+1)&#45;th element." alt="" coords="5,133,255,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="290,115,210,136,208,131,289,110"/>
+</map>

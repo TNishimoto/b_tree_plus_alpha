@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::print_information_about_performance" name="stool::bptree::BPTree::print_information_about_performance">
+<area shape="rect" id="Node000001" title="Print the performance information of this data structure." alt="" coords="269,45,456,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ac408672e50b968c05ecd15a3fbeb87be" title="Print the performance information of this data structure." alt="" coords="10,5,217,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,58,216,52,217,47,256,53"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ab90083c151bb629acdc4046ac02556d9" title="Print the performance information of this data structure." alt="" coords="5,84,221,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,92,222,97,221,92,256,87"/>
+</map>

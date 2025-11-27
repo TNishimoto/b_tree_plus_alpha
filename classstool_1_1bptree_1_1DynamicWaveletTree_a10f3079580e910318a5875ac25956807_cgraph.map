@@ -1,0 +1,7 @@
+<map id="stool::bptree::DynamicWaveletTree::push_many" name="stool::bptree::DynamicWaveletTree::push_many">
+<area shape="rect" id="Node000001" title="Add a given sequence Q[0..k&#45;1] to the end of T[0..n&#45;1] (i.e., T = T[0..n&#45;1]Q[0..k&#45;1])" alt="" coords="5,5,228,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a4e5387fe5dc023d921bf229d4ac9f3f0" title="Adds a character c to the end of T." alt="" coords="276,5,499,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,23,262,23,262,28,228,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0ec7f62aea663c339d32e798f79314f1" title="Check if the alphabet U is empty." alt="" coords="547,5,769,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="499,23,533,23,533,28,499,28"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="stool::bptree::BPTree::insert" name="stool::bptree::BPTree::insert">
+<area shape="rect" id="Node000001" title="Insert a given value v with weight w at position i in the sequence S." alt="" coords="5,131,161,171"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="209,29,404,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,129,228,87,230,92,133,134"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="863,167,1019,207"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="161,140,287,130,450,124,632,127,725,133,815,145,876,160,875,165,814,150,724,139,632,132,450,129,287,136,162,146"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a6c1e7af4c516633316e0bfdb3948fa57" title="Push a given value to the end of the sequence S." alt="" coords="229,159,385,199"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="162,158,216,165,215,171,162,164"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="452,247,608,287"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="121,169,163,190,210,209,328,238,439,256,438,261,327,243,209,214,161,195,118,174"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="263,29,264,19,271,10,286,5,307,3,332,6,346,14,343,18,330,11,307,8,287,10,274,15,269,21,269,29"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1067,167,1223,207"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="1019,185,1053,185,1053,190,1019,190"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#ad08a894609ac8506148f5403cb68d9f6" title="Add a given sequence Q[0..k&#45;1] to the end of S[0..n&#45;1] (i.e., S = S[0..n&#45;1]Q[0..k&#45;1])" alt="" coords="452,159,608,199"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="385,177,439,177,439,182,385,182"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a04008874c06d7ffe88c81fc4991db963" title="Compute the path from the root to the last leaf, and store it in the output_path." alt="" coords="656,160,815,215"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="609,180,642,181,642,186,608,185"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="815,185,849,185,849,190,815,190"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="608,257,707,245,814,225,870,209,871,214,815,230,708,250,609,263"/>
+<area shape="poly" id="edge11_Node000008_Node000008" title=" " alt="" coords="491,248,489,238,495,229,509,223,530,221,554,224,567,231,565,236,552,229,530,226,510,228,499,233,494,239,496,246"/>
+</map>

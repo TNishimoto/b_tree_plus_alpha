@@ -1,0 +1,10 @@
+<map id="stool::bptree::DynamicPrefixSum::psum" name="stool::bptree::DynamicPrefixSum::psum">
+<area shape="rect" id="Node000001" title="Return the sum of the first (i+1) values of S[0..n&#45;1]." alt="" coords="5,29,212,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ae803a3a163af03e375eea08d8d2423db" title="Return the sum of the weights of S[0..n&#45;1]." alt="" coords="260,29,416,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,47,246,47,246,52,212,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="300,30,298,20,304,11,317,5,338,3,362,6,375,13,372,18,360,11,338,8,319,10,307,15,303,21,305,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="464,29,620,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,47,450,47,450,52,416,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="668,29,824,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="620,47,654,47,654,52,620,52"/>
+</map>

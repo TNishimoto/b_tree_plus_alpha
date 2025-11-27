@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicWaveletTree::select" name="stool::bptree::DynamicWaveletTree::select">
+<area shape="rect" id="Node000001" title="Returns the position p of the (i+1)&#45;th 1 in B if such a position exists, otherwise returns &#45;1." alt="" coords="5,5,228,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0ec7f62aea663c339d32e798f79314f1" title="Check if the alphabet U is empty." alt="" coords="276,5,499,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,23,262,23,262,28,228,28"/>
+</map>

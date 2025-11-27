@@ -1,0 +1,9 @@
+<map id="stool::bptree::BPTree::push_front" name="stool::bptree::BPTree::push_front">
+<area shape="rect" id="Node000001" title="Push a given value to the beginning of the sequence S." alt="" coords="5,13,161,53"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ae1eea9c825cdd01d07a0f3f4de6dc73e" title="Compute the path from the root to the first leaf, and store it in the output_path." alt="" coords="209,5,368,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,30,195,30,195,35,162,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="416,13,572,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,30,402,30,402,35,368,35"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="620,13,776,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="572,30,606,30,606,35,572,35"/>
+</map>

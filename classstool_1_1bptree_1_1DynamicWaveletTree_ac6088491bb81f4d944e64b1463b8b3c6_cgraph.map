@@ -1,0 +1,10 @@
+<map id="stool::bptree::DynamicWaveletTree::get_lexicographic_order_by_position" name="stool::bptree::DynamicWaveletTree::get_lexicographic_order_by_position">
+<area shape="rect" id="Node000001" title="Return the lexicographic order of T[i] in the alphabet U." alt="" coords="5,18,228,73"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0ec7f62aea663c339d32e798f79314f1" title="Check if the alphabet U is empty." alt="" coords="547,29,769,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,17,276,11,387,3,499,11,572,24,571,29,498,16,387,8,276,16,228,23"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#abdb6c82801aa44df22ef6034a409ef79" title="Return the height of the wavelet tree." alt="" coords="276,25,499,65"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,43,262,43,262,48,228,48"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#ab9eb1408c0fd96fc3a1aee9604553e6f" title="Return |T|." alt="" coords="276,89,499,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,69,289,83,288,89,228,74"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="478,87,553,70,554,75,479,92"/>
+</map>

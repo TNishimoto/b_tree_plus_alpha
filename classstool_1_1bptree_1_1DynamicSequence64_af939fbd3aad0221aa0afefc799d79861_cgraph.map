@@ -1,0 +1,19 @@
+<map id="stool::bptree::DynamicSequence64::pop_front" name="stool::bptree::DynamicSequence64::pop_front">
+<area shape="rect" id="Node000001" title="Remove the first element from S." alt="" coords="5,131,255,171"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#ac580af318ce0e8aabefbcaef15674b4f" title="Remove S[i] from the sequence S." alt="" coords="303,131,459,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,149,289,149,289,154,255,154"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="507,29,701,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="428,129,525,87,527,92,430,134"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="953,143,1109,183"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="459,145,661,139,783,140,906,145,940,148,939,153,905,150,783,145,661,144,459,150"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#af4568547ee896d2f79ccb4773c9fee9c" title="Remove S[i] from the sequence S using (i) the path from the root to the leaf containing S[i] and (ii)..." alt="" coords="525,159,683,199"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="460,158,511,165,510,170,459,164"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="749,183,905,223"/>
+<area shape="poly" id="edge10_Node000002_Node000007" title=" " alt="" coords="415,169,458,192,507,209,566,218,625,221,735,215,736,220,625,226,565,223,506,214,456,196,413,174"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="561,29,561,19,569,10,583,5,604,3,629,6,643,14,641,18,627,11,604,8,584,10,572,15,566,21,566,29"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1157,143,1313,183"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="1109,161,1144,161,1144,166,1109,166"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="684,185,736,191,735,196,683,191"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="905,185,939,179,940,184,906,191"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="789,184,787,174,793,165,807,159,827,157,851,160,864,167,861,172,849,165,827,162,808,164,796,169,792,175,794,182"/>
+</map>

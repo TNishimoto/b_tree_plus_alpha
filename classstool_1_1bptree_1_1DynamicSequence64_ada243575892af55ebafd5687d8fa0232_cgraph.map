@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicSequence64::size_in_bytes" name="stool::bptree::DynamicSequence64::size_in_bytes">
+<area shape="rect" id="Node000001" title="Returns the total memory usage in bytes." alt="" coords="5,5,255,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a6d33220f4d8c5cf7c4d4743061c6a855" title="Returns the total memory size of this B+&#45;tree." alt="" coords="303,5,459,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,23,289,23,289,28,255,28"/>
+</map>

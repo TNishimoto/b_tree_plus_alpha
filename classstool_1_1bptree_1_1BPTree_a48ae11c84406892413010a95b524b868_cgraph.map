@@ -1,0 +1,11 @@
+<map id="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted" name="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted">
+<area shape="rect" id="Node000001" title="Checks if the leaf containers are sorted in the vector W, i.e., W[i] is the leaf container of the i&#45;t..." alt="" coords="5,30,189,85"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a7a0df73ea26bbab12b66a4d027d4d318" title="Return an iterator pointing to the first leaf in forward traversal." alt="" coords="237,5,476,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,43,223,39,224,44,190,49"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a69bdb27e1e2877e4228787148ceec432" title="Return an iterator pointing to the end of forward leaf traversal." alt="" coords="243,69,470,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="190,66,230,71,229,76,189,71"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="524,5,680,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="476,23,510,23,510,28,476,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="728,5,884,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="680,23,714,23,714,28,680,28"/>
+</map>

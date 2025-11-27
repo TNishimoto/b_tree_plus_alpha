@@ -1,0 +1,23 @@
+<map id="stool::bptree::BPTree::swap" name="stool::bptree::BPTree::swap">
+<area shape="rect" id="Node000001" title="Swap operation." alt="" coords="573,261,729,301"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#aa82a2e04235a89898290d9e6d1262932" title="Returns the DynamicBitSequence instance loaded from a byte vector data at the position pos." alt="" coords="299,5,502,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="638,249,623,205,599,154,566,103,546,80,524,59,501,46,504,41,527,55,550,76,570,99,603,151,627,203,643,247"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9bbf6da51ea62d2757965370de0bce7b" title="Returns the DynamicPrefixSum instance loaded from a byte vector data at the position pos." alt="" coords="297,69,504,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="631,251,588,185,558,152,524,124,501,112,504,107,527,119,562,148,592,182,636,248"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a24cd85881878c1f32e14709a67fa20b8" title="Returns the DynamicSequence64 instance loaded from a byte vector data at the position pos." alt="" coords="276,133,525,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="617,254,575,219,524,188,495,176,497,171,527,183,578,215,621,250"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a81e3670c11c7c7ed8ca70b63b6d875d0" title="Returns the DynamicBitSequence instance loaded from a file stream ifs." alt="" coords="307,197,495,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="559,261,479,240,480,235,561,256"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#ae72d6ffdc246c5abf88ccd6f8897f5d3" title="Returns the DynamicPrefixSum instance loaded from a file stream ifs." alt="" coords="297,261,504,301"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="560,284,504,284,504,279,560,279"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a033e1a02a5ea7758fd460639ceae733f" title="Returns the DynamicPrefixSum instance loaded from a file stream ifs." alt="" coords="276,325,525,365"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="561,307,480,328,479,323,559,302"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a5e5fac994e158c91d8f4f3a951f22317" title="Swap operation." alt="" coords="307,389,495,429"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="621,313,578,348,527,380,496,392,494,387,524,375,575,343,617,309"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9c060d740f5b0117e3c9fb66d9f602df" title="Swap operation." alt="" coords="297,453,504,493"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="636,315,592,381,562,415,527,444,504,456,501,451,524,439,558,411,588,377,631,312"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a723e8666b5308d949a5dbde22c198464" title="Swap operation." alt="" coords="276,517,525,557"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="643,316,627,360,603,411,570,463,550,487,527,507,507,520,505,515,524,503,546,483,566,460,599,409,623,358,638,314"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a84053292c2334fddefdf6e5f6333d11f" title="Returns the DynamicWaveletTree instance loaded from a file stream ifs." alt="" coords="5,197,228,237"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="293,220,228,220,228,215,293,215"/>
+</map>

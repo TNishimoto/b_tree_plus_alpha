@@ -1,0 +1,31 @@
+<map id="stool::bptree::DynamicPrefixSum::print_memory_usage" name="stool::bptree::DynamicPrefixSum::print_memory_usage">
+<area shape="rect" id="Node000001" title="Print the memory usage information of this data structure." alt="" coords="5,198,212,238"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a911534c25fd6e6bc4ec7b4128417c153" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="260,198,480,238"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,215,247,215,247,221,212,221"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a33cefd9fabcd36a34947593d08d2e542" title="Return the (i+1)&#45;th element of S[i]." alt="" coords="528,102,735,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,195,527,152,550,144,551,149,529,156,419,200"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a77aa0f9176b7dd0781a385d714966b81" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="536,166,727,206"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="480,202,522,197,523,202,481,207"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aa68a440c4af76449da3c0f92372b6c06" title="Return |S|." alt="" coords="783,287,989,327"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="412,236,466,260,529,279,590,291,652,299,769,306,769,311,651,304,589,296,527,285,465,265,410,241"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9c949ad97b82be120dac15f2b38101df" title="Returns the total memory usage in bytes." alt="" coords="528,230,735,270"/>
+<area shape="poly" id="edge16_Node000002_Node000012" title=" " alt="" coords="481,229,515,233,514,238,480,234"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a6aa4cbed0514ca74aff7b0f82632efe5" title="Return B[i]." alt="" coords="797,109,975,135"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="735,119,784,119,784,125,735,125"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="1037,29,1232,84"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="935,107,1023,83,1025,88,936,112"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="1280,143,1436,183"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="975,124,1232,145,1266,148,1266,154,1232,150,975,130"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="1057,183,1213,223"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="927,132,1061,177,1059,182,925,137"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="1091,29,1092,19,1099,10,1114,5,1135,3,1160,6,1174,14,1171,18,1158,11,1135,8,1115,10,1102,15,1097,21,1097,29"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1484,143,1640,183"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1436,161,1470,161,1470,166,1436,166"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="1213,187,1266,177,1267,182,1214,192"/>
+<area shape="poly" id="edge10_Node000008_Node000008" title=" " alt="" coords="1093,184,1091,174,1097,164,1112,159,1135,157,1161,160,1175,167,1172,172,1159,165,1135,162,1113,164,1101,169,1096,175,1098,182"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="727,187,1043,198,1043,203,727,192"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#a6d33220f4d8c5cf7c4d4743061c6a855" title="Returns the total memory size of this B+&#45;tree." alt="" coords="808,223,964,263"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="721,203,795,220,794,225,720,209"/>
+<area shape="poly" id="edge15_Node000011_Node000008" title=" " alt="" coords="956,285,988,273,1084,228,1086,232,990,278,957,290"/>
+<area shape="poly" id="edge17_Node000012_Node000010" title=" " alt="" coords="735,245,794,243,794,248,735,250"/>
+</map>

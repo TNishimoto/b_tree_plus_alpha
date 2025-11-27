@@ -1,0 +1,26 @@
+<map id="stool::bptree::DynamicSequence64::insert" name="stool::bptree::DynamicSequence64::insert">
+<area shape="rect" id="Node000001" title="Insert a given integer value into S as the (pos+1)&#45;th element." alt="" coords="5,203,255,243"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a2ff3049d3d2ba5fddaa889c4997a179b" title="Insert a given value v with weight w at position i in the sequence S." alt="" coords="349,159,505,199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,202,335,190,336,195,255,208"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a109a1ec3be51d34ee80964762bb8a1a6" title="Return |S|." alt="" coords="303,235,552,275"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="255,234,290,238,289,243,255,239"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="600,29,795,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="472,157,623,87,625,92,474,162"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="1253,167,1409,207"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="505,159,600,145,770,128,903,120,1036,124,1206,145,1267,160,1266,165,1205,150,1036,129,903,125,770,134,600,150,506,165"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a6c1e7af4c516633316e0bfdb3948fa57" title="Push a given value to the end of the sequence S." alt="" coords="619,159,775,199"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="506,177,605,177,605,182,506,182"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="619,247,775,287"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="490,197,622,240,621,245,489,202"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="654,29,654,19,662,10,676,5,697,3,722,6,737,14,734,18,721,11,697,8,678,10,665,15,659,21,659,29"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1457,167,1613,207"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="1409,185,1444,185,1444,190,1409,190"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#ad08a894609ac8506148f5403cb68d9f6" title="Add a given sequence Q[0..k&#45;1] to the end of S[0..n&#45;1] (i.e., S = S[0..n&#45;1]Q[0..k&#45;1])" alt="" coords="843,163,999,203"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="776,178,829,179,829,184,776,183"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a04008874c06d7ffe88c81fc4991db963" title="Compute the path from the root to the last leaf, and store it in the output_path." alt="" coords="1047,160,1205,215"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="999,182,1033,183,1033,188,999,188"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="1206,185,1240,185,1240,190,1206,190"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="775,264,971,255,1088,243,1205,225,1263,209,1264,214,1206,230,1089,248,972,260,776,269"/>
+<area shape="poly" id="edge12_Node000009_Node000009" title=" " alt="" coords="656,248,653,238,660,228,675,223,697,221,723,224,737,231,735,236,722,229,697,226,676,228,663,233,659,239,661,246"/>
+<area shape="poly" id="edge14_Node000010_Node000009" title=" " alt="" coords="552,258,606,261,606,266,552,264"/>
+</map>

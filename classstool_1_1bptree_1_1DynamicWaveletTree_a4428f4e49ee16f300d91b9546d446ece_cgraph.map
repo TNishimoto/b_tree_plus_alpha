@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicWaveletTree::remove" name="stool::bptree::DynamicWaveletTree::remove">
+<area shape="rect" id="Node000001" title="Remove the character at the position i from T." alt="" coords="5,37,228,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#abdb6c82801aa44df22ef6034a409ef79" title="Return the height of the wavelet tree." alt="" coords="276,5,499,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,42,262,37,263,43,228,47"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#ab9eb1408c0fd96fc3a1aee9604553e6f" title="Return |T|." alt="" coords="276,69,499,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,68,263,72,262,77,228,73"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0ec7f62aea663c339d32e798f79314f1" title="Check if the alphabet U is empty." alt="" coords="547,69,769,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="499,87,533,87,533,92,499,92"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="stool::bptree::DynamicSequence64::decrement" name="stool::bptree::DynamicSequence64::decrement">
+<area shape="rect" id="Node000001" title="Set the value S[i&#45;delta] at a given position i in S." alt="" coords="303,5,552,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicSequence64.html#a5111e697aadcc28084f5085c594a0724" title="Set a given value v at a given position i in S." alt="" coords="5,5,255,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,28,255,28,255,23,289,23"/>
+</map>

@@ -1,0 +1,31 @@
+<map id="stool::bptree::DynamicPrefixSum::set_values" name="stool::bptree::DynamicPrefixSum::set_values">
+<area shape="rect" id="Node000001" title="Replaces the |Q| values S[i..i+|Q|&#45;1] with the given values Q[0..|Q|&#45;1]." alt="" coords="5,136,212,176"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aadffe681f9ac8e9a6d868924f5ca23f2" title="Set a given value v at a given position i in S." alt="" coords="260,89,467,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,134,246,128,247,133,213,140"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#aa68a440c4af76449da3c0f92372b6c06" title="Return |S|." alt="" coords="260,168,467,208"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="212,166,247,171,246,176,212,172"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a33cefd9fabcd36a34947593d08d2e542" title="Return the (i+1)&#45;th element of S[i]." alt="" coords="515,133,721,173"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="467,125,502,131,501,136,466,130"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a26b3c4ac26680f6e38efa7a01528ac43" title="Set the value S[i&#45;delta] at a given position i in S." alt="" coords="515,69,721,109"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="467,99,501,96,501,101,467,104"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a9f912a184469d8f6b0fd086eb4ddac03" title="Set the value S[i+delta] at a given position i in S." alt="" coords="515,5,721,45"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="420,87,514,55,538,47,540,52,516,60,422,92"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a6aa4cbed0514ca74aff7b0f82632efe5" title="Return B[i]." alt="" coords="769,138,947,163"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="721,150,756,149,756,154,721,155"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#aed920f9fa15fec050931e68a9d75888e" title="Compute the path from the root to the leaf containing S[i], and return the position of S[i] in the LE..." alt="" coords="995,46,1189,101"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="897,135,995,103,997,108,898,140"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="1237,160,1393,200"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="947,149,1063,153,1190,161,1224,165,1223,170,1189,167,1062,159,947,155"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="1014,200,1170,240"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="903,161,1011,193,1010,198,901,166"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="1049,46,1049,36,1057,27,1071,21,1092,19,1117,22,1131,30,1129,35,1115,28,1092,25,1072,27,1060,31,1054,38,1054,46"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1441,160,1597,200"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1393,177,1428,177,1428,183,1393,183"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="1170,203,1223,194,1224,199,1171,209"/>
+<area shape="poly" id="edge10_Node000008_Node000008" title=" " alt="" coords="1051,200,1048,190,1055,181,1070,175,1092,173,1118,176,1132,184,1130,188,1116,181,1092,179,1071,181,1058,185,1053,191,1056,199"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1bptree_1_1BPTree.html#a3b576736303172ac2e165b2a1439cd41" title="Update S[i] and its weight using a given value delta and the increment function supported by the LEAF..." alt="" coords="780,53,936,93"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="721,80,766,77,767,82,722,85"/>
+<area shape="poly" id="edge13_Node000010_Node000005" title=" " alt="" coords="936,71,981,71,981,76,936,76"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="719,43,767,53,766,58,718,48"/>
+<area shape="poly" id="edge17_Node000012_Node000008" title=" " alt="" coords="467,190,1000,213,1000,219,467,195"/>
+</map>

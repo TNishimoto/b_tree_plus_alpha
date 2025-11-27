@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicWaveletTree::size_in_bytes" name="stool::bptree::DynamicWaveletTree::size_in_bytes">
+<area shape="rect" id="Node000001" title="Returns the total memory usage in bytes." alt="" coords="547,37,769,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a0a0c9371daf3b5db25e6e2f5790428ca" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="276,5,499,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="533,45,499,41,499,36,533,40"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a6e3b036448ad3bd2162fec52503e0b1e" title="Print the statistics of this data structure." alt="" coords="276,69,499,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="533,75,499,79,499,74,533,69"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicWaveletTree.html#a87233142c7f20d27f30b3e03a8cc32f4" title="Print the memory usage information of this data structure." alt="" coords="5,5,228,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="262,28,228,28,228,23,262,23"/>
+</map>

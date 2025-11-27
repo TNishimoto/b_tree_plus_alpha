@@ -1,0 +1,24 @@
+<map id="include/dynamic_sequence64.hpp" name="include/dynamic_sequence64.hpp">
+<area shape="rect" id="Node000001" title="A dynamic data structure that maintains a sequence of 64&#45;bit non&#45;negative integers." alt="" coords="83,5,326,31"/>
+<area shape="rect" id="Node000002" href="$bp__tree_8hpp_source.html" title=" " alt="" coords="151,79,258,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,31,207,65,202,65,202,31"/>
+<area shape="rect" id="Node000003" href="$bp__internal__node__functions_8hpp_source.html" title=" " alt="" coords="5,240,161,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="198,106,107,230,103,227,194,103"/>
+<area shape="rect" id="Node000006" href="$bp__postorder__iterator_8hpp_source.html" title=" " alt="" coords="186,240,354,280"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="197,106,186,123,175,145,170,168,175,191,192,213,215,231,212,235,188,217,170,193,165,168,170,143,181,120,193,103"/>
+<area shape="rect" id="Node000009" href="$bp__value__forward__iterator_8hpp_source.html" title=" " alt="" coords="184,152,345,192"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="216,103,244,139,240,143,211,106"/>
+<area shape="rect" id="Node000010" href="$bp__leaf__forward__iterator_8hpp_source.html" title=" " alt="" coords="369,152,557,192"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="243,101,389,145,387,151,242,107"/>
+<area shape="rect" id="Node000004" href="$bp__internal__node_8hpp_source.html" title=" " alt="" coords="91,475,262,500"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="94,279,169,461,164,463,89,281"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="100,548,253,573"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="179,500,179,534,174,534,174,500"/>
+<area shape="rect" id="Node000007" href="$stack__node_8hpp_source.html" title=" " alt="" coords="195,328,327,353"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="270,281,266,314,261,314,265,280"/>
+<area shape="rect" id="Node000008" href="$bp__node__pointer_8hpp_source.html" title=" " alt="" coords="170,401,335,427"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="262,354,258,388,253,388,257,353"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="242,429,201,467,197,463,239,425"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="269,192,271,226,265,226,263,192"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="422,194,326,237,324,232,420,190"/>
+</map>

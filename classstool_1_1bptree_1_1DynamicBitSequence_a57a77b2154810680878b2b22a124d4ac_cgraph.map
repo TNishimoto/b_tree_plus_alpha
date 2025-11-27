@@ -1,0 +1,15 @@
+<map id="stool::bptree::DynamicBitSequence::print_content" name="stool::bptree::DynamicBitSequence::print_content">
+<area shape="rect" id="Node000001" title="Print the bit sequence B." alt="" coords="5,37,193,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ade05b0628ccc71adcb4e84f77bb5c1fc" title="Return the name of the DynamicBitSequence for debugging." alt="" coords="241,5,429,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,42,227,37,228,43,194,47"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a6f93ebb2840fd313944f8592ef583640" title="Return B as a binary string." alt="" coords="241,69,429,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,67,228,72,227,77,193,73"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a7ebed5cf8f51ef2466527f052a22d9f2" title="Return B as a packed vector of uint64_t (i.e., the length of the vector is |B| / 64)." alt="" coords="477,69,684,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="429,87,464,87,464,92,429,92"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1BPTree.html#a1806172eecebdea65a5026aef06530fb" title="Return the values S[0..n&#45;1] as a vector of VALUE." alt="" coords="732,69,888,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="684,87,718,87,718,92,684,92"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="936,69,1092,109"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="888,87,922,87,922,92,888,92"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="1140,69,1296,109"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1092,87,1126,87,1126,92,1092,92"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="stool::bptree::BPTree::remove_using_path" name="stool::bptree::BPTree::remove_using_path">
+<area shape="rect" id="Node000001" title="Remove S[i] from the sequence S using (i) the path from the root to the leaf containing S[i] and (ii)..." alt="" coords="5,29,164,69"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a8eb8fb9aa63068cdb72359f6362be32e" title="Return the number of values stored in this tree (i.e., n)." alt="" coords="212,29,368,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,47,198,47,198,52,164,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="252,30,250,20,256,11,269,5,290,3,314,6,327,13,324,18,312,11,290,8,271,10,259,15,255,21,257,28"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="416,29,572,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,47,402,47,402,52,368,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="620,29,776,69"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="572,47,606,47,606,52,572,52"/>
+</map>

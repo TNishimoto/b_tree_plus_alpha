@@ -1,0 +1,9 @@
+<map id="stool::bptree::DynamicBitSequence::at" name="stool::bptree::DynamicBitSequence::at">
+<area shape="rect" id="Node000001" title="Return B[i]." alt="" coords="477,37,665,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#ad281d4e869ff662b938a902afb2b6181" title="The alias for at query." alt="" coords="241,5,429,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="463,45,429,41,430,35,464,40"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a4ca784c00aa4aa4a53b62695fb25cea6" title="Replace the bit B[i] with the bit b." alt="" coords="241,69,429,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="464,75,430,79,429,74,463,69"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#a38e76ed56ca3608c0e065ef75589cb91" title="Replace the bits B[i..i+m&#45;1] with the bits bits[0..m&#45;1]." alt="" coords="5,69,193,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="227,92,194,92,194,87,227,87"/>
+</map>

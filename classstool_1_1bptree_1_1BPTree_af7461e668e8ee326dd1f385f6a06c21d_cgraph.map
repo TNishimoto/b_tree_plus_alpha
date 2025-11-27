@@ -1,0 +1,7 @@
+<map id="stool::bptree::BPTree::compute_path_from_root_to_leaf" name="stool::bptree::BPTree::compute_path_from_root_to_leaf">
+<area shape="rect" id="Node000001" title="Compute the path from the root to the leaf containing S[i], store it in the output_path,..." alt="" coords="5,5,200,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#a605981d5045ed095d788ad02bfee887d" title="Return true if n = 0, false otherwise." alt="" coords="248,13,404,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,30,234,30,234,35,200,35"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1BPTree.html#aeb65e19a7ed3ae23bb0c7f1cac71e621" title="Return the height of this tree." alt="" coords="452,13,608,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="404,30,438,30,438,35,404,35"/>
+</map>

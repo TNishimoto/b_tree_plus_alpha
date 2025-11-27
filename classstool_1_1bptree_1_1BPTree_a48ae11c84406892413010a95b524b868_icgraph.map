@@ -1,0 +1,22 @@
+<map id="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted" name="stool::bptree::BPTree::check_if_leaf_container_vec_is_sorted">
+<area shape="rect" id="Node000001" title="Checks if the leaf containers are sorted in the vector W, i.e., W[i] is the leaf container of the i&#45;t..." alt="" coords="787,83,971,138"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1bptree_1_1BPTree.html#aea260e6e55d1c70432df595bf0a5d7b6" title="Sorts the leaf containers so that each W[i] is the LEAF CONTAINER of the i&#45;th leaf." alt="" coords="576,61,739,101"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="773,99,738,95,739,89,773,94"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1bptree_1_1DynamicBitSequence.html#af65004c40a06841710a56279fe5d5ffe" title="Sorts the leaf containers of the internal tree." alt="" coords="303,5,528,45"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="813,80,777,64,738,52,685,41,631,34,528,27,528,22,631,28,686,36,739,47,778,59,815,75"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1bptree_1_1BPTree.html#a3220f94b968ce5086887ee514eed792c" title="Save the given instance item to a byte vector output at the position pos." alt="" coords="337,71,493,111"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="773,116,739,116,657,118,576,116,493,106,494,101,576,111,657,113,739,111,773,110"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1bptree_1_1BPTree.html#a361d821bfdd29478215ea4dc085f3bc5" title="Save the given instance item to a file stream os." alt="" coords="337,151,493,191"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="773,127,494,163,493,158,773,122"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="562,62,502,48,503,43,563,57"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="562,88,494,90,493,85,562,82"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="590,109,472,153,470,148,589,104"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#a88f0c9e0632d389b0b12dcb659cf7fc9" title="Save the given instance item to a byte vector output at the position pos." alt="" coords="27,9,233,49"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,74,223,52,224,47,324,68"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1bptree_1_1DynamicSequence64.html#af7c4eea22c8d56e8384c4da6f625f5d1" title="Save the given instance item to a byte vector output at the position pos." alt="" coords="5,73,255,113"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="324,94,255,95,255,90,324,89"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1bptree_1_1DynamicPrefixSum.html#abbc6d63089a28ebfbcb6bac12ab7f13a" title="Save the given instance item to a file stream os." alt="" coords="27,141,233,181"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="324,170,234,167,234,162,324,165"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1bptree_1_1DynamicSequence64.html#aabaae5a8114a4c22f929bb58c4248b54" title="Save the given instance item to a file stream os." alt="" coords="5,205,255,245"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="324,191,236,208,235,203,323,185"/>
+</map>
