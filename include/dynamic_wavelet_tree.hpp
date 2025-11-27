@@ -118,7 +118,7 @@ namespace stool
                 return this->alphabet[0];
             }
             /**
-             * @brief Return the lexicographic order of a given character \p c in the alphabet \p U
+             * @brief Return the lexicographic order of a given character \p c in the alphabet \p U if it exists, otherwise returns -1
              */
             int64_t get_lexicographic_order(uint8_t c) const
             {
@@ -311,6 +311,16 @@ namespace stool
                 }
                 return s;
             }
+
+            /**
+             * @brief Return the alphabet \p U
+             */
+            std::vector<uint8_t> to_alphabet_vector() const
+            {
+                std::vector<uint8_t> r = this->alphabet;
+                return r;
+            }
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -542,7 +552,7 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "String: " << s << "(" << s.size() << ")" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
-            
+
             /**
              * @brief Print the statistics of this data structure
              */
