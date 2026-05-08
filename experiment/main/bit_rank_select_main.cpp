@@ -12,6 +12,8 @@
 #include "../include/dyn_suc_bv_wrapper.hpp"
 // #include "../../test/permutation_test.hpp"
 
+std::vector<uint64_t> checksum_vector;
+
 template <typename T>
 void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::string test_type, uint64_t item_num, uint64_t query_num, uint64_t seed)
 {
@@ -28,6 +30,8 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::chrono::system_clock::time_point st1, st2;
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
+
     std::cout << "Construction..." << std::endl;
 
     st1 = std::chrono::system_clock::now();
@@ -73,6 +77,9 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     }
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
+
+
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "insertion")
     {
@@ -89,6 +96,10 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     uint64_t time_insertion = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
+
+
+
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "deletion")
     {
@@ -114,6 +125,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     std::uniform_int_distribution<uint64_t> get_rand_bits(0, count1 - 1);
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
 
     /*
     dyn::__time_count = 0;
@@ -153,6 +165,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
             */
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
 
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "rank")
@@ -178,6 +191,7 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
     // std::cout << count1 << std::endl;
 
     std::cout << "Checksum: " << hash << std::endl;
+    checksum_vector.push_back(hash);
 
     st1 = std::chrono::system_clock::now();
     if (test_type == "all" || test_type == "select")
@@ -213,8 +227,16 @@ void dynamic_bit_operation_test(T &dynamic_bit_sequence, std::string name, std::
         //dynamic_bit_sequence.print_memory_usage();
     }
     
-
     stool::Memory::print_memory_usage();
+
+    std::cout << "Checksum vector: ";
+    for (uint64_t i = 0; i < checksum_vector.size(); i++) {
+        std::cout << checksum_vector[i] << " ";
+    }
+    std::cout << std::endl;
+
+
+
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
 }

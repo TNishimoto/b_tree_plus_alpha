@@ -273,10 +273,39 @@ namespace stool
             }
 
             /**
+             * @brief Alias for one_based_rank0.
+             * @note O(log n) time
+             */
+            int64_t rank0(uint64_t i) const
+            {
+                return this->one_based_rank0(i);
+            }
+
+            /**
+             * @brief Alias for one_based_rank1.
+             * @note O(log n) time
+             */
+            int64_t rank1(uint64_t i) const
+            {
+                return this->one_based_rank1(i);
+            }
+
+            /**
+             * @brief Alias for one_based_rank.
+             * @note O(log n) time
+             */
+            int64_t rank(uint64_t i, bool c) const
+            {
+                return this->one_based_rank(i, c);
+            }
+
+
+
+            /**
              * @brief Returns the position \p p of the (i+1)-th 1 in \p B if such a position exists, otherwise returns -1
              * @note O(log n) time
              */
-            int64_t select1(uint64_t i) const
+            int64_t zero_based_select1(uint64_t i) const
             {
                 int64_t p = this->tree.search(i + 1);
                 if (p == -1)
@@ -300,7 +329,7 @@ namespace stool
              * @brief Returns the position \p p of the (i+1)-th 0 in \p B if such a position exists, otherwise returns -1
              * @note O(log n) time
              */
-            int64_t select0(uint64_t i) const
+            int64_t zero_based_select0(uint64_t i) const
             {
                 int64_t p = this->tree.select0(i);
                 if (p == -1)
@@ -324,10 +353,38 @@ namespace stool
              * @brief Returns the position \p p of the (i+1)-th \p c in \p B if such a position exists, otherwise returns -1
              * @note O(log n) time
              */
-            int64_t select(uint64_t i, bool c) const
+            int64_t zero_based_select(uint64_t i, bool c) const
             {
                 return c ? this->select1(i) : this->select0(i);
             }
+
+            /**
+             * @brief Alias for zero_based_select1.
+             * @note O(log n) time
+             */
+            int64_t select1(uint64_t i) const
+            {
+                return this->zero_based_select1(i);
+            }
+
+            /**
+             * @brief Alias for zero_based_select0.
+             * @note O(log n) time
+             */
+            int64_t select0(uint64_t i) const
+            {
+                return this->zero_based_select0(i);
+            }
+
+            /**
+             * @brief Alias for zero_based_select.
+             * @note O(log n) time
+             */
+            int64_t select(uint64_t i, bool c) const
+            {
+                return this->zero_based_select(i, c);
+            }
+
 
             /**
              * @brief Return the number of 1 in \p B[0..n-1]

@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     std::cout << "Print the integers stored in S" << std::endl;
     std::cout << "S = " << S.to_string() << std::endl;
 
-    std::cout << "The number of a in S[0..3] is " << S.rank(4, 'a') << std::endl;
-    std::cout << "The number of b in S[0..3] is " << S.rank(4, 'b') << std::endl;
+    std::cout << "The number of a in S[0..3] is " << S.one_based_rank(4, 'a') << std::endl;
+    std::cout << "The number of b in S[0..3] is " << S.one_based_rank(4, 'b') << std::endl;
 
     std::cout << "The position of the third a in S is " << S.select(2, 'a') << std::endl;
     std::cout << "The position of the third b in S is " << S.select(2, 'b') << std::endl;

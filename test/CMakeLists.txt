@@ -27,22 +27,22 @@ endif()
 INCLUDE_DIRECTORIES(../modules)
 
 
-add_executable(permutation_test.out permutation_test_main.cpp)
-target_link_libraries(permutation_test.out)
+add_executable(permutation_test permutation_test_main.cpp)
+target_link_libraries(permutation_test)
 
-add_executable(prefix_sum_test.out prefix_sum_test_main.cpp)
-target_link_libraries(prefix_sum_test.out)
+add_executable(prefix_sum_test prefix_sum_test_main.cpp)
+target_link_libraries(prefix_sum_test)
 
-add_executable(bit_test.out bit_test_main.cpp)
-target_link_libraries(bit_test.out)
+add_executable(bit_test bit_test_main.cpp)
+target_link_libraries(bit_test)
 
-add_executable(wavelet_tree_test.out wavelet_tree_test_main.cpp)
-target_link_libraries(wavelet_tree_test.out)
+add_executable(wavelet_tree_test wavelet_tree_test_main.cpp)
+target_link_libraries(wavelet_tree_test)
 
-add_executable(sequence_test.out sequence_test_main.cpp)
-target_link_libraries(sequence_test.out)
+add_executable(sequence_test sequence_test_main.cpp)
+target_link_libraries(sequence_test)
 
-add_executable(range_search_test.out range_search_test_main.cpp)
-target_link_libraries(range_search_test.out)
+add_executable(range_search_test range_search_test_main.cpp)
+target_link_libraries(range_search_test)
 
 

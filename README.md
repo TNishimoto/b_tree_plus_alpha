@@ -57,7 +57,7 @@ An example usage of DynamicPrefixSum is provided in [dynamic_prefix_sum_example.
 When this example is executed, the following message is displayed:
 
 ```
-% ./dynamic_prefix_sum_example.out  
+% ./dynamic_prefix_sum_example  
   
  Build DynamicPrefixSum S from sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
  Print the values stored in S  
@@ -118,7 +118,7 @@ An example usage of DynamicBitSequence is provided in [dynamic_bit_example.cpp](
 When this example is executed, the following message is displayed:
 
 ```
-% ./dynamic_bit_example.out  
+% ./dynamic_bit_example  
   
  Build data structure S from bit sequence [1, 0, 1, 0, 1, 0, 1, 0, 1, 1]  
  Print the bits stored in S  
@@ -172,7 +172,7 @@ An example usage of DynamicSequence64 is provided in [dynamic_sequence_64_exampl
 When this example is executed, the following message is displayed:
 
 ```
- ./dynamic_sequence_64_example.out  
+ ./dynamic_sequence_64_example  
  
  Build DynamicSequence64 S from integer sequence [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]  
  Print the integers stored in S  
@@ -220,7 +220,7 @@ An example usage of DynamicWaveletTree is provided in [dynamic_wavelet_tree_exam
 When this example is executed, the following message is displayed:
 
 ```
-% ./dynamic_wavelet_tree_example.out  
+% ./dynamic_wavelet_tree_example  
   
  Print the integers stored in S  
  S = ababababab  
@@ -269,7 +269,7 @@ An example usage of DynamicPermutation is provided in [dynamic_permutation_examp
 When this example is executed, the following message is displayed:
 
 ```
-% ./dynamic_permutation_example.out  
+% ./dynamic_permutation_example 
   
  Build DynamicPermutation S from permutation [0, 3, 1, 2, 5, 4, 9, 8, 7, 6]  
  Constructing Dynamic Permutation... (input size = 10)  

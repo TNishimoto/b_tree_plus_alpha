@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(CPP_STATIC)
-set(CMAKE_CXX_FLAGS "-m64  -D_INT128 -Wall -Wextra -static")
+set(CMAKE_CXX_FLAGS "-m64 -Wall -Wextra -static")
 else(CPP_STATIC)
-set(CMAKE_CXX_FLAGS "-m64  -D_INT128 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-m64 -Wall -Wextra")
 endif(CPP_STATIC)
 
 #set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG")
@@ -16,7 +16,9 @@ set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DNDEBUG")
 #set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG -fsanitize=address -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Og -DNDEBUG ")
 #set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -DTIME_DEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG  -Rpass=loop-vectorize")
+#set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG  -Rpass=loop-vectorize")
+set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG")
+
 
 if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     message("Release Mode")
@@ -57,11 +59,11 @@ include_directories(${CMAKE_BINARY_DIR}/modules/DYNAMIC/hopscotch_map-prefix/src
 FILE(GLOB SOURCES lib/dynamic_rank_select/*.cpp)
 
 
-add_executable(bit_rank_select.out main/bit_rank_select_main.cpp)
-target_link_libraries(bit_rank_select.out)
+add_executable(bit_rank_select main/bit_rank_select_main.cpp)
+target_link_libraries(bit_rank_select)
 message(STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}")
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|AMD64)$")
-    target_compile_options(bit_rank_select.out PRIVATE -mbmi2)
+    target_compile_options(bit_rank_select PRIVATE -mbmi2)
     message(STATUS "64-bit architecture.")
 
 else()
@@ -69,15 +71,15 @@ message(STATUS "Not a 64-bit architecture.")
 endif()
 
 
-add_executable(rank_select.out main/rank_select_main.cpp)
-target_link_libraries(rank_select.out)
+add_executable(rank_select main/rank_select_main.cpp)
+target_link_libraries(rank_select)
 
 
-add_executable(prefix_sum.out main/prefix_sum_main.cpp)
-target_link_libraries(prefix_sum.out)
+add_executable(prefix_sum main/prefix_sum_main.cpp)
+target_link_libraries(prefix_sum)
 
 
 
-add_executable(permutation.out main/permutation_main.cpp)
-target_link_libraries(permutation.out)
+add_executable(permutation main/permutation_main.cpp)
+target_link_libraries(permutation)
 
