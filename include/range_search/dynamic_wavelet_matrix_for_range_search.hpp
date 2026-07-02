@@ -8,7 +8,10 @@ namespace stool
     {
 
         /**
-         * @brief A dynamic data structure supporting range search [Unchecked AI's Comment]
+         * @brief A dynamic wavelet matrix supporting insertion, deletion, and 2D range reporting on rank coordinates.
+         *
+         * The structure stores \p n elements as pairs of x-rank and y-rank coordinates.
+         * Elements are ordered primarily by y-rank; x-rank is the associated value at each y-rank position.
          * \ingroup RangeSearchClasses
          */
         class DynamicWaveletMatrixForRangeSearch
@@ -16,6 +19,7 @@ namespace stool
             using BIT_SEQUENCE = SimpleDynamicBitSequence;
             using PREFIX_SUM = SimpleDynamicPrefixSum;
 
+            // H n-bit sequences
             std::vector<BIT_SEQUENCE> bits_seq;
             std::vector<PREFIX_SUM> length_seq;
 
@@ -25,6 +29,11 @@ namespace stool
             //inline static uint64_t LEAF_MAX_SIZE = 8;
 
         public:
+            /**
+             * @brief Random-access iterator traversing elements in y-rank order.
+             *
+             * Dereferencing yields the x-rank of the element at the current y-rank position.
+             */
             class YRankIterator
             {
             public:
@@ -35,12 +44,22 @@ namespace stool
                 const DynamicWaveletMatrixForRangeSearch *container = nullptr;
                 uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
+
+                /** @brief Default constructor creating an invalid end iterator. */
                 YRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
+
+                /**
+                 * @brief Construct an iterator at a given position.
+                 * @param container Pointer to the parent structure.
+                 * @param x_rank The x-rank at the current position.
+                 * @param y_rank The y-rank position.
+                 */
                 YRankIterator(const DynamicWaveletMatrixForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
 
+                /** @brief Return the x-rank at the current y-rank position. */
                 uint64_t operator*() const noexcept { return this->x_rank; }
 
-                // 前後インクリメント
+                /** @brief Pre-increment: advance to the next y-rank and update the x-rank. */
                 YRankIterator &operator++() noexcept
                 {
                     ++this->y_rank;
@@ -54,12 +73,14 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Post-increment: advance to the next y-rank and return the previous iterator. */
                 YRankIterator operator++(int) noexcept
                 {
                     YRankIterator t = *this;
                     ++*this;
                     return t;
                 }
+                /** @brief Pre-decrement: move to the previous y-rank and update the x-rank. */
                 YRankIterator &operator--() noexcept
                 {
                     if (this->y_rank > 0)
@@ -73,6 +94,7 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Post-decrement: move to the previous y-rank and return the previous iterator. */
                 YRankIterator operator--(int) noexcept
                 {
                     YRankIterator t = *this;
@@ -80,7 +102,10 @@ namespace stool
                     return t;
                 }
 
-                // 加減算
+                /**
+                 * @brief Advance the iterator by \p n y-rank positions.
+                 * @param n Number of positions to advance (may be negative).
+                 */
                 YRankIterator &operator+=(difference_type n) noexcept
                 {
                     this->y_rank += n;
@@ -94,6 +119,10 @@ namespace stool
                     }
                     return *this;
                 }
+                /**
+                 * @brief Move the iterator back by \p n y-rank positions.
+                 * @param n Number of positions to retreat.
+                 */
                 YRankIterator &operator-=(difference_type n) noexcept
                 {
                     this->y_rank -= n;
@@ -107,20 +136,34 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Return an iterator advanced by \p n y-rank positions. */
                 friend YRankIterator operator+(YRankIterator it, difference_type n) noexcept { return YRankIterator(it.container, it.y_rank + n, it.x_rank); }
+                /** @brief Return an iterator advanced by \p n y-rank positions. */
                 friend YRankIterator operator+(difference_type n, YRankIterator it) noexcept { return it + n; }
+                /** @brief Return an iterator moved back by \p n y-rank positions. */
                 friend YRankIterator operator-(YRankIterator it, difference_type n) noexcept { return YRankIterator(it.container, it.y_rank - n, it.x_rank); }
+                /** @brief Return the difference in y-rank between two iterators. */
                 friend difference_type operator-(YRankIterator a, YRankIterator b) noexcept { return a.y_rank - b.y_rank; }
 
-                // 比較
+                /** @brief Equality comparison based on y-rank. */
                 friend bool operator==(YRankIterator a, YRankIterator b) noexcept { return a.y_rank == b.y_rank; }
+                /** @brief Inequality comparison based on y-rank. */
                 friend bool operator!=(YRankIterator a, YRankIterator b) noexcept { return !(a == b); }
+                /** @brief Less-than comparison based on y-rank. */
                 friend bool operator<(YRankIterator a, YRankIterator b) noexcept { return a.y_rank < b.y_rank; }
+                /** @brief Greater-than comparison based on y-rank. */
                 friend bool operator>(YRankIterator a, YRankIterator b) noexcept { return b < a; }
+                /** @brief Less-than-or-equal comparison based on y-rank. */
                 friend bool operator<=(YRankIterator a, YRankIterator b) noexcept { return !(b < a); }
+                /** @brief Greater-than-or-equal comparison based on y-rank. */
                 friend bool operator>=(YRankIterator a, YRankIterator b) noexcept { return !(a < b); }
             };
 
+            /**
+             * @brief Random-access iterator traversing elements in x-rank order.
+             *
+             * Dereferencing yields the y-rank of the element at the current x-rank position.
+             */
             class XRankIterator
             {
             public:
@@ -131,12 +174,22 @@ namespace stool
                 const DynamicWaveletMatrixForRangeSearch *container = nullptr;
                 uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
+
+                /** @brief Default constructor creating an invalid end iterator. */
                 XRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
+
+                /**
+                 * @brief Construct an iterator at a given position.
+                 * @param container Pointer to the parent structure.
+                 * @param x_rank The x-rank position.
+                 * @param y_rank The y-rank at the current position.
+                 */
                 XRankIterator(const DynamicWaveletMatrixForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
 
+                /** @brief Return the y-rank at the current x-rank position. */
                 uint64_t operator*() const noexcept { return this->y_rank; }
 
-                // 前後インクリメント
+                /** @brief Pre-increment: advance to the next x-rank and update the y-rank. */
                 XRankIterator &operator++() noexcept
                 {
                     ++this->x_rank;
@@ -150,12 +203,14 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Post-increment: advance to the next x-rank and return the previous iterator. */
                 XRankIterator operator++(int) noexcept
                 {
                     XRankIterator t = *this;
                     ++*this;
                     return t;
                 }
+                /** @brief Pre-decrement: move to the previous x-rank and update the y-rank. */
                 XRankIterator &operator--() noexcept
                 {
                     if (this->x_rank > 0)
@@ -169,6 +224,7 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Post-decrement: move to the previous x-rank and return the previous iterator. */
                 XRankIterator operator--(int) noexcept
                 {
                     XRankIterator t = *this;
@@ -176,7 +232,10 @@ namespace stool
                     return t;
                 }
 
-                // 加減算
+                /**
+                 * @brief Advance the iterator by \p n x-rank positions.
+                 * @param n Number of positions to advance (may be negative).
+                 */
                 XRankIterator &operator+=(difference_type n) noexcept
                 {
                     this->x_rank += n;
@@ -190,6 +249,10 @@ namespace stool
                     }
                     return *this;
                 }
+                /**
+                 * @brief Move the iterator back by \p n x-rank positions.
+                 * @param n Number of positions to retreat.
+                 */
                 XRankIterator &operator-=(difference_type n) noexcept
                 {
                     this->x_rank -= n;
@@ -203,25 +266,36 @@ namespace stool
                     }
                     return *this;
                 }
+                /** @brief Return an iterator advanced by \p n x-rank positions. */
                 friend XRankIterator operator+(XRankIterator it, difference_type n) noexcept { return XRankIterator(it.container, it.y_rank + n, it.x_rank); }
+                /** @brief Return an iterator advanced by \p n x-rank positions. */
                 friend XRankIterator operator+(difference_type n, XRankIterator it) noexcept { return it + n; }
+                /** @brief Return an iterator moved back by \p n x-rank positions. */
                 friend XRankIterator operator-(XRankIterator it, difference_type n) noexcept { return XRankIterator(it.container, it.y_rank - n, it.x_rank); }
+                /** @brief Return the difference in x-rank between two iterators. */
                 friend difference_type operator-(XRankIterator a, XRankIterator b) noexcept { return a.y_rank - b.y_rank; }
 
-                // 比較
+                /** @brief Equality comparison based on x-rank. */
                 friend bool operator==(XRankIterator a, XRankIterator b) noexcept { return a.y_rank == b.y_rank; }
+                /** @brief Inequality comparison based on x-rank. */
                 friend bool operator!=(XRankIterator a, XRankIterator b) noexcept { return !(a == b); }
+                /** @brief Less-than comparison based on x-rank. */
                 friend bool operator<(XRankIterator a, XRankIterator b) noexcept { return a.y_rank < b.y_rank; }
+                /** @brief Greater-than comparison based on x-rank. */
                 friend bool operator>(XRankIterator a, XRankIterator b) noexcept { return b < a; }
+                /** @brief Less-than-or-equal comparison based on x-rank. */
                 friend bool operator<=(XRankIterator a, XRankIterator b) noexcept { return !(b < a); }
+                /** @brief Greater-than-or-equal comparison based on x-rank. */
                 friend bool operator>=(XRankIterator a, XRankIterator b) noexcept { return !(a < b); }
             };
 
+            /** @brief Default constructor. Initializes an empty structure. */
             DynamicWaveletMatrixForRangeSearch()
             {
                 this->clear();
             }
 
+            /** @brief Clear all bit sequences, length sequences, and reset the structure to empty. */
             void clear()
             {
                 for (uint64_t i = 0; i < this->bits_seq.size(); i++)
@@ -233,6 +307,13 @@ namespace stool
                 this->length_seq.clear();
             }
 
+            /**
+             * @brief Return the starting index of a node's bit sequence at level \p h.
+             * @param h Level in the wavelet tree (0 is the root level).
+             * @param h_node_id Node identifier at level \p h.
+             * @return The offset in \p bits_seq[h] where this node's bits begin.
+             * @warning O(log n) time
+             */
             uint64_t get_node_x_pos_in_bit_sequence(int64_t h, uint64_t h_node_id) const{
                 if(h_node_id == 0){
                     return 0;
@@ -241,18 +322,32 @@ namespace stool
                     return this->length_seq[h].psum(h_node_id-1);
                 }
             }
-            /*
-            return the number of 0 in S[0..i];
-            */
+
+            /**
+             * @brief Return the number of zeros in the prefix \p S[0..i] of a node's bit sequence.
+             * @param h Level in the wavelet tree.
+             * @param h_node_id Node identifier at level \p h.
+             * @param node_x_pos_in_bit_sequence Starting index of the node's bits in \p bits_seq[h].
+             * @param i Inclusive end index within the node (0-based).
+             * @return The rank of zero up to position \p i within the node.
+             * @warning O(log n) time
+             */
             uint64_t rank0_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
                 return this->bits_seq[h].one_based_rank0(node_x_pos_in_bit_sequence + i + 1) - this->bits_seq[h].one_based_rank0(node_x_pos_in_bit_sequence);
 
             }
-            /*
-            return the number of 1 in S[0..i];
-            */
+
+            /**
+             * @brief Return the number of ones in the prefix \p S[0..i] of a node's bit sequence.
+             * @param h Level in the wavelet tree.
+             * @param h_node_id Node identifier at level \p h.
+             * @param node_x_pos_in_bit_sequence Starting index of the node's bits in \p bits_seq[h].
+             * @param i Inclusive end index within the node (0-based).
+             * @return The rank of one up to position \p i within the node.
+             * @warning O(log n) time
+             */
             uint64_t rank1_in_bit_sequence_of_node(uint64_t h, [[maybe_unused]] uint64_t h_node_id, uint64_t node_x_pos_in_bit_sequence, uint64_t i) const {
                 assert(i <= this->length_seq[h].at(h_node_id));
                 assert(node_x_pos_in_bit_sequence == this->get_node_x_pos_in_bit_sequence(h, h_node_id));
@@ -261,6 +356,15 @@ namespace stool
             }
 
 
+            /**
+             * @brief Recursively insert an element at local coordinates \p (x_rank, y_rank) within a subtree.
+             * @param h Current level in the wavelet tree.
+             * @param h_node_id Node identifier at level \p h.
+             * @param x_rank Local x-rank within the subtree rooted at \p h_node_id.
+             * @param y_rank Local y-rank within the subtree rooted at \p h_node_id.
+             * @param output_path Output vector recording the node path taken during insertion.
+             * @warning O(h log n) time
+             */
             void recursive_add(int64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank, std::vector<uint64_t> &output_path)
             {
                 output_path[h] = h_node_id;
@@ -315,6 +419,15 @@ namespace stool
 
             }
 
+            /**
+             * @brief Insert an element at global coordinates \p (x_rank, y_rank).
+             *
+             * After insertion, the structure may be partially or fully rebuilt
+             * if capacity or balance thresholds are exceeded.
+             * @param x_rank The x-rank of the element to insert.
+             * @param y_rank The y-rank position at which to insert.
+             * @warning amortized O(H log n) time
+             */
             void add(uint64_t x_rank, uint64_t y_rank)
             {
                 
@@ -355,6 +468,15 @@ namespace stool
 
             }
             
+            /**
+             * @brief Remove the element at global y-rank \p y_rank.
+             *
+             * After removal, the structure may be rebuilt if the size falls below
+             * half of the root node's upper capacity threshold.
+             * @param y_rank The y-rank of the element to remove.
+             * @throws std::runtime_error if the structure is empty.
+             * @warning amortized O(H log n) time
+             */
             void remove(uint64_t y_rank)
             {
                 int64_t height = this->height();
@@ -400,12 +522,23 @@ namespace stool
                 
             }
             
+            /**
+             * @brief Return the upper capacity threshold for the root node of a tree with height \p H.
+             * @param H Tree height.
+             * @return Maximum recommended size before the root subtree should be expanded or rebuilt.
+             */
             static uint64_t _get_upper_size_of_root(uint64_t H)
             {
                 return _get_upper_size_of_internal_node(0, H);
             }
 
 
+            /**
+             * @brief Return the upper capacity threshold for an internal node at level \p h in a tree of height \p H.
+             * @param h Level of the internal node.
+             * @param H Tree height.
+             * @return Maximum recommended size for the subtree rooted at level \p h.
+             */
             static uint64_t _get_upper_size_of_internal_node(uint64_t h, uint64_t H)
             {
 
@@ -422,16 +555,35 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Return the upper capacity threshold for an internal node at level \p h.
+             * @param h Level of the internal node.
+             * @return Maximum recommended size for the subtree rooted at level \p h.
+             */
             uint64_t get_upper_size_of_internal_node(uint64_t h) const
             {
                 return _get_upper_size_of_internal_node(h, this->height());
             }
+
+            /**
+             * @brief Return the lower capacity threshold for an internal node at level \p h.
+             * @param h Level of the internal node.
+             * @return One quarter of the upper capacity threshold at level \p h.
+             */
             uint64_t get_lower_size_of_internal_node(uint64_t h) const
             {
                 uint64_t fsize = _get_upper_size_of_internal_node(h, this->height());
                 return (fsize / 4);
             }
 
+            /**
+             * @brief Build the bit sequence at level \p h from rank elements in y-order.
+             * @param h Level to build.
+             * @param rank_elements Rank elements of the subtree at level \p h, ordered by y-rank.
+             * @param output_next_rank_elements Output rank elements for level \p h+1.
+             * @param output_next_length_seq Output child node sizes for level \p h+1.
+             * @warning O(n log n) time
+             */
             void build_h_bit_sequence(uint64_t h, const std::vector<uint64_t> &rank_elements, std::vector<uint64_t> &output_next_rank_elements, std::vector<uint64_t> &output_next_length_seq)
             {
 
@@ -498,6 +650,16 @@ namespace stool
                 this->bits_seq[h].push_many(tmp_bit_sequence);                
             }
 
+            /**
+             * @brief Rebuild the bit sequence at level \p h for a contiguous range of nodes.
+             * @param h Level to rebuild.
+             * @param first_node_id First node identifier at level \p h in the rebuild range.
+             * @param local_h_node_count Number of consecutive nodes to rebuild.
+             * @param rank_elements Rank elements of the subtree, ordered by y-rank.
+             * @param output_next_rank_elements Output rank elements for level \p h+1.
+             * @param output_next_length_seq Output child node sizes for level \p h+1.
+             * @warning O(n log n) time
+             */
             void rebuild_h_bit_sequence(uint64_t h, uint64_t first_node_id, uint64_t local_h_node_count, const std::vector<uint64_t> &rank_elements, std::vector<uint64_t> &output_next_rank_elements, std::vector<uint64_t> &output_next_length_seq)
             {
                 assert(first_node_id + local_h_node_count - 1 < this->length_seq[h].size());
@@ -565,6 +727,12 @@ namespace stool
             }
 
 
+            /**
+             * @brief Build the entire structure from rank elements ordered by y-rank.
+             * @param rank_elements Vector of x-ranks in y-rank order.
+             * @param message_paragraph Indentation level for progress messages (use stool::Message::NO_MESSAGE to suppress).
+             * @warning O(n log^2 n) time
+             */
             void build(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
             {
 
@@ -631,6 +799,12 @@ namespace stool
                 }
             }
             
+            /**
+             * @brief Return the number of bits (elements) stored in a node.
+             * @param h Level in the wavelet tree.
+             * @param h_node_id Node identifier at level \p h.
+             * @return The size of the node.
+             */
             uint64_t get_bit_count_in_node(uint64_t h, uint64_t h_node_id) const {
                 assert(h < this->length_seq.size());
                 assert(h_node_id < this->length_seq[h].size());
@@ -638,6 +812,12 @@ namespace stool
             }
             
 
+            /**
+             * @brief Check whether a node is unbalanced and should be rebuilt.
+             * @param h Level of the node.
+             * @param h_node_id Node identifier at level \p h.
+             * @return True if the left/right child sizes are too skewed, a child is full, or a leaf has size >= 2.
+             */
             bool is_unbalanced_node(uint8_t h, uint64_t h_node_id) const
             {
                 if (h + 1 < this->height())
@@ -660,6 +840,11 @@ namespace stool
 
             
 
+            /**
+             * @brief Rebuild the subtree rooted at node \p h_node_id on level \p h.
+             * @param h Level of the root node of the subtree to rebuild.
+             * @param h_node_id Node identifier at level \p h.
+             */
             void rebuild_internal_node(uint8_t h, uint64_t h_node_id)
             {
 
@@ -688,16 +873,31 @@ namespace stool
             }
             
 
+            /**
+             * @brief Swap the contents of this structure with \p item.
+             * @param item Another DynamicWaveletMatrixForRangeSearch instance.
+             */
             void swap(DynamicWaveletMatrixForRangeSearch &item)
             {
                 this->length_seq.swap(item.length_seq);
                 this->bits_seq.swap(item.bits_seq);
             }
 
+            /**
+             * @brief Return the height of the wavelet tree.
+             * @return Number of levels in \p bits_seq (0 if empty).
+             * @warning O(1) time
+             */
             int64_t height() const
             {
                 return this->bits_seq.size();
             }
+
+            /**
+             * @brief Return the number of stored elements.
+             * @return Size of the root-level bit sequence, or 0 if empty.
+             * @warning O(1) time
+             */
             uint64_t size() const
             {
                 if (this->height() > 0)
@@ -710,12 +910,25 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Return the x-rank of the element at global y-rank \p y_rank.
+             * @param y_rank Global y-rank position (0-based).
+             * @return The corresponding x-rank.
+             */
             uint64_t access_x_rank(uint64_t y_rank) const
             {
                 assert(y_rank < this->size());
                 uint64_t x_rank = this->compute_local_x_rank(0, 0, y_rank);
                 return x_rank;
             }
+
+            /**
+             * @brief Return the leaf node identifier for global x-rank \p x_rank.
+             * @param x_rank Global x-rank position (0-based).
+             * @return Node identifier at the leaf level.
+             * @throws std::runtime_error if \p x_rank is out of range.
+             * @warning O(H log n) time
+             */
             uint64_t find_leaf_index(uint64_t x_rank) const
             {
 
@@ -745,6 +958,13 @@ namespace stool
                 return current_node_id;
                 
             }
+
+            /**
+             * @brief Return the y-rank of the element at global x-rank \p x_rank.
+             * @param x_rank Global x-rank position (0-based).
+             * @return The corresponding y-rank.
+             * @warning O(H log n) time
+             */
             uint64_t access_y_rank(uint64_t x_rank) const
             {
                 uint64_t leaf_index = this->find_leaf_index(x_rank);
@@ -782,6 +1002,13 @@ namespace stool
                 }
                 return current_y_rank;
             }
+
+            /**
+             * @brief Return the bit sequence stored in a node as a vector.
+             * @param h Level in the wavelet tree.
+             * @param node_id Node identifier at level \p h.
+             * @return Copy of the node's bits in y-rank order.
+             */
             std::vector<bool> get_bit_sequence(uint64_t h, uint64_t node_id) const{
                 uint64_t x_pos = this->get_node_x_pos_in_bit_sequence(h, node_id);
                 uint64_t node_size = this->get_bit_count_in_node(h, node_id);
@@ -793,6 +1020,14 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Verify structural consistency of the wavelet tree.
+             *
+             * Checks that zero/one counts in each internal node match the sizes
+             * of its left and right children, and that leaf nodes contain at most one bit.
+             * @return True if the structure is valid.
+             * @throws std::runtime_error if an inconsistency is detected.
+             */
             bool verify() const
             {
 
@@ -844,6 +1079,12 @@ namespace stool
                 
             }
 
+            /**
+             * @brief Extract rank elements in y-order for the subtree rooted at \p (h, node_id).
+             * @param h Level of the subtree root.
+             * @param node_id Node identifier at level \p h.
+             * @return Vector of x-ranks in y-rank order within the subtree.
+             */
             std::vector<uint64_t> to_local_rank_elements_in_y_order(uint64_t h, uint64_t node_id) const
             {                
                 uint64_t height = this->height();
@@ -900,6 +1141,10 @@ namespace stool
                 
             }
 
+            /**
+             * @brief Extract all rank elements in y-order for the entire structure.
+             * @return Vector of x-ranks in global y-rank order, or an empty vector if empty.
+             */
             std::vector<uint64_t> to_rank_elements_in_y_order() const
             {
 
@@ -913,6 +1158,11 @@ namespace stool
                     return r;
                 }
             }
+
+            /**
+             * @brief Extract all y-ranks in x-order for the entire structure.
+             * @return Vector where \p r[i] is the y-rank of the element with x-rank \p i.
+             */
             std::vector<uint64_t> to_rank_elements_in_x_order() const
             {
                 std::vector<uint64_t> r;
@@ -927,6 +1177,14 @@ namespace stool
 
 
 
+            /**
+             * @brief Compute the global x-rank of the element at local y-rank \p local_y_rank within a subtree.
+             * @param node_y Level of the subtree root.
+             * @param node_id Node identifier at level \p node_y.
+             * @param local_y_rank Local y-rank within the subtree.
+             * @return The global x-rank of the element.
+             * @warning O(H log n) time
+             */
             uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t local_y_rank) const
             {
                 assert(local_y_rank < this->length_seq[node_y].at(node_id));
@@ -958,6 +1216,18 @@ namespace stool
                 return x_rank;
             }
 
+            /**
+             * @brief Report all x-ranks in a local y-rank range on a single internal node.
+             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
+             * @param h Level of the node.
+             * @param node_id Node identifier at level \p h.
+             * @param x_rank_gap Offset added to each reported local x-rank.
+             * @param hy_min Minimum local y-rank (inclusive).
+             * @param hy_max Maximum local y-rank (inclusive).
+             * @param out Output vector to which x-ranks are appended.
+             * @return Number of elements reported.
+             * @warning O((hy_max - hy_min + 1) * H log n) time
+             */
             template <typename APPENDABLE_VECTOR>
             uint64_t local_range_report_on_internal_node(uint64_t h, uint64_t node_id, uint64_t x_rank_gap, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
             {
@@ -971,6 +1241,19 @@ namespace stool
             }
 
 
+            /**
+             * @brief Recursively report x-ranks in a 2D range on internal nodes.
+             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
+             * @param h Current level in the wavelet tree.
+             * @param node_id Node identifier at level \p h.
+             * @param node_x_pos Global x-rank offset of the node's left boundary.
+             * @param x_min Minimum global x-rank (inclusive).
+             * @param x_max Maximum global x-rank (inclusive).
+             * @param hy_min Minimum local y-rank within the node (inclusive).
+             * @param hy_max Maximum local y-rank within the node (inclusive).
+             * @param out Output vector to which x-ranks are appended.
+             * @return Number of elements reported.
+             */
             template <typename APPENDABLE_VECTOR>
             uint64_t recursive_range_report_on_internal_nodes(uint64_t h, uint64_t node_id, uint64_t node_x_pos, int64_t x_min, int64_t x_max, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
             {
@@ -1017,6 +1300,17 @@ namespace stool
                 
             }
 
+            /**
+             * @brief Report all x-ranks of elements whose coordinates lie in the given rectangle.
+             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
+             * @param x_min Minimum x-rank (inclusive).
+             * @param x_max Maximum x-rank (inclusive).
+             * @param y_min Minimum y-rank (inclusive).
+             * @param y_max Maximum y-rank (inclusive).
+             * @param out Output vector to which matching x-ranks are appended.
+             * @return Number of m elements reported.
+             * @warning O((m + 1) log^2 n) time
+             */
             template <typename APPENDABLE_VECTOR>
             uint64_t range_report(uint64_t x_min, uint64_t x_max, uint64_t y_min, uint64_t y_max, APPENDABLE_VECTOR &out) const
             {
@@ -1028,6 +1322,7 @@ namespace stool
                 return found_elements_count;
             }
 
+            /** @brief Return an iterator to the first element in x-rank order. */
             XRankIterator x_rank_begin() const
             {
                 if (this->size() == 0)
@@ -1039,10 +1334,14 @@ namespace stool
                     return XRankIterator(this, 0, this->access_y_rank(0));
                 }
             }
+
+            /** @brief Return an iterator past the last element in x-rank order. */
             XRankIterator x_rank_end() const
             {
                 return XRankIterator(this, this->size(), this->size());
             }
+
+            /** @brief Return an iterator to the first element in y-rank order. */
             YRankIterator y_rank_begin() const
             {
                 if (this->size() == 0)
@@ -1054,11 +1353,14 @@ namespace stool
                     return YRankIterator(this, this->access_x_rank(0), 0);
                 }
             }
+
+            /** @brief Return an iterator past the last element in y-rank order. */
             YRankIterator y_rank_end() const
             {
                 return YRankIterator(this, this->size(), this->size());
             }
 
+            /** @brief Print a textual representation of the wavelet tree to standard output (for debugging). */
             void print_tree() const
             {
                 std::vector<std::string> r;
@@ -1098,6 +1400,11 @@ namespace stool
                 std::cout << "===== [END] =====" << std::endl;
             }
 
+            /**
+             * @brief Serialize the structure to a binary output stream.
+             * @param item Structure to serialize.
+             * @param os Output file stream.
+             */
             static void store_to_file(DynamicWaveletMatrixForRangeSearch &item, std::ofstream &os)
             {
                 uint64_t height = item.height();
@@ -1109,6 +1416,13 @@ namespace stool
                     PREFIX_SUM::store_to_file(item.length_seq[h], os);
                 }
             }
+
+            /**
+             * @brief Serialize the structure to a byte buffer.
+             * @param item Structure to serialize.
+             * @param output Byte buffer; resized if necessary.
+             * @param pos Read/write position in \p output; advanced on return.
+             */
             static void store_to_bytes(DynamicWaveletMatrixForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
             {                
                 uint64_t bytes = item.size_in_bytes();
@@ -1126,6 +1440,12 @@ namespace stool
                     PREFIX_SUM::store_to_bytes(item.length_seq[h], output, pos);
                 }                                
             }
+
+            /**
+             * @brief Return the serialized size of this structure in bytes.
+             * @param only_extra_bytes If true, count only dynamically allocated extra bytes in sub-structures.
+             * @return Total byte size when serialized.
+             */
             uint64_t size_in_bytes(bool only_extra_bytes = false) const
             {
                 uint64_t sum = 0;
@@ -1137,6 +1457,11 @@ namespace stool
                 return sum;
             }
 
+            /**
+             * @brief Deserialize a structure from a binary input stream.
+             * @param ifs Input file stream positioned at the serialized data.
+             * @return Reconstructed DynamicWaveletMatrixForRangeSearch instance.
+             */
             static DynamicWaveletMatrixForRangeSearch load_from_file(std::ifstream &ifs)
             {
                 DynamicWaveletMatrixForRangeSearch r;
@@ -1156,6 +1481,13 @@ namespace stool
                 return r;
                 
             }
+
+            /**
+             * @brief Deserialize a structure from a byte buffer.
+             * @param data Byte buffer containing serialized data.
+             * @param pos Read position in \p data; advanced on return.
+             * @return Reconstructed DynamicWaveletMatrixForRangeSearch instance.
+             */
             static DynamicWaveletMatrixForRangeSearch load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
                 DynamicWaveletMatrixForRangeSearch r;
@@ -1177,6 +1509,11 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Return human-readable memory usage statistics for this structure.
+             * @param message_paragraph Indentation level for output lines (default: stool::Message::SHOW_MESSAGE).
+             * @return Vector of formatted strings describing total and per-level memory usage.
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
 
