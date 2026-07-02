@@ -35,5 +35,5 @@
 #include "./dynamic_bit_sequence.hpp"
 #include "./dynamic_wavelet_tree.hpp"
 #include "./dynamic_sequence64.hpp"
-#include "./range_search/dynamic_wavelet_tree_for_range_search.hpp"
+#include "./range_search/dynamic_wavelet_matrix_for_range_search.hpp"
 // #include "./range_search/dynamic_wavelet_tree_on_grid.hpp"

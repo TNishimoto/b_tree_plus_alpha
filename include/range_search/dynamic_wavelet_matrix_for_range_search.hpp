@@ -11,7 +11,7 @@ namespace stool
          * @brief A dynamic data structure supporting range search [Unchecked AI's Comment]
          * \ingroup RangeSearchClasses
          */
-        class DynamicWaveletTreeForRangeSearch
+        class DynamicWaveletMatrixForRangeSearch
         {
             using BIT_SEQUENCE = SimpleDynamicBitSequence;
             using PREFIX_SUM = SimpleDynamicPrefixSum;
@@ -32,11 +32,11 @@ namespace stool
                 using value_type = uint64_t;
                 using difference_type = std::ptrdiff_t;
 
-                const DynamicWaveletTreeForRangeSearch *container = nullptr;
+                const DynamicWaveletMatrixForRangeSearch *container = nullptr;
                 uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
                 YRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
-                YRankIterator(const DynamicWaveletTreeForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
+                YRankIterator(const DynamicWaveletMatrixForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
 
                 uint64_t operator*() const noexcept { return this->x_rank; }
 
@@ -128,11 +128,11 @@ namespace stool
                 using value_type = uint64_t;
                 using difference_type = std::ptrdiff_t;
 
-                const DynamicWaveletTreeForRangeSearch *container = nullptr;
+                const DynamicWaveletMatrixForRangeSearch *container = nullptr;
                 uint64_t x_rank = 0;
                 uint64_t y_rank = 0;
                 XRankIterator() : container(nullptr), x_rank(0), y_rank(0) {}
-                XRankIterator(const DynamicWaveletTreeForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
+                XRankIterator(const DynamicWaveletMatrixForRangeSearch *container, uint64_t x_rank, uint64_t y_rank) : container(container), x_rank(x_rank), y_rank(y_rank) {}
 
                 uint64_t operator*() const noexcept { return this->y_rank; }
 
@@ -217,7 +217,7 @@ namespace stool
                 friend bool operator>=(XRankIterator a, XRankIterator b) noexcept { return !(a < b); }
             };
 
-            DynamicWaveletTreeForRangeSearch()
+            DynamicWaveletMatrixForRangeSearch()
             {
                 this->clear();
             }
@@ -231,15 +231,6 @@ namespace stool
                 }
                 this->bits_seq.clear();
                 this->length_seq.clear();
-                //this->leaves.clear();
-
-                /*
-                for (uint64_t i = 0; i < this->leaves.size(); i++)
-                {
-                    this->leaves[i].clear();
-                }
-                this->leaves.push_back(stool::NaiveFLCVector<false>());
-                */
             }
 
             uint64_t get_node_x_pos_in_bit_sequence(int64_t h, uint64_t h_node_id) const{
@@ -298,21 +289,6 @@ namespace stool
                         this->bits_seq[h].insert(node_x_pos_in_bit_sequence + y_rank, true);
                         this->length_seq[h].increment(h_node_id, 1);
                     }
-
-                    //uint64_t upper_size = this->get_upper_size_of_internal_node(h);
-                    /*
-                    if (this->is_unbalanced_node(h, h_node_id))
-                    {
-                        if(h + 5 < this->height()){
-                            std::cout << "Rebuild internal node: h = " << h << ", h_node_id = " << h_node_id << ", H = " << this->height() << "/len = " << this->length_seq[h].at(h_node_id) << "/ s: " << this->get_upper_size_of_internal_node(h) << std::endl;
-                        }
-                        std::cout << "Rebuild internal node: h = " << h << ", h_node_id = " << h_node_id << ", H = " << this->height() << "/len = " << this->length_seq[h].at(h_node_id) << "/ s: " << this->get_upper_size_of_internal_node(h) << std::endl;
-                        this->print_tree();
-        
-                        this->rebuild_internal_node(h, h_node_id);
-                    }
-                    */
-
                 }
                 else
                 {
@@ -344,40 +320,21 @@ namespace stool
                 
 
                 if(this->size() > 0){
-                    //std::cout << "Add: x_rank = " << x_rank << ", y_rank = " << y_rank << std::endl;
-
                     std::vector<uint64_t> output_path(this->height(), UINT64_MAX);
                     this->recursive_add(0, 0, x_rank, y_rank, output_path);
                     uint64_t upper_size = this->get_upper_size_of_internal_node(0);
                     if (this->size() >= upper_size)
                     {
-                        /*
-                        std::cout << "Rebuilding range reporting data structure ...: ";
-                        std::chrono::system_clock::time_point st1, st2;                        
-                        st1 = std::chrono::system_clock::now();        
-                        */            
     
                         std::vector<uint64_t> rank_elements = this->to_rank_elements_in_y_order();
                         this->build(rank_elements);
 
-                        /*
-                        
-                        st2 = std::chrono::system_clock::now();
-                        uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
-                        std::cout << "[DONE] Elapsed Time: " << sec_time << " sec, the number of elements: " << rank_elements.size() << std::endl;
-                        */
                     }else{
                         uint64_t height = this->height();
                         for(uint64_t h = 0; h < height; h++){
                             uint64_t h_node_id = output_path[h];
                             if (this->is_unbalanced_node(h, h_node_id))
-                            {
-                                /*
-                                if(h + 5 < this->height()){
-                                    std::cout << "Rebuild internal node: h = " << h << ", h_node_id = " << h_node_id << ", H = " << this->height() << "/len = " << this->length_seq[h].at(h_node_id) << "/ s: " << this->get_upper_size_of_internal_node(h) << std::endl;
-                                }
-                                */
-                
+                            {                
                                 this->rebuild_internal_node(h, h_node_id);
                                 break;
                             }
@@ -402,7 +359,7 @@ namespace stool
             {
                 int64_t height = this->height();
                 if(height == 0){
-                    throw std::runtime_error("Error: DynamicWaveletTreeForRangeSearch::remove(y_rank)");
+                    throw std::runtime_error("Error: DynamicWaveletMatrixForRangeSearch::remove(y_rank)");
                 }else{
                     uint64_t h_y_rank = y_rank;
                     uint64_t h_node_id = 0;
@@ -443,41 +400,6 @@ namespace stool
                 
             }
             
-
-            /*
-            static uint64_t get_full_size_of_tree(uint64_t height)
-            {
-                if(height == 0){
-                    return 0;
-                }else{
-                    return 1 << (height - 1);
-                }
-            }
-            */
-
-            /*
-            static uint64_t get_upper_size_of_tree(uint64_t height)
-            {
-                return _get_upper_size_of_internal_node(0, height);
-            }
-            */
-
-            /*
-            uint64_t get_full_size_of_internal_node(uint64_t h) const
-            {
-                uint64_t H = this->bits_seq.size();
-                return 1 << (H - 1 - h);
-            }
-            */
-
-
-            /*
-            uint64_t get_upper_size_of_leaf() const
-            {
-                return LEAF_MAX_SIZE;
-            }
-            */
-
             static uint64_t _get_upper_size_of_root(uint64_t H)
             {
                 return _get_upper_size_of_internal_node(0, H);
@@ -509,13 +431,6 @@ namespace stool
                 uint64_t fsize = _get_upper_size_of_internal_node(h, this->height());
                 return (fsize / 4);
             }
-
-            /*
-            void insert_element_into_internal_node(uint8_t h, uint64_t hnode_id, uint64_t pos, uint64_t rank){
-
-
-            }
-            */
 
             void build_h_bit_sequence(uint64_t h, const std::vector<uint64_t> &rank_elements, std::vector<uint64_t> &output_next_rank_elements, std::vector<uint64_t> &output_next_length_seq)
             {
@@ -740,19 +655,6 @@ namespace stool
                 else
                 {
                     return this->length_seq[h].at(h_node_id) >= 2;
-                    /*
-                    uint64_t left_node_id = 2 * h_node_id;
-                    uint64_t right_node_id = 2 * h_node_id + 1;
-                    uint64_t left_tree_size = this->leaves[left_node_id].size();
-                    uint64_t right_tree_size = this->leaves[right_node_id].size();
-
-                    bool unbalance_flag_LR = left_tree_size > (right_tree_size * 2) || right_tree_size > (left_tree_size * 2);
-                    uint64_t child_upper_size = this->get_upper_size_of_leaf();
-                    bool full_flag_L = left_tree_size >= child_upper_size;
-                    bool full_flag_R = right_tree_size >= child_upper_size;
-
-                    return unbalance_flag_LR || full_flag_L || full_flag_R;
-                    */
                 }
             }
 
@@ -783,126 +685,15 @@ namespace stool
                     }
 
                 }
-
-
-                /*
-                assert(h < this->bits_seq.size());
-                uint64_t upper_size = this->get_upper_size_of_internal_node(h);
-
-                if (rank_elements.size() > upper_size)
-                {
-                    std::cout << "Rebuild: h = " << (int)h << "/ H = " << (int)this->height() << ", h_node_id = " << h_node_id << ", rank_elements.size() = " << rank_elements.size() << ", upper_size = " << upper_size << std::endl;
-                    this->print_tree();
-                }
-
-                assert(rank_elements.size() <= upper_size);
-                uint64_t left_counter = 0;
-
-                uint64_t half_size = rank_elements.size() / 2;
-                {
-                    std::vector<uint64_t> left_elements(half_size, 0);
-                    for (uint64_t i = 0; i < rank_elements.size(); i++)
-                    {
-                        if (rank_elements[i] < half_size)
-                        {
-                            left_elements[left_counter++] = rank_elements[i];
-                        }
-                    }
-                    uint64_t next_id = 2 * h_node_id;
-                    if ((int64_t)(h + 1) < (int64_t)this->bits_seq.size())
-                    {
-                        this->rebuild_internal_node(h + 1, next_id, left_elements);
-                        assert(left_elements.size() == this->get_bit_count_in_node(h + 1, next_id));
-                    }
-                    else
-                    {
-                        this->rebuild_leaf(next_id, left_elements);
-                        assert(left_elements.size() == this->leaves[next_id].size());
-                    }
-                }
-                {
-                    std::vector<uint64_t> right_elements(rank_elements.size() - half_size, 0);
-                    std::vector<bool> tmp_bit_sequence(rank_elements.size(), false);
-                    uint64_t right_counter = 0;
-
-                    for (uint64_t i = 0; i < rank_elements.size(); i++)
-                    {
-                        assert(i < rank_elements.size());
-                        if (rank_elements[i] >= half_size)
-                        {
-                            assert(right_counter < right_elements.size());
-                            tmp_bit_sequence[i] = true;
-                            right_elements[right_counter++] = rank_elements[i] - half_size;
-                        }
-                    }
-                    uint64_t next_id = (2 * h_node_id) + 1;
-                    if ((int64_t)(h + 1) < (int64_t)this->bits_seq.size())
-                    {
-                        this->rebuild_internal_node(h + 1, next_id, right_elements);
-                        assert(right_elements.size() == this->bits_seq[h + 1][next_id].size());
-                    }
-                    else
-                    {
-                        this->rebuild_leaf(next_id, right_elements);
-                        assert(right_elements.size() == this->leaves[next_id].size());
-                    }
-                    assert(h < this->bits_seq.size());
-                    assert(h_node_id < this->bits_seq[h].size());
-
-                    this->bits_seq[h][h_node_id].clear();
-                    this->bits_seq[h][h_node_id].push_many(tmp_bit_sequence);
-                    
-                }
-                    */
             }
             
 
-            void swap(DynamicWaveletTreeForRangeSearch &item)
+            void swap(DynamicWaveletMatrixForRangeSearch &item)
             {
                 this->length_seq.swap(item.length_seq);
                 this->bits_seq.swap(item.bits_seq);
             }
 
-            /*
-            void rebuild_leaf(uint64_t leaf_id, const std::vector<uint64_t> &rank_elements)
-            {
-                stool::NaiveFLCVector<false> tmp(rank_elements);
-                this->leaves[leaf_id].swap(tmp);
-            }
-            */
-
-            /*
-            void insert_element_into_leaf(uint64_t leaf_id, uint64_t pos, uint64_t rank)
-            {
-                uint64_t size = this->leaves[leaf_id].size();
-                for (uint64_t i = 0; i < size; i++)
-                {
-                    uint64_t v = this->leaves[leaf_id][i];
-                    if (v >= rank)
-                    {
-                        this->leaves[leaf_id].increment(i, 1);
-                    }
-                }
-                this->leaves[leaf_id].insert(pos, rank);
-            }
-            */
-
-            /*
-            void remove_element_from_leaf(uint64_t leaf_id, uint64_t pos)
-            {
-                uint64_t size = this->leaves[leaf_id].size();
-                uint64_t rank = this->leaves[leaf_id][pos];
-                for (uint64_t i = 0; i < size; i++)
-                {
-                    uint64_t v = this->leaves[leaf_id][i];
-                    if (v > rank)
-                    {
-                        this->leaves[leaf_id].increment(i, -1);
-                    }
-                }
-                this->leaves[leaf_id].remove(pos);
-            }
-            */
             int64_t height() const
             {
                 return this->bits_seq.size();
@@ -1134,18 +925,6 @@ namespace stool
                 return r;
             }
 
-            /*
-            std::vector<uint64_t> compute_local_rank_array_in_y_order(uint64_t node_y, uint64_t node_id) const
-            {
-                std::vector<uint64_t> r;
-                uint64_t node_size = this->get_bit_count_in_node(node_y, node_id);
-                r.resize(node_size, UINT64_MAX);
-                for(uint64_t i = 0; i < node_size; i++){
-                    r[i] = this->compute_local_x_rank(node_y, node_id, i);
-                }
-                return r;
-            }
-            */
 
 
             uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t local_y_rank) const
@@ -1190,23 +969,7 @@ namespace stool
                 }
                 return hy_max - hy_min + 1;
             }
-            /*
-            template <typename APPENDABLE_VECTOR>
-            uint64_t local_range_report_on_leaf(uint64_t leaf_id, uint64_t x_rank_gap, uint64_t x_min, uint64_t x_max, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
-            {
-                //assert(hy_max < this->leaves[leaf_id].size());
 
-                for (uint64_t i = hy_min; i <= hy_max; i++)
-                {
-                    uint64_t x = this->leaves[leaf_id][i] + x_rank_gap;
-                    if (x >= x_min && x <= x_max)
-                    {
-                        out.push_back(x);
-                    }
-                }
-                return hy_max - hy_min + 1;
-            }
-            */
 
             template <typename APPENDABLE_VECTOR>
             uint64_t recursive_range_report_on_internal_nodes(uint64_t h, uint64_t node_id, uint64_t node_x_pos, int64_t x_min, int64_t x_max, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
@@ -1229,19 +992,9 @@ namespace stool
                     uint64_t node_x_pos_L = node_x_pos;
                     uint64_t node_x_pos_R = node_x_pos + this->get_bit_count_in_node(h+1, 2 * node_id);
 
-                    
-
-                    /*
-                    int64_t hy_max_0 = ((int64_t)this->bits_seq[h][node_id].rank0(hy_max + 1)) - 1;
-                    int64_t hy_max_1 = ((int64_t)this->bits_seq[h][node_id].rank1(hy_max + 1)) - 1;
-                    */
                    int64_t hy_max_0 = rank0_in_bit_sequence_of_node(h, node_id, node_x_pos_L, hy_max) - 1;
                    int64_t hy_max_1 = rank1_in_bit_sequence_of_node(h, node_id, node_x_pos_L, hy_max) - 1;
 
-                   /*
-                    int64_t hy_min_0 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank0(hy_min)) : 0;
-                    int64_t hy_min_1 = hy_min > 0 ? ((int64_t)this->bits_seq[h][node_id].rank1(hy_min)) : 0;
-                    */
                    int64_t hy_min_0 = hy_min > 0 ? rank0_in_bit_sequence_of_node(h, node_id, node_x_pos_L, hy_min - 1) : 0;
                    int64_t hy_min_1 = hy_min > 0 ? rank1_in_bit_sequence_of_node(h, node_id, node_x_pos_L, hy_min - 1) : 0;
 
@@ -1335,30 +1088,6 @@ namespace stool
                     
                     r.push_back(s);
                 }
-                /*
-                std::string s = "";
-                std::vector<char> char_vec{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-                for (uint64_t i = 0; i < this->leaves.size(); i++)
-                {
-                    s.append("[");
-
-                    for (uint64_t j = 0; j < this->leaves[i].size(); j++)
-                    {
-                        uint64_t v = this->leaves[i][j];
-                        if (v < char_vec.size())
-                        {
-                            s.push_back(char_vec[v]);
-                        }
-                        else
-                        {
-                            s.push_back('?');
-                        }
-                    }
-                    s.append("]");
-                }
-                r.push_back(s);
-                */
 
                 std::cout << "===== TREE =====" << std::endl;
 
@@ -1369,7 +1098,7 @@ namespace stool
                 std::cout << "===== [END] =====" << std::endl;
             }
 
-            static void store_to_file(DynamicWaveletTreeForRangeSearch &item, std::ofstream &os)
+            static void store_to_file(DynamicWaveletMatrixForRangeSearch &item, std::ofstream &os)
             {
                 uint64_t height = item.height();
                 os.write(reinterpret_cast<const char *>(&height), sizeof(uint64_t));
@@ -1380,7 +1109,7 @@ namespace stool
                     PREFIX_SUM::store_to_file(item.length_seq[h], os);
                 }
             }
-            static void store_to_bytes(DynamicWaveletTreeForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
+            static void store_to_bytes(DynamicWaveletMatrixForRangeSearch &item, std::vector<uint8_t> &output, uint64_t &pos)
             {                
                 uint64_t bytes = item.size_in_bytes();
                 if(output.size() < pos + bytes){
@@ -1408,9 +1137,9 @@ namespace stool
                 return sum;
             }
 
-            static DynamicWaveletTreeForRangeSearch load_from_file(std::ifstream &ifs)
+            static DynamicWaveletMatrixForRangeSearch load_from_file(std::ifstream &ifs)
             {
-                DynamicWaveletTreeForRangeSearch r;
+                DynamicWaveletMatrixForRangeSearch r;
                 uint64_t _height = 0;
                 ifs.read(reinterpret_cast<char *>(&_height), sizeof(uint64_t));
 
@@ -1427,9 +1156,9 @@ namespace stool
                 return r;
                 
             }
-            static DynamicWaveletTreeForRangeSearch load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
+            static DynamicWaveletMatrixForRangeSearch load_from_bytes(const std::vector<uint8_t> &data, uint64_t &pos)
             {
-                DynamicWaveletTreeForRangeSearch r;
+                DynamicWaveletMatrixForRangeSearch r;
                 uint64_t _height;
                 std::memcpy(&_height, data.data() + pos, sizeof(_height));
                 pos += sizeof(_height);
@@ -1457,7 +1186,7 @@ namespace stool
 
                 double bits_per_element = element_count > 0 ? ((double)size_in_bytes / (double)element_count) : 0;
 
-                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicWaveletTreeForRangeSearch: " + std::to_string(this->size_in_bytes()) 
+                r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=DynamicWaveletMatrixForRangeSearch: " + std::to_string(this->size_in_bytes()) 
                 + " bytes, " + std::to_string(element_count) + " elements, " + std::to_string(bits_per_element)  + " bytes per element =");
 
                 for(uint64_t h = 0; h < this->bits_seq.size(); h++){

@@ -7,8 +7,8 @@
 #include <cstdio>
 #include "../include/all.hpp"
 
-//using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeOnGrid;
-using RANGED_DYNAMIC_WAVELET_TREE = stool::bptree::DynamicWaveletTreeForRangeSearch;
+//using RANGED_DYNAMIC_WAVELET_MATRIX = stool::bptree::DynamicWaveletTreeOnGrid;
+using RANGED_DYNAMIC_WAVELET_MATRIX = stool::bptree::DynamicWaveletMatrixForRangeSearch;
 
 
 std::vector<uint64_t> create_random_rank_array(uint64_t size, uint64_t seed)
@@ -65,7 +65,7 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array;
     rank_array.clear();
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
 
     for(uint64_t i = 0; i < size; i++){
@@ -125,7 +125,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed++);
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
 
     
@@ -188,7 +188,7 @@ void remove_test(uint64_t size, uint64_t number_of_trials, bool detail_check, ui
 void build_test(uint64_t size, uint64_t seed)
 {
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
@@ -238,7 +238,7 @@ void range_search_test_sub(uint64_t size, uint64_t number_of_trials, uint64_t se
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
 
     for(uint64_t i = 0; i < number_of_trials; i++){
@@ -302,7 +302,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
 
     {
@@ -313,10 +313,10 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
             std::cerr << "Error: Could not open file for writing." << std::endl;
             throw std::runtime_error("File open error");
         }
-        RANGED_DYNAMIC_WAVELET_TREE::store_to_file(ds, os);
+        RANGED_DYNAMIC_WAVELET_MATRIX::store_to_file(ds, os);
     }
 
-    RANGED_DYNAMIC_WAVELET_TREE ds2;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds2;
     {
         std::ifstream ifs;
         ifs.open(filepath, std::ios::binary);
@@ -324,7 +324,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
         {
             std::cerr << "Error: Could not open file for reading." << std::endl;
         }
-        ds2 = RANGED_DYNAMIC_WAVELET_TREE::load_from_file(ifs);
+        ds2 = RANGED_DYNAMIC_WAVELET_MATRIX::load_from_file(ifs);
     }
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
@@ -359,15 +359,15 @@ void load_write_bits_test(uint64_t size, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_TREE ds;
+    RANGED_DYNAMIC_WAVELET_MATRIX ds;
     ds.build(rank_array);
     std::vector<uint8_t> bytes;
     uint64_t pos = 0;
-    RANGED_DYNAMIC_WAVELET_TREE::store_to_bytes(ds, bytes, pos);
+    RANGED_DYNAMIC_WAVELET_MATRIX::store_to_bytes(ds, bytes, pos);
     pos = 0;
 
-    RANGED_DYNAMIC_WAVELET_TREE ds2;
-    ds2 = RANGED_DYNAMIC_WAVELET_TREE::load_from_bytes(bytes, pos);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds2;
+    ds2 = RANGED_DYNAMIC_WAVELET_MATRIX::load_from_bytes(bytes, pos);
 
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
