@@ -1187,6 +1187,34 @@ namespace stool
                 return hy_max - hy_min + 1;
             }
 
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main Queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            public:
+            /**
+             * @brief Report all x-ranks of elements whose coordinates lie in the given rectangle.
+             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
+             * @param x_min Minimum x-rank (inclusive).
+             * @param x_max Maximum x-rank (inclusive).
+             * @param y_min Minimum y-rank (inclusive).
+             * @param y_max Maximum y-rank (inclusive).
+             * @param out Output vector to which matching x-ranks are appended.
+             * @return Number of m elements reported.
+             * @warning O((m + 1) log^2 n) time
+             */
+            template <typename APPENDABLE_VECTOR>
+            uint64_t range_report(uint64_t x_min, uint64_t x_max, uint64_t y_min, uint64_t y_max, APPENDABLE_VECTOR &out) const
+            {
+                uint64_t found_elements_count = 0;
+                if (this->height() > 0)
+                {
+                    found_elements_count = this->recursive_range_report_on_internal_nodes(0, 0, 0, x_min, x_max, y_min, y_max, out);
+                }
+                return found_elements_count;
+            }
+
         private:
             /**
              * @brief Recursively report x-ranks in a 2D range on internal nodes.
@@ -1244,35 +1272,13 @@ namespace stool
                 return found_elements_count;
             }
 
-        public:
-            /**
-             * @brief Report all x-ranks of elements whose coordinates lie in the given rectangle.
-             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
-             * @param x_min Minimum x-rank (inclusive).
-             * @param x_max Maximum x-rank (inclusive).
-             * @param y_min Minimum y-rank (inclusive).
-             * @param y_max Maximum y-rank (inclusive).
-             * @param out Output vector to which matching x-ranks are appended.
-             * @return Number of m elements reported.
-             * @warning O((m + 1) log^2 n) time
-             */
-            template <typename APPENDABLE_VECTOR>
-            uint64_t range_report(uint64_t x_min, uint64_t x_max, uint64_t y_min, uint64_t y_max, APPENDABLE_VECTOR &out) const
-            {
-                uint64_t found_elements_count = 0;
-                if (this->height() > 0)
-                {
-                    found_elements_count = this->recursive_range_report_on_internal_nodes(0, 0, 0, x_min, x_max, y_min, y_max, out);
-                }
-                return found_elements_count;
-            }
+            //@}
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Print and verification functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-
-
+            public:
             /**
              * @brief Verify structural consistency of the wavelet tree.
              *
