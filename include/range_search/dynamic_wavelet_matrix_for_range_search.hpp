@@ -497,68 +497,6 @@ namespace stool
 
         public:
 
-            /**
-             * @brief Compute the global x-rank of the element at local y-rank \p local_y_rank within a subtree.
-             * @param node_y Level of the subtree root.
-             * @param node_id Node identifier at level \p node_y.
-             * @param local_y_rank Local y-rank within the subtree.
-             * @return The global x-rank of the element.
-             * @warning O(H log n) time
-             */
-            uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t local_y_rank) const
-            {
-                assert(local_y_rank < this->length_seq[node_y].at(node_id));
-
-                uint64_t x_rank = 0;
-                uint64_t h_node_id = node_id;
-                int64_t height = this->height();
-                for (int64_t h = node_y; h + 1 < height; h++)
-                {
-                    uint64_t node_x_pos = this->get_node_x_pos_in_bit_sequence(h, h_node_id);
-
-                    assert(node_x_pos + local_y_rank < this->bits_seq[h].size());
-
-                    bool b = this->bits_seq[h].at(node_x_pos + local_y_rank);
-                    uint64_t next_node_id = (2 * h_node_id) + (uint64_t)b;
-                    if (b)
-                    {
-                        uint64_t left_tree_size = this->get_bit_count_in_node(h + 1, 2 * h_node_id);
-                        x_rank += left_tree_size;
-                        local_y_rank -= this->rank0_in_bit_sequence_of_node(h, h_node_id, node_x_pos, local_y_rank);
-                    }
-                    else
-                    {
-                        local_y_rank -= this->rank1_in_bit_sequence_of_node(h, h_node_id, node_x_pos, local_y_rank);
-                    }
-                    h_node_id = next_node_id;
-                }
-                // x_rank += this->leaves[h_node_id][h_y_rank];
-                return x_rank;
-            }
-
-            /**
-             * @brief Report all x-ranks in a local y-rank range on a single internal node.
-             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
-             * @param h Level of the node.
-             * @param node_id Node identifier at level \p h.
-             * @param x_rank_gap Offset added to each reported local x-rank.
-             * @param hy_min Minimum local y-rank (inclusive).
-             * @param hy_max Maximum local y-rank (inclusive).
-             * @param out Output vector to which x-ranks are appended.
-             * @return Number of elements reported.
-             * @warning O((hy_max - hy_min + 1) * H log n) time
-             */
-            template <typename APPENDABLE_VECTOR>
-            uint64_t local_range_report_on_internal_node(uint64_t h, uint64_t node_id, uint64_t x_rank_gap, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
-            {
-
-                for (uint64_t i = hy_min; i <= hy_max; i++)
-                {
-                    uint64_t x = this->compute_local_x_rank(h, node_id, i) + x_rank_gap;
-                    out.push_back(x);
-                }
-                return hy_max - hy_min + 1;
-            }
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Lightweight Queries
@@ -723,6 +661,69 @@ namespace stool
             }
 
         private:
+
+            /**
+             * @brief Compute the global x-rank of the element at local y-rank \p local_y_rank within a subtree.
+             * @param node_y Level of the subtree root.
+             * @param node_id Node identifier at level \p node_y.
+             * @param local_y_rank Local y-rank within the subtree.
+             * @return The global x-rank of the element.
+             * @warning O(H log n) time
+             */
+            uint64_t compute_local_x_rank(uint64_t node_y, uint64_t node_id, uint64_t local_y_rank) const
+            {
+                assert(local_y_rank < this->length_seq[node_y].at(node_id));
+
+                uint64_t x_rank = 0;
+                uint64_t h_node_id = node_id;
+                int64_t height = this->height();
+                for (int64_t h = node_y; h + 1 < height; h++)
+                {
+                    uint64_t node_x_pos = this->get_node_x_pos_in_bit_sequence(h, h_node_id);
+
+                    assert(node_x_pos + local_y_rank < this->bits_seq[h].size());
+
+                    bool b = this->bits_seq[h].at(node_x_pos + local_y_rank);
+                    uint64_t next_node_id = (2 * h_node_id) + (uint64_t)b;
+                    if (b)
+                    {
+                        uint64_t left_tree_size = this->get_bit_count_in_node(h + 1, 2 * h_node_id);
+                        x_rank += left_tree_size;
+                        local_y_rank -= this->rank0_in_bit_sequence_of_node(h, h_node_id, node_x_pos, local_y_rank);
+                    }
+                    else
+                    {
+                        local_y_rank -= this->rank1_in_bit_sequence_of_node(h, h_node_id, node_x_pos, local_y_rank);
+                    }
+                    h_node_id = next_node_id;
+                }
+                // x_rank += this->leaves[h_node_id][h_y_rank];
+                return x_rank;
+            }
+
+            /**
+             * @brief Report all x-ranks in a local y-rank range on a single internal node.
+             * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
+             * @param h Level of the node.
+             * @param node_id Node identifier at level \p h.
+             * @param x_rank_gap Offset added to each reported local x-rank.
+             * @param hy_min Minimum local y-rank (inclusive).
+             * @param hy_max Maximum local y-rank (inclusive).
+             * @param out Output vector to which x-ranks are appended.
+             * @return Number of elements reported.
+             * @warning O((hy_max - hy_min + 1) * H log n) time
+             */
+            template <typename APPENDABLE_VECTOR>
+            uint64_t local_range_report_on_internal_node(uint64_t h, uint64_t node_id, uint64_t x_rank_gap, uint64_t hy_min, uint64_t hy_max, APPENDABLE_VECTOR &out) const
+            {
+
+                for (uint64_t i = hy_min; i <= hy_max; i++)
+                {
+                    uint64_t x = this->compute_local_x_rank(h, node_id, i) + x_rank_gap;
+                    out.push_back(x);
+                }
+                return hy_max - hy_min + 1;
+            }        
             /**
              * @brief Recursively report x-ranks in a 2D range on internal nodes.
              * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
@@ -933,81 +934,7 @@ namespace stool
                 this->length_seq.clear();
             }
 
-            /**
-             * @brief Build the entire structure from rank elements ordered by y-rank.
-             * @param rank_elements Vector of x-ranks in y-rank order.
-             * @param message_paragraph Indentation level for progress messages (use stool::Message::NO_MESSAGE to suppress).
-             * @warning O(n log^2 n) time
-             */
-            void build(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
-            {
-
-                this->clear();
-
-                uint64_t height = 0;
-                while (true)
-                {
-                    uint64_t fsize = _get_upper_size_of_root(height);
-                    if (rank_elements.size() < fsize)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        height++;
-                    }
-                }
-
-                if (message_paragraph != stool::Message::NO_MESSAGE)
-                {
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Building wavelet tree for range search... " << "(input size = " << rank_elements.size() << ", tree height = " << height << ")" << std::endl;
-                }
-                std::chrono::system_clock::time_point st1, st2;
-                st1 = std::chrono::system_clock::now();
-
-                this->bits_seq.resize(height);
-                this->length_seq.resize(height);
-                for (uint64_t h = 0; h < height; h++)
-                {
-                    this->bits_seq[h].clear();
-                    this->length_seq[h].clear();
-                }
-
-                if (height > 0)
-                {
-                    this->length_seq[0].push_back(rank_elements.size());
-                    std::vector<uint64_t> tmp_rank_elements = rank_elements;
-
-                    for (uint64_t h = 0; h < height; h++)
-                    {
-
-                        if (message_paragraph != stool::Message::NO_MESSAGE)
-                        {
-                            std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Building the " << h << "-th bit sequence in the wavelet tree... " << std::endl;
-                        }
-                        std::vector<uint64_t> next_rank_elements;
-                        std::vector<uint64_t> next_length_seq;
-
-                        this->build_h_bit_sequence(h, tmp_rank_elements, next_rank_elements, next_length_seq);
-
-                        tmp_rank_elements.swap(next_rank_elements);
-                        if (h + 1 < height)
-                        {
-                            this->length_seq[h + 1].push_many(next_length_seq);
-                        }
-                    }
-                }
-
-                assert(this->verify());
-
-                st2 = std::chrono::system_clock::now();
-                uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
-
-                if (message_paragraph != stool::Message::NO_MESSAGE)
-                {
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[DONE] Elapsed Time: " << sec_time << " sec" << std::endl;
-                }
-            }
+           
             /**
              * @brief Insert an element at global coordinates \p (x_rank, y_rank).
              *
@@ -1460,6 +1387,84 @@ namespace stool
             ///   @name Load, save, and builder functions
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+
+ /**
+             * @brief Build the entire structure from rank elements ordered by y-rank.
+             * @param rank_elements Vector of x-ranks in y-rank order.
+             * @param message_paragraph Indentation level for progress messages (use stool::Message::NO_MESSAGE to suppress).
+             * @warning O(n log^2 n) time
+             */
+            static DynamicWaveletMatrixForRangeSearch build(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
+            {
+                DynamicWaveletMatrixForRangeSearch r;
+                r.clear();
+
+                uint64_t height = 0;
+                while (true)
+                {
+                    uint64_t fsize = r._get_upper_size_of_root(height);
+                    if (rank_elements.size() < fsize)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        height++;
+                    }
+                }
+
+                if (message_paragraph != stool::Message::NO_MESSAGE)
+                {
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Building wavelet tree for range search... " << "(input size = " << rank_elements.size() << ", tree height = " << height << ")" << std::endl;
+                }
+                std::chrono::system_clock::time_point st1, st2;
+                st1 = std::chrono::system_clock::now();
+
+                r.bits_seq.resize(height);
+                r.length_seq.resize(height);
+                for (uint64_t h = 0; h < height; h++)
+                {
+                    r.bits_seq[h].clear();
+                    r.length_seq[h].clear();
+                }
+
+                if (height > 0)
+                {
+                    r.length_seq[0].push_back(rank_elements.size());
+                    std::vector<uint64_t> tmp_rank_elements = rank_elements;
+
+                    for (uint64_t h = 0; h < height; h++)
+                    {
+
+                        if (message_paragraph != stool::Message::NO_MESSAGE)
+                        {
+                            std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Building the " << h << "-th bit sequence in the wavelet tree... " << std::endl;
+                        }
+                        std::vector<uint64_t> next_rank_elements;
+                        std::vector<uint64_t> next_length_seq;
+
+                        r.build_h_bit_sequence(h, tmp_rank_elements, next_rank_elements, next_length_seq);
+
+                        tmp_rank_elements.swap(next_rank_elements);
+                        if (h + 1 < height)
+                        {
+                            r.length_seq[h + 1].push_many(next_length_seq);
+                        }
+                    }
+                }
+
+                assert(r.verify());
+
+                st2 = std::chrono::system_clock::now();
+                uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
+
+                if (message_paragraph != stool::Message::NO_MESSAGE)
+                {
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[DONE] Elapsed Time: " << sec_time << " sec" << std::endl;
+                }
+                return r;
+            }
+
             /**
              * @brief Serialize the structure to a binary output stream.
              * @param item Structure to serialize.

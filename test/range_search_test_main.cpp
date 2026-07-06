@@ -65,9 +65,8 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array;
     rank_array.clear();
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
-
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
+    
     for(uint64_t i = 0; i < size; i++){
         uint64_t new_x_rank = get_rand_uni_int(mt64) % (i+1);
         uint64_t new_y_rank = get_rand_uni_int(mt64) % (i+1);
@@ -125,8 +124,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT64_MAX);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed++);
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
 
     
 
@@ -188,8 +186,7 @@ void remove_test(uint64_t size, uint64_t number_of_trials, bool detail_check, ui
 void build_test(uint64_t size, uint64_t seed)
 {
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
 
     std::vector<uint64_t> test_rank_array = ds.to_rank_elements_in_y_order();
     try{
@@ -238,8 +235,7 @@ void range_search_test_sub(uint64_t size, uint64_t number_of_trials, uint64_t se
     std::mt19937_64 mt64(seed);
     std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
 
     for(uint64_t i = 0; i < number_of_trials; i++){
         uint64_t x_min = get_rand_uni_int(mt64);
@@ -302,8 +298,7 @@ void load_write_file_test(uint64_t size, std::string filepath, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
 
     {
         std::ofstream os;
@@ -359,8 +354,7 @@ void load_write_bits_test(uint64_t size, uint64_t seed)
 {
     
     std::vector<uint64_t> rank_array = create_random_rank_array(size, seed);
-    RANGED_DYNAMIC_WAVELET_MATRIX ds;
-    ds.build(rank_array);
+    RANGED_DYNAMIC_WAVELET_MATRIX ds = RANGED_DYNAMIC_WAVELET_MATRIX::build(rank_array);
     std::vector<uint8_t> bytes;
     uint64_t pos = 0;
     RANGED_DYNAMIC_WAVELET_MATRIX::store_to_bytes(ds, bytes, pos);
