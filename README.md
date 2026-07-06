@@ -299,15 +299,14 @@ When this example is executed, the following message is displayed:
 
 #### Table for update operations and queries
 
-| Category         | Name                                                        | Order                       | Description                                                                                                                            |
-|------------------|-------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| Memory           |                                                             | O(n log n) bits             |                                                                                                                                        |
-| Update Operation | S.add($x_{rank}, y_{rank}$)                                 | amortized O(log^{2} n) time | Add a new element with x's rank = $x_{rank}$ and y's rank = $y_{rank}$ to S                                                            |
-|                  | S.remove($y_{rank}$)                                        | amortized O(log^{2} n) time | Remove the element with y's rank = $y_{rank}$ from S                                                                                   |
-| Query            | S.range_report($x_{min}, x_{max}, y_{min}, y_{max}$, &out)  | O((1 + occ) log^2 n) time   | Return $\lbrace (x_{rank}, y_{rank}) \in S \mid x_{min} \leq x_{rank} \leq x_{max}, y_{min} \leq y_{rank} \leq y_{max} \rbrace$ to out |
+| Category         | Name                                                        | Order                       | Description                                                                                                                                                            |
+|------------------|-------------------------------------------------------------|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Memory           |                                                             | O(n log n) bits             |                                                                                                                                                                        |
+| Update Operation | S.add($x_{rank}, y_{rank}$)                                 | amortized O(log^{2} n) time | Add a new element with x's rank = $x_{rank}$ and y's rank = $y_{rank}$ to S                                                                                            |
+|                  | S.remove($y_{rank}$)                                        | amortized O(log^{2} n) time | Remove the element with y's rank = $y_{rank}$ from S                                                                                                                   |
+| Query            | S.range_report($x_{min}, x_{max}, y_{min}, y_{max}$, &out)  | O((1 + occ) log^2 n) time   | Add the occ elements in $\lbrace (x_{rank}, y_{rank}) \in S \mid x_{min} \leq x_{rank} \leq x_{max}, y_{min} \leq y_{rank} \leq y_{max} \rbrace$ to out and return occ |
 
 Here, S is a set of elements such that each element has distinct x's and y's ranks.  
-occ is the number of elements found by the range report query.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/classstool_1_1bptree_1_1DynamicWaveletMatrixForRangeSearch.html) for the member functions supported by DynamicWaveletMatrixForRangeSearch.
 
 
