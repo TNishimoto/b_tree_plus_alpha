@@ -934,6 +934,13 @@ namespace stool
                 this->length_seq.clear();
             }
 
+
+            void rebuild(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
+            {
+                DynamicWaveletMatrixForRangeSearch r = DynamicWaveletMatrixForRangeSearch::build(rank_elements, message_paragraph);
+                this->swap(r);
+            }
+
            
             /**
              * @brief Insert an element at global coordinates \p (x_rank, y_rank).
@@ -956,7 +963,7 @@ namespace stool
                     {
 
                         std::vector<uint64_t> rank_elements = this->to_rank_elements_in_y_order();
-                        this->build(rank_elements);
+                        this->rebuild(rank_elements);
                     }
                     else
                     {
@@ -978,7 +985,7 @@ namespace stool
                     this->clear();
                     std::vector<uint64_t> rank_elements;
                     rank_elements.push_back(0);
-                    this->build(rank_elements);
+                    this->rebuild(rank_elements);
                 }
             }
 
@@ -1030,7 +1037,7 @@ namespace stool
                     if (size < upper_size / 2)
                     {
                         auto rank_elements = this->to_rank_elements_in_y_order();
-                        this->build(rank_elements);
+                        this->rebuild(rank_elements);
                     }
 
                     assert(this->verify());
@@ -1189,6 +1196,8 @@ namespace stool
                 }
                 this->bits_seq[h].set_bits(first_node_x_pos, tmp_bit_sequence);
             }
+
+
             /**
              * @brief Rebuild the subtree rooted at node \p h_node_id on level \p h.
              * @param h Level of the root node of the subtree to rebuild.
