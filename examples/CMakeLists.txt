@@ -22,6 +22,9 @@ target_link_libraries(dynamic_wavelet_tree_example)
 add_executable(dynamic_permutation_example dynamic_permutation_example.cpp)
 target_link_libraries(dynamic_permutation_example)
 
+add_executable(dynamic_wavelet_matrix_for_range_search_example dynamic_wavelet_matrix_for_range_search_example.cpp)
+target_link_libraries(dynamic_wavelet_matrix_for_range_search_example)
+
 
 
 

@@ -295,7 +295,7 @@ When this example is executed, the following message is displayed:
 
 ### DynamicWaveletMatrixForRangeSearch class 
 
-[DynamicWaveletMatrixForRangeSearch](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/range_search/dynamic_wavelet_matrix_for_range_search.hpp) is a dynamic data structure that suuports range reprting query on two dimentional space.
+[DynamicWaveletMatrixForRangeSearch](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/range_search/dynamic_wavelet_matrix_for_range_search.hpp) is a dynamic data structure that suuports range reporting query on two dimentional space.
 
 #### Table for update operations and queries
 
