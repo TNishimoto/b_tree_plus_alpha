@@ -247,20 +247,20 @@ When this example is executed, the following message is displayed:
 
 ### DynamicPermutation class 
 
-[DynamicPermutation](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_permutation.hpp) is a dynamic data structure that maintains a permutation.
+[DynamicPermutation](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_permutation.hpp) is a dynamic data structure 
+that maintains a permutation $S$ (a permutation of n integers 0, 1, ..., n-1).
 
 #### Table for update operations and queries
 
-| Category         | Name                  | Order                   | Description                                          |
-|------------------|-----------------------|-------------------------|------------------------------------------------------|
-| Memory           |                       | O(n log n) bits         |                                                      |
-| Update Operation | S.insert(i, j)        | amortized O(log n) time | Insert the j-th smallest value into S at position i  |
-|                  | S.erase(i)            | amortized O(log n) time | Remove the i-th value from S                         |
-|                  | S.move_pi_index(p, q) | amortized O(log n) time | Move the p-th value in S to the q-th value           |
-| Query            | S.access(i)           | O(log n) time           | Return S[i]                                          |
-|                  | S.inverse(i)          | O(log n) time           | Return the index j that satisfies S[j] = i           |
+| Category         | Name                  | Order                   | Description                                             |
+|------------------|-----------------------|-------------------------|---------------------------------------------------------|
+| Memory           |                       | O(n log n) bits         |                                                         |
+| Update Operation | S.insert(i, j)        | amortized O(log n) time | Insert the (j+1)-th smallest value into S at position i |
+|                  | S.erase(i)            | amortized O(log n) time | Remove the (i+1)-th value from S                        |
+|                  | S.move_pi_index(p, q) | amortized O(log n) time | Move the (p+1)-th value in S to the (q+1)-th value      |
+| Query            | S.access(i)           | O(log n) time           | Return S[i]                                             |
+|                  | S.inverse(i)          | O(log n) time           | Return the index j that satisfies S[j] = i              |
 
-Here, S is a permutation of n integers 0, 1, ..., n-1 stored in DynamicPermutation.  
 See [this page](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/classstool_1_1bptree_1_1DynamicPermutation.html) for the member functions supported by DynamicPermutation.
 
 #### Example
@@ -295,20 +295,46 @@ When this example is executed, the following message is displayed:
 
 ### DynamicWaveletMatrixForRangeSearch class 
 
-[DynamicWaveletMatrixForRangeSearch](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/range_search/dynamic_wavelet_matrix_for_range_search.hpp) is a dynamic data structure that suuports range reporting query on two dimentional space.
+[DynamicWaveletMatrixForRangeSearch](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/range_search/dynamic_wavelet_matrix_for_range_search.hpp) is 
+a dynamic data structure that suuports range reporting query on a permutation $S$ (a permutation of n integers 0, 1, ..., n-1).
 
 #### Table for update operations and queries
 
-| Category         | Name                                                        | Order                       | Description                                                                                                                                                            |
-|------------------|-------------------------------------------------------------|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Memory           |                                                             | O(n log n) bits             |                                                                                                                                                                        |
-| Update Operation | S.add($x_{rank}, y_{rank}$)                                 | amortized O(log^{2} n) time | Add a new element with x's rank = $x_{rank}$ and y's rank = $y_{rank}$ to S                                                                                            |
-|                  | S.remove($y_{rank}$)                                        | amortized O(log^{2} n) time | Remove the element with y's rank = $y_{rank}$ from S                                                                                                                   |
-| Query            | S.range_report($x_{min}, x_{max}, y_{min}, y_{max}$, &out)  | O((1 + occ) log^2 n) time   | Add the occ elements in $\lbrace (x_{rank}, y_{rank}) \in S \mid x_{min} \leq x_{rank} \leq x_{max}, y_{min} \leq y_{rank} \leq y_{max} \rbrace$ to out and return occ |
+| Category         | Name                                                        | Order                       | Description                                                                                          |
+|------------------|-------------------------------------------------------------|-----------------------------|------------------------------------------------------------------------------------------------------|
+| Memory           |                                                             | O(n log n) bits             |                                                                                                      |
+| Update Operation | S.insert($x_{rank}, y_{rank}$)                              | amortized O(log^{2} n) time | Insert the $(y_{rank}+1)$-th smallest value into $S$ at position $x_{rank}$                          |
+|                  | S.erase_y_rank($y_{rank}$)                                  | amortized O(log^{2} n) time | Remove the $(y_{rank}+1)$-th value from $S$                                                          |
+| Query            | S.range_report($x_{min}, x_{max}, y_{min}, y_{max}$, &out)  | O((1 + occ) log^2 n) time   | Report $occ$ elements in $S[x_{min}..x_{max}]$ such that each element $S[i]$ in $[y_{min}..y_{max}]$ |
 
-Here, S is a set of elements such that each element has distinct x's and y's ranks.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/classstool_1_1bptree_1_1DynamicWaveletMatrixForRangeSearch.html) for the member functions supported by DynamicWaveletMatrixForRangeSearch.
 
+#### Example
+
+An example usage of DynamicPermutation is provided in [dynamic_wavelet_matrix_for_range_search_example.cpp](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/examples/dynamic_wavelet_matrix_for_range_search_example.cpp).  
+When this example is executed, the following message is displayed:
+
+```
+% ./dynamic_wavelet_matrix_for_range_search_example
+  
+Build DynamicWaveletMatrixForRangeSearch S from [8, 1, 5, 2, 6, 3, 7, 4, 0]
+Print the integers stored in S
+S = [8, 1, 3, 5, 7, 2, 4, 6, 0]
+The number of elements in S is 9
+S[0] = 8
+The occurrence position of 3 in S is 5
+The number of elements such that 1 <= S[i] <= 4 in S[0..3] is 2
+Reported_indexes: [1, 2]
+Insert 2 into S at position 1
+S = [9, 2, 1, 4, 6, 8, 3, 5, 7, 0]
+Delete an element $i$ such that $S[i] = 4$ from S
+S = [8, 2, 1, 5, 7, 3, 4, 6, 0]
+Write S to S.bin
+Remove all values from S
+S = []
+Read S from S.bin
+S = [8, 2, 1, 5, 7, 3, 4, 6, 0]
+```
 
 
 ## API Documentation (in preparation)

@@ -355,7 +355,7 @@ namespace stool
              * @param output_path Output vector recording the node path taken during insertion.
              * @warning O(h log n) time
              */
-            void recursive_add(int64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank, std::vector<uint64_t> &output_path)
+            void recursive_insert(int64_t h, uint64_t h_node_id, uint64_t x_rank, uint64_t y_rank, std::vector<uint64_t> &output_path)
             {
                 output_path[h] = h_node_id;
                 uint64_t node_size = this->length_seq[h].at(h_node_id);
@@ -370,7 +370,7 @@ namespace stool
                     if (x_rank <= left_tree_size)
                     {
                         uint64_t new_y_rank = y_rank > 0 ? this->rank0_in_bit_sequence_of_node(h, h_node_id, node_x_pos_in_bit_sequence, y_rank - 1) : 0;
-                        this->recursive_add(h + 1, left_node_id, x_rank, new_y_rank, output_path);
+                        this->recursive_insert(h + 1, left_node_id, x_rank, new_y_rank, output_path);
                         this->bits_seq[h].insert(node_x_pos_in_bit_sequence + y_rank, false);
                         this->length_seq[h].increment(h_node_id, 1);
                     }
@@ -379,7 +379,7 @@ namespace stool
                         uint64_t new_y_rank = y_rank > 0 ? this->rank1_in_bit_sequence_of_node(h, h_node_id, node_x_pos_in_bit_sequence, y_rank - 1) : 0;
                         uint64_t new_x_rank = x_rank - left_tree_size;
 
-                        this->recursive_add(h + 1, right_node_id, new_x_rank, new_y_rank, output_path);
+                        this->recursive_insert(h + 1, right_node_id, new_x_rank, new_y_rank, output_path);
                         this->bits_seq[h].insert(node_x_pos_in_bit_sequence + y_rank, true);
                         this->length_seq[h].increment(h_node_id, 1);
                     }
@@ -496,8 +496,6 @@ namespace stool
             }
 
         public:
-
-
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Lightweight Queries
             ////////////////////////////////////////////////////////////////////////////////
@@ -661,7 +659,6 @@ namespace stool
             }
 
         private:
-
             /**
              * @brief Compute the global x-rank of the element at local y-rank \p local_y_rank within a subtree.
              * @param node_y Level of the subtree root.
@@ -723,7 +720,7 @@ namespace stool
                     out.push_back(x);
                 }
                 return hy_max - hy_min + 1;
-            }        
+            }
             /**
              * @brief Recursively report x-ranks in a 2D range on internal nodes.
              * @tparam APPENDABLE_VECTOR Vector type supporting \p push_back (e.g. std::vector).
@@ -786,7 +783,7 @@ namespace stool
             ///   @name Converters
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            public: 
+        public:
             /**
              * @brief Return the bit sequence stored in a node as a vector.
              * @param h Level in the wavelet tree.
@@ -902,17 +899,27 @@ namespace stool
                 return r;
             }
 
+            std::string to_string() const{
+                std::string r = "";
+                r += "[";
+                for(uint64_t i = 0; i < this->size(); i++){
+                    r += std::to_string(this->access_y_rank(i));
+                    if(i < this->size() - 1){
+                        r += ", ";
+                    }
+                }
+                r += "]";
+                return r;
+            }
+
             //@}
-
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Update Operations
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
-
-            public:
+        public:
             /**
              * @brief Swap the contents of this structure with \p item.
              * @param item Another DynamicWaveletMatrixForRangeSearch instance.
@@ -934,14 +941,12 @@ namespace stool
                 this->length_seq.clear();
             }
 
-
             void rebuild(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
             {
                 DynamicWaveletMatrixForRangeSearch r = DynamicWaveletMatrixForRangeSearch::build(rank_elements, message_paragraph);
                 this->swap(r);
             }
 
-           
             /**
              * @brief Insert an element at global coordinates \p (x_rank, y_rank).
              *
@@ -951,13 +956,13 @@ namespace stool
              * @param y_rank The y-rank position at which to insert.
              * @warning amortized O(H log n) time
              */
-            void add(uint64_t x_rank, uint64_t y_rank)
+            void insert(uint64_t x_rank, uint64_t y_rank)
             {
 
                 if (this->size() > 0)
                 {
                     std::vector<uint64_t> output_path(this->height(), UINT64_MAX);
-                    this->recursive_add(0, 0, x_rank, y_rank, output_path);
+                    this->recursive_insert(0, 0, x_rank, y_rank, output_path);
                     uint64_t upper_size = this->get_upper_size_of_internal_node(0);
                     if (this->size() >= upper_size)
                     {
@@ -998,7 +1003,7 @@ namespace stool
              * @throws std::runtime_error if the structure is empty.
              * @warning amortized O(H log n) time
              */
-            void remove(uint64_t y_rank)
+            void erase_y_rank(uint64_t y_rank)
             {
                 int64_t height = this->height();
                 if (height == 0)
@@ -1042,7 +1047,8 @@ namespace stool
 
                     assert(this->verify());
                 }
-            }            
+            }
+
         private:
             /**
              * @brief Build the bit sequence at level \p h from rank elements in y-order.
@@ -1197,7 +1203,6 @@ namespace stool
                 this->bits_seq[h].set_bits(first_node_x_pos, tmp_bit_sequence);
             }
 
-
             /**
              * @brief Rebuild the subtree rooted at node \p h_node_id on level \p h.
              * @param h Level of the root node of the subtree to rebuild.
@@ -1229,7 +1234,6 @@ namespace stool
                     }
                 }
             }
-
 
             //@}
 
@@ -1397,7 +1401,7 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
- /**
+            /**
              * @brief Build the entire structure from rank elements ordered by y-rank.
              * @param rank_elements Vector of x-ranks in y-rank order.
              * @param message_paragraph Indentation level for progress messages (use stool::Message::NO_MESSAGE to suppress).
@@ -1405,6 +1409,19 @@ namespace stool
              */
             static DynamicWaveletMatrixForRangeSearch build(const std::vector<uint64_t> &rank_elements, int message_paragraph = stool::Message::NO_MESSAGE)
             {
+                {
+                    std::vector<bool> y_rank_checker;
+                    y_rank_checker.resize(rank_elements.size(), false);
+                    for(uint64_t i = 0; i < rank_elements.size(); i++){
+                        if(y_rank_checker[rank_elements[i]]){
+                            throw std::runtime_error("Error in build function, at least two elements have the same y-rank");
+                        }else{
+                            y_rank_checker[rank_elements[i]] = true;
+                        }
+                    }
+                }
+
+
                 DynamicWaveletMatrixForRangeSearch r;
                 r.clear();
 

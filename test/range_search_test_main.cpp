@@ -71,7 +71,7 @@ void insert_test(uint64_t size, bool detail_check, uint64_t seed)
         uint64_t new_x_rank = get_rand_uni_int(mt64) % (i+1);
         uint64_t new_y_rank = get_rand_uni_int(mt64) % (i+1);
         insert_element_to_rank_array(rank_array, new_x_rank, new_y_rank);
-        ds.add(new_x_rank, new_y_rank);
+        ds.insert(new_x_rank, new_y_rank);
 
 
         if(detail_check){
@@ -131,7 +131,7 @@ void remove_test(uint64_t size, bool detail_check, uint64_t seed)
     for(uint64_t i = 0; i < size; i++){
         uint64_t remove_y_rank = get_rand_uni_int(mt64) % rank_array.size();
         remove_element_from_rank_array(rank_array, remove_y_rank);
-        ds.remove(remove_y_rank);
+        ds.erase_y_rank(remove_y_rank);
 
 
         if(detail_check){
