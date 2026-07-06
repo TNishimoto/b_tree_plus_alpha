@@ -36,7 +36,7 @@ This class is implemented based on the technique described in Section 2.2 of [th
 
 | Category         | Name              | Order                   | Description                                               |
 |------------------|-------------------|-------------------------|-----------------------------------------------------------|
-| Memory           |                   | O(n log (M/n)) bytes    |                                                           |
+| Memory           |                   | O(n log (M/n)) bits     |                                                           |
 | Update Operation | S.insert(i, v)    | amortized O(log n) time | Insert v into S as the i-th value                         |
 |                  | S.remove(i)       | amortized O(log n) time | Remove the i-th value from S                              |
 |                  | S.push_back(v)    | amortized O(log n) time | Add v to S as the last value                              |
@@ -94,7 +94,7 @@ When this example is executed, the following message is displayed:
 
 | Category         | Name              | Order                   | Description                                               |
 |------------------|-------------------|-------------------------|-----------------------------------------------------------|
-| Memory           |                   | O(n) bytes              |                                                           |
+| Memory           |                   | O(n) bits               |                                                           |
 | Update Operation | S.insert(i, v)    | amortized O(log n) time | Insert v into S as the i-th value                         |
 |                  | S.remove(i)       | amortized O(log n) time | Remove the i-th value from S                              |
 |                  | S.push_back(v)    | amortized O(log n) time | Add v to S as the last value                              |
@@ -146,13 +146,13 @@ When this example is executed, the following message is displayed:
 
 ### DynamicSequence64 class 
 
-[DynamicSequence64](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_sequence64.hpp) is a dynamic data structure that maintains a 64-bit non-negative sequence.
+[DynamicSequence64](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_sequence64.hpp) is a dynamic data structure that maintains a 64-bit non-negative sequence.
 
 #### Table for update operations and queries
 
 | Category         | Name              | Order                   | Description                                           |
 |------------------|-------------------|-------------------------|-------------------------------------------------------|
-| Memory           |                   | O(n log (M/n)) bytes    |                                                       |
+| Memory           |                   | O(n log (M/n)) bits     |                                                       |
 | Update Operation | S.insert(i, v)    | amortized O(log n) time | Insert v into S as the i-th value                     |
 |                  | S.remove(i)       | amortized O(log n) time | Remove the i-th value from S                          |
 |                  | S.push_back(v)    | amortized O(log n) time | Add v to S as the last value                          |
@@ -196,13 +196,13 @@ When this example is executed, the following message is displayed:
 
 ### DynamicWaveletTree class 
 
-[DynamicWaveletTree](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/sequence/dynamic_wavelet_tree.hpp) is a dynamic version of [Wavelet Tree](https://en.wikipedia.org/wiki/Wavelet_Tree "Wavelet Tree").
+[DynamicWaveletTree](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_wavelet_tree.hpp) is a dynamic version of [Wavelet Tree](https://en.wikipedia.org/wiki/Wavelet_Tree "Wavelet Tree").
 
 #### Table for update operations and queries
 
 | Category         | Name              | Order                         | Description                                                   |
 |------------------|-------------------|-------------------------------|---------------------------------------------------------------|
-| Memory           |                   | O(n log σ) bytes              |                                                               |
+| Memory           |                   | O(n log σ) bits               |                                                               |
 | Update Operation | S.insert(i, v)    | amortized O(log σ log n) time | Insert v into S as the i-th character                         |
 |                  | S.remove(i)       | amortized O(log σ log n) time | Remove the i-th character from S                              |
 |                  | S.push_back(v)    | amortized O(log σ log n) time | Add v to S as the last character                              |
@@ -247,13 +247,13 @@ When this example is executed, the following message is displayed:
 
 ### DynamicPermutation class 
 
-[DynamicPermutation](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/permutation/dynamic_permutation.hpp) is a dynamic data structure that maintains a permutation.
+[DynamicPermutation](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/dynamic_permutation.hpp) is a dynamic data structure that maintains a permutation.
 
 #### Table for update operations and queries
 
 | Category         | Name                  | Order                   | Description                                          |
 |------------------|-----------------------|-------------------------|------------------------------------------------------|
-| Memory           |                       | O(n log n) bytes        |                                                      |
+| Memory           |                       | O(n log n) bits         |                                                      |
 | Update Operation | S.insert(i, j)        | amortized O(log n) time | Insert the j-th smallest value into S at position i  |
 |                  | S.erase(i)            | amortized O(log n) time | Remove the i-th value from S                         |
 |                  | S.move_pi_index(p, q) | amortized O(log n) time | Move the p-th value in S to the q-th value           |
@@ -291,6 +291,25 @@ When this example is executed, the following message is displayed:
  Read S from S.bin  
  S = [2, 0, 3, 1, 5, 4, 9, 8, 7, 6]  
 ```
+
+
+### DynamicWaveletMatrixForRangeSearch class 
+
+[DynamicWaveletMatrixForRangeSearch](https://github.com/TNishimoto/b_tree_plus_alpha/blob/main/include/range_search/dynamic_wavelet_matrix_for_range_search.hpp) is a dynamic data structure that suuports range reprting query on two dimentional space.
+
+#### Table for update operations and queries
+
+| Category         | Name                                              | Order                       | Description                                                                                          |
+|------------------|---------------------------------------------------|-----------------------------|------------------------------------------------------------------------------------------------------|
+| Memory           |                                                   | O(n log n) bits             |                                                                                                      |
+| Update Operation | S.add(x_rank, y_rank)                             | amortized O(log^{2} n) time | Add a new element with x's rank = x_rank and y's rank = y_rank to S                                  |
+|                  | S.remove(y_rank)                                  | amortized O(log^{2} n) time | Remove the element with y's rank = y_rank from S                                                     |
+| Query            | S.range_report(x_min, x_max, y_min, y_max, &out)  | O((1 + occ) log^2 n) time   | Return ${(x_rank, y_rank) \in S \mid x_min \leq x_rank x_max, y_min \leq y_rank \leq y_max }$ to out |
+
+Here, S is a set of elements such that each element has distinct x's and y's ranks.  
+See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/classstool_1_1bptree_1_1DynamicWaveletMatrixForRangeSearch.html) for the member functions supported by DynamicWaveletMatrixForRangeSearch.
+
+
 
 ## API Documentation (in preparation)
 
