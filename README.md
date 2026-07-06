@@ -307,6 +307,7 @@ When this example is executed, the following message is displayed:
 | Query            | S.range_report(x_min, x_max, y_min, y_max, &out)  | O((1 + occ) log^2 n) time   | Return $\{(x\_rank, y\_rank) \in S \mid x\_min \leq x\_rank x\_max, y\_min \leq y\_rank \leq y\_max \}$ to out |
 
 Here, S is a set of elements such that each element has distinct x's and y's ranks.  
+occ is the number of elements found by the range report query.  
 See [this page](https://tnishimoto.github.io/b_tree_plus_alpha/classstool_1_1bptree_1_1DynamicWaveletMatrixForRangeSearch.html) for the member functions supported by DynamicWaveletMatrixForRangeSearch.
 
 
