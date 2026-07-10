@@ -7,6 +7,7 @@ This repository implements the following five dynamic data structures using B-tr
 - A dynamic data structure supporting access queries on a sequence of non-negative integers
 - A dynamic wavelet tree for strings
 - A dynamic data structure supporting access queries on a permutation
+- A dynamic wavelet matrix supporting range queries on a permutation (These queries can be used as range reporting queries on points over 2D space)
 
 ## Download
 The source code in the **modules** directory is maintained in separate repositories.
